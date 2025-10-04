@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class BristolStool extends Model
 {
@@ -13,18 +15,30 @@ class BristolStool extends Model
     protected $primaryKey = 'entry_id';
     public $incrementing = false;
     protected $keyType = 'string';
-    
+
     protected $fillable = ['user_id', 'date', 'bristol_type', 'notes'];
-    
+
     protected $casts = [
         'date' => 'date',
         'created_at' => 'datetime',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = Str::uuid()->toString();
+            }
+        });
+    }
+
     // ==================== SCOPES ====================
     public function scopeForCurrentUser($query)
     {
-        return $query->where('user_id', Auth::id());
+        // return $query->where('user_id', Auth::id());
+        return $query;
     }
 
     public function scopeForUser($query, $userId)
@@ -51,9 +65,9 @@ class BristolStool extends Model
     // ==================== BUSINESS LOGIC METHODS ====================
     public static function createEntry(array $data)
     {
-        $data['entry_id'] = \Illuminate\Support\Str::uuid();
-        $data['user_id'] = Auth::id();
-        
+        $data['entry_id'] = Str::uuid();
+        $data['user_id'] = auth()->id() ?? '2';
+
         return static::create($data);
     }
 
@@ -64,17 +78,18 @@ class BristolStool extends Model
 
     public static function getUserEntries($userId = null)
     {
-        $userId = $userId ?? Auth::id();
-        
-        return static::forUser($userId)
-            ->latestFirst()
-            ->get();
+        // $userId = $userId ?? Auth::id();
+
+        // return static::forUser($userId)
+        //     ->latestFirst()
+        //     ->get();
+        return static::latestFirst()->get();
     }
 
     public static function getEntriesByDateRange($startDate, $endDate, $userId = null)
     {
         $userId = $userId ?? Auth::id();
-        
+
         return static::forUser($userId)
             ->byDateRange($startDate, $endDate)
             ->latestFirst()
@@ -91,7 +106,7 @@ class BristolStool extends Model
     public static function getStats($userId = null)
     {
         $userId = $userId ?? Auth::id();
-        
+
         return static::forUser($userId)
             ->selectRaw('
                 COUNT(*) as total_entries,

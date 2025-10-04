@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
+
 
 class Content extends Model
 {
@@ -12,9 +15,9 @@ class Content extends Model
     protected $primaryKey = 'content_id';
     public $incrementing = false;
     protected $keyType = 'string';
-    
+
     protected $fillable = ['creator_id', 'title', 'description', 'content_type', 'media_url', 'categories'];
-    
+
     protected $casts = [
         'media_url' => 'array',
         'categories' => 'array',
@@ -22,10 +25,21 @@ class Content extends Model
         'updated_at' => 'datetime',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = Str::uuid()->toString();
+            }
+        });
+    }
+
     // ==================== SCOPES ====================
     public function scopeForCurrentUser($query)
     {
-        return $query->where('creator_id', auth()->id() ?? 1); // Temporary fix
+        return $query->where('creator_id', auth()->id() ?? 2); // Temporary fix
     }
 
     public function scopeForCreator($query, $creatorId)
@@ -60,9 +74,9 @@ class Content extends Model
 
     public function scopeSearch($query, $searchTerm)
     {
-        return $query->where(function($q) use ($searchTerm) {
+        return $query->where(function ($q) use ($searchTerm) {
             $q->where('title', 'like', "%{$searchTerm}%")
-              ->orWhere('description', 'like', "%{$searchTerm}%");
+                ->orWhere('description', 'like', "%{$searchTerm}%");
         });
     }
 
@@ -80,18 +94,18 @@ class Content extends Model
     // ==================== BUSINESS LOGIC METHODS ====================
     public static function createContent(array $data)
     {
-        $data['content_id'] = \Illuminate\Support\Str::uuid();
-        $data['creator_id'] = auth()->id() ?? 1; // Temporary fix
-        
+        $data['content_id'] = Str::uuid();
+        $data['creator_id'] = auth()->id() ?? 2; // Temporary fix
+
         // Convert arrays to JSON if needed
         if (isset($data['media_url']) && is_array($data['media_url'])) {
             $data['media_url'] = json_encode($data['media_url']);
         }
-        
+
         if (isset($data['categories']) && is_array($data['categories'])) {
             $data['categories'] = json_encode($data['categories']);
         }
-        
+
         return static::create($data);
     }
 
@@ -101,18 +115,18 @@ class Content extends Model
         if (isset($data['media_url']) && is_array($data['media_url'])) {
             $data['media_url'] = json_encode($data['media_url']);
         }
-        
+
         if (isset($data['categories']) && is_array($data['categories'])) {
             $data['categories'] = json_encode($data['categories']);
         }
-        
+
         return $this->update($data);
     }
 
     public static function getUserContents($userId = null)
     {
-        $userId = $userId ?? (auth()->id() ?? 1); // Temporary fix
-        
+        $userId = $userId ?? (auth()->id() ?? 2); // Temporary fix
+
         return static::forCreator($userId)
             ->latestFirst()
             ->get();
@@ -120,8 +134,8 @@ class Content extends Model
 
     public static function getExperiments($userId = null)
     {
-        $userId = $userId ?? (auth()->id() ?? 1);
-        
+        $userId = $userId ?? (auth()->id() ?? 2);
+
         return static::forCreator($userId)
             ->experiments()
             ->latestFirst()
@@ -130,8 +144,8 @@ class Content extends Model
 
     public static function getDocumentaries($userId = null)
     {
-        $userId = $userId ?? (auth()->id() ?? 1);
-        
+        $userId = $userId ?? (auth()->id() ?? 2);
+
         return static::forCreator($userId)
             ->documentaries()
             ->latestFirst()
@@ -140,8 +154,8 @@ class Content extends Model
 
     public static function getContentStats($userId = null)
     {
-        $userId = $userId ?? (auth()->id() ?? 1);
-        
+        $userId = $userId ?? (auth()->id() ?? 2);
+
         return static::forCreator($userId)
             ->selectRaw('
                 COUNT(*) as total_contents,
@@ -156,10 +170,10 @@ class Content extends Model
     public function addExperimentEntry(array $entryData)
     {
         return $this->experimentEntries()->create([
-            'entry_id' => \Illuminate\Support\Str::uuid(),
+            'entry_id' => Str::uuid(),
             'date' => $entryData['date'] ?? now(),
-            'metrics' => isset($entryData['metrics']) ? 
-                (is_array($entryData['metrics']) ? json_encode($entryData['metrics']) : $entryData['metrics']) 
+            'metrics' => isset($entryData['metrics']) ?
+                (is_array($entryData['metrics']) ? json_encode($entryData['metrics']) : $entryData['metrics'])
                 : null
         ]);
     }

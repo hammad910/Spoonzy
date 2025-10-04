@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
+
 
 class Supplement extends Model
 {
@@ -12,18 +15,30 @@ class Supplement extends Model
     protected $primaryKey = 'supplement_id';
     public $incrementing = false;
     protected $keyType = 'string';
-    
+
     protected $fillable = ['user_id', 'date', 'supplement_name', 'dosage', 'notes'];
-    
+
     protected $casts = [
         'date' => 'date',
         'created_at' => 'datetime',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = Str::uuid()->toString();
+            }
+        });
+    }
+
     // ==================== SCOPES ====================
     public function scopeForCurrentUser($query)
     {
-        return $query->where('user_id', auth()->id());
+        // return $query->where('user_id', auth()->id());
+        return $query;
     }
 
     public function scopeForUser($query, $userId)
@@ -55,9 +70,9 @@ class Supplement extends Model
     // ==================== BUSINESS LOGIC METHODS ====================
     public static function createSupplement(array $data)
     {
-        $data['supplement_id'] = \Illuminate\Support\Str::uuid();
-        $data['user_id'] = auth()->id();
-        
+        $data['supplement_id'] = Str::uuid();
+        $data['user_id'] = auth()->id() ?? '2';
+
         return static::create($data);
     }
 
@@ -68,17 +83,18 @@ class Supplement extends Model
 
     public static function getUserSupplements($userId = null)
     {
-        $userId = $userId ?? auth()->id();
-        
-        return static::forUser($userId)
-            ->latestFirst()
-            ->get();
+        // $userId = $userId ?? auth()->id();
+
+        // return static::forUser($userId)
+        //     ->latestFirst()
+        //     ->get();
+        return static::latestFirst()->get();
     }
 
     public static function getTodaySupplements()
     {
         return static::forCurrentUser()
-            ->where('date', today())
+            ->where('date', today()->toDateString()) 
             ->get();
     }
 
@@ -92,7 +108,7 @@ class Supplement extends Model
     public static function getSupplementStats($userId = null)
     {
         $userId = $userId ?? auth()->id();
-        
+
         return static::forUser($userId)
             ->selectRaw('
                 COUNT(*) as total_entries,

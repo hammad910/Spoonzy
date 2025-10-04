@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
 
         if (env('FORCE_HTTPS')) {
             url()->forceScheme('https');
+        }
+        if (app()->environment('local')) {
+            Auth::shouldUse('web');
+            // Or create a fake user for API testing
         }
     }
 }

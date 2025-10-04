@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 
 class Mood extends Model
 {
@@ -12,19 +14,31 @@ class Mood extends Model
     protected $primaryKey = 'mood_id';
     public $incrementing = false;
     protected $keyType = 'string';
-    
+
     protected $fillable = ['user_id', 'date', 'mood_level', 'tags', 'notes'];
-    
+
     protected $casts = [
         'date' => 'date',
         'tags' => 'array',
         'created_at' => 'datetime',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = Str::uuid()->toString();
+            }
+        });
+    }
+
     // ==================== SCOPES ====================
     public function scopeForCurrentUser($query)
     {
-        return $query->where('user_id', auth()->id() ?? 1); // Temporary fix
+        // return $query->where('user_id', auth()->id() ?? 1); // Temporary fix
+        return $query;
     }
 
     public function scopeForUser($query, $userId)
@@ -61,14 +75,14 @@ class Mood extends Model
     // ==================== BUSINESS LOGIC METHODS ====================
     public static function createMoodEntry(array $data)
     {
-        $data['mood_id'] = \Illuminate\Support\Str::uuid();
-        $data['user_id'] = auth()->id() ?? 1; // Temporary fix
-        
+        $data['mood_id'] = Str::uuid();
+        $data['user_id'] = auth()->id() ?? 2; // Temporary fix
+
         // Convert tags to array if string
         if (isset($data['tags']) && is_string($data['tags'])) {
             $data['tags'] = json_decode($data['tags'], true);
         }
-        
+
         return static::create($data);
     }
 
@@ -78,17 +92,18 @@ class Mood extends Model
         if (isset($data['tags']) && is_string($data['tags'])) {
             $data['tags'] = json_decode($data['tags'], true);
         }
-        
+
         return $this->update($data);
     }
 
     public static function getUserMoodEntries($userId = null)
     {
-        $userId = $userId ?? (auth()->id() ?? 1); // Temporary fix
-        
-        return static::forUser($userId)
-            ->latestFirst()
-            ->get();
+        // $userId = $userId ?? (auth()->id() ?? 1); // Temporary fix
+
+        // return static::forUser($userId)
+        //     ->latestFirst()
+        //     ->get();
+        return static::latestFirst()->get();
     }
 
     public static function getTodayMoodEntries()
@@ -100,8 +115,8 @@ class Mood extends Model
 
     public static function getMoodStats($userId = null)
     {
-        $userId = $userId ?? (auth()->id() ?? 1); // Temporary fix
-        
+        $userId = $userId ?? (auth()->id() ?? 2); // Temporary fix
+
         return static::forUser($userId)
             ->selectRaw('
                 COUNT(*) as total_entries,
@@ -117,7 +132,7 @@ class Mood extends Model
     public static function getMoodTrends($days = 30)
     {
         $startDate = now()->subDays($days);
-        
+
         return static::forCurrentUser()
             ->where('date', '>=', $startDate)
             ->selectRaw('date, AVG(mood_level) as average_mood')
@@ -132,7 +147,7 @@ class Mood extends Model
             ->whereNotNull('tags')
             ->selectRaw('JSON_UNQUOTE(JSON_EXTRACT(tags, "$")) as tag')
             ->get()
-            ->flatMap(function($entry) {
+            ->flatMap(function ($entry) {
                 return $entry->tag ? json_decode($entry->tag, true) : [];
             })
             ->countBy()
@@ -170,7 +185,7 @@ class Mood extends Model
             4 => 'Moderate',
             5 => 'Average',
             6 => 'Good',
-            7 => 'Very Good', 
+            7 => 'Very Good',
             8 => 'Great',
             9 => 'Excellent',
             10 => 'Perfect'

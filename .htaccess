@@ -1,18 +1,20 @@
 <IfModule mod_rewrite.c>
+    RewriteEngine On
+
+   
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
     </IfModule>
 
-    RewriteEngine On
-
     ErrorDocument 406 /
 
+    # Block direct access to log file
     RewriteRule ^/?storage/logs/laravel\.log$ - [F,L]
 
     # Disable Directory listing
     Options -Indexes
 
-    # Block files
+    # Block sensitive files
     <Files ~ "\.(env|config.js|md|gitignore|gitattributes|lock)$">
         Order allow,deny
         Deny from all
