@@ -1,153 +1,6 @@
-{{-- @extends('layouts.app')
-
-@section('title') {{__('auth.login')}} -@endsection
-
-@section('content')
-  <div class="jumbotron home m-0 bg-gradient">
-    <div class="container pt-lg-md">
-      <div class="row justify-content-center">
-        <div class="col-lg-5">
-          <div class="card bg-white shadow border-0 b-radio-custom">
-
-            <div class="card-body px-lg-5 py-lg-5">
-
-              <h4 class="text-center mb-0 font-weight-bold">
-                {{__('auth.welcome_back')}}
-              </h4>
-              <small class="btn-block text-center mt-2 mb-4">{{ __('auth.login_welcome') }}</small>
-
-              @if (session('login_required'))
-                <div class="alert alert-danger" id="dangerAlert">
-                  <i class="fa fa-exclamation-triangle"></i> {{session('login_required')}}
-                </div>
-                	@endif
-
-                  @if (session('error_social_login'))
-                  <div class="alert alert-danger" id="dangerAlert">
-                    <i class="fa fa-exclamation-triangle"></i> {{__('general.error')}} "{{ session('error_social_login') }}"
-                  </div>
-                	@endif
-
-              @include('errors.errors-forms')
-
-              @if ($settings->facebook_login == 'on' || $settings->google_login == 'on' || $settings->twitter_login == 'on')
-              <div class="mb-2 w-100">
-
-                @if ($settings->facebook_login == 'on')
-                  <a href="{{url('oauth/facebook')}}" class="btn btn-facebook auth-form-btn flex-grow mb-2 w-100">
-                    <i class="fab fa-facebook mr-2"></i> {{ __('auth.login_with') }} Facebook
-                  </a>
-                @endif
-
-                @if ($settings->twitter_login == 'on')
-                <a href="{{url('oauth/twitter')}}" class="btn btn-twitter auth-form-btn mb-2 w-100">
-                  <i class="bi-twitter-x mr-2"></i> {{ __('auth.login_with') }} X
-                </a>
-              @endif
-
-                  @if ($settings->google_login == 'on')
-                  <a href="{{url('oauth/google')}}" class="btn btn-google auth-form-btn flex-grow w-100">
-                    <img src="{{ url('public/img/google.svg') }}" class="mr-2" width="18" height="18"> {{ __('auth.login_with') }} Google
-                  </a>
-                @endif
-                </div>
-
-                @if (!$settings->disable_login_register_email)
-                  <small class="btn-block text-center my-3 text-uppercase or">{{__('general.or')}}</small>
-                @endif
-
-              @endif
-
-              @if (!$settings->disable_login_register_email || request()->route()->named('login.admin'))
-
-              <form method="POST" action="{{ route('login') }}" id="formLoginRegister" enctype="multipart/form-data">
-                  @csrf
-
-                  <input type="hidden" name="return" value="{{ count($errors) > 0 ? old('return') : url()->previous() }}">
-
-                <div class="form-group mb-3">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="feather icon-mail"></i></span>
-                    </div>
-                    <input class="form-control" required value="{{ old('username_email') }}" placeholder="{{ __('auth.username_or_email') }}" name="username_email" type="text">
-
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative" id="showHidePassword">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="iconmoon icon-Key"></i></span>
-                    </div>
-                    <input name="password" required type="password" class="form-control" placeholder="{{ __('auth.password') }}">
-                    <div class="input-group-append">
-                      <span class="input-group-text c-pointer"><i class="feather icon-eye-off"></i></span>
-                  </div>
-                </div>
-                </div>
-
-                <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                  <label class="custom-control-label" for=" customCheckLogin">
-                    <span>{{__('auth.remember_me')}}</span>
-                  </label>
-                </div>
-
-                <div class="alert alert-danger display-none mb-0 mt-3" id="errorLogin">
-                    <ul class="list-unstyled m-0" id="showErrorsLogin"></ul>
-                  </div>
-
-                <div class="text-center">
-                  @if ($settings->captcha == 'on')
-                  {!! NoCaptcha::displaySubmit('formLoginRegister', '<i></i> '.__('auth.login'), ['data-size' => 'invisible', 'id' => 'btnLoginRegister', 'class' => 'btn btn-primary mt-4 w-100']) !!}
-
-                  {!! NoCaptcha::renderJs() !!}
-
-                  @else
-                  <button id="btnLoginRegister" type="submit" class="btn btn-primary mt-4 w-100">
-                    <i></i> {{__('auth.login')}}
-                  </button>
-
-                  @endif
-                  
-
-                  
-                  
-                  
-                </div>
-              </form>
-
-              @if ($settings->captcha == 'on')
-                <small class="btn-block text-center mt-3">{{__('auth.protected_recaptcha')}} <a href="https://policies.google.com/privacy" target="_blank">{{__('general.privacy')}}</a> - <a href="https://policies.google.com/terms" target="_blank">{{__('general.terms')}}</a></small>
-              @endif
-
-          @endif
-
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-6">
-              <a href="{{url('password/reset')}}" class="text-light">
-                <small>{{__('auth.forgot_password')}}</small>
-              </a>
-            </div>
-            @if ($settings->registration_active == '1')
-            <div class="col-6 text-right">
-              <a href="{{url('signup')}}" class="text-light">
-                <small>{{__('auth.not_have_account')}}</small>
-              </a>
-            </div>
-            @endif
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-@endsection --}}
-
 @extends('layouts.app')
 
-@section('title', __('Log in'))
+@section('title', __('auth.login'))
 
 @section('content')
     <style>
@@ -174,9 +27,17 @@
             flex: 1;
             background: url('https://images.unsplash.com/photo-1588776814546-981cedd6a1a1?auto=format&fit=crop&w=870&q=80') center/cover no-repeat;
             position: relative;
-            border-top-left-radius: 30px;
-            border-bottom-left-radius: 30px;
+            border-top-left-radius: 70px;
+            border-bottom-left-radius: 70px;
             overflow: hidden;
+        }
+        @media (max-width: 768px) {
+            .login-right {
+                border-top-left-radius: 40px;
+                border-top-right-radius: 40px;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
         }
 
         .login-right::after {
@@ -188,7 +49,6 @@
 
         .testimonial {
             position: absolute;
-            bottom: 50px;
             left: 50px;
             color: white;
             max-width: 80%;
@@ -218,7 +78,8 @@
         }
 
         .logo img {
-            height: 40px;
+            height: 75px;
+            width: 75px;
             margin-right: 10px;
         }
 
@@ -232,7 +93,7 @@
             border: none;
         }
 
-        .btn-google {
+        .btn-google, .btn-facebook, .btn-twitter {
             border: 1px solid #ddd;
             background: #fff;
             width: 100%;
@@ -242,10 +103,87 @@
             align-items: center;
             justify-content: center;
             font-weight: 500;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
         }
 
-        .btn-google img {
+        .btn-google:hover, .btn-facebook:hover, .btn-twitter:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .btn-google img, .btn-facebook img, .btn-twitter img {
             height: 18px;
+            margin-right: 8px;
+        }
+
+        .btn-facebook {
+            background: #1877f2;
+            color: white;
+            border: none;
+        }
+
+        .btn-twitter {
+            background: #000;
+            color: white;
+            border: none;
+        }
+
+        .or-divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #6c757d;
+        }
+
+        .or-divider::before,
+        .or-divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .or-divider span {
+            padding: 0 15px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .password-input-group {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #6c757d;
+        }
+
+        .alert {
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .login-right {
+          background: url('/images/login-img.jpg') no-repeat center center;
+          background-size: cover;
+          color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 100vh;
+        }
+
+        .testimonial {
+            max-width: 500px;
+        }
+
+        .form-check-input {
             margin-right: 8px;
         }
 
@@ -265,56 +203,202 @@
         <div class="login-left">
             <div class="login-box">
                 <div class="logo">
-                    <img src="https://cdn-icons-png.flaticon.com/512/3050/3050525.png" alt="LabVlog logo">
-                    <h4 class="mb-0">LabVlog</h4>
+                    <img src="/images/login-logo.png" alt="LabVlog logo" style="border-radius: 20px">
                 </div>
 
-                <h3 class="fw-semibold mb-2">Log in</h3>
-                <p class="text-muted mb-4">Welcome back! Please enter your details.</p>
+                <h3 class="fw-semibold mb-2" style="color: black">{{ __('auth.welcome_back') }}</h3>
+                <p class="text-muted mb-4">{{ __('auth.login_welcome') }}</p>
 
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
-                    <div class="mb-3">
-                        <label class="form-label">Email</label>
-                        <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                <!-- Display Alert Messages -->
+                @if (session('login_required'))
+                    <div class="alert alert-danger" id="dangerAlert">
+                        <i class="fa fa-exclamation-triangle"></i> {{ session('login_required') }}
+                    </div>
+                @endif
+
+                @if (session('error_social_login'))
+                    <div class="alert alert-danger" id="dangerAlert">
+                        <i class="fa fa-exclamation-triangle"></i> {{ __('general.error') }} "{{ session('error_social_login') }}"
+                    </div>
+                @endif
+
+                <!-- Display Form Errors -->
+                @include('errors.errors-forms')
+
+                <!-- Social Login Buttons -->
+                @if ($settings->facebook_login == 'on' || $settings->google_login == 'on' || $settings->twitter_login == 'on')
+                    <div class="social-login-buttons mb-3">
+                        @if ($settings->facebook_login == 'on')
+                            <a href="{{ url('oauth/facebook') }}" class="btn btn-facebook">
+                                <i class="fab fa-facebook mr-2"></i> {{ __('auth.login_with') }} Facebook
+                            </a>
+                        @endif
+
+                        @if ($settings->twitter_login == 'on')
+                            <a href="{{ url('oauth/twitter') }}" class="btn btn-twitter">
+                                <i class="bi-twitter-x mr-2"></i> {{ __('auth.login_with') }} X
+                            </a>
+                        @endif
+
+                        @if ($settings->google_login == 'on')
+                            <a href="{{ url('oauth/google') }}" class="btn btn-google">
+                                <img src="{{ asset('img/google.svg') }}" alt="Google" class="mr-2">
+                                {{ __('auth.login_with') }} Google
+                            </a>
+                        @endif
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="••••••••" required>
-                    </div>
-
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <div>
-                            <input type="checkbox" id="remember" class="form-check-input">
-                            <label for="remember" class="form-check-label">Remember for 30 days</label>
+                    @if (!$settings->disable_login_register_email)
+                        <div class="or-divider">
+                            <span>{{ __('general.or') }}</span>
                         </div>
-                        <a href="#" class="text-primary text-decoration-none">Forgot password</a>
-                    </div>
+                    @endif
+                @endif
 
-                    <button type="submit" class="btn btn-login mb-3">Log in</button>
+                <!-- Login Form -->
+                @if (!$settings->disable_login_register_email || request()->route()->named('login.admin'))
+                    <form method="POST" action="{{ route('login') }}" id="formLoginRegister" enctype="multipart/form-data">
+                        @csrf
 
-                    <button type="button" class="btn btn-google mb-3">
-                        <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google logo">
-                        Log in with Google
-                    </button>
+                        <input type="hidden" name="return" value="{{ count($errors) > 0 ? old('return') : url()->previous() }}">
 
-                    <p class="text-center text-muted">
-                        Don’t have an account? <a href="#" class="text-primary text-decoration-none">Sign up</a>
+                        <div class="mb-3">
+                            <label class="form-label">{{ __('auth.username_or_email') }}</label>
+                            <input type="text" 
+                                   name="username_email" 
+                                   class="form-control @error('username_email') is-invalid @enderror" 
+                                   placeholder="{{ __('auth.username_or_email') }}" 
+                                   value="{{ old('username_email') }}" 
+                                   required>
+                            @error('username_email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">{{ __('auth.password') }}</label>
+                            <div class="password-input-group">
+                                <input type="password" 
+                                       name="password" 
+                                       id="password"
+                                       class="form-control @error('password') is-invalid @enderror" 
+                                       placeholder="{{ __('auth.password') }}" 
+                                       required>
+                                <button type="button" class="toggle-password" id="togglePassword">
+                                    <i class="feather icon-eye-off"></i>
+                                </button>
+                            </div>
+                            @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" 
+                                       type="checkbox" 
+                                       name="remember" 
+                                       id="remember" 
+                                       {{ old('remember') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="remember">
+                                    {{ __('auth.remember_me') }}
+                                </label>
+                            </div>
+                            <a href="{{ url('password/reset') }}" class="text-decoration-none" style="color: #469DFA;">
+                                {{ __('auth.forgot_password') }}
+                            </a>
+                        </div>
+
+                        <!-- Error Display Container -->
+                        <div class="alert alert-danger display-none mb-0 mt-3" id="errorLogin">
+                            <ul class="list-unstyled m-0" id="showErrorsLogin"></ul>
+                        </div>
+
+                        <div class="text-center">
+                            @if ($settings->captcha == 'on')
+                                {!! NoCaptcha::displaySubmit('formLoginRegister', '<i></i> '.__('auth.login'), ['data-size' => 'invisible', 'id' => 'btnLoginRegister', 'class' => 'btn btn-login mb-3', 'style' => 'background-color: #469DFA']) !!}
+                                {!! NoCaptcha::renderJs() !!}
+                            @else
+                                <button id="btnLoginRegister" type="submit" class="btn btn-login mb-3" style="background-color: #469DFA">
+                                    <i></i> {{ __('auth.login') }}
+                                </button>
+                            @endif
+                        </div>
+
+                        @if ($settings->captcha == 'on')
+                            <small class="btn-block text-center mt-3">{{ __('auth.protected_recaptcha') }} 
+                                <a href="https://policies.google.com/privacy" target="_blank">{{ __('general.privacy') }}</a> - 
+                                <a href="https://policies.google.com/terms" target="_blank">{{ __('general.terms') }}</a>
+                            </small>
+                        @endif
+                    </form>
+                @endif
+
+                <!-- Sign Up Link -->
+                @if ($settings->registration_active == '1')
+                    <p class="text-center text-muted mt-3">
+                        {{ __('auth.not_have_account') }} 
+                        <a href="{{ url('signup') }}" class="text-decoration-none" style="color: #469DFA;">
+                            {{ __('auth.sign_up') }}
+                        </a>
                     </p>
-                </form>
+                @endif
             </div>
         </div>
 
         <!-- Right Section -->
-        <div class="login-right">
-            <div class="testimonial">
-                <h4 class="fw-light">
-                    “We’ve been using LabVlog to kick start every new project and can’t imagine working without it.”
-                </h4>
-                <h5 class="mt-3 mb-0">Olivia Rhye</h5>
-                <p>Lead Designer, Layers<br>Web Development Agency</p>
+        <div class="login-right d-flex flex-column justify-content-center align-items-center">
+          <div class="testimonial text-white">
+            <h4 style="font-size: 48px; line-height: 1.3; font-weight: 500 !important; margin-bottom: 150px;">
+              "We've been using LabVlog to kick start every new project and can't imagine working without it."
+            </h4>
+            <div>
+              <h5 class="mt-3 mb-0 text-white" style="font-size: 30px;">Olivia Rhye</h5>
+              <p class="text-white mb-0">
+                Lead Designer, Layers<br>Web Development Agency
+              </p>
             </div>
+          </div>
+        </div>
+        
         </div>
     </div>
+
+    <script>
+        // Password toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePassword = document.querySelector('#togglePassword');
+            const password = document.querySelector('#password');
+            
+            if (togglePassword && password) {
+                togglePassword.addEventListener('click', function() {
+                    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                    password.setAttribute('type', type);
+                    
+                    const icon = this.querySelector('i');
+                    if (type === 'password') {
+                        icon.className = 'feather icon-eye-off';
+                    } else {
+                        icon.className = 'feather icon-eye';
+                    }
+                });
+            }
+
+            // Form submission handling for error display
+            const form = document.getElementById('formLoginRegister');
+            if (form) {
+                form.addEventListener('submit', function() {
+                    const btn = document.getElementById('btnLoginRegister');
+                    if (btn) {
+                        btn.disabled = true;
+                        btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> ' + btn.textContent;
+                    }
+                });
+            }
+        });
+    </script>
 @endsection
