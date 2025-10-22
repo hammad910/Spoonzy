@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 
 @section('title') {{__('auth.login')}} -@endsection
 
@@ -52,13 +52,13 @@
                 @endif
                 </div>
 
-                @if (! $settings->disable_login_register_email)
+                @if (!$settings->disable_login_register_email)
                   <small class="btn-block text-center my-3 text-uppercase or">{{__('general.or')}}</small>
                 @endif
 
               @endif
 
-              @if (! $settings->disable_login_register_email || request()->route()->named('login.admin'))
+              @if (!$settings->disable_login_register_email || request()->route()->named('login.admin'))
 
               <form method="POST" action="{{ route('login') }}" id="formLoginRegister" enctype="multipart/form-data">
                   @csrf
@@ -143,4 +143,178 @@
       </div>
     </div>
   </div>
+@endsection --}}
+
+@extends('layouts.app')
+
+@section('title', __('Log in'))
+
+@section('content')
+    <style>
+        body {
+            background-color: #f8f9fc;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .login-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .login-left {
+            flex: 1;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .login-right {
+            flex: 1;
+            background: url('https://images.unsplash.com/photo-1588776814546-981cedd6a1a1?auto=format&fit=crop&w=870&q=80') center/cover no-repeat;
+            position: relative;
+            border-top-left-radius: 30px;
+            border-bottom-left-radius: 30px;
+            overflow: hidden;
+        }
+
+        .login-right::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .testimonial {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            color: white;
+            max-width: 80%;
+            z-index: 1;
+        }
+
+        .testimonial h5 {
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .testimonial p {
+            opacity: 0.9;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .btn-login {
+            background-color: #007bff;
+            color: #fff;
+            width: 100%;
+            border-radius: 8px;
+            padding: 10px;
+            font-weight: 500;
+            border: none;
+        }
+
+        .btn-google {
+            border: 1px solid #ddd;
+            background: #fff;
+            width: 100%;
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+        }
+
+        .btn-google img {
+            height: 18px;
+            margin-right: 8px;
+        }
+
+        @media (max-width: 992px) {
+            .login-container {
+                flex-direction: column;
+            }
+
+            .login-right {
+                display: none;
+            }
+        }
+    </style>
+
+    <div class="login-container">
+        <!-- Left Section -->
+        <div class="login-left">
+            <div class="login-box">
+                <div class="logo">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3050/3050525.png" alt="LabVlog logo">
+                    <h4 class="mb-0">LabVlog</h4>
+                </div>
+
+                <h3 class="fw-semibold mb-2">Log in</h3>
+                <p class="text-muted mb-4">Welcome back! Please enter your details.</p>
+
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <input type="checkbox" id="remember" class="form-check-input">
+                            <label for="remember" class="form-check-label">Remember for 30 days</label>
+                        </div>
+                        <a href="#" class="text-primary text-decoration-none">Forgot password</a>
+                    </div>
+
+                    <button type="submit" class="btn btn-login mb-3">Log in</button>
+
+                    <button type="button" class="btn btn-google mb-3">
+                        <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google logo">
+                        Log in with Google
+                    </button>
+
+                    <p class="text-center text-muted">
+                        Don’t have an account? <a href="#" class="text-primary text-decoration-none">Sign up</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Section -->
+        <div class="login-right">
+            <div class="testimonial">
+                <h4 class="fw-light">
+                    “We’ve been using LabVlog to kick start every new project and can’t imagine working without it.”
+                </h4>
+                <h5 class="mt-3 mb-0">Olivia Rhye</h5>
+                <p>Lead Designer, Layers<br>Web Development Agency</p>
+            </div>
+        </div>
+    </div>
 @endsection

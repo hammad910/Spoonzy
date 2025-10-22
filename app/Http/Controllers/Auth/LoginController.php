@@ -58,9 +58,6 @@ class LoginController extends Controller
 
   public function login(Request $request)
   {
-    if (!$request->expectsJson()) {
-      abort(404);
-    }
 
     $request['_captcha'] = config('settings.captcha');
 
