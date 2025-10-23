@@ -47,7 +47,7 @@ class Vault extends Model
 
   public function getPreviewAttribute()
   {
-    $previewDefault = url('public/img/placeholder.png');
+    $previewDefault = url('img/placeholder.png');
     $preview = $this->type == 'image'
       ? $this->file
       : ($this->video_poster ?? null);

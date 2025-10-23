@@ -129,6 +129,6 @@
         </div>
       </main>
   </body>
-  <script src="{{ asset('public/js/core.min.js') }}"></script>
-  <script src="{{ asset('public/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('js/core.min.js') }}"></script>
+  <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 </html>
