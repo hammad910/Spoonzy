@@ -139,13 +139,13 @@ class LoginController extends Controller
         $this->loginSession($this->auth->user()->id);
 
         if (isset($urlReturn) && url()->isValidUrl($urlReturn) && Helper::checkSourceURL($urlReturn)) {
-          // return response()->json([
-          //   'success' => true,
-          //   'isLoginRegister' => true,
-          //   'isModal' => $isModal ? true : false,
-          //   'url_return' => $urlReturn
-          // ]);
-          return redirect('/');
+          return response()->json([
+            'success' => true,
+            'isLoginRegister' => true,
+            'isModal' => $isModal ? true : false,
+            'url_return' => $urlReturn
+          ]);
+          // return redirect('/');
         } else {
           return response()->json([
             'success' => true,
