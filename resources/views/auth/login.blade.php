@@ -351,7 +351,7 @@
         </div>
 
         <!-- Right Section -->
-        <div class="login-right d-flex flex-column justify-content-center align-items-center">
+        <div class="login-right d-none d-md-flex flex-column justify-content-center align-items-center">
           <div class="testimonial text-white">
             <h4 style="font-size: 48px; line-height: 1.3; font-weight: 500 !important; margin-bottom: 150px;">
               "We've been using LabVlog to kick start every new project and can't imagine working without it."

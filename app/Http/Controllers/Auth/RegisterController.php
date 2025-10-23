@@ -244,12 +244,13 @@ class RegisterController extends Controller
 
       $this->guard()->login($user);
 
-      return response()->json([
-        'success' => true,
-        'isLoginRegister' => true,
-        'isModal' => $isModal ? true : false,
-        'url_return' => url('settings/page'),
-      ]);
+      return redirect('/');
+      // return response()->json([
+      //   'success' => true,
+      //   'isLoginRegister' => true,
+      //   'isModal' => $isModal ? true : false,
+      //   'url_return' => url('settings/page'),
+      // ]);
     }
   }
 }

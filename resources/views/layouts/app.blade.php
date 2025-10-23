@@ -89,10 +89,9 @@
         (auth()->guest() && request()->path() == '/' && $settings->home_style == 2) ||
         (auth()->guest() && request()->path() != '/' && $settings->home_style == 2) ||
         auth()->check())
-    @if (!request()->is('login'))
+    @unless (request()->is('login', 'signup', 'password*'))
         @include('includes.navbar')
-    @endif
-
+    @endunless
 @endif
 
 <main @if (request()->is('messages/*') || request()->is('live/*')) class="h-100" @endif role="main">
@@ -125,14 +124,17 @@
                 (auth()->guest() && request()->path() != '/' && $settings->home_style == 2) ||
                 auth()->check())
 
-            @if (auth()->guest() && $settings->who_can_see_content == 'users')
-                <div class="text-center py-3 px-3">
-                    @include('includes.footer-tiny')
-                </div>
-            @else
-                @include('includes.footer')
-            @endif
+             @unless (request()->is('login', 'signup', 'password*'))
 
+                @if (auth()->guest() && $settings->who_can_see_content == 'users')
+                    <div class="text-center py-3 px-3">
+                        @include('includes.footer-tiny')
+                    </div>
+                @else
+                    @include('includes.footer')
+                @endif
+
+            @endunless
         @endif
 
     @endif
