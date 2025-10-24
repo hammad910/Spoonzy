@@ -1292,8 +1292,8 @@ input[type=number] {
 }
 .menu-left-home li > a:hover,
 .menu-left-home li > a.active {
-  background-color: {{$settings->color_default}};
-  color: white;
+  background-color: {{$settings->sidebar_bg_color}};
+  color: #469DFA;
 }
 .sticky-top {
     top: 90px;

@@ -336,7 +336,7 @@
                                     alt="User" class="rounded-circle avatarUser mr-1" width="28" height="28">
                                 {{-- <img src="{{ Helper::getFile(config('path.avatar') . auth()->user()->avatar) }}"
                                     alt="User" class="rounded-circle avatarUser mr-1" width="28" height="28"> --}}
-                                <span class="d-lg-none">{{ auth()->user()->first_name }}</span>
+                                <span class="">{{ auth()->user()->first_name }}</span>
                                 <i class="feather icon-chevron-down m-0 align-middle"></i>
                             </a>
                             <div class="dropdown-menu mb-1 dropdown-menu-right dd-menu-user"

@@ -20,47 +20,65 @@
 	@auth
 	<li>
 		<a href="{{ url(auth()->user()->username) }}">
-			<i class="bi-person"></i>
+			<i class="bi-person" style="color: #469DFA"></i>
 			<span class="ml-2">{{ auth()->user()->verified_id == 'yes' ? __('general.my_page') : __('users.my_profile') }}</span>
+		</a>
+	</li>
+	<li>
+		<a href="{{ url(auth()->user()->username) }}">
+			<image src="/img/icons/health-icon.png" style="height:20px"/>
+			<span class="ml-2">Health Tracking</span>
+		</a>
+	</li>
+	<li>
+		<a href="{{ url(auth()->user()->username) }}">
+			<image src="/img/icons/experiment-icon.png" style="height:20px"/>
+			<span class="ml-2">Experiments</span>
+		</a>
+	</li>
+	<li>
+		<a href="{{ url(auth()->user()->username) }}">
+			<image src="/img/icons/notification-icon.png" style="height:20px"/>
+			<span class="ml-2">Notification</span>
 		</a>
 	</li>
 	@if (auth()->user()->verified_id == 'yes')
 	<li>
 		<a href="{{ url('dashboard') }}">
-			<i class="bi-speedometer2"></i>
+			<i class="bi-speedometer2" style="color: #469DFA"></i>
 			<span class="ml-2">{{ __('admin.dashboard') }}</span>
 		</a>
 	</li>
 	@endif
 		<li>
 			<a href="{{ url('my/purchases') }}" @if (request()->is('my/purchases')) class="active disabled" @endif>
-				<i class="bi-bag-check"></i>
+				<i class="bi-bag-check" style="color: #469DFA"></i>
 				<span class="ml-2">{{ __('general.purchased') }}</span>
 			</a>
 		</li>
 	<li>
 		<a href="{{ url('messages') }}">
-			<i class="feather icon-send"></i>
+			<i class="feather icon-send" style="color: #469DFA"></i>
 			<span class="ml-2">{{ __('general.messages') }}</span>
 		</a>
 	</li>
 	@if (!$settings->disable_explore_section)
 	<li>
 		<a href="{{ url('explore') }}" @if (request()->is('explore')) class="active disabled" @endif>
-			<i class="bi-compass"></i>
+			<i class="bi-compass" style="color: #469DFA"></i>
 			<span class="ml-2">{{ __('general.explore') }}</span>
 		</a>
 	</li>
 	@endif
 	<li>
 		<a href="{{ url('my/subscriptions') }}">
-			<i class="bi-person-check"></i>
+			<i class="bi-person-check" style="color: #469DFA"></i>
 			<span class="ml-2">{{ __('admin.subscriptions') }}</span>
 		</a>
 	</li>
 	<li>
 		<a href="{{ url('my/bookmarks') }}" @if (request()->is('my/bookmarks')) class="active disabled" @endif>
-			<i class="bi-bookmark"></i>
+			<i class="bi-bookmark" style="color: #469DFA"></i>
 			<span class="ml-2">{{ __('general.bookmarks') }}</span>
 		</a>
 	</li>
@@ -68,7 +86,7 @@
 	@else
 	<li>
 		<a href="{{ url('creators') }}">
-			<i class="bi-compass"></i>
+			<i class="bi-compass" style="color: #469DFA"></i>
 			<span class="ml-2">{{ __('general.explore') }}</span>
 		</a>
 	</li>
@@ -76,11 +94,12 @@
 		@if ($settings->shop)
 		<li>
 			<a href="{{ url('shop') }}">
-				<i class="feather icon-shopping-bag"></i>
+				<i class="feather icon-shopping-bag" style="color: #469DFA"></i>
 				<span class="ml-2">{{ __('general.shop') }}</span>
 			</a>
 		</li>
 		@endif
+		
 
 	@endauth
 </ul>
