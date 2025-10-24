@@ -63,7 +63,7 @@
 			</h6>
 		@endif
 
-	<div class="media">
+	<div class="media" style="align-items: center !important;">
 		<span class="rounded-circle mr-3 position-relative">
 			<a href="{{$creatorLive ? url('live', $response->creator->username) : url($response->creator->username)}}">
 
@@ -87,10 +87,11 @@
 					</small>
 				@endif
 
-				<small class="text-muted font-14">{{'@'.$response->creator->username}}</small>
+				{{-- <small class="text-muted font-14">{{'@'.$response->creator->username}}</small> --}}
 
 				@if (auth()->check() && auth()->user()->id == $response->creator->id)
-				<a href="javascript:void(0);" class="text-muted float-right" id="dropdown_options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+				<a href="javascript:void(0);" class="text-muted float-right d-flex align-item-center" style="gap: 10px;" id="dropdown_options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					<small class="timeAgo text-muted" data="{{date('c', strtotime($response->date))}}"></small>
 					<i class="fa fa-ellipsis-h"></i>
 				</a>
 
@@ -215,11 +216,10 @@
 				@endif
 			</h5>
 
-				<small class="timeAgo text-muted" data="{{date('c', strtotime($response->date))}}"></small>
 
 				@if ($response->locked == 'no')
 				<small class="text-muted type-post" title="{{__('general.public')}}">
-					<i class="iconmoon icon-WorldWide mr-1"></i>
+					{{-- <i class="iconmoon icon-WorldWide mr-1"></i> --}}
 				</small>
 				@endif
 
@@ -486,17 +486,17 @@
 			}
 			@endphp
 
-			<a class="pulse-btn btnLike @if ($likeActive)active @endif {{$buttonLike}} text-muted mr-14px" href="javascript:void(0);" @guest data-toggle="modal" data-target="#loginFormModal" @endguest @auth data-id="{{$response->id}}" @endauth>
+			{{-- <a class="pulse-btn btnLike @if ($likeActive)active @endif {{$buttonLike}} text-muted mr-14px" href="javascript:void(0);" @guest data-toggle="modal" data-target="#loginFormModal" @endguest @auth data-id="{{$response->id}}" @endauth>
 				<i class="@if($likeActive)fas @else far @endif fa-heart"></i>
-			</a>
+			</a> --}}
 
-			<span class="@auth @if (auth()->user()->checkRestriction($response->creator->id) || !$response->creator->allow_comments) buttonDisabled @else text-muted @endif @else text-muted @endauth disabled mr-14px @auth @if (! isset($inPostDetail) && $buttonLike) pulse-btn toggleComments @endif @endauth">
+			{{-- <span class="@auth @if (auth()->user()->checkRestriction($response->creator->id) || !$response->creator->allow_comments) buttonDisabled @else text-muted @endif @else text-muted @endauth disabled mr-14px @auth @if (! isset($inPostDetail) && $buttonLike) pulse-btn toggleComments @endif @endauth">
 				<i class="far fa-comment"></i>
-			</span>
+			</span> --}}
 
-			<a class="pulse-btn text-muted text-decoration-none mr-14px" href="javascript:void(0);" title="{{__('general.share')}}" data-toggle="modal" data-target="#sharePost{{$response->id}}">
+			{{-- <a class="pulse-btn text-muted text-decoration-none mr-14px" href="javascript:void(0);" title="{{__('general.share')}}" data-toggle="modal" data-target="#sharePost{{$response->id}}">
 				<i class="feather icon-share"></i>
-			</a>
+			</a> --}}
 
 			<!-- Share modal -->
 			<div class="modal fade" id="sharePost{{$response->id}}" tabindex="-1" role="dialog" aria-hidden="true">
@@ -580,15 +580,27 @@
 		</h4>
 
 		<div class="w-100 mb-3 containerLikeComment">
-			<span class="countLikes text-muted dot-item">
-				{{ trans_choice('general.like_likes', $totalLikes, ['total' => $totalLikes]) }}
-			</span> 
-			<span class="text-muted totalComments dot-item @auth @if (! isset($inPostDetail) && $buttonLike)toggleComments @endif @endauth">
-				{{ trans_choice('general.comment_comments', $totalComments, ['total' => number_format($totalComments)]) }}
-			</span>
+			<a class="pulse-btn btnLike @if ($likeActive) active @endif {{ $buttonLike }} text-muted mr-14px"
+				href="javascript:void(0);"
+				@guest data-toggle="modal" data-target="#loginFormModal" @endguest
+				@auth data-id="{{ $response->id }}" @endauth>
+				<span class="countLikes text-muted ml-1" style="font-size: 19px">
+					{{ $totalLikes }}
+				</span>
+					<i class="@if($likeActive) fas @else far @endif fa-heart" style="font-size: 19px"></i>
+			</a>
+
+			<span class="text-muted totalComments mr-14px @auth @if (! isset($inPostDetail) && $buttonLike) toggleComments @endif @endauth">
+				<span class="count ml-1" style="font-size: 19px">{{ number_format($totalComments) }}</span>
+				<i class="far fa-comment" style="font-size: 19px"></i>
+			</span>			
+
+			<a class="pulse-btn text-muted text-decoration-none mr-14px" href="javascript:void(0);" title="{{__('general.share')}}" data-toggle="modal" data-target="#sharePost{{$response->id}}">
+				<i class="feather icon-share" style="font-size: 19px"></i>
+			</a>
 
 			@if ($response->video_views)
-			<span class="text-muted dot-item">
+			<span class="text-muted ">
 				<i class="bi-play mr-1"></i> {{ Helper::formatNumber($response->video_views) }}
 			</span>
 			@endif

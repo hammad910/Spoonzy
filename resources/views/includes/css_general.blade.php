@@ -1293,7 +1293,7 @@ input[type=number] {
 .menu-left-home li > a:hover,
 .menu-left-home li > a.active {
   background-color: {{$settings->sidebar_bg_color}};
-  color: #469DFA;
+  color: #fff;
 }
 .sticky-top {
     top: 90px;

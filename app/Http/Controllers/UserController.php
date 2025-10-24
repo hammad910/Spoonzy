@@ -1536,7 +1536,7 @@ class UserController extends Controller
 
     return response()->json([
       'success' => true,
-      'total' => trans_choice('general.like_likes', $totalLikes, ['total' => $totalLikes])
+      'total' => $totalLikes
     ]);
   } //<---- End Method
 

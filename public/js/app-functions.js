@@ -917,17 +917,16 @@
 
 						if (result.isReply) {
 							element.parents('.card-footer').find('.wrap-comments' + result.idComment).append(result.data);
-							jQuery(".timeAgo").timeago();
 						} else {
 							element.parents('.card-footer').find('.container-media').append(result.data);
-							jQuery(".timeAgo").timeago();
 						}
 
-						element.parents('.card-footer').find('.totalComments').html(result.total);
+						// ✅ Update count only
+						element.parents('.card-footer').find('.totalComments .count').text(result.total);
+
 						element.parents('.card-footer').find('.blocked').hide();
 						isReplyTo.slideUp(50);
 						inputIsReply.val('');
-
 					} else {
 						var error = '';
 						var $key = '';
@@ -991,16 +990,19 @@
 					$.post(URL_BASE + "/reply/delete/" + id, function (data) {
 						if (data.success) {
 							element.parents('.media').fadeOut(400, function () {
-								element.parents('.card-footer').find('.totalComments').html(data.total);
+								element.parents('.card-footer')
+									.find('.totalComments .count')
+									.text(data.total); // ✅ updates only the number
 								element.parents('.media').remove();
 							});
 						} else {
-							$('.popout').html(error_occurred).slideDown('500').delay('5000').slideUp('500');
+							$('.popout').html(error_occurred).slideDown(500).delay(5000).slideUp(500);
 						}
-					}).fail(function (jqXHR, ajaxOptions, thrownError) {
-						$('.popout').html(error_occurred).slideDown('500').delay('5000').slideUp('500');
+					}).fail(function () {
+						$('.popout').html(error_occurred).slideDown(500).delay(5000).slideUp(500);
 					});
 				}
+
 			});
 	});//<----- DELETE REPLY
 
@@ -1155,7 +1157,10 @@
 					$.post(URL_BASE + "/ajax/delete-comment/" + id, function (data) {
 						if (data.success) {
 							element.parents('.wrapComments').fadeOut(400, function () {
-								element.parents('.card-footer').find('.totalComments').html(data.total);
+								// ✅ Update count safely
+								element.parents('.card-footer').find('.totalComments .count').text(data.total);
+
+								// ✅ Remove comment block
 								element.parents('.wrapComments').remove();
 
 								if (inputIsReply.val() === id && type === 'isComment') {
@@ -1165,12 +1170,13 @@
 								}
 							});
 						} else {
-							$('.popout').removeClass('popout-success').addClass('popout-error').html(error_occurred).slideDown('500').delay('5000').slideUp('500');
+							$('.popout').removeClass('popout-success').addClass('popout-error').html(error_occurred).slideDown(500).delay(5000).slideUp(500);
 						}
-					}).fail(function (jqXHR, ajaxOptions, thrownError) {
-						$('.popout').removeClass('popout-success').addClass('popout-error').html(error_occurred).slideDown('500').delay('5000').slideUp('500');
+					}).fail(function () {
+						$('.popout').removeClass('popout-success').addClass('popout-error').html(error_occurred).slideDown(500).delay(5000).slideUp(500);
 					});
 				}
+
 			});
 	});//<----- End DELETE COMMENT
 

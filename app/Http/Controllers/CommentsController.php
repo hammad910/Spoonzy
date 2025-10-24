@@ -141,7 +141,7 @@ class CommentsController extends Controller
 			'success' => true,
 			'isReply' => $isReply ? true : false,
 			'idComment' => $idComment,
-			'total' => trans_choice('general.comment_comments', $totalComments, ['total' => $totalComments]),
+			'total' => $totalComments,
 			'data' => '' . $wrapComments . '
 			<div class="comments media li-group pt-3 pb-3 ' . $paddingReply . '" data="' . $idComment . '">
 				<a class="float-left" href="' . url(auth()->user()->username) . '">
@@ -251,7 +251,7 @@ class CommentsController extends Controller
 
 			return response()->json([
 				'success' => true,
-				'total' => trans_choice('general.comment_comments', $totalComments, ['total' => $totalComments])
+				'total' => $totalComments
 			]);
 		} else {
 			return response()->json([
