@@ -1279,22 +1279,38 @@ input[type=number] {
 .menu-left-home li > a {
   padding: 5px 12px;
   display: block;
-  font-size: 19px;
+  font-size: 19px; /* default desktop */
   text-decoration: none;
   margin-bottom: 8px;
   border-radius: {{ $settings->button_style == 'rounded' ? '20px' : '4px' }};
   color: #8a96a3;
-  -webkit-transition: all 200ms linear;
-  -moz-transition: all 200ms linear;
-  -o-transition: all 200ms linear;
-  -ms-transition: all 200ms linear;
   transition: all 200ms linear;
 }
+
 .menu-left-home li > a:hover,
 .menu-left-home li > a.active {
   background-color: {{$settings->sidebar_bg_color}};
   color: #fff;
 }
+
+/* Medium screens (tablet) */
+@media (max-width: 992px) {
+  .menu-left-home li > a {
+    font-size: 16px; /* thoda chhota */
+    padding: 4px 10px;
+    border-radius: {{ $settings->button_style == 'rounded' ? '16px' : '4px' }};
+  }
+}
+
+/* Small screens (mobile) */
+@media (max-width: 576px) {
+  .menu-left-home li > a {
+    font-size: 14px; /* aur chhota */
+    padding: 3px 8px;
+    border-radius: {{ $settings->button_style == 'rounded' ? '12px' : '4px' }};
+  }
+}
+
 .sticky-top {
     top: 90px;
 }

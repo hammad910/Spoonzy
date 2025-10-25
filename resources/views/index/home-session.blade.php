@@ -1,15 +1,85 @@
 @extends('layouts.app')
 
+<style>
+    .health-widget {
+    max-width: 320px;
+    background: #fff;
+}
+
+.health-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(
+        rgba(90, 156, 255, 0.2),
+        rgba(146, 83, 255, 0.25),
+        rgba(255, 255, 255, 0.3)
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    position: relative;
+    color: #000;
+}
+
+.health-score {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.progress-sm {
+    height: 4px !important;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+}
+
+.badge.bg-success-subtle {
+    background-color: #e7f6ec !important;
+}
+
+.log-btn {
+    background: #4a8cff;
+    border: none;
+    transition: 0.2s ease;
+}
+
+.log-btn:hover {
+    background: #3972e5;
+}
+.experiment-item {
+  transition: all 0.2s ease-in-out;
+  flex-wrap: nowrap !important;
+}
+
+.experiment-item:hover {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 576px) {
+  .experiment-item {
+    flex-wrap: wrap;
+  }
+
+  .experiment-item button {
+    margin-left: auto;
+    margin-top: 0 !important;
+  }
+}
+  }
+</style>
 @section('content')
     <section class="section section-sm">
-        <div class="container pt-lg-4 pt-2" style="max-width: 1350px">
-            <div class="row">
+        <div class="container pt-lg-4 pt-2 max-w-100" style="max-width: 100%">
+            <div class="row justify-content-center">
 
-                <div class="" style="height: 100vh; border-right: 1px solid #ddd; padding-right: 20px;">
+                <div class="d-none d-lg-block" style="height: 100vh; border-right: 1px solid #ddd; padding: 20px; width: 15%">
                     @include('includes.menu-sidebar-home')
                 </div>
 
-                <div class="col-md-6 p-0 second wrap-post">
+                <div class="col-md-7 p-0 second wrap-post">
 
                     @if ($stories->count() || ($settings->story_status && auth()->user()->verified_id == 'yes'))
                         <div id="stories" class="storiesWrapper mb-2 p-2">
@@ -74,7 +144,7 @@
                     @endif
 
                     @if ($updates->count() != 0)
-                        <div class="grid-updates position-relative" id="updatesPaginator">
+                        <div class="grid-updates position-relative" id="updatesPaginator" style="padding: 10px">
                             @include('includes.updates')
                         </div>
                     @else
@@ -97,34 +167,141 @@
                     @endif
                 </div>
 
-                <div class="col-md-4 @if ($users->count() != 0) mb-4 @endif d-lg-block d-none">
+                <div class="col-md-3 @if ($users->count() != 0) mb-4 @endif d-block d-sm-none d-lg-block">
                     <div class="d-lg-block sticky-top">
                         @if ($users->count() == 0)
-                            <div class="panel panel-default panel-transparent mb-4 d-lg-block d-none">
-                                <div class="panel-body">
-                                    <div class="media none-overflow">
-                                        <div class="d-flex my-2 align-items-center">
-                                            <img class="rounded-circle mr-2"
-                                                src="{{ Helper::getFile(config('path.avatar') . auth()->user()->avatar) }}"
-                                                width="60" height="60">
-
-                                            <div class="d-block">
-                                                <strong>{{ auth()->user()->name }}</strong>
-
-                                                <div class="d-block">
-                                                    <small class="media-heading text-muted btn-block margin-zero">
-                                                        <a href="{{ url('settings/page') }}">
-                                                            {{ auth()->user()->verified_id == 'yes' ? __('general.edit_my_page') : __('users.edit_profile') }}
-                                                            <small class="pl-1"><i
-                                                                    class="fa fa-long-arrow-alt-right"></i></small>
-                                                        </a>
-                                                    </small>
+                        <div class="panel panel-default panel-transparent mb-4 d-block d-md-none d-lg-block">
+                            <div class="panel-body">
+                                <div class="shadow-sm border-0 rounded-4 p-3 h-100">
+                                    <div class="card-body p-0">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h6 class="mt-2 fw-semibold" style="color: #000; font-size: 18px;">
+                                                <img src="/images/health-vector.png" alt="" class="me-2 img-fluid" style="width: 24px;">
+                                                Your Health Today
+                                            </h6>
+                                        </div>
+                        
+                                        <!-- Circular Score + Emotional Stats -->
+                                        <div class="d-flex flex-column flex-sm-row align-items-center">
+                                            <div class="text-center position-relative mb-3 mb-sm-0">
+                                                <img src="/images/health-widget.png" alt="Health Widget" class="img-fluid">
+                                            </div>
+                        
+                                            <!-- Emotional Stats -->
+                                            <div class="w-100 px-sm-3">
+                                                <div class="mb-3">
+                                                    <div class="d-flex justify-content-between">
+                                                        <span style="font-weight: 600; color: #000; font-size: 16px;">Happiness</span>
+                                                        <span class="small" style="font-weight: 600; color: #CF73FF">24 Days</span>
+                                                    </div>
+                                                    <div class="progress progress-sm mb-2" style="height: 4px;">
+                                                        <div class="progress-bar" style="width: 90%; background: #CF73FF"></div>
+                                                    </div>
+                        
+                                                    <div class="d-flex justify-content-between mt-2">
+                                                        <span style="font-weight: 600; color: #000; font-size: 16px;">Excitement</span>
+                                                        <span class="text-primary small" style="font-weight: 600;">12 Days</span>
+                                                    </div>
+                                                    <div class="progress progress-sm mb-2" style="height: 4px;">
+                                                        <div class="progress-bar bg-primary" style="width: 60%;"></div>
+                                                    </div>
+                        
+                                                    <div class="d-flex justify-content-between mt-2">
+                                                        <span style="font-weight: 600; color: #000; font-size: 16px;">Sadness</span>
+                                                        <span class="text-danger small" style="font-weight: 600;">2 Days</span>
+                                                    </div>
+                                                    <div class="progress progress-sm" style="height: 4px;">
+                                                        <div class="progress-bar bg-danger" style="width: 15%;"></div>
+                                                    </div>
                                                 </div>
                                             </div>
+                                        </div>
+                        
+                                        <!-- Supplements -->
+                                        <div class="d-flex gap-4 align-items-center justify-content-between px-3 mb-4 mt-4">
+                                            <span class="text-muted small d-flex align-items-center" style="gap: 4px;">
+                                                <img src="/images/suppliment-icon.png" alt=""> <span style="color: #000; font-weight: 500; font-size: 16px"> Suppliments </span>
+                                            </span>
+                                            <span class="badge bg-success-subtle text-success px-3 py-1 rounded-pill">Taken</span>
+                                        </div>
+                        
+                                        <!-- Bristol Scale -->
+                                        <div class="d-flex align-items-center justify-content-between px-3 mb-4">
+                                            <span class="text-muted small d-flex align-items-center" style="gap: 4px;">
+                                                <img src="/images/bristol-icon.png" alt=""> <span style="color: #000; font-weight: 500; font-size: 16px"> Bristol Scale</span>
+                                            </span>
+                                            <span class="badge bg-success-subtle text-success px-3 py-1 rounded-pill">Type 4</span>
+                                        </div>
+                        
+                                        <!-- Button -->
+                                        <div class="text-center">
+                                            <button class="btn btn-primary w-100 rounded-3 fw-semibold log-btn">
+                                                Log Today's Health
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="card border-0 rounded-4 p-3 mt-5">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                          <h6 class="fw-bold mb-0 d-flex align-items-center" style="color: #000; font-size: 18px; gap: 5px;">
+                                            <img src="/images/experiment-vector.png" alt="" class="me-2 img-fluid" style="width: 24px;">
+                                            Trending Experiments
+                                          </h6>
+                                          <a href="#" class="text-primary fw-semibold small text-decoration-none" style="font-size: 15px;">
+                                            View all <i class="bi bi-arrow-up-right" style="font-size: 15px;"></i>
+                                          </a>
+                                        </div>
+                                      
+                                        <!-- Experiment Item -->
+                                        <div class="experiment-item d-flex justify-content-between align-items-center p-2 rounded-3 mb-2 flex-wrap">
+                                            <div class="d-flex align-items-center flex-grow-1" style="gap: 10px; min-width: 0;">
+                                              <span class="me-2 fs-5">
+                                                <img src="/images/fasting-icon.png" alt="" style="width: 28px; height: 28px;">
+                                              </span>
+                                              <div class="text-truncate">
+                                                <div class="fw-semibold" style="color: #000;">Fasting Challenge</div>
+                                                <div class="small text-muted text-nowrap">
+                                                  <span class="text-primary fw-semibold">1,245</span> participants
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <button class="btn btn-primary btn-sm fw-semibold px-3 rounded-3 mt-2 mt-sm-0 ms-auto">Join</button>
+                                          </div>                                          
+                                      
+                                        <!-- Repeat Items -->
+                                        <div class="experiment-item d-flex justify-content-between align-items-center p-2 rounded-3 mb-2">
+                                          <div class="d-flex align-items-center w-100 w-md-auto" style="gap: 10px;">
+                                            <span class="me-2 fs-5"><img src="/images/fasting-icon.png" alt=""></span>
+                                            <div>
+                                              <div class="fw-semibold" style="color: #000">Fasting Challenge</div>
+                                              <div class="small text-muted">
+                                                <span class="text-primary fw-semibold">1,245</span> participants
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <button class="btn btn-primary btn-sm fw-semibold px-3 rounded-3">Join</button>
+                                        </div>
+                                      
+                                        <div class="experiment-item d-flex justify-content-between align-items-center p-2 rounded-3">
+                                          <div class="d-flex align-items-center w-100 w-md-auto" style="gap: 10px;">
+                                            <span class="me-2 fs-5"> <img src="/images/fasting-icon.png" alt=""></span>
+                                            <div>
+                                              <div class="fw-semibold" style="color: #000">Fasting Challenge</div>
+                                              <div class="small text-muted">
+                                                <span class="text-primary fw-semibold">1,245</span> participants
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <button class="btn btn-primary btn-sm fw-semibold px-3 rounded-3">Join</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        
+
+                            {{-- <div class="card health-widget shadow-sm border-0 rounded-4 p-3"> --}}
+                            
                         @endif
 
                         @if ($users->count() != 0)
@@ -132,7 +309,7 @@
                         @endif
 
                         <div class="d-lg-block d-none">
-                            @include('includes.footer-tiny')
+                            {{-- @include('includes.footer-tiny') --}}
                         </div>
                     </div><!-- sticky-top -->
 

@@ -304,7 +304,7 @@
                             </li>
                         @endif --}}
 
-                        {{-- <li class="nav-item dropdown d-lg-block d-none">
+                        <li class="nav-item dropdown d-lg-block d-none">
                             <a href="{{ url('messages') }}" class="nav-link px-2" title="{{ __('general.messages') }}">
 
                                 <span class="noti_msg notify @if (auth()->user()->messagesInbox() != 0) d-block @endif">
@@ -314,9 +314,9 @@
                                 <i class="feather icon-send icon-navbar"></i>
                                 <span class="d-lg-none align-middle ml-1">{{ __('general.messages') }}</span>
                             </a>
-                        </li> --}}
+                        </li>
 
-                        {{-- <li class="nav-item dropdown d-lg-block d-none">
+                        <li class="nav-item dropdown d-lg-block d-none">
                             <a href="{{ url('notifications') }}" class="nav-link px-2"
                                 title="{{ __('general.notifications') }}">
 
@@ -327,7 +327,7 @@
                                 <i class="far fa-bell icon-navbar"></i>
                                 <span class="d-lg-none align-middle ml-1">{{ __('general.notifications') }}</span>
                             </a>
-                        </li> --}}
+                        </li>
 
                         <li class="nav-item dropdown d-lg-block d-none">
                             <a class="nav-link" href="#" id="nav-inner-success_dropdown_1" role="button"
