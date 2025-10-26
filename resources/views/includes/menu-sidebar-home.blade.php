@@ -25,21 +25,21 @@
 		</a>
 	</li>
 	<li>
-		<a href="{{ url(auth()->user()->username) }}">
+		<a href="/health-tracking">
 			<image src="/img/icons/health-icon.png" style="height:20px"/>
 			<span class="ml-2">Health Tracking</span>
 		</a>
 	</li>
 	<li>
-		<a href="{{ url(auth()->user()->username) }}">
+		<a href="/experiments">
 			<image src="/img/icons/experiment-icon.png" style="height:20px"/>
 			<span class="ml-2">Experiments</span>
 		</a>
 	</li>
 	<li>
-		<a href="{{ url(auth()->user()->username) }}">
+		<a href="/notifications">
 			<image src="/img/icons/notification-icon.png" style="height:20px"/>
-			<span class="ml-2">Notification</span>
+			<span class="ml-2">Notifications</span>
 		</a>
 	</li>
 	@if (auth()->user()->verified_id == 'yes')
