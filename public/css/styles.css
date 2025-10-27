@@ -1207,7 +1207,7 @@ a:hover.button-avatar-upload {
 }
 .wraper-cover-upload {
   position: absolute;
-  left: 10px;
+  right: 10px;
   bottom: 10px;
   z-index: 100;
 }

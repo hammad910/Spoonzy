@@ -56,7 +56,7 @@
                         <input type="file" name="image" id="uploadCover" accept="image/*" class="visibility-hidden">
                     </form>
 
-                    <div class="flex justify-between wraper-cover-upload">
+                    <div class="d-flex justify-between wraper-cover-upload" style="gap: 10px">
                         <button class="btn btn-cover-upload p-lg-6 px-3" id="coverFile"
                             onclick="$('#uploadCover').trigger('click');">
                             <i class="fa fa-camera mr-lg-1"></i> <span
@@ -74,429 +74,437 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="w-100 text-start py-4 img-profile-user">
-                          <div class="d-flex" style="gap: 10px">
-                            <div @if (Helper::isCreatorLive($getCurrentLiveCreators, $user->id) && auth()->check() && auth()->id() != $user->id) data-url="{{ url('live', $user->username) }}" @endif
-                                class="text-center position-relative @if (Helper::isCreatorLive($getCurrentLiveCreators, $user->id) && auth()->check() && auth()->id() != $user->id) avatar-wrap-live liveLink @else avatar-wrap @endif shadow @if (
-                                    (auth()->check() &&
-                                        auth()->id() != $user->id &&
-                                        Cache::has('is-online-' . $user->id) &&
-                                        $user->active_status_online == 'yes') ||
-                                        (auth()->guest() && Cache::has('is-online-' . $user->id) && $user->active_status_online == 'yes')) user-online-profile overflow-visible @elseif (
-                                    (auth()->check() &&
-                                        auth()->id() != $user->id &&
-                                        !Cache::has('is-online-' . $user->id) &&
-                                        $user->active_status_online == 'yes') ||
-                                        (auth()->guest() && !Cache::has('is-online-' . $user->id) && $user->active_status_online == 'yes')) user-offline-profile overflow-visible @endif">
-  
-                                @if (auth()->check() && auth()->id() != $user->id && Helper::isCreatorLive($getCurrentLiveCreators, $user->id))
-                                    <span class="live-span">{{ __('general.live') }}</span>
-                                    <div class="live-pulse"></div>
-                                @endif
-  
-  
-                                <div class="progress-upload">0%</div>
-  
-                                @if (auth()->check() && auth()->user()->status == 'active' && auth()->id() == $user->id)
-  
-                                    <form action="{{ url('upload/avatar') }}" method="POST" id="formAvatar"
-                                        accept-charset="UTF-8" enctype="multipart/form-data">
-                                        @csrf
-                                        <input type="file" name="avatar" id="uploadAvatar" accept="image/*"
-                                            class="visibility-hidden">
-                                    </form>
-  
-                                    <a href="javascript:;" class="position-absolute button-avatar-upload" id="avatar_file">
-                                        <i class="fa fa-camera"></i>
-                                    </a>
-                                @endif
-                                <img src="{{ Helper::getFile(config('path.avatar') . $user->avatar) }}" width="150"
-                                    height="150" alt="{{ $user->hide_name == 'yes' ? $user->username : $user->name }}"
-                                    class="rounded-circle img-user mb-2 avatarUser @if (auth()->check() && auth()->id() != $user->id && Helper::isCreatorLive($getCurrentLiveCreators, $user->id)) border-0 @endif">
-                            </div><!-- avatar-wrap -->
-                            <div class="media-body" style="margin-top: 80px">
-                                <h4 class="mt-1">
-                                    {{ $user->hide_name == 'yes' ? $user->username : $user->name }}
-  
-                                    @if ($user->verified_id == 'yes')
-                                        <small class="verified" title="{{ __('general.verified_account') }}"
-                                            data-toggle="tooltip" data-placement="top">
-                                            <i class="bi-patch-check-fill"></i>
-                                        </small>
+                            <div class="d-flex" style="gap: 10px">
+                                <div @if (Helper::isCreatorLive($getCurrentLiveCreators, $user->id) && auth()->check() && auth()->id() != $user->id) data-url="{{ url('live', $user->username) }}" @endif
+                                    class="text-center position-relative @if (Helper::isCreatorLive($getCurrentLiveCreators, $user->id) && auth()->check() && auth()->id() != $user->id) avatar-wrap-live liveLink @else avatar-wrap @endif shadow @if (
+                                        (auth()->check() &&
+                                            auth()->id() != $user->id &&
+                                            Cache::has('is-online-' . $user->id) &&
+                                            $user->active_status_online == 'yes') ||
+                                            (auth()->guest() && Cache::has('is-online-' . $user->id) && $user->active_status_online == 'yes')) user-online-profile overflow-visible @elseif (
+                                        (auth()->check() &&
+                                            auth()->id() != $user->id &&
+                                            !Cache::has('is-online-' . $user->id) &&
+                                            $user->active_status_online == 'yes') ||
+                                            (auth()->guest() && !Cache::has('is-online-' . $user->id) && $user->active_status_online == 'yes')) user-offline-profile overflow-visible @endif">
+
+                                    @if (auth()->check() && auth()->id() != $user->id && Helper::isCreatorLive($getCurrentLiveCreators, $user->id))
+                                        <span class="live-span">{{ __('general.live') }}</span>
+                                        <div class="live-pulse"></div>
                                     @endif
-  
-                                    @if ($user->featured == 'yes')
-                                        <small class="text-featured" title="{{ __('users.creator_featured') }}"
-                                            data-toggle="tooltip" data-placement="top">
-                                            <i class="fas fa fa-award"></i>
-                                        </small>
+
+
+                                    <div class="progress-upload">0%</div>
+
+                                    @if (auth()->check() && auth()->user()->status == 'active' && auth()->id() == $user->id)
+
+                                        <form action="{{ url('upload/avatar') }}" method="POST" id="formAvatar"
+                                            accept-charset="UTF-8" enctype="multipart/form-data">
+                                            @csrf
+                                            <input type="file" name="avatar" id="uploadAvatar" accept="image/*"
+                                                class="visibility-hidden">
+                                        </form>
+
+                                        <a href="javascript:;" class="position-absolute button-avatar-upload"
+                                            id="avatar_file">
+                                            <i class="fa fa-camera"></i>
+                                        </a>
                                     @endif
-                                </h4>
-  
-                                <p>
-                                    <span>
-                                        @if (!Cache::has('is-online-' . $user->id) && $user->hide_last_seen == 'no')
-                                            <span class="w-100 d-block">
-                                                <small>{{ __('general.active') }}</small>
-                                                <small
-                                                    class="timeAgo"data="{{ date('c', strtotime($user->last_seen ?? $user->date)) }}"></small>
-                                            </span>
+                                    <img src="{{ Helper::getFile(config('path.avatar') . $user->avatar) }}" width="150"
+                                        height="150"
+                                        alt="{{ $user->hide_name == 'yes' ? $user->username : $user->name }}"
+                                        class="rounded-circle img-user mb-2 avatarUser @if (auth()->check() && auth()->id() != $user->id && Helper::isCreatorLive($getCurrentLiveCreators, $user->id)) border-0 @endif">
+                                </div><!-- avatar-wrap -->
+                                <div class="media-body" style="margin-top: 80px">
+                                    <h4 class="mt-1">
+                                        {{ $user->hide_name == 'yes' ? $user->username : $user->name }}
+
+                                        @if ($user->verified_id == 'yes')
+                                            <small class="verified" title="{{ __('general.verified_account') }}"
+                                                data-toggle="tooltip" data-placement="top">
+                                                <i class="bi-patch-check-fill"></i>
+                                            </small>
                                         @endif
-  
-                                        @if ($user->profession != '' && $user->verified_id == 'yes')
-                                            {{ $user->profession }}
+
+                                        @if ($user->featured == 'yes')
+                                            <small class="text-featured" title="{{ __('users.creator_featured') }}"
+                                                data-toggle="tooltip" data-placement="top">
+                                                <i class="fas fa fa-award"></i>
+                                            </small>
                                         @endif
-                                    </span>
-                                </p>
-  
-                                <div class="d-flex-user justify-content-end mb-2">
-                                    @if (auth()->check() && auth()->id() == $user->id)
-                                        <a href="{{ url('settings/page') }}" class="btn btn-primary btn-profile mr-1"><i
-                                                class="fa fa-pencil-alt mr-2"></i>
-                                            {{ auth()->user()->verified_id == 'yes' ? __('general.edit_my_page') : __('users.edit_profile') }}</a>
-                                    @endif
-  
-                                    @if (
-                                        ($userPlanMonthlyActive && $user->verified_id == 'yes') ||
-                                            ($user->free_subscription == 'yes' && $user->verified_id == 'yes'))
-  
-                                        @if (auth()->check() &&
-                                                auth()->id() != $user->id &&
-                                                !$checkSubscription &&
-                                                !$paymentIncomplete &&
-                                                $user->free_subscription == 'no' &&
-                                                $totalPosts != 0)
-                                            <a href="javascript:void(0);" data-toggle="modal"
-                                                data-target="#subscriptionForm" class="btn btn-primary btn-profile mr-1">
-                                                <i class="feather icon-unlock mr-1"></i>
-                                                {{ __('general.subscribe_month', ['price' => Helper::formatPrice($user->getPlan('monthly', 'price'))]) }}
-                                            </a>
-                                        @elseif (auth()->check() && auth()->id() != $user->id && !$checkSubscription && $paymentIncomplete)
-                                            <a href="{{ route('cashier.payment', $paymentIncomplete->last_payment) }}"
-                                                class="btn btn-warning btn-profile mr-1">
-                                                <i class="fa fa-exclamation-triangle"></i>
-                                                {{ __('general.confirm_payment') }}
-                                            </a>
-                                        @elseif (auth()->check() && auth()->id() != $user->id && $checkSubscription)
-                                            @if ($checkSubscription->stripe_status == 'active' && $checkSubscription->stripe_id != '')
-                                                <form method="POST"
-                                                    action="{{ url('subscription/cancel/' . $checkSubscription->stripe_id) }}"
-                                                    class="d-inline formCancel">
-                                                    @csrf
-                                                    <button type="button"
-                                                        data-expiration="{{ __('general.subscription_expire') . ' ' . Helper::formatDate(auth()->user()->subscription('main', $checkSubscription->stripe_price)->asStripeSubscription()->current_period_end, true) }}"
-                                                        class="btn btn-success btn-profile mr-1 cancelBtn subscriptionActive">
-                                                        <i class="feather icon-user-check mr-1"></i>
-                                                        {{ __('general.your_subscribed') }}
-                                                    </button>
-                                                </form>
-                                            @elseif ($checkSubscription->stripe_id == '' && $checkSubscription->free == 'yes')
-                                                <form method="POST"
-                                                    action="{{ url('subscription/free/cancel/' . $checkSubscription->id) }}"
-                                                    class="d-inline formCancel">
-                                                    @csrf
-                                                    <button type="button"
-                                                        data-expiration="{{ __('general.confirm_cancel_subscription') }}"
-                                                        class="btn btn-success btn-profile mr-1 cancelBtn subscriptionActive">
-                                                        <i class="feather icon-user-check mr-1"></i>
-                                                        {{ __('general.your_subscribed') }}
-                                                    </button>
-                                                </form>
-                                            @elseif ($paymentGatewaySubscription == 'Paystack' && $checkSubscription->cancelled == 'no')
-                                                <form method="POST"
-                                                    action="{{ url('subscription/paystack/cancel/' . $checkSubscription->subscription_id) }}"
-                                                    class="d-inline formCancel">
-                                                    @csrf
-                                                    <button type="button"
-                                                        data-expiration="{{ __('general.subscription_expire') . ' ' . Helper::formatDate($checkSubscription->ends_at) }}"
-                                                        class="btn btn-success btn-profile mr-1 cancelBtn subscriptionActive">
-                                                        <i class="feather icon-user-check mr-1"></i>
-                                                        {{ __('general.your_subscribed') }}
-                                                    </button>
-                                                </form>
-                                            @elseif ($paymentGatewaySubscription == 'Wallet' && $checkSubscription->cancelled == 'no')
-                                                <form method="POST"
-                                                    action="{{ url('subscription/wallet/cancel/' . $checkSubscription->id) }}"
-                                                    class="d-inline formCancel">
-                                                    @csrf
-                                                    <button type="button"
-                                                        data-expiration="{{ __('general.subscription_expire') . ' ' . Helper::formatDate($checkSubscription->ends_at) }}"
-                                                        class="btn btn-success btn-profile mr-1 cancelBtn subscriptionActive">
-                                                        <i class="feather icon-user-check mr-1"></i>
-                                                        {{ __('general.your_subscribed') }}
-                                                    </button>
-                                                </form>
-                                            @elseif ($paymentGatewaySubscription == 'PayPal' && $checkSubscription->cancelled == 'no')
-                                                <form method="POST"
-                                                    action="{{ url('subscription/paypal/cancel/' . $checkSubscription->id) }}"
-                                                    class="d-inline formCancel">
-                                                    @csrf
-                                                    <button type="button"
-                                                        data-expiration="{{ __('general.subscription_expire') . ' ' . Helper::formatDate($checkSubscription->ends_at) }}"
-                                                        class="btn btn-success btn-profile mr-1 cancelBtn subscriptionActive">
-                                                        <i class="feather icon-user-check mr-1"></i>
-                                                        {{ __('general.your_subscribed') }}
-                                                    </button>
-                                                </form>
-                                            @elseif ($paymentGatewaySubscription == 'CCBill' && $checkSubscription->cancelled == 'no')
-                                                <form method="POST"
-                                                    action="{{ url('subscription/ccbill/cancel/' . $checkSubscription->id) }}"
-                                                    class="d-inline formCancel">
-                                                    @csrf
-                                                    <button type="button"
-                                                        data-expiration="{{ __('general.subscription_expire') . ' ' . Helper::formatDate($checkSubscription->ends_at) }}"
-                                                        class="btn btn-success btn-profile mr-1 cancelBtn subscriptionActive">
-                                                        <i class="feather icon-user-check mr-1"></i>
-                                                        {{ __('general.your_subscribed') }}
-                                                    </button>
-                                                </form>
-                                            @elseif ($paymentGatewaySubscription == 'Redsys' && $checkSubscription->cancelled == 'no')
-                                                <form method="POST"
-                                                    action="{{ url('subscription/redsys/cancel/' . $checkSubscription->id) }}"
-                                                    class="d-inline formCancel">
-                                                    @csrf
-                                                    <button type="button"
-                                                        data-expiration="{{ __('general.subscription_expire') . ' ' . Helper::formatDate($checkSubscription->ends_at) }}"
-                                                        class="btn btn-success btn-profile mr-1 cancelBtn subscriptionActive">
-                                                        <i class="feather icon-user-check mr-1"></i>
-                                                        {{ __('general.your_subscribed') }}
-                                                    </button>
-                                                </form>
-                                            @elseif ($paymentGatewaySubscription == 'Netvalve' && $checkSubscription->cancelled == 'no')
-                                                <form method="POST"
-                                                    action="{{ url('subscription/netvalve/cancel/' . $checkSubscription->id) }}"
-                                                    class="d-inline formCancel">
-                                                    @csrf
-                                                    <button type="button"
-                                                        data-expiration="{{ __('general.subscription_expire') . ' ' . Helper::formatDate($checkSubscription->ends_at) }}"
-                                                        class="btn btn-success btn-profile mr-1 cancelBtn subscriptionActive">
-                                                        <i class="feather icon-user-check mr-1"></i>
-                                                        {{ __('general.your_subscribed') }}
-                                                    </button>
-                                                </form>
-                                            @elseif ($checkSubscription->cancelled == 'yes' || $checkSubscription->stripe_status == 'canceled')
-                                                <a href="javascript:void(0);"
-                                                    class="btn btn-success btn-profile mr-1 disabled">
-                                                    <i class="feather icon-user-check mr-1"></i>
-                                                    {{ __('general.subscribed_until') }}
-                                                    {{ Helper::formatDate($checkSubscription->ends_at) }}
-                                                </a>
+                                    </h4>
+
+                                    <p>
+                                        <span>
+                                            @if (!Cache::has('is-online-' . $user->id) && $user->hide_last_seen == 'no')
+                                                <span class="w-100 d-block">
+                                                    <small>{{ __('general.active') }}</small>
+                                                    <small
+                                                        class="timeAgo"data="{{ date('c', strtotime($user->last_seen ?? $user->date)) }}"></small>
+                                                </span>
                                             @endif
-                                        @elseif (auth()->check() && auth()->id() != $user->id && $user->free_subscription == 'yes' && $totalPosts != 0)
-                                            <a href="javascript:void(0);" data-toggle="modal"
-                                                data-target="#subscriptionFreeForm"
-                                                class="btn btn-primary btn-profile mr-1">
-                                                <i class="feather icon-user-plus mr-1"></i>
-                                                {{ __('general.subscribe_for_free') }}
-                                            </a>
-                                        @elseif (auth()->guest() && $totalPosts != 0)
-                                            <a href="{{ url('login') }}" data-toggle="modal"
-                                                data-target="#loginFormModal" class="btn btn-primary btn-profile mr-1">
-                                                @if ($user->free_subscription == 'yes')
-                                                    <i class="feather icon-user-plus mr-1"></i>
-                                                    {{ __('general.subscribe_for_free') }}
-                                                @else
+
+                                            @if ($user->profession != '' && $user->verified_id == 'yes')
+                                                {{ $user->profession }}
+                                            @endif
+                                        </span>
+                                    </p>
+
+                                    <div class="d-flex-user justify-content-end mb-2">
+                                        @if (auth()->check() && auth()->id() == $user->id)
+                                            <a href="{{ url('settings/page') }}"
+                                                class="btn btn-primary btn-profile mr-1"><i
+                                                    class="fa fa-pencil-alt mr-2"></i>
+                                                {{ auth()->user()->verified_id == 'yes' ? __('general.edit_my_page') : __('users.edit_profile') }}</a>
+                                        @endif
+
+                                        @if (
+                                            ($userPlanMonthlyActive && $user->verified_id == 'yes') ||
+                                                ($user->free_subscription == 'yes' && $user->verified_id == 'yes'))
+
+                                            @if (auth()->check() &&
+                                                    auth()->id() != $user->id &&
+                                                    !$checkSubscription &&
+                                                    !$paymentIncomplete &&
+                                                    $user->free_subscription == 'no' &&
+                                                    $totalPosts != 0)
+                                                <a href="javascript:void(0);" data-toggle="modal"
+                                                    data-target="#subscriptionForm"
+                                                    class="btn btn-primary btn-profile mr-1">
                                                     <i class="feather icon-unlock mr-1"></i>
                                                     {{ __('general.subscribe_month', ['price' => Helper::formatPrice($user->getPlan('monthly', 'price'))]) }}
+                                                </a>
+                                            @elseif (auth()->check() && auth()->id() != $user->id && !$checkSubscription && $paymentIncomplete)
+                                                <a href="{{ route('cashier.payment', $paymentIncomplete->last_payment) }}"
+                                                    class="btn btn-warning btn-profile mr-1">
+                                                    <i class="fa fa-exclamation-triangle"></i>
+                                                    {{ __('general.confirm_payment') }}
+                                                </a>
+                                            @elseif (auth()->check() && auth()->id() != $user->id && $checkSubscription)
+                                                @if ($checkSubscription->stripe_status == 'active' && $checkSubscription->stripe_id != '')
+                                                    <form method="POST"
+                                                        action="{{ url('subscription/cancel/' . $checkSubscription->stripe_id) }}"
+                                                        class="d-inline formCancel">
+                                                        @csrf
+                                                        <button type="button"
+                                                            data-expiration="{{ __('general.subscription_expire') . ' ' . Helper::formatDate(auth()->user()->subscription('main', $checkSubscription->stripe_price)->asStripeSubscription()->current_period_end, true) }}"
+                                                            class="btn btn-success btn-profile mr-1 cancelBtn subscriptionActive">
+                                                            <i class="feather icon-user-check mr-1"></i>
+                                                            {{ __('general.your_subscribed') }}
+                                                        </button>
+                                                    </form>
+                                                @elseif ($checkSubscription->stripe_id == '' && $checkSubscription->free == 'yes')
+                                                    <form method="POST"
+                                                        action="{{ url('subscription/free/cancel/' . $checkSubscription->id) }}"
+                                                        class="d-inline formCancel">
+                                                        @csrf
+                                                        <button type="button"
+                                                            data-expiration="{{ __('general.confirm_cancel_subscription') }}"
+                                                            class="btn btn-success btn-profile mr-1 cancelBtn subscriptionActive">
+                                                            <i class="feather icon-user-check mr-1"></i>
+                                                            {{ __('general.your_subscribed') }}
+                                                        </button>
+                                                    </form>
+                                                @elseif ($paymentGatewaySubscription == 'Paystack' && $checkSubscription->cancelled == 'no')
+                                                    <form method="POST"
+                                                        action="{{ url('subscription/paystack/cancel/' . $checkSubscription->subscription_id) }}"
+                                                        class="d-inline formCancel">
+                                                        @csrf
+                                                        <button type="button"
+                                                            data-expiration="{{ __('general.subscription_expire') . ' ' . Helper::formatDate($checkSubscription->ends_at) }}"
+                                                            class="btn btn-success btn-profile mr-1 cancelBtn subscriptionActive">
+                                                            <i class="feather icon-user-check mr-1"></i>
+                                                            {{ __('general.your_subscribed') }}
+                                                        </button>
+                                                    </form>
+                                                @elseif ($paymentGatewaySubscription == 'Wallet' && $checkSubscription->cancelled == 'no')
+                                                    <form method="POST"
+                                                        action="{{ url('subscription/wallet/cancel/' . $checkSubscription->id) }}"
+                                                        class="d-inline formCancel">
+                                                        @csrf
+                                                        <button type="button"
+                                                            data-expiration="{{ __('general.subscription_expire') . ' ' . Helper::formatDate($checkSubscription->ends_at) }}"
+                                                            class="btn btn-success btn-profile mr-1 cancelBtn subscriptionActive">
+                                                            <i class="feather icon-user-check mr-1"></i>
+                                                            {{ __('general.your_subscribed') }}
+                                                        </button>
+                                                    </form>
+                                                @elseif ($paymentGatewaySubscription == 'PayPal' && $checkSubscription->cancelled == 'no')
+                                                    <form method="POST"
+                                                        action="{{ url('subscription/paypal/cancel/' . $checkSubscription->id) }}"
+                                                        class="d-inline formCancel">
+                                                        @csrf
+                                                        <button type="button"
+                                                            data-expiration="{{ __('general.subscription_expire') . ' ' . Helper::formatDate($checkSubscription->ends_at) }}"
+                                                            class="btn btn-success btn-profile mr-1 cancelBtn subscriptionActive">
+                                                            <i class="feather icon-user-check mr-1"></i>
+                                                            {{ __('general.your_subscribed') }}
+                                                        </button>
+                                                    </form>
+                                                @elseif ($paymentGatewaySubscription == 'CCBill' && $checkSubscription->cancelled == 'no')
+                                                    <form method="POST"
+                                                        action="{{ url('subscription/ccbill/cancel/' . $checkSubscription->id) }}"
+                                                        class="d-inline formCancel">
+                                                        @csrf
+                                                        <button type="button"
+                                                            data-expiration="{{ __('general.subscription_expire') . ' ' . Helper::formatDate($checkSubscription->ends_at) }}"
+                                                            class="btn btn-success btn-profile mr-1 cancelBtn subscriptionActive">
+                                                            <i class="feather icon-user-check mr-1"></i>
+                                                            {{ __('general.your_subscribed') }}
+                                                        </button>
+                                                    </form>
+                                                @elseif ($paymentGatewaySubscription == 'Redsys' && $checkSubscription->cancelled == 'no')
+                                                    <form method="POST"
+                                                        action="{{ url('subscription/redsys/cancel/' . $checkSubscription->id) }}"
+                                                        class="d-inline formCancel">
+                                                        @csrf
+                                                        <button type="button"
+                                                            data-expiration="{{ __('general.subscription_expire') . ' ' . Helper::formatDate($checkSubscription->ends_at) }}"
+                                                            class="btn btn-success btn-profile mr-1 cancelBtn subscriptionActive">
+                                                            <i class="feather icon-user-check mr-1"></i>
+                                                            {{ __('general.your_subscribed') }}
+                                                        </button>
+                                                    </form>
+                                                @elseif ($paymentGatewaySubscription == 'Netvalve' && $checkSubscription->cancelled == 'no')
+                                                    <form method="POST"
+                                                        action="{{ url('subscription/netvalve/cancel/' . $checkSubscription->id) }}"
+                                                        class="d-inline formCancel">
+                                                        @csrf
+                                                        <button type="button"
+                                                            data-expiration="{{ __('general.subscription_expire') . ' ' . Helper::formatDate($checkSubscription->ends_at) }}"
+                                                            class="btn btn-success btn-profile mr-1 cancelBtn subscriptionActive">
+                                                            <i class="feather icon-user-check mr-1"></i>
+                                                            {{ __('general.your_subscribed') }}
+                                                        </button>
+                                                    </form>
+                                                @elseif ($checkSubscription->cancelled == 'yes' || $checkSubscription->stripe_status == 'canceled')
+                                                    <a href="javascript:void(0);"
+                                                        class="btn btn-success btn-profile mr-1 disabled">
+                                                        <i class="feather icon-user-check mr-1"></i>
+                                                        {{ __('general.subscribed_until') }}
+                                                        {{ Helper::formatDate($checkSubscription->ends_at) }}
+                                                    </a>
                                                 @endif
+                                            @elseif (auth()->check() && auth()->id() != $user->id && $user->free_subscription == 'yes' && $totalPosts != 0)
+                                                <a href="javascript:void(0);" data-toggle="modal"
+                                                    data-target="#subscriptionFreeForm"
+                                                    class="btn btn-primary btn-profile mr-1">
+                                                    <i class="feather icon-user-plus mr-1"></i>
+                                                    {{ __('general.subscribe_for_free') }}
+                                                </a>
+                                            @elseif (auth()->guest() && $totalPosts != 0)
+                                                <a href="{{ url('login') }}" data-toggle="modal"
+                                                    data-target="#loginFormModal"
+                                                    class="btn btn-primary btn-profile mr-1">
+                                                    @if ($user->free_subscription == 'yes')
+                                                        <i class="feather icon-user-plus mr-1"></i>
+                                                        {{ __('general.subscribe_for_free') }}
+                                                    @else
+                                                        <i class="feather icon-unlock mr-1"></i>
+                                                        {{ __('general.subscribe_month', ['price' => Helper::formatPrice($user->getPlan('monthly', 'price'))]) }}
+                                                    @endif
+                                                </a>
+                                            @endif
+
+                                        @endif
+
+                                        @if (auth()->check() &&
+                                                auth()->id() != $user->id &&
+                                                $totalPosts != 0 &&
+                                                $settings->disable_tips == 'off' &&
+                                                $user->verified_id == 'yes')
+                                            <a href="javascript:void(0);" data-toggle="modal"
+                                                title="{{ __('general.tip') }}" data-target="#tipForm"
+                                                class="btn btn-google btn-profile mr-1"
+                                                data-cover="{{ Helper::getFile(config('path.cover') . $user->cover) }}"
+                                                data-avatar="{{ Helper::getFile(config('path.avatar') . $user->avatar) }}"
+                                                data-name="{{ $user->hide_name == 'yes' ? $user->username : $user->name }}"
+                                                data-userid="{{ $user->id }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    fill="currentColor" class="bi-coin mr-1" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z" />
+                                                    <path fill-rule="evenodd"
+                                                        d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                    <path fill-rule="evenodd"
+                                                        d="M8 13.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
+                                                </svg> {{ __('general.tip') }}
+                                            </a>
+                                        @elseif (auth()->guest() && $totalPosts != 0 && $settings->disable_tips == 'off')
+                                            <a href="{{ url('login') }}" data-toggle="modal"
+                                                data-target="#loginFormModal" class="btn btn-google btn-profile mr-1"
+                                                title="{{ __('general.tip') }}">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                                    fill="currentColor" class="bi-coin mr-1" viewBox="0 0 16 16">
+                                                    <path
+                                                        d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z" />
+                                                    <path fill-rule="evenodd"
+                                                        d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                    <path fill-rule="evenodd"
+                                                        d="M8 13.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
+                                                </svg> {{ __('general.tip') }}
                                             </a>
                                         @endif
-  
-                                    @endif
-  
-                                    @if (auth()->check() &&
-                                            auth()->id() != $user->id &&
-                                            $totalPosts != 0 &&
-                                            $settings->disable_tips == 'off' &&
-                                            $user->verified_id == 'yes')
-                                        <a href="javascript:void(0);" data-toggle="modal"
-                                            title="{{ __('general.tip') }}" data-target="#tipForm"
-                                            class="btn btn-google btn-profile mr-1"
-                                            data-cover="{{ Helper::getFile(config('path.cover') . $user->cover) }}"
-                                            data-avatar="{{ Helper::getFile(config('path.avatar') . $user->avatar) }}"
-                                            data-name="{{ $user->hide_name == 'yes' ? $user->username : $user->name }}"
-                                            data-userid="{{ $user->id }}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                fill="currentColor" class="bi-coin mr-1" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z" />
-                                                <path fill-rule="evenodd"
-                                                    d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                                <path fill-rule="evenodd"
-                                                    d="M8 13.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
-                                            </svg> {{ __('general.tip') }}
-                                        </a>
-                                    @elseif (auth()->guest() && $totalPosts != 0 && $settings->disable_tips == 'off')
-                                        <a href="{{ url('login') }}" data-toggle="modal" data-target="#loginFormModal"
-                                            class="btn btn-google btn-profile mr-1" title="{{ __('general.tip') }}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                fill="currentColor" class="bi-coin mr-1" viewBox="0 0 16 16">
-                                                <path
-                                                    d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z" />
-                                                <path fill-rule="evenodd"
-                                                    d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                                                <path fill-rule="evenodd"
-                                                    d="M8 13.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z" />
-                                            </svg> {{ __('general.tip') }}
-                                        </a>
-                                    @endif
-  
-                                    @if (auth()->check() && auth()->id() != $user->id && $totalPosts != 0 && $settings->gifts && $user->verified_id == 'yes')
-                                        <a href="javascript:void(0);" data-toggle="modal"
-                                            title="{{ __('general.gifts') }}" data-target="#giftsForm"
-                                            class="btn btn-google btn-profile mr-1">
-                                            <i class="bi-gift mr-1"></i> {{ __('general.gifts') }}
-                                        </a>
-                                    @elseif (auth()->guest() && $totalPosts != 0 && $settings->gifts)
-                                        <a href="javascript:void(0);" data-toggle="modal"
-                                            title="{{ __('general.gifts') }}" data-target="#loginFormModal"
-                                            class="btn btn-google btn-profile mr-1">
-                                            <i class="bi-gift mr-1"></i> {{ __('general.gifts') }}
-                                        </a>
-                                    @endif
-  
-                                    @if (
-                                        (auth()->guest() && $user->verified_id == 'yes') ||
-                                            (auth()->check() && auth()->id() != $user->id && $user->verified_id == 'yes' && $user->allow_dm))
-                                        <button
-                                            @guest data-toggle="modal" data-target="#loginFormModal" @else id="sendMessageUser" @endguest
-                                            data-url="{{ url('messages/' . $user->id, $user->username) }}"
-                                            title="{{ __('general.message') }}" class="btn btn-google btn-profile mr-1">
-                                            <i class="feather icon-send mr-1 mr-lg-0"></i> <span
-                                                class="d-lg-none">{{ __('general.message') }}</span>
-                                        </button>
-                                    @endif
-  
-                                    @if ($user->verified_id == 'yes')
-                                        <button class="btn btn-profile btn-google" title="{{ __('general.share') }}"
-                                            id="dropdownUserShare" role="button" data-toggle="modal"
-                                            data-target=".share-modal">
-                                            <i class="feather icon-share mr-1 mr-lg-0"></i> <span
-                                                class="d-lg-none">{{ __('general.share') }}</span>
-                                        </button>
-  
-                                        <!-- Share modal -->
-                                        <div class="modal fade share-modal" tabindex="-1" role="dialog"
-                                            aria-labelledby="mySmallModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header border-bottom-0">
-                                                        <button type="button" class="close close-inherit"
-                                                            data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true"><i class="bi-x-lg"></i></span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-  
-                                                        @if ($settings->generate_qr_code)
-                                                            <div class="d-block w-100 text-center mb-5">
-                                                                <div id="QrCode"
-                                                                    class="d-block w-100 text-center mb-3"></div>
-  
-                                                                <div class="d-block w-100 text-center">
-                                                                    <a class="btn btn-primary" id="downloadQr"
-                                                                        href="javascript:;">
-                                                                        <i class="bi-download mr-1"></i>
-                                                                        {{ __('general.download') }}
-                                                                    </a>
+
+                                        @if (auth()->check() && auth()->id() != $user->id && $totalPosts != 0 && $settings->gifts && $user->verified_id == 'yes')
+                                            <a href="javascript:void(0);" data-toggle="modal"
+                                                title="{{ __('general.gifts') }}" data-target="#giftsForm"
+                                                class="btn btn-google btn-profile mr-1">
+                                                <i class="bi-gift mr-1"></i> {{ __('general.gifts') }}
+                                            </a>
+                                        @elseif (auth()->guest() && $totalPosts != 0 && $settings->gifts)
+                                            <a href="javascript:void(0);" data-toggle="modal"
+                                                title="{{ __('general.gifts') }}" data-target="#loginFormModal"
+                                                class="btn btn-google btn-profile mr-1">
+                                                <i class="bi-gift mr-1"></i> {{ __('general.gifts') }}
+                                            </a>
+                                        @endif
+
+                                        @if (
+                                            (auth()->guest() && $user->verified_id == 'yes') ||
+                                                (auth()->check() && auth()->id() != $user->id && $user->verified_id == 'yes' && $user->allow_dm))
+                                            <button
+                                                @guest data-toggle="modal" data-target="#loginFormModal" @else id="sendMessageUser" @endguest
+                                                data-url="{{ url('messages/' . $user->id, $user->username) }}"
+                                                title="{{ __('general.message') }}"
+                                                class="btn btn-google btn-profile mr-1">
+                                                <i class="feather icon-send mr-1 mr-lg-0"></i> <span
+                                                    class="d-lg-none">{{ __('general.message') }}</span>
+                                            </button>
+                                        @endif
+
+                                        @if ($user->verified_id == 'yes')
+                                            <button class="btn btn-profile btn-google" title="{{ __('general.share') }}"
+                                                id="dropdownUserShare" role="button" data-toggle="modal"
+                                                data-target=".share-modal">
+                                                <i class="feather icon-share mr-1 mr-lg-0"></i> <span
+                                                    class="d-lg-none">{{ __('general.share') }}</span>
+                                            </button>
+
+                                            <!-- Share modal -->
+                                            <div class="modal fade share-modal" tabindex="-1" role="dialog"
+                                                aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header border-bottom-0">
+                                                            <button type="button" class="close close-inherit"
+                                                                data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true"><i class="bi-x-lg"></i></span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+
+                                                            @if ($settings->generate_qr_code)
+                                                                <div class="d-block w-100 text-center mb-5">
+                                                                    <div id="QrCode"
+                                                                        class="d-block w-100 text-center mb-3"></div>
+
+                                                                    <div class="d-block w-100 text-center">
+                                                                        <a class="btn btn-primary" id="downloadQr"
+                                                                            href="javascript:;">
+                                                                            <i class="bi-download mr-1"></i>
+                                                                            {{ __('general.download') }}
+                                                                        </a>
+                                                                    </div>
                                                                 </div>
+                                                            @endif
+
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    <div class="col-md-4 col-6 mb-3">
+                                                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ url($user->username) . Helper::referralLink() }}"
+                                                                            title="Facebook" target="_blank"
+                                                                            class="social-share text-muted d-block text-center h6">
+                                                                            <i
+                                                                                class="fab fa-facebook-square facebook-btn"></i>
+                                                                            <span class="btn-block mt-3">Facebook</span>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-md-4 col-6 mb-3">
+                                                                        <a href="https://twitter.com/intent/tweet?url={{ url($user->username) . Helper::referralLink() }}&text={{ e($user->hide_name == 'yes' ? $user->username : $user->name) }}"
+                                                                            data-url="{{ url($user->username) }}"
+                                                                            class="social-share text-muted d-block text-center h6"
+                                                                            target="_blank" title="Twitter">
+                                                                            <i class="bi-twitter-x text-dark"></i> <span
+                                                                                class="btn-block mt-3">Twitter</span>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-md-4 col-6 mb-3">
+                                                                        <a href="whatsapp://send?text={{ url($user->username) . Helper::referralLink() }}"
+                                                                            data-action="share/whatsapp/share"
+                                                                            class="social-share text-muted d-block text-center h6"
+                                                                            title="WhatsApp">
+                                                                            <i class="fab fa-whatsapp btn-whatsapp"></i>
+                                                                            <span class="btn-block mt-3">WhatsApp</span>
+                                                                        </a>
+                                                                    </div>
+
+                                                                    <div class="col-md-4 col-6 mb-3">
+                                                                        <a href="mailto:?subject={{ e($user->hide_name == 'yes' ? $user->username : $user->name) }}&amp;body={{ url($user->username) . Helper::referralLink() }}"
+                                                                            class="social-share text-muted d-block text-center h6"
+                                                                            title="{{ __('auth.email') }}">
+                                                                            <i class="far fa-envelope"></i> <span
+                                                                                class="btn-block mt-3">{{ __('auth.email') }}</span>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-md-4 col-6 mb-3">
+                                                                        <a href="sms:?&body={{ __('general.check_this') }} {{ url($user->username) . Helper::referralLink() }}"
+                                                                            class="social-share text-muted d-block text-center h6"
+                                                                            title="{{ __('general.sms') }}">
+                                                                            <i class="fa fa-sms"></i> <span
+                                                                                class="btn-block mt-3">{{ __('general.sms') }}</span>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="col-md-4 col-6 mb-3">
+                                                                        <a href="javascript:void(0);" id="btn_copy_url"
+                                                                            class="social-share text-muted d-block text-center h6 link-share"
+                                                                            title="{{ __('general.copy_link') }}">
+                                                                            <i class="fas fa-link"></i> <span
+                                                                                class="btn-block mt-3">{{ __('general.copy_link') }}</span>
+                                                                        </a>
+                                                                        <input type="hidden" readonly="readonly"
+                                                                            id="copy_link" class="form-control"
+                                                                            value="{{ url($user->username) . Helper::referralLink() }}">
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
-                                                        @endif
-  
-                                                        <div class="container-fluid">
-                                                            <div class="row">
-                                                                <div class="col-md-4 col-6 mb-3">
-                                                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ url($user->username) . Helper::referralLink() }}"
-                                                                        title="Facebook" target="_blank"
-                                                                        class="social-share text-muted d-block text-center h6">
-                                                                        <i class="fab fa-facebook-square facebook-btn"></i>
-                                                                        <span class="btn-block mt-3">Facebook</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="col-md-4 col-6 mb-3">
-                                                                    <a href="https://twitter.com/intent/tweet?url={{ url($user->username) . Helper::referralLink() }}&text={{ e($user->hide_name == 'yes' ? $user->username : $user->name) }}"
-                                                                        data-url="{{ url($user->username) }}"
-                                                                        class="social-share text-muted d-block text-center h6"
-                                                                        target="_blank" title="Twitter">
-                                                                        <i class="bi-twitter-x text-dark"></i> <span
-                                                                            class="btn-block mt-3">Twitter</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="col-md-4 col-6 mb-3">
-                                                                    <a href="whatsapp://send?text={{ url($user->username) . Helper::referralLink() }}"
-                                                                        data-action="share/whatsapp/share"
-                                                                        class="social-share text-muted d-block text-center h6"
-                                                                        title="WhatsApp">
-                                                                        <i class="fab fa-whatsapp btn-whatsapp"></i> <span
-                                                                            class="btn-block mt-3">WhatsApp</span>
-                                                                    </a>
-                                                                </div>
-  
-                                                                <div class="col-md-4 col-6 mb-3">
-                                                                    <a href="mailto:?subject={{ e($user->hide_name == 'yes' ? $user->username : $user->name) }}&amp;body={{ url($user->username) . Helper::referralLink() }}"
-                                                                        class="social-share text-muted d-block text-center h6"
-                                                                        title="{{ __('auth.email') }}">
-                                                                        <i class="far fa-envelope"></i> <span
-                                                                            class="btn-block mt-3">{{ __('auth.email') }}</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="col-md-4 col-6 mb-3">
-                                                                    <a href="sms:?&body={{ __('general.check_this') }} {{ url($user->username) . Helper::referralLink() }}"
-                                                                        class="social-share text-muted d-block text-center h6"
-                                                                        title="{{ __('general.sms') }}">
-                                                                        <i class="fa fa-sms"></i> <span
-                                                                            class="btn-block mt-3">{{ __('general.sms') }}</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div class="col-md-4 col-6 mb-3">
-                                                                    <a href="javascript:void(0);" id="btn_copy_url"
-                                                                        class="social-share text-muted d-block text-center h6 link-share"
-                                                                        title="{{ __('general.copy_link') }}">
-                                                                        <i class="fas fa-link"></i> <span
-                                                                            class="btn-block mt-3">{{ __('general.copy_link') }}</span>
-                                                                    </a>
-                                                                    <input type="hidden" readonly="readonly"
-                                                                        id="copy_link" class="form-control"
-                                                                        value="{{ url($user->username) . Helper::referralLink() }}">
-                                                                </div>
-                                                            </div>
-  
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        @endif
+
+                                    </div><!-- d-flex-user -->
+
+                                    @if (auth()->check() && auth()->id() != $user->id)
+                                        <div class="text-center">
+                                            <button type="button" class="btn e-none btn-link text-danger p-0 mr-2"
+                                                data-toggle="modal" data-target="#reportCreator">
+                                                <small><i class="fas fa-flag mr-1"></i>
+                                                    {{ __('general.report_user') }}</small>
+                                            </button>
+
+                                            @if (auth()->user()->isRestricted($user->id))
+                                                <button type="button"
+                                                    class="btn e-none btn-link text-danger removeRestriction p-0"
+                                                    data-user="{{ $user->id }}" id="restrictUser">
+                                                    <small><i class="fas fa-ban mr-1"></i>
+                                                        {{ __('general.remove_restriction') }}</small>
+                                                </button>
+                                            @else
+                                                <button type="button" class="btn e-none btn-link text-danger p-0"
+                                                    data-user="{{ $user->id }}" id="restrictUser">
+                                                    <small><i class="fas fa-ban mr-1"></i>
+                                                        {{ __('general.restrict') }}</small>
+                                                </button>
+                                            @endif
+
                                         </div>
                                     @endif
-  
-                                </div><!-- d-flex-user -->
-  
-                                @if (auth()->check() && auth()->id() != $user->id)
-                                    <div class="text-center">
-                                        <button type="button" class="btn e-none btn-link text-danger p-0 mr-2"
-                                            data-toggle="modal" data-target="#reportCreator">
-                                            <small><i class="fas fa-flag mr-1"></i>
-                                                {{ __('general.report_user') }}</small>
-                                        </button>
-  
-                                        @if (auth()->user()->isRestricted($user->id))
-                                            <button type="button"
-                                                class="btn e-none btn-link text-danger removeRestriction p-0"
-                                                data-user="{{ $user->id }}" id="restrictUser">
-                                                <small><i class="fas fa-ban mr-1"></i>
-                                                    {{ __('general.remove_restriction') }}</small>
-                                            </button>
-                                        @else
-                                            <button type="button" class="btn e-none btn-link text-danger p-0"
-                                                data-user="{{ $user->id }}" id="restrictUser">
-                                                <small><i class="fas fa-ban mr-1"></i>
-                                                    {{ __('general.restrict') }}</small>
-                                            </button>
-                                        @endif
-  
-                                    </div>
-                                @endif
-  
-                            </div><!-- media-body -->
-                          </div>
+
+                                </div><!-- media-body -->
+                            </div>
 
 
                         </div><!-- media -->
@@ -593,360 +601,410 @@
 
 
             @if ($user->verified_id == 'yes' && request('media') != 'shop' && request('media') != 'reels')
-            <div class="container py-4 pb-5">
-                <div class="row">
-                    <div class="col-lg-4 mb-3">
+                <div class="container py-4 pb-5">
+                    <div class="row">
+                        <div class="col-lg-4 mb-3">
 
-                        <button type="button"
-                            class="btn-arrow-expand btn btn-outline-primary btn-block mb-2 d-lg-none text-word-break font-weight-bold"
-                            type="button" data-toggle="collapse" data-target="#navbarUserHome"
-                            aria-controls="navbarCollapse" aria-expanded="false">
-                            {{ __('users.about_me') }} <i class="fas fa-chevron-down ml-2"></i>
-                        </button>
+                            <button type="button"
+                                class="btn-arrow-expand btn btn-outline-primary btn-block mb-2 d-lg-none text-word-break font-weight-bold"
+                                type="button" data-toggle="collapse" data-target="#navbarUserHome"
+                                aria-controls="navbarCollapse" aria-expanded="false">
+                                {{ __('users.about_me') }} <i class="fas fa-chevron-down ml-2"></i>
+                            </button>
 
-                        <div class="navbar-collapse collapse d-lg-block" id="navbarUserHome">
-                            <div class="card mb-3 rounded-large shadow-large">
-                                <div class="card-body">
-                                    <h6 class="card-title">{{ __('users.about_me') }}</h6>
-                                    <p class="card-text position-relative">
-
-                                        @if ($likeCount != 0 || $subscriptionsActive != 0)
-                                            <span class="btn-block">
-                                                @if ($likeCount != 0)
-                                                    <small class="mr-2"><i class="far fa-heart mr-1"></i>
-                                                        {{ $likeCount }} {{ __('general.likes') }}</small>
-                                                @endif
-
-                                                @if ($subscriptionsActive != 0 && $user->hide_count_subscribers == 'no')
-                                                    <small><i class="feather icon-users mr-1"></i>
-                                                        {{ Helper::formatNumber($subscriptionsActive) }}
-                                                        {{ trans_choice('general.subscribers', $subscriptionsActive) }}</small>
-                                                @endif
-                                            </span>
-                                        @endif
-
-                                        @if (isset($user->country()->country_name) && $user->hide_my_country == 'no')
-                                            <small class="btn-block">
-                                                <i class="feather icon-map-pin mr-1"></i>
-                                                {{ $user->country()->country_name }}
-                                            </small>
-                                        @endif
-
-                                        @if ($user->show_my_birthdate == 'yes')
-                                            <small class="btn-block m-0 mb-1">
-                                                <i class="far fa-calendar-alt mr-1"></i> {{ __('general.birthdate') }}
-                                                {{ Helper::formatDate($user->birthdate) }}
-                                                ({{ \Carbon\Carbon::parse($user->birthdate)->age }}
-                                                {{ __('general.years') }})
-                                            </small>
-                                        @endif
-
-
-                                        @if ($user->verified_id == 'yes')
-                                            <div class="truncated">
-                                                {!! Helper::checkText($user->story) !!}
-                                            </div>
-                                            <a href="javascript:void(0);"
-                                                class="display-none link-border">{{ __('general.view_all') }}</a>
-                                        @endif
-                                    </p>
-
-                                    @if ($user->website != '')
-                                        <div class="d-block mb-1 text-truncate">
-                                            <a href="{{ $user->website }}" title="{{ $user->website }}"
-                                                target="_blank" class="text-muted share-btn-user"><i
-                                                    class="fa fa-link mr-1"></i>
-                                                {{ Helper::removeHTPP($user->website) }}</a>
+                            <div class="navbar-collapse collapse d-lg-block" id="navbarUserHome">
+                                <div class="card mb-3 rounded-large shadow-large">
+                                    <div class="card-body">
+                                        <h6 class="card-title">{{ __('users.about_me') }}</h6>
+                                        @if ($user->website)
+                                        <div class="mb-3 mt-2">
+                                             <a href="{{ $user->website }}" title="{{ $user->website }}"
+                                                    target="_blank" class="d-flex align-items-center" style="gap: 5px">
+                                                    <img src="/img/icons/link-icon.png" alt="link">
+                                                    <span style="color: #469DFA; font-weight: 500">{{ Helper::removeHTPP($user->website) }}</span>
+                                                    </a>
                                         </div>
-                                    @endif
+                                        @endif
+                                        @if ($user->facebook || $user->twitter || $user->instagram || $user->youtube)
+                                        <div class="d-flex" style="gap: 10px">
+                                            @if ($user->facebook)
+                                            <a href="{{ $user->facebook }}" title="{{ $user->facebook }}">
+                                                <img src="/img/icons/fb-icon.png" alt="facebook">
+                                            </a>
+                                            @endif
+                                            @if ($user->twitter)
+                                            <a href="{{ $user->twitter }}" title="{{ $user->twitter }}">
+                                                <img src="/img/icons/x-icon.png" alt="twitter">
+                                            </a>
+                                            @endif
+                                            @if ($user->instagram)
+                                            <a href="{{ $user->instagram }}" title="{{ $user->instagram }}">
+                                                <img src="/img/icons/insta-icon.png" alt="instagram">
+                                            </a>
+                                            @endif
+                                            @if ($user->youtube)
+                                            <a href="{{ $user->youtube }}" title="{{ $user->youtube }}">
+                                                <img src="/img/icons/yt-icon.png" alt="youtube">
+                                            </a>
+                                            @endif
+                                        </div>
+                                        @endif
+                                        <p class="card-text position-relative">
 
-                                    @if ($user->facebook != '')
-                                        <a href="{{ $user->facebook }}" title="{{ $user->facebook }}" target="_blank"
-                                            class="text-muted share-btn-user"><i class="bi-facebook mr-2"></i></a>
-                                    @endif
+                                            @if ($likeCount != 0 || $subscriptionsActive != 0)
+                                                <span class="btn-block">
+                                                    @if ($likeCount != 0)
+                                                        <small class="mr-2"><i class="far fa-heart mr-1"></i>
+                                                            {{ $likeCount }} {{ __('general.likes') }}</small>
+                                                    @endif
 
-                                    @if ($user->twitter != '')
-                                        <a href="{{ $user->twitter }}" title="{{ $user->twitter }}" target="_blank"
-                                            class="text-muted share-btn-user"><i class="bi-twitter-x mr-2"></i></a>
-                                    @endif
+                                                    @if ($subscriptionsActive != 0 && $user->hide_count_subscribers == 'no')
+                                                        <small><i class="feather icon-users mr-1"></i>
+                                                            {{ Helper::formatNumber($subscriptionsActive) }}
+                                                            {{ trans_choice('general.subscribers', $subscriptionsActive) }}</small>
+                                                    @endif
+                                                </span>
+                                            @endif
 
-                                    @if ($user->instagram != '')
-                                        <a href="{{ $user->instagram }}" title="{{ $user->instagram }}"
-                                            target="_blank" class="text-muted share-btn-user"><i
-                                                class="fab fa-instagram mr-2"></i></a>
-                                    @endif
+                                            @if (isset($user->country()->country_name) && $user->hide_my_country == 'no')
+                                                <small class="btn-block">
+                                                    <i class="feather icon-map-pin mr-1"></i>
+                                                    {{ $user->country()->country_name }}
+                                                </small>
+                                            @endif
 
-                                    @if ($user->youtube != '')
-                                        <a href="{{ $user->youtube }}" title="{{ $user->youtube }}" target="_blank"
-                                            class="text-muted share-btn-user"><i class="fab fa-youtube mr-2"></i></a>
-                                    @endif
+                                            @if ($user->show_my_birthdate == 'yes')
+                                                <small class="btn-block m-0 mb-1">
+                                                    <i class="far fa-calendar-alt mr-1"></i>
+                                                    {{ __('general.birthdate') }}
+                                                    {{ Helper::formatDate($user->birthdate) }}
+                                                    ({{ \Carbon\Carbon::parse($user->birthdate)->age }}
+                                                    {{ __('general.years') }})
+                                                </small>
+                                            @endif
 
-                                    @if ($user->pinterest != '')
-                                        <a href="{{ $user->pinterest }}" title="{{ $user->pinterest }}"
-                                            target="_blank" class="text-muted share-btn-user"><i
-                                                class="fab fa-pinterest-p mr-2"></i></a>
-                                    @endif
 
-                                    @if ($user->github != '')
-                                        <a href="{{ $user->github }}" title="{{ $user->github }}" target="_blank"
-                                            class="text-muted share-btn-user"><i class="fab fa-github mr-2"></i></a>
-                                    @endif
+                                            @if ($user->verified_id == 'yes')
+                                                <div class="truncated">
+                                                    {!! Helper::checkText($user->story) !!}
+                                                </div>
+                                                <a href="javascript:void(0);"
+                                                    class="display-none link-border">{{ __('general.view_all') }}</a>
+                                            @endif
+                                        </p>
 
-                                    @if ($user->snapchat != '')
-                                        <a href="{{ $user->snapchat }}" title="{{ $user->snapchat }}" target="_blank"
-                                            class="text-muted share-btn-user"><i class="bi-snapchat mr-2"></i></a>
-                                    @endif
+                                        {{-- @if ($user->website != '')
+                                            <div class="d-block mb-1 text-truncate">
+                                                <a href="{{ $user->website }}" title="{{ $user->website }}"
+                                                    target="_blank" class="text-muted share-btn-user"><i
+                                                        class="fa fa-link mr-1"></i>
+                                                    {{ Helper::removeHTPP($user->website) }}</a>
+                                            </div>
+                                        @endif
 
-                                    @if ($user->tiktok != '')
-                                        <a href="{{ $user->tiktok }}" title="{{ $user->tiktok }}" target="_blank"
-                                            class="text-muted share-btn-user"><i class="bi-tiktok mr-2"></i></a>
-                                    @endif
+                                        @if ($user->facebook != '')
+                                            <a href="{{ $user->facebook }}" title="{{ $user->facebook }}"
+                                                target="_blank" class="text-muted share-btn-user"><i
+                                                    class="bi-facebook mr-2"></i></a>
+                                        @endif
 
-                                    @if ($user->telegram != '')
-                                        <a href="{{ $user->telegram }}" title="{{ $user->telegram }}" target="_blank"
-                                            class="text-muted share-btn-user"><i class="bi-telegram mr-2"></i></a>
-                                    @endif
+                                        @if ($user->twitter != '')
+                                            <a href="{{ $user->twitter }}" title="{{ $user->twitter }}"
+                                                target="_blank" class="text-muted share-btn-user"><i
+                                                    class="bi-twitter-x mr-2"></i></a>
+                                        @endif
 
-                                    @if ($user->twitch != '')
-                                        <a href="{{ $user->twitch }}" title="{{ $user->twitch }}" target="_blank"
-                                            class="text-muted share-btn-user"><i class="bi-twitch mr-2"></i></a>
-                                    @endif
+                                        @if ($user->instagram != '')
+                                            <a href="{{ $user->instagram }}" title="{{ $user->instagram }}"
+                                                target="_blank" class="text-muted share-btn-user"><i
+                                                    class="fab fa-instagram mr-2"></i></a>
+                                        @endif
 
-                                    @if ($user->discord != '')
-                                        <a href="{{ $user->discord }}" title="{{ $user->discord }}" target="_blank"
-                                            class="text-muted share-btn-user"><i class="bi-discord mr-2"></i></a>
-                                    @endif
+                                        @if ($user->youtube != '')
+                                            <a href="{{ $user->youtube }}" title="{{ $user->youtube }}"
+                                                target="_blank" class="text-muted share-btn-user"><i
+                                                    class="fab fa-youtube mr-2"></i></a>
+                                        @endif
 
-                                    @if ($user->vk != '')
-                                        <a href="{{ $user->vk }}" title="{{ $user->vk }}" target="_blank"
-                                            class="text-muted share-btn-user"><i class="fab fa-vk mr-2"></i></a>
-                                    @endif
+                                        @if ($user->pinterest != '')
+                                            <a href="{{ $user->pinterest }}" title="{{ $user->pinterest }}"
+                                                target="_blank" class="text-muted share-btn-user"><i
+                                                    class="fab fa-pinterest-p mr-2"></i></a>
+                                        @endif
 
-                                    @if ($user->reddit != '')
-                                        <a href="{{ $user->reddit }}" title="{{ $user->reddit }}" target="_blank"
-                                            class="text-muted share-btn-user"><i class="bi-reddit mr-2"></i></a>
-                                    @endif
+                                        @if ($user->github != '')
+                                            <a href="{{ $user->github }}" title="{{ $user->github }}" target="_blank"
+                                                class="text-muted share-btn-user"><i class="fab fa-github mr-2"></i></a>
+                                        @endif
 
-                                    @if ($user->spotify != '')
-                                        <a href="{{ $user->spotify }}" title="{{ $user->spotify }}" target="_blank"
-                                            class="text-muted share-btn-user"><i class="bi-spotify mr-2"></i></a>
-                                    @endif
+                                        @if ($user->snapchat != '')
+                                            <a href="{{ $user->snapchat }}" title="{{ $user->snapchat }}"
+                                                target="_blank" class="text-muted share-btn-user"><i
+                                                    class="bi-snapchat mr-2"></i></a>
+                                        @endif
 
-                                    @if ($user->threads != '')
-                                        <a href="{{ $user->threads }}" title="{{ $user->threads }}" target="_blank"
-                                            class="text-muted share-btn-user"><i class="bi-threads mr-2"></i></a>
-                                    @endif
+                                        @if ($user->tiktok != '')
+                                            <a href="{{ $user->tiktok }}" title="{{ $user->tiktok }}" target="_blank"
+                                                class="text-muted share-btn-user"><i class="bi-tiktok mr-2"></i></a>
+                                        @endif
 
-                                    @if ($user->kick != '')
-                                        <a href="{{ $user->kick }}" title="{{ $user->kick }}" target="_blank"
-                                            class="text-muted share-btn-user"><i class="fab fa-kickstarter mr-2"></i></a>
-                                    @endif
+                                        @if ($user->telegram != '')
+                                            <a href="{{ $user->telegram }}" title="{{ $user->telegram }}"
+                                                target="_blank" class="text-muted share-btn-user"><i
+                                                    class="bi-telegram mr-2"></i></a>
+                                        @endif
 
-                                    @if ($user->categories_id != '0' && $user->categories_id != '' && $user->verified_id == 'yes')
-                                        <div class="w-100 mt-2">
+                                        @if ($user->twitch != '')
+                                            <a href="{{ $user->twitch }}" title="{{ $user->twitch }}" target="_blank"
+                                                class="text-muted share-btn-user"><i class="bi-twitch mr-2"></i></a>
+                                        @endif
 
-                                            @foreach (Categories::where('mode', 'on')->orderBy('name')->get() as $category)
-                                                @foreach ($categories as $categoryKey)
-                                                    @if ($categoryKey == $category->id)
-                                                        <a href="{{ url('category', $category->slug) }}"
-                                                            class="button-white-sm mb-2">
-                                                            #{{ Lang::has('categories.' . $category->slug) ? __('categories.' . $category->slug) : $category->name }}
-                                                        </a>
+                                        @if ($user->discord != '')
+                                            <a href="{{ $user->discord }}" title="{{ $user->discord }}"
+                                                target="_blank" class="text-muted share-btn-user"><i
+                                                    class="bi-discord mr-2"></i></a>
+                                        @endif
+
+                                        @if ($user->vk != '')
+                                            <a href="{{ $user->vk }}" title="{{ $user->vk }}" target="_blank"
+                                                class="text-muted share-btn-user"><i class="fab fa-vk mr-2"></i></a>
+                                        @endif
+
+                                        @if ($user->reddit != '')
+                                            <a href="{{ $user->reddit }}" title="{{ $user->reddit }}" target="_blank"
+                                                class="text-muted share-btn-user"><i class="bi-reddit mr-2"></i></a>
+                                        @endif
+
+                                        @if ($user->spotify != '')
+                                            <a href="{{ $user->spotify }}" title="{{ $user->spotify }}"
+                                                target="_blank" class="text-muted share-btn-user"><i
+                                                    class="bi-spotify mr-2"></i></a>
+                                        @endif
+
+                                        @if ($user->threads != '')
+                                            <a href="{{ $user->threads }}" title="{{ $user->threads }}"
+                                                target="_blank" class="text-muted share-btn-user"><i
+                                                    class="bi-threads mr-2"></i></a>
+                                        @endif
+
+                                        @if ($user->kick != '')
+                                            <a href="{{ $user->kick }}" title="{{ $user->kick }}" target="_blank"
+                                                class="text-muted share-btn-user"><i
+                                                    class="fab fa-kickstarter mr-2"></i></a>
+                                        @endif --}}
+
+                                        @if ($user->categories_id != '0' && $user->categories_id != '' && $user->verified_id == 'yes')
+                                            <div class="w-100 mt-2">
+
+                                                @foreach (Categories::where('mode', 'on')->orderBy('name')->get() as $category)
+                                                    @foreach ($categories as $categoryKey)
+                                                        @if ($categoryKey == $category->id)
+                                                            <a href="{{ url('category', $category->slug) }}"
+                                                                class="button-white-sm mb-2">
+                                                                #{{ Lang::has('categories.' . $category->slug) ? __('categories.' . $category->slug) : $category->name }}
+                                                            </a>
+                                                        @endif
+                                                    @endforeach
+                                                @endforeach
+
+                                            </div>
+                                        @endif
+                                    </div><!-- card-body -->
+                                </div><!-- card -->
+
+                                @if (auth()->check() && $totalPhotos != 0)
+                                    @php
+                                        $recentMedia = \App\Models\Media::with(['updates'])
+                                            ->where('media.type', 'image')
+                                            ->whereUserId($user->id)
+                                            ->where('media.updates_id', '<>', 0)
+                                            ->limit(3)
+                                            ->latest('media.id')
+                                            ->get();
+                                    @endphp
+
+                                    <div class="card recent-media rounded-lg">
+                                        <div class="card-body m-0 pb-0">
+                                        </div>
+                                        <h6 class="card-title pl-3 mb-0 card-title text-uppercase font-weight-bold">
+                                            {{ __('general.recent') }}</h6>
+                                        <div class="card-body ">
+
+                                            <div class="row">
+                                                @foreach ($recentMedia as $media)
+                                                    @php
+                                                        $checkPayPerView = auth()
+                                                            ->user()
+                                                            ->payPerView()
+                                                            ->where('updates_id', $media->updates_id)
+                                                            ->first();
+                                                    @endphp
+
+                                                    @if (
+                                                        ($media->updates->locked == 'yes' && $checkSubscription && $media->updates->price == 0.0) ||
+                                                            $media->updates->locked == 'no' ||
+                                                            auth()->user()->isSuperAdmin() ||
+                                                            auth()->id() == $media->user_id ||
+                                                            ($media->updates->locked == 'yes' && $media->updates->price != 0.0 && $checkPayPerView))
+                                                        <div class="col-4 p-1">
+                                                            <a
+                                                                href="{{ url($user->username, ['post', $media->updates_id]) }}">
+                                                                <img src="{{ url('files/storage', [$media->updates_id, $media->image]) }}?w=150&h=150&fit=crop"
+                                                                    class="rounded mb-2 mb-md-2 mb-lg-2 mb-xl-0 img-fluid">
+                                                            </a>
+                                                        </div>
+                                                    @elseif($media->updates->locked == 'yes' && $media->updates->price != 0.0 && !$checkPayPerView)
+                                                        <div class="col-4 p-1">
+                                                            <a href="javascript:void(0);"
+                                                                class="overflow-hidden position-relative d-block rounded"
+                                                                data-toggle="modal" data-target="#payPerViewForm"
+                                                                data-mediaid="{{ $media->updates->id }}"
+                                                                data-price="{{ Helper::formatPrice($media->updates->price, true) }}"
+                                                                data-subtotalprice="{{ Helper::formatPrice($media->updates->price) }}"
+                                                                data-pricegross="{{ $media->updates->price }}">
+                                                                <img src="{{ url('media/storage/blur', $media->image) }}"
+                                                                    class="rounded mb-2 mb-md-2 mb-lg-2 mb-xl-0 img-fluid">
+
+                                                                <div class="thumbnail-overlay show">
+                                                                    <div class="thumbnail-play">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                            width="28" height="28"
+                                                                            viewBox="0 0 24 24" fill="none"
+                                                                            stroke="currentColor" stroke-width="2"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round">
+                                                                            <rect x="3" y="11" width="18"
+                                                                                height="11" rx="2"
+                                                                                ry="2"></rect>
+                                                                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                            <small class="d-block w-100 text-center text-truncate"
+                                                                style="position: absolute; bottom: 10px; color: #fff; font-size: 11px;">{{ __('general.ppv') }}</small>
+                                                        </div>
+                                                    @else
+                                                        <div class="col-4 p-1">
+                                                            <a href="javascript:void(0);"
+                                                                class="overflow-hidden position-relative d-block rounded"
+                                                                data-toggle="modal"
+                                                                data-target="{{ $user->free_subscription == 'yes' ? '#subscriptionFreeForm' : '#subscriptionForm' }}">
+                                                                <img src="{{ url('media/storage/blur', $media->image) }}"
+                                                                    class="rounded mb-2 mb-md-2 mb-lg-2 mb-xl-0 img-fluid">
+
+                                                                <div class="thumbnail-overlay show">
+                                                                    <div class="thumbnail-play">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                                            width="28" height="28"
+                                                                            viewBox="0 0 24 24" fill="none"
+                                                                            stroke="currentColor" stroke-width="2"
+                                                                            stroke-linecap="round"
+                                                                            stroke-linejoin="round">
+                                                                            <rect x="3" y="11" width="18"
+                                                                                height="11" rx="2"
+                                                                                ry="2"></rect>
+                                                                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        </div>
                                                     @endif
                                                 @endforeach
-                                            @endforeach
-
-                                        </div>
-                                    @endif
-                                </div><!-- card-body -->
-                            </div><!-- card -->
-
-                            @if (auth()->check() && $totalPhotos != 0)
-                                @php
-                                    $recentMedia = \App\Models\Media::with(['updates'])
-                                        ->where('media.type', 'image')
-                                        ->whereUserId($user->id)
-                                        ->where('media.updates_id', '<>', 0)
-                                        ->limit(3)
-                                        ->latest('media.id')
-                                        ->get();
-                                @endphp
-
-                                <div class="card recent-media rounded-lg">
-                                    <div class="card-body m-0 pb-0">
-                                    </div>
-                                    <h6 class="card-title pl-3 mb-0 card-title text-uppercase font-weight-bold">
-                                        {{ __('general.recent') }}</h6>
-                                    <div class="card-body ">
-
-                                        <div class="row">
-                                            @foreach ($recentMedia as $media)
-                                                @php
-                                                    $checkPayPerView = auth()
-                                                        ->user()
-                                                        ->payPerView()
-                                                        ->where('updates_id', $media->updates_id)
-                                                        ->first();
-                                                @endphp
-
-                                                @if (
-                                                    ($media->updates->locked == 'yes' && $checkSubscription && $media->updates->price == 0.0) ||
-                                                        $media->updates->locked == 'no' ||
-                                                        auth()->user()->isSuperAdmin() ||
-                                                        auth()->id() == $media->user_id ||
-                                                        ($media->updates->locked == 'yes' && $media->updates->price != 0.0 && $checkPayPerView))
-                                                    <div class="col-4 p-1">
-                                                        <a
-                                                            href="{{ url($user->username, ['post', $media->updates_id]) }}">
-                                                            <img src="{{ url('files/storage', [$media->updates_id, $media->image]) }}?w=150&h=150&fit=crop"
-                                                                class="rounded mb-2 mb-md-2 mb-lg-2 mb-xl-0 img-fluid">
-                                                        </a>
-                                                    </div>
-                                                @elseif($media->updates->locked == 'yes' && $media->updates->price != 0.0 && !$checkPayPerView)
-                                                    <div class="col-4 p-1">
-                                                        <a href="javascript:void(0);"
-                                                            class="overflow-hidden position-relative d-block rounded"
-                                                            data-toggle="modal" data-target="#payPerViewForm"
-                                                            data-mediaid="{{ $media->updates->id }}"
-                                                            data-price="{{ Helper::formatPrice($media->updates->price, true) }}"
-                                                            data-subtotalprice="{{ Helper::formatPrice($media->updates->price) }}"
-                                                            data-pricegross="{{ $media->updates->price }}">
-                                                            <img src="{{ url('media/storage/blur', $media->image) }}"
-                                                                class="rounded mb-2 mb-md-2 mb-lg-2 mb-xl-0 img-fluid">
-
-                                                            <div class="thumbnail-overlay show">
-                                                                <div class="thumbnail-play">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="28"
-                                                                        height="28" viewBox="0 0 24 24" fill="none"
-                                                                        stroke="currentColor" stroke-width="2"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                        <rect x="3" y="11" width="18" height="11"
-                                                                            rx="2" ry="2"></rect>
-                                                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                        <small class="d-block w-100 text-center text-truncate"
-                                                            style="position: absolute; bottom: 10px; color: #fff; font-size: 11px;">{{ __('general.ppv') }}</small>
-                                                    </div>
-                                                @else
-                                                    <div class="col-4 p-1">
-                                                        <a href="javascript:void(0);"
-                                                            class="overflow-hidden position-relative d-block rounded"
-                                                            data-toggle="modal"
-                                                            data-target="{{ $user->free_subscription == 'yes' ? '#subscriptionFreeForm' : '#subscriptionForm' }}">
-                                                            <img src="{{ url('media/storage/blur', $media->image) }}"
-                                                                class="rounded mb-2 mb-md-2 mb-lg-2 mb-xl-0 img-fluid">
-
-                                                            <div class="thumbnail-overlay show">
-                                                                <div class="thumbnail-play">
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="28"
-                                                                        height="28" viewBox="0 0 24 24" fill="none"
-                                                                        stroke="currentColor" stroke-width="2"
-                                                                        stroke-linecap="round" stroke-linejoin="round">
-                                                                        <rect x="3" y="11" width="18" height="11"
-                                                                            rx="2" ry="2"></rect>
-                                                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                        </a>
-                                                    </div>
-                                                @endif
-                                            @endforeach
+                                            </div>
                                         </div>
                                     </div>
+                                @endif
+
+                                <div class="d-lg-block d-none">
+                                    @include('includes.footer-tiny')
+                                </div>
+
+                            </div><!-- navbar-collapse -->
+                        </div><!-- col-lg-4 -->
+
+                        <div class="col-lg-8 wrap-post">
+
+                            @if (auth()->check() &&
+                                    auth()->id() == $user->id &&
+                                    !$userPlanMonthlyActive &&
+                                    auth()->user()->free_subscription == 'no')
+                                <div class="alert alert-danger mb-3">
+                                    <ul class="list-unstyled m-0">
+                                        <li><i class="fa fa-exclamation-triangle"></i>
+                                            {{ __('general.alert_not_subscription') }} <a
+                                                href="{{ url('settings/subscription') }}"
+                                                class="text-white link-border">{{ __('general.activate') }}</a></li>
+                                    </ul>
                                 </div>
                             @endif
 
-                            <div class="d-lg-block d-none">
-                                @include('includes.footer-tiny')
-                            </div>
-
-                        </div><!-- navbar-collapse -->
-                    </div><!-- col-lg-4 -->
-
-                    <div class="col-lg-8 wrap-post">
-
-                        @if (auth()->check() &&
-                                auth()->id() == $user->id &&
-                                !$userPlanMonthlyActive &&
-                                auth()->user()->free_subscription == 'no')
-                            <div class="alert alert-danger mb-3">
-                                <ul class="list-unstyled m-0">
-                                    <li><i class="fa fa-exclamation-triangle"></i>
-                                        {{ __('general.alert_not_subscription') }} <a
-                                            href="{{ url('settings/subscription') }}"
-                                            class="text-white link-border">{{ __('general.activate') }}</a></li>
-                                </ul>
-                            </div>
-                        @endif
-
-                        @if (auth()->check() &&
-                                auth()->id() == $user->id &&
-                                request()->path() == $user->username &&
-                                auth()->user()->verified_id != 'reject')
-                            @include('includes.form-post')
-                        @endif
-
-                        @if ($updates->count() == 0 || ($updates->count() == 0 && $media))
-                            <div class="grid-updates"></div>
-
-                            <div class="my-5 text-center no-updates">
-                                <span class="btn-block mb-3">
-                                    <i class="fa fa-photo-video ico-no-result"></i>
-                                </span>
-                                <h4 class="font-weight-light">{{ __('general.no_posts_posted') }}</h4>
-                            </div>
-                        @else
-                            @if ((!request()->get('sort') && $totalPosts > $settings->number_posts_show) || request()->get('sort'))
-                                <div class="w-100 d-flex justify-content-end align-items-center mb-3 px-lg-0 px-3">
-
-                                    @if ((auth()->guest() && $user->posts_privacy) || auth()->check())
-                                        <div>
-                                            <i class="bi-filter-right mr-1"></i>
-
-                                            <select
-                                                class="@if ($settings->button_style == 'rounded') rounded-pill @endif custom-select w-auto px-4"
-                                                id="filter">
-                                                <option @if (!request()->get('sort')) selected @endif
-                                                    value="{{ url()->current() }}{{ request()->get('q') ? '?q=' . str_replace('#', '%23', request()->get('q')) : null }}">
-                                                    {{ __('general.latest') }}</option>
-                                                <option @if (request()->get('sort') == 'oldest') selected @endif
-                                                    value="{{ url()->current() }}{{ request()->get('q') ? '?q=' . str_replace('#', '%23', request()->get('q')) . '&' : '?' }}sort=oldest">
-                                                    {{ __('general.oldest') }}</option>
-                                                <option @if (request()->get('sort') == 'unlockable') selected @endif
-                                                    value="{{ url()->current() }}{{ request()->get('q') ? '?q=' . str_replace('#', '%23', request()->get('q')) . '&' : '?' }}sort=unlockable">
-                                                    {{ __('general.unlockable') }}</option>
-                                                <option @if (request()->get('sort') == 'free') selected @endif
-                                                    value="{{ url()->current() }}{{ request()->get('q') ? '?q=' . str_replace('#', '%23', request()->get('q')) . '&' : '?' }}sort=free">
-                                                    {{ __('general.free') }}</option>
-                                            </select>
-                                        </div>
-                                    @endif
-
-                                </div>
+                            @if (auth()->check() &&
+                                    auth()->id() == $user->id &&
+                                    request()->path() == $user->username &&
+                                    auth()->user()->verified_id != 'reject')
+                                @include('includes.form-post')
                             @endif
 
-                            @if (auth()->guest() && !$user->posts_privacy)
+                            @if ($updates->count() == 0 || ($updates->count() == 0 && $media))
+                                <div class="grid-updates"></div>
+
                                 <div class="my-5 text-center no-updates">
                                     <span class="btn-block mb-3">
-                                        <i class="fa fa-lock ico-no-result"></i>
+                                        <i class="fa fa-photo-video ico-no-result"></i>
                                     </span>
-                                    <h4 class="font-weight-light">
-                                        {{ __('general.alert_posts_privacy', ['user' => '@' . $user->username]) }}</h4>
+                                    <h4 class="font-weight-light">{{ __('general.no_posts_posted') }}</h4>
                                 </div>
                             @else
-                                <div class="grid-updates position-relative" id="updatesPaginator">
-                                    @include('includes.updates')
-                                </div>
-                            @endif
+                                @if ((!request()->get('sort') && $totalPosts > $settings->number_posts_show) || request()->get('sort'))
+                                    <div class="w-100 d-flex justify-content-end align-items-center mb-3 px-lg-0 px-3">
 
-                        @endif
-                    </div>
-                </div><!-- row -->
-            </div><!-- container -->
+                                        @if ((auth()->guest() && $user->posts_privacy) || auth()->check())
+                                            <div>
+                                                <i class="bi-filter-right mr-1"></i>
+
+                                                <select
+                                                    class="@if ($settings->button_style == 'rounded') rounded-pill @endif custom-select w-auto px-4"
+                                                    id="filter">
+                                                    <option @if (!request()->get('sort')) selected @endif
+                                                        value="{{ url()->current() }}{{ request()->get('q') ? '?q=' . str_replace('#', '%23', request()->get('q')) : null }}">
+                                                        {{ __('general.latest') }}</option>
+                                                    <option @if (request()->get('sort') == 'oldest') selected @endif
+                                                        value="{{ url()->current() }}{{ request()->get('q') ? '?q=' . str_replace('#', '%23', request()->get('q')) . '&' : '?' }}sort=oldest">
+                                                        {{ __('general.oldest') }}</option>
+                                                    <option @if (request()->get('sort') == 'unlockable') selected @endif
+                                                        value="{{ url()->current() }}{{ request()->get('q') ? '?q=' . str_replace('#', '%23', request()->get('q')) . '&' : '?' }}sort=unlockable">
+                                                        {{ __('general.unlockable') }}</option>
+                                                    <option @if (request()->get('sort') == 'free') selected @endif
+                                                        value="{{ url()->current() }}{{ request()->get('q') ? '?q=' . str_replace('#', '%23', request()->get('q')) . '&' : '?' }}sort=free">
+                                                        {{ __('general.free') }}</option>
+                                                </select>
+                                            </div>
+                                        @endif
+
+                                    </div>
+                                @endif
+
+                                @if (auth()->guest() && !$user->posts_privacy)
+                                    <div class="my-5 text-center no-updates">
+                                        <span class="btn-block mb-3">
+                                            <i class="fa fa-lock ico-no-result"></i>
+                                        </span>
+                                        <h4 class="font-weight-light">
+                                            {{ __('general.alert_posts_privacy', ['user' => '@' . $user->username]) }}
+                                        </h4>
+                                    </div>
+                                @else
+                                    <div class="grid-updates position-relative" id="updatesPaginator">
+                                        @include('includes.updates')
+                                    </div>
+                                @endif
+
+                            @endif
+                        </div>
+                    </div><!-- row -->
+                </div><!-- container -->
             @endif
 
             @if (auth()->check() && $user->verified_id == 'yes' && request('media') == 'reels')
