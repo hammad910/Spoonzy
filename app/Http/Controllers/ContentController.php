@@ -19,7 +19,7 @@ class ContentController extends Controller
     {
         try {
             $contents = Content::getUserContents();
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $contents,
@@ -41,7 +41,7 @@ class ContentController extends Controller
     {
         try {
             $content = Content::createContent($request->validated());
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $content,
@@ -62,10 +62,11 @@ class ContentController extends Controller
     public function show(string $id): JsonResponse
     {
         try {
-            $content = Content::forCurrentUser()
-                ->with(['experimentEntries'])
+            $content = Content::with(['creator' => function($q) {
+                    $q->select('id', 'name', 'verified_id');
+                }])
                 ->findOrFail($id);
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $content,
@@ -91,9 +92,18 @@ class ContentController extends Controller
     public function update(UpdateContentRequest $request, string $id): JsonResponse
     {
         try {
-            $content = Content::forCurrentUser()->findOrFail($id);
-            $content->updateContent($request->validated());
+            $content = Content::findOrFail($id);
             
+            // Check if user owns the content or is admin
+            if ($content->creator_id !== auth()->id() && !auth()->user()->is_admin) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Unauthorized to update this content.'
+                ], 403);
+            }
+
+            $content->updateContent($request->validated());
+
             return response()->json([
                 'success' => true,
                 'data' => $content,
@@ -119,9 +129,18 @@ class ContentController extends Controller
     public function destroy(string $id): JsonResponse
     {
         try {
-            $content = Content::forCurrentUser()->findOrFail($id);
-            $content->delete();
+            $content = Content::findOrFail($id);
             
+            // Check if user owns the content or is admin
+            if ($content->creator_id !== auth()->id() && !auth()->user()->is_admin) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Unauthorized to delete this content.'
+                ], 403);
+            }
+
+            $content->delete();
+
             return response()->json([
                 'success' => true,
                 'message' => 'Content deleted successfully.'
@@ -143,14 +162,25 @@ class ContentController extends Controller
     /**
      * Get experiments only
      */
-    public function getExperiments(): JsonResponse
+    public function getExperiments(Request $request): JsonResponse
     {
         try {
-            $experiments = Content::getExperiments();
-            
+            $tab = $request->get('tab', 'my-experiments');
+            $page = $request->get('page', 1);
+            $limit = $request->get('limit', 10);
+
+            $experiments = Content::getExperimentsWithPagination($tab, $page, $limit);
+
             return response()->json([
                 'success' => true,
-                'data' => $experiments,
+                'data' => $experiments->items(),
+                'pagination' => [
+                    'current_page' => $experiments->currentPage(),
+                    'total_pages' => $experiments->lastPage(),
+                    'total_items' => $experiments->total(),
+                    'per_page' => $experiments->perPage(),
+                    'has_more' => $experiments->hasMorePages(),
+                ],
                 'message' => 'Experiments retrieved successfully.'
             ]);
         } catch (\Exception $e) {
@@ -169,7 +199,7 @@ class ContentController extends Controller
     {
         try {
             $documentaries = Content::getDocumentaries();
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $documentaries,
@@ -191,7 +221,7 @@ class ContentController extends Controller
     {
         try {
             $stats = Content::getContentStats();
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $stats,
@@ -213,18 +243,17 @@ class ContentController extends Controller
     {
         try {
             $searchTerm = $request->get('q');
-            
+
             if (!$searchTerm) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Search term is required.'
                 ], 400);
             }
-            
-            $contents = Content::forCurrentUser()
-                ->search($searchTerm)
+
+            $contents = Content::search($searchTerm)
                 ->get();
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $contents,
@@ -245,20 +274,20 @@ class ContentController extends Controller
     public function addExperimentEntry(StoreExperimentEntryRequest $request, string $id): JsonResponse
     {
         try {
-            $content = Content::forCurrentUser()->findOrFail($id);
-            
+            $content = Content::findOrFail($id);
+
             if ($content->content_type !== 'experiment') {
                 return response()->json([
                     'success' => false,
                     'message' => 'Can only add experiment entries to experiment content.'
                 ], 400);
             }
-            
+
             $entryData = $request->validated();
             $entryData['content_id'] = $id;
-            
+
             $experimentEntry = ExperimentEntry::createExperimentEntry($entryData);
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $experimentEntry,
@@ -284,17 +313,17 @@ class ContentController extends Controller
     public function getExperimentEntries(string $id): JsonResponse
     {
         try {
-            $content = Content::forCurrentUser()->findOrFail($id);
-            
+            $content = Content::findOrFail($id);
+
             if ($content->content_type !== 'experiment') {
                 return response()->json([
                     'success' => false,
                     'message' => 'Content is not an experiment.'
                 ], 400);
             }
-            
+
             $entries = ExperimentEntry::getContentEntries($id);
-            
+
             return response()->json([
                 'success' => true,
                 'data' => $entries,

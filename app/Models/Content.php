@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
-
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 class Content extends Model
 {
@@ -16,7 +17,7 @@ class Content extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    protected $fillable = ['creator_id', 'title', 'description', 'content_type', 'media_url', 'categories'];
+    protected $fillable = ['creator_id', 'title', 'description', 'content_type', 'media_url', 'categories', 'status'];
 
     protected $casts = [
         'created_at' => 'datetime',
@@ -37,7 +38,7 @@ class Content extends Model
     // ==================== SCOPES ====================
     public function scopeForCurrentUser($query)
     {
-        return $query->where('creator_id', auth()->id()); // Temporary fix
+        return $query->where('creator_id', auth()->id());
     }
 
     public function scopeForCreator($query, $creatorId)
@@ -78,6 +79,28 @@ class Content extends Model
         });
     }
 
+    public function scopeArchived($query)
+    {
+        return $query->where('status', 'archived');
+    }
+
+    public function scopePending($query)
+    {
+        return $query->where('status', 'pending');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
+
+    public function scopeVerifiedCreators($query)
+    {
+        return $query->whereHas('creator', function($q) {
+            $q->where('verified_id', 'yes');
+        });
+    }
+
     // ==================== RELATIONSHIPS ====================
     public function creator()
     {
@@ -92,10 +115,9 @@ class Content extends Model
     // ==================== BUSINESS LOGIC METHODS ====================
     public static function createContent(array $data)
     {
-        $data['content_id'] = Str::uuid();
-        $data['creator_id'] = auth()->id(); // Temporary fix
+        $data['id'] = Str::uuid();
+        $data['creator_id'] = auth()->id();
 
-        // Convert arrays to JSON if needed
         if (isset($data['media_url']) && is_array($data['media_url'])) {
             $data['media_url'] = json_encode($data['media_url']);
         }
@@ -109,7 +131,6 @@ class Content extends Model
 
     public function updateContent(array $data)
     {
-        // Convert arrays to JSON if needed
         if (isset($data['media_url']) && is_array($data['media_url'])) {
             $data['media_url'] = json_encode($data['media_url']);
         }
@@ -123,26 +144,47 @@ class Content extends Model
 
     public static function getUserContents($userId = null)
     {
-        $userId = $userId ?? (auth()->id()); // Temporary fix
+        $userId = $userId ?? auth()->id();
 
         return static::forCreator($userId)
             ->latestFirst()
             ->get();
     }
 
-    public static function getExperiments($userId = null)
+    public static function getExperimentsWithPagination($tab = 'my-experiments', $page = 1, $limit = 10)
     {
-        $userId = $userId ?? (auth()->id());
+        $userId = auth()->id();
 
-        return static::with('creator')->forCreator($userId)
+        $query = static::with(['creator' => function($q) {
+                $q->select('id', 'name', 'verified_id');
+            }])
             ->experiments()
-            ->latestFirst()
-            ->get();
+            ->latestFirst();
+
+        switch ($tab) {
+            case 'my-experiments':
+                $query->forCreator($userId);
+                break;
+
+            case 'creators-experiments':
+                $query->verifiedCreators();
+                break;
+
+            case 'archived-experiments':
+                $query->archived();
+                break;
+
+            case 'pending-experiments':
+                $query->pending();
+                break;
+        }
+
+        return $query->paginate($limit, ['*'], 'page', $page);
     }
 
     public static function getDocumentaries($userId = null)
     {
-        $userId = $userId ?? (auth()->id());
+        $userId = $userId ?? auth()->id();
 
         return static::forCreator($userId)
             ->documentaries()
@@ -152,7 +194,7 @@ class Content extends Model
 
     public static function getContentStats($userId = null)
     {
-        $userId = $userId ?? (auth()->id());
+        $userId = $userId ?? auth()->id();
 
         return static::forCreator($userId)
             ->selectRaw('
@@ -183,16 +225,18 @@ class Content extends Model
             'title' => 'required|string|max:255',
             'description' => 'required|string|max:2000',
             'content_type' => 'required|in:experiment,documentary',
+            'status' => 'required|in:active,pending,archived',
             'media_url' => 'nullable|array',
             'media_url.*' => 'url|max:500',
-            'categories' => 'nullable|array',
-            'categories.*' => 'string|max:100'
+            'categories' => 'required|string|max:255'
         ];
 
         if ($forUpdate) {
             $rules['title'] = 'sometimes|string|max:255';
             $rules['description'] = 'sometimes|string|max:2000';
             $rules['content_type'] = 'sometimes|in:experiment,documentary';
+            $rules['status'] = 'sometimes|in:active,pending,archived';
+            $rules['categories'] = 'sometimes|string|max:255';
         }
 
         return $rules;
