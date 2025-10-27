@@ -434,6 +434,7 @@ return array(
 	'subtitle_delete_account' => 'Confirm deletion of your account',
 	'enter_password' => 'Enter your password',
 	'notice_delete_account' => 'We are sorry that you want to delete your account, this action cannot be reversed, all your data, posts and your subscriptions will be deleted, if you decide to do so enter your password in the following field.',
+	'notification' => 'Notifications',
 
 	// Version 1.2
 	'bank' => 'Bank',

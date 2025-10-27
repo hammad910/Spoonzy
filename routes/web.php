@@ -60,9 +60,13 @@ use App\Http\Controllers\UploadMediaStoryController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\WebhookCard2CryptoController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\ContentController;
+use App\Http\Controllers\ExperimentController;
 use App\Http\Controllers\UploadMediaFileShopController;
 use App\Http\Controllers\UploadMediaMessageController; 
 use App\Http\Controllers\LiveStreamingPrivateController;
+use App\Http\Controllers\MoodController;
+use App\Http\Controllers\SupplementController;
 use App\Http\Controllers\UploadMediaPreviewShopController;
 use App\Http\Controllers\UploadMediaVaultController;
 use App\Http\Controllers\UploadMediaWelcomeMessageController;
@@ -638,6 +642,9 @@ Route::get('verify/account/{confirmation_code}', [HomeController::class, 'getVer
 	// Get Vault Files
 	Route::post('get/vault/files', [VaultController::class, 'getFiles']);
 
+
+	Route::get('experiments', [ExperimentController::class, 'index']);
+
  });//<------ End User Views LOGGED
 
 // Private content
@@ -1155,3 +1162,30 @@ Route::post('webhook/sightengine/video-moderation/{videoId}', [WebhookSightengin
 // Coconut Video Encoding Vault
 Route::post('webhook/storage/vault/{id}/{data}', [StorageCoconutController::class, 'storageVault']);
 Route::any('webhook/vault/coco/{mediaId}', [WebhookCoconutController::class, 'webhookVault'])->name('webhook.vault.coco');
+
+
+// Health Tracking Work
+// Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('bristol-entries', 'BristolStoolController');
+
+    Route::get('supplements/today', [SupplementController::class, 'getTodaySupplements']);
+    Route::get('supplements/stats', [SupplementController::class, 'getStats']);
+    Route::get('supplements/frequent', [SupplementController::class, 'getFrequentlyUsed']);
+    Route::apiResource('supplements', 'SupplementController');
+    
+    Route::get('mood-entries/today', [MoodController::class, 'getTodayMoods']);
+    Route::get('mood-entries/stats', [MoodController::class, 'getStats']);
+    Route::get('mood-entries/trends', [MoodController::class, 'getTrends']);
+    Route::get('mood-entries/tags/common', [MoodController::class, 'getCommonTags']);
+    Route::apiResource('mood-entries', 'MoodController');
+
+    Route::get('contents/experiments', [ContentController::class, 'getExperiments']);
+    Route::get('contents/documentaries', [ContentController::class, 'getDocumentaries']);
+    Route::get('contents/stats', [ContentController::class, 'getStats']);
+    Route::get('contents/search', [ContentController::class, 'search']);
+    Route::get('contents/{id}/experiment-entries', [ContentController::class, 'getExperimentEntries']);
+    Route::post('contents/{id}/experiment-entries', [ContentController::class, 'addExperimentEntry']);
+    Route::apiResource('contents', 'ContentController');
+    
+    Route::apiResource('experiment-entries', 'ExperimentEntryController');
+// });

@@ -11,16 +11,14 @@ class Content extends Model
 {
     use HasFactory;
 
-    protected $table = 'content';
-    protected $primaryKey = 'content_id';
+    protected $table = 'experiment';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = ['creator_id', 'title', 'description', 'content_type', 'media_url', 'categories'];
 
     protected $casts = [
-        'media_url' => 'array',
-        'categories' => 'array',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
@@ -39,7 +37,7 @@ class Content extends Model
     // ==================== SCOPES ====================
     public function scopeForCurrentUser($query)
     {
-        return $query->where('creator_id', auth()->id() ?? 2); // Temporary fix
+        return $query->where('creator_id', auth()->id()); // Temporary fix
     }
 
     public function scopeForCreator($query, $creatorId)
@@ -95,7 +93,7 @@ class Content extends Model
     public static function createContent(array $data)
     {
         $data['content_id'] = Str::uuid();
-        $data['creator_id'] = auth()->id() ?? 2; // Temporary fix
+        $data['creator_id'] = auth()->id(); // Temporary fix
 
         // Convert arrays to JSON if needed
         if (isset($data['media_url']) && is_array($data['media_url'])) {
@@ -125,7 +123,7 @@ class Content extends Model
 
     public static function getUserContents($userId = null)
     {
-        $userId = $userId ?? (auth()->id() ?? 2); // Temporary fix
+        $userId = $userId ?? (auth()->id()); // Temporary fix
 
         return static::forCreator($userId)
             ->latestFirst()
@@ -134,9 +132,9 @@ class Content extends Model
 
     public static function getExperiments($userId = null)
     {
-        $userId = $userId ?? (auth()->id() ?? 2);
+        $userId = $userId ?? (auth()->id());
 
-        return static::forCreator($userId)
+        return static::with('creator')->forCreator($userId)
             ->experiments()
             ->latestFirst()
             ->get();
@@ -144,7 +142,7 @@ class Content extends Model
 
     public static function getDocumentaries($userId = null)
     {
-        $userId = $userId ?? (auth()->id() ?? 2);
+        $userId = $userId ?? (auth()->id());
 
         return static::forCreator($userId)
             ->documentaries()
@@ -154,7 +152,7 @@ class Content extends Model
 
     public static function getContentStats($userId = null)
     {
-        $userId = $userId ?? (auth()->id() ?? 2);
+        $userId = $userId ?? (auth()->id());
 
         return static::forCreator($userId)
             ->selectRaw('

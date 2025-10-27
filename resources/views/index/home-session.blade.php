@@ -68,7 +68,6 @@
     margin-top: 0 !important;
   }
 }
-  }
 </style>
 @section('content')
     <section class="section section-sm">
