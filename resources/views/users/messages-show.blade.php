@@ -31,8 +31,8 @@
 
     /* Left menu sidebar: desktop only */
     .menu-sidebar {
-        flex: 0 0 15%;
-        max-width: 15%;
+        flex: 0 0 20%;
+        max-width: 35%;
         border-right: 1px solid #ddd;
         padding: 20px;
         overflow-y: auto;
@@ -43,7 +43,6 @@
     /* Messages inbox: appears on md+ and lg */
     .msg-inbox {
         flex: 0 0 25%;
-        max-width: 25%;
         border-right: 1px solid #ddd;
         height: 100vh;
         overflow-y: auto;
@@ -85,6 +84,12 @@
     }
 
     /* Fileuploader fix kept */
+    @media (max-width: 1200px) {
+        .menu-sidebar {
+        flex: 0 0 23%;
+
+    }
+    }
     @media (min-width: 991px) {
         .fileuploader-theme-thumbnails .fileuploader-thumbnails-input,
         .fileuploader-theme-thumbnails .fileuploader-items-list .fileuploader-item {
@@ -102,7 +107,7 @@
     /* Hide left menu for widths < 992px */
     @media (max-width: 991.98px) {
         .menu-sidebar { display: none !important; }
-        .msg-inbox { flex: 0 0 35%; max-width: 35%; } /* give more room on tablet */
+        .msg-inbox { flex: 0 0 35%; } /* give more room on tablet */
     }
 
     /* Hide inbox (and menu) for widths < 768px */

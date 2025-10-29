@@ -62,6 +62,7 @@ use App\Http\Controllers\WebhookCard2CryptoController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\ExperimentController;
+use App\Http\Controllers\HealthTracking;
 use App\Http\Controllers\UploadMediaFileShopController;
 use App\Http\Controllers\UploadMediaMessageController; 
 use App\Http\Controllers\LiveStreamingPrivateController;
@@ -644,6 +645,7 @@ Route::get('verify/account/{confirmation_code}', [HomeController::class, 'getVer
 
 
 	Route::get('experiments', [ExperimentController::class, 'index']);
+	Route::get('health-tracking', [HealthTracking::class, 'index']);
 
  });//<------ End User Views LOGGED
 
