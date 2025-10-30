@@ -23,7 +23,7 @@
                 <div class="col-lg-10 col-12 p-4" style="background: #FBFBFB;">
                     <div class="d-flex d-lg-none justify-content-between align-items-center mb-3">
                         <h4 class="fw-semibold mb-0">Experiments</h4>
-                        <button class="btn px-2"
+                        <button class="btn px-2" data-bs-toggle="modal" data-bs-target="#createExperimentModal"
                             style="background: {{ $settings->theme_color_pwa ?? '#469DFA' }}; color: white; font-size: 14px;">
                             <i class="bi bi-plus-lg"></i> Create Experiment
                         </button>
@@ -31,7 +31,7 @@
 
                     <div class="d-none d-lg-flex justify-content-between align-items-center mb-4">
                         <h4 class="fw-semibold mb-0" style="color: black">Experiments</h4>
-                        <button class="btn px-3"
+                        <button class="btn px-3" data-bs-toggle="modal" data-bs-target="#createExperimentModal"
                             style="background: {{ $settings->theme_color_pwa ?? '#469DFA' }}; color: white;">
                             <i class="bi bi-plus-lg"></i> Create Experiment
                         </button>
@@ -97,6 +97,64 @@
         </div>
     </section>
 
+    <!-- Create Experiment Modal -->
+    <div class="modal fade" id="createExperimentModal" tabindex="-1" aria-labelledby="createExperimentModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createExperimentModalLabel">Create New Experiment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="createExperimentForm" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="create_title" class="form-label">Experiment Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="create_title" name="title" required>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="create_categories" class="form-label">Category <span class="text-danger">*</span></label>
+                                <select class="form-control" id="create_categories" name="categories" required>
+                                    <option value="">Select Category</option>
+                                    <option value="Biology">Biology</option>
+                                    <option value="Chemistry">Chemistry</option>
+                                    <option value="Physics">Physics</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Computer Science">Computer Science</option>
+                                    <option value="Psychology">Psychology</option>
+                                    <option value="Environmental Science">Environmental Science</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="create_description" class="form-label">Description</label>
+                                <textarea class="form-control" id="create_description" name="description" rows="3" placeholder="Enter experiment description"></textarea>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="create_supplements" class="form-label">Supplements</label>
+                                <textarea class="form-control" id="create_supplements" name="supplements" rows="3" placeholder="Enter any supplements or additional information"></textarea>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="create_image" class="form-label">Experiment Image</label>
+                                <input type="file" class="form-control" id="create_image" name="image" accept="image/*">
+                                <div class="form-text">Upload an image for your experiment (optional)</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="createExperimentBtn">
+                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                            Create Experiment
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Edit Experiment Modal -->
     <div class="modal fade" id="editExperimentModal" tabindex="-1" aria-labelledby="editExperimentModalLabel"
         aria-hidden="true">
@@ -106,7 +164,7 @@
                     <h5 class="modal-title" id="editExperimentModalLabel">Edit Experiment</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="editExperimentForm">
+                <form id="editExperimentForm" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="modal-body">
@@ -140,11 +198,24 @@
                                 <label for="edit_description" class="form-label">Description</label>
                                 <textarea class="form-control" id="edit_description" name="description" rows="3"></textarea>
                             </div>
+                            <div class="col-12 mb-3">
+                                <label for="edit_supplements" class="form-label">Supplements</label>
+                                <textarea class="form-control" id="edit_supplements" name="supplements" rows="3"></textarea>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="edit_image" class="form-label">Experiment Image</label>
+                                <input type="file" class="form-control" id="edit_image" name="image" accept="image/*">
+                                <div class="form-text">Current image will be replaced if a new one is uploaded</div>
+                                <div id="currentImageContainer" class="mt-2"></div>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Update Experiment</button>
+                        <button type="submit" class="btn btn-primary" id="updateExperimentBtn">
+                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                            Update Experiment
+                        </button>
                     </div>
                 </form>
             </div>
@@ -170,8 +241,12 @@
             const experimentCount = document.getElementById('experimentCount');
             const tableTitle = document.getElementById('tableTitle');
             const tabLinks = document.querySelectorAll('#experimentTabs .nav-link');
+            const createExperimentModal = new bootstrap.Modal(document.getElementById('createExperimentModal'));
             const editExperimentModal = new bootstrap.Modal(document.getElementById('editExperimentModal'));
+            const createExperimentForm = document.getElementById('createExperimentForm');
             const editExperimentForm = document.getElementById('editExperimentForm');
+            const createExperimentBtn = document.getElementById('createExperimentBtn');
+            const updateExperimentBtn = document.getElementById('updateExperimentBtn');
 
             loadExperiments();
 
@@ -185,6 +260,11 @@
                     updateTableTitle();
                     loadExperiments();
                 });
+            });
+
+            createExperimentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                createExperiment();
             });
 
             editExperimentForm.addEventListener('submit', function(e) {
@@ -254,6 +334,12 @@
                         <td>${serialNumber}</td>
                         <td>
                             <div class="d-flex align-items-center">
+                                ${experiment.image ? 
+                                    `<img src="/storage/${experiment.image}" alt="${experiment.title}" class="rounded me-2" style="width: 40px; height: 40px; object-fit: cover;">` : 
+                                    `<div class="rounded me-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: #f0f0f0; color: #999;">
+                                        <i class="bi bi-file-earmark-text"></i>
+                                    </div>`
+                                }
                                 <span class="fw-semibold text-dark">${experiment.title}</span>
                             </div>
                         </td>
@@ -427,6 +513,87 @@
                 }
             }
 
+            function createExperiment() {
+                const formData = new FormData(createExperimentForm);
+                
+                // Show loading state
+                const spinner = createExperimentBtn.querySelector('.spinner-border');
+                const buttonText = createExperimentBtn.querySelector('span:not(.spinner-border)');
+                spinner.classList.remove('d-none');
+                buttonText.textContent = 'Creating...';
+                createExperimentBtn.disabled = true;
+
+                fetch('/contents', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        createExperimentModal.hide();
+                        createExperimentForm.reset();
+                        Swal.fire('Success!', 'Experiment created successfully.', 'success');
+                        loadExperiments();
+                    } else {
+                        Swal.fire('Error!', data.message || 'Failed to create experiment.', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error creating experiment:', error);
+                    Swal.fire('Error!', 'Failed to create experiment.', 'error');
+                })
+                .finally(() => {
+                    // Reset button state
+                    spinner.classList.add('d-none');
+                    buttonText.textContent = 'Create Experiment';
+                    createExperimentBtn.disabled = false;
+                });
+            }
+
+            function updateExperiment() {
+                const formData = new FormData(editExperimentForm);
+                const experimentId = document.getElementById('edit_experiment_id').value;
+
+                // Show loading state
+                const spinner = updateExperimentBtn.querySelector('.spinner-border');
+                const buttonText = updateExperimentBtn.querySelector('span:not(.spinner-border)');
+                spinner.classList.remove('d-none');
+                buttonText.textContent = 'Updating...';
+                updateExperimentBtn.disabled = true;
+
+                fetch(`/contents/${experimentId}`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'X-HTTP-Method-Override': 'PUT'
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        editExperimentModal.hide();
+                        Swal.fire('Success!', 'Experiment updated successfully.', 'success');
+                        loadExperiments();
+                    } else {
+                        Swal.fire('Error!', data.message || 'Failed to update experiment.', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating experiment:', error);
+                    Swal.fire('Error!', 'Failed to update experiment.', 'error');
+                })
+                .finally(() => {
+                    // Reset button state
+                    spinner.classList.add('d-none');
+                    buttonText.textContent = 'Update Experiment';
+                    updateExperimentBtn.disabled = false;
+                });
+            }
+
             window.changePage = changePage;
 
             window.deleteExperiment = function(id) {
@@ -444,8 +611,7 @@
                         fetch(`/contents/${id}`, {
                                 method: 'DELETE',
                                 headers: {
-                                    'X-CSRF-TOKEN': document.querySelector(
-                                        'meta[name="csrf-token"]').getAttribute('content'),
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                                     'Content-Type': 'application/json'
                                 },
                                 credentials: 'include'
@@ -453,12 +619,10 @@
                             .then(response => response.json())
                             .then(data => {
                                 if (data.success) {
-                                    Swal.fire('Deleted!', 'Experiment has been deleted.',
-                                        'success');
+                                    Swal.fire('Deleted!', 'Experiment has been deleted.', 'success');
                                     loadExperiments();
                                 } else {
-                                    Swal.fire('Error!', data.message ||
-                                        'Failed to delete experiment.', 'error');
+                                    Swal.fire('Error!', data.message || 'Failed to delete experiment.', 'error');
                                 }
                             })
                             .catch(error => {
@@ -471,60 +635,43 @@
 
             window.editExperiment = function(id) {
                 fetch(`/contents/${id}`, {
-                        method: 'GET',
-                        credentials: 'include'
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            const experiment = data.data;
-                            document.getElementById('edit_experiment_id').value = experiment.id;
-                            document.getElementById('edit_title').value = experiment.title;
-                            document.getElementById('edit_content_type').value = experiment.content_type;
-                            document.getElementById('edit_status').value = experiment.status;
-                            document.getElementById('edit_categories').value = experiment.categories || '';
-                            document.getElementById('edit_description').value = experiment.description ||
-                                '';
-                            editExperimentModal.show();
+                    method: 'GET',
+                    credentials: 'include'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const experiment = data.data;
+                        document.getElementById('edit_experiment_id').value = experiment.id;
+                        document.getElementById('edit_title').value = experiment.title;
+                        document.getElementById('edit_content_type').value = experiment.content_type;
+                        document.getElementById('edit_status').value = experiment.status;
+                        document.getElementById('edit_categories').value = experiment.categories || '';
+                        document.getElementById('edit_description').value = experiment.description || '';
+                        document.getElementById('edit_supplements').value = experiment.supplements || '';
+                        
+                        // Handle image display
+                        const currentImageContainer = document.getElementById('currentImageContainer');
+                        if (experiment.image) {
+                            currentImageContainer.innerHTML = `
+                                <p class="mb-1">Current Image:</p>
+                                <img src="/storage/${experiment.image}" alt="${experiment.title}" 
+                                     class="img-thumbnail" style="max-width: 200px;">
+                            `;
                         } else {
-                            Swal.fire('Error!', data.message || 'Failed to load experiment details.',
-                                'error');
+                            currentImageContainer.innerHTML = '<p class="text-muted">No image uploaded</p>';
                         }
-                    })
-                    .catch(error => {
-                        console.error('Error loading experiment:', error);
-                        Swal.fire('Error!', 'Failed to load experiment details.', 'error');
-                    });
+                        
+                        editExperimentModal.show();
+                    } else {
+                        Swal.fire('Error!', data.message || 'Failed to load experiment details.', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading experiment:', error);
+                    Swal.fire('Error!', 'Failed to load experiment details.', 'error');
+                });
             };
-
-            function updateExperiment() {
-                const formData = new FormData(editExperimentForm);
-                const experimentId = document.getElementById('edit_experiment_id').value;
-
-                fetch(`/contents/${experimentId}`, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
-                                'content'),
-                            'X-HTTP-Method-Override': 'PUT'
-                        },
-                        body: formData
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            editExperimentModal.hide();
-                            Swal.fire('Success!', 'Experiment updated successfully.', 'success');
-                            loadExperiments();
-                        } else {
-                            Swal.fire('Error!', data.message || 'Failed to update experiment.', 'error');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error updating experiment:', error);
-                        Swal.fire('Error!', 'Failed to update experiment.', 'error');
-                    });
-            }
         });
     </script>
 
