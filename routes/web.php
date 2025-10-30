@@ -1189,6 +1189,8 @@ Route::any('webhook/vault/coco/{mediaId}', [WebhookCoconutController::class, 'we
     Route::post('contents/{id}/experiment-entries', [ContentController::class, 'addExperimentEntry']);
     Route::apiResource('contents', 'ContentController');
 	Route::post('contents/{id}/update', [ContentController::class, 'updateExperiment'])->name('contents.update');
+	Route::post('/supplements', [ContentController::class, 'storeSupplement'])->name('supplements.store');
+	Route::get('/api/get-supplements', [ContentController::class, 'getSupplement'])->name('supplements.get');
     
     Route::apiResource('experiment-entries', 'ExperimentEntryController');
 // });

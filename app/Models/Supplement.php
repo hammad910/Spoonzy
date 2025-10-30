@@ -12,14 +12,13 @@ class Supplement extends Model
     use HasFactory;
 
     protected $table = 'supplements';
-    protected $primaryKey = 'supplement_id';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = ['user_id', 'date', 'supplement_name', 'dosage', 'notes'];
 
     protected $casts = [
-        'date' => 'date',
         'created_at' => 'datetime',
     ];
 
@@ -53,7 +52,7 @@ class Supplement extends Model
 
     public function scopeLatestFirst($query)
     {
-        return $query->orderBy('date', 'desc')->orderBy('created_at', 'desc');
+        return $query->orderBy('created_at', 'desc');
     }
 
     public function scopeByName($query, $supplementName)
@@ -83,11 +82,11 @@ class Supplement extends Model
 
     public static function getUserSupplements($userId = null)
     {
-        // $userId = $userId ?? auth()->id();
+        $userId = $userId ?? auth()->id();
 
-        // return static::forUser($userId)
-        //     ->latestFirst()
-        //     ->get();
+        return static::forUser($userId)
+            ->latestFirst()
+            ->get();
         return static::latestFirst()->get();
     }
 

@@ -7,8 +7,11 @@ use App\Models\ExperimentEntry;
 use App\Http\Requests\StoreContentRequest;
 use App\Http\Requests\UpdateContentRequest;
 use App\Http\Requests\StoreExperimentEntryRequest;
+use App\Models\Supplement;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class ContentController extends Controller
 {
@@ -29,28 +32,6 @@ class ContentController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to retrieve contents.',
-                'error' => $e->getMessage()
-            ], 500);
-        }
-    }
-
-    /**
-     * Store a newly created resource.
-     */
-    public function store(StoreContentRequest $request): JsonResponse
-    {
-        try {
-            $content = Content::createContent($request->validated());
-
-            return response()->json([
-                'success' => true,
-                'data' => $content,
-                'message' => 'Content created successfully.'
-            ], 201);
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Failed to create content.',
                 'error' => $e->getMessage()
             ], 500);
         }
@@ -342,4 +323,91 @@ class ContentController extends Controller
             ], 500);
         }
     }
+    public function store(Request $request)
+    {
+        try {
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'categories' => 'required|string|max:255',
+                'description' => 'nullable|string',
+                'supplements' => 'nullable|string',
+                'media_url' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            ]);
+
+            $experiment = new Content();
+            $experiment->title = $request->title;
+            $experiment->categories = $request->categories;
+            $experiment->description = $request->description;
+            $experiment->content_type = 'experiment'; 
+            $experiment->status = 'active'; 
+            $experiment->creator_id = Auth::id(); 
+
+            if ($request->hasFile('media_url')) {
+                $imagePath = $request->file('media_url')->store('experiments', 'public');
+                $experiment->media_url = $imagePath;
+            }
+
+            $experiment->save();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Experiment created successfully',
+                'data' => $experiment
+            ], 201);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to create experiment: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function storeSupplement(Request $request)
+{
+    try {
+        $request->validate([
+            'supplement_name' => 'required|string|max:255',
+            'dosage' => 'required|string|max:255',
+            'notes' => 'nullable|string'
+        ]);
+
+        $supplement = new Supplement();
+        $supplement->supplement_name = $request->supplement_name;
+        $supplement->dosage = $request->dosage;
+        $supplement->notes = $request->notes;
+        $supplement->user_id = Auth::id();
+        $supplement->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Supplement added successfully',
+            'data' => $supplement
+        ], 201);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to add supplement ' . $e->getMessage()
+        ], 500);
+    }
+}
+
+public function getSupplement() {
+    try {
+        $supplements = Supplement::getUserSupplements();
+
+        return response()->json([
+            'success' => true,
+            'data' => $supplements,
+            'message' => 'Supplements retrieved successfully.'
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'success' => false,
+            'message' => 'Failed to retrieve supplements.',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
 }

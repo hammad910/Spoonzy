@@ -31,7 +31,7 @@
 
                     <div class="d-none d-lg-flex justify-content-between align-items-center mb-4">
                         <h4 class="fw-semibold mb-0" style="color: black">Experiments</h4>
-                        <button class="btn px-3" data-bs-toggle="modal" data-bs-target="#createExperimentModal"
+                        <button class="btn px-3" id="create-btn" data-bs-toggle="modal" data-bs-target="#createExperimentModal"
                             style="background: {{ $settings->theme_color_pwa ?? '#469DFA' }}; color: white;">
                             <i class="bi bi-plus-lg"></i> Create Experiment
                         </button>
@@ -103,21 +103,21 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="createExperimentModalLabel">Create New Experiment</h5>
+                    <h5 style="color: black" id="createExperimentModalLabel">Create New Experiment</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="createExperimentForm" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="row">
-                            <div class="col-12 mb-3">
-                                <label for="create_title" class="form-label">Experiment Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="create_title" name="title" required>
+                            <div class="col-6 mb-3">
+                                <label for="create_title" class="form-label" style="color: #344054">Title <span class="text-danger">*</span></label>
+                                <input type="text" placeholder="Experiement Title" class="form-control" id="create_title" name="title" required>
                             </div>
-                            <div class="col-12 mb-3">
-                                <label for="create_categories" class="form-label">Category <span class="text-danger">*</span></label>
+                            <div class="col-6 mb-3">
+                                <label for="create_categories" class="form-label" style="color: #344054">Category <span class="text-danger">*</span></label>
                                 <select class="form-control" id="create_categories" name="categories" required>
-                                    <option value="">Select Category</option>
+                                    <option value="">Category Name</option>
                                     <option value="Biology">Biology</option>
                                     <option value="Chemistry">Chemistry</option>
                                     <option value="Physics">Physics</option>
@@ -129,18 +129,79 @@
                                 </select>
                             </div>
                             <div class="col-12 mb-3">
-                                <label for="create_description" class="form-label">Description</label>
+                                <label for="create_description" class="form-label" style="color: #344054">Description</label>
                                 <textarea class="form-control" id="create_description" name="description" rows="3" placeholder="Enter experiment description"></textarea>
                             </div>
-                            <div class="col-12 mb-3">
-                                <label for="create_supplements" class="form-label">Supplements</label>
-                                <textarea class="form-control" id="create_supplements" name="supplements" rows="3" placeholder="Enter any supplements or additional information"></textarea>
+                            <div class="col-12 mb-3" style="cursor: pointer">
+                                <label for="create_image" class="form-label" style="color: #344054">Experiment Image</label>
+                                <input type="file" class="form-control" id="create_image" name="media_url" accept="image/*">
+                                <div class="form-control d-flex flex-column align-items-center justify-content-center py-5 border-dashed rounded-4"  id="create_supplements" style="border: 2px dashed #d0d7de; background-color: #fafbfc; cursor: pointer;">
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center mb-2" 
+                                        style="width: 48px; height: 48px; background-color: #f2f6ff;">
+                                        <i class="bi bi-exclamation-circle text-primary fs-4"></i>
+                                    </div>
+
+                                    <div>
+                                        <span class="text-primary fw-semibold" style="cursor: pointer;">Click to upload</span>
+                                        <span class="text-muted"> or drag and drop</span>
+                                    </div>
+
+                                    <small class="text-muted mt-1">
+                                        SVG, PNG, JPG or GIF (max. 800×400px)
+                                    </small>    
+                                </div>
+                                <div id="uploadPreview" class="mt-3 d-none">
+                                    <div class="border p-3 d-flex align-items-center justify-content-between" style="border-color: #469DFA; background-color: #f9fcff; border-radius: 6px;">
+                                      <div class="d-flex align-items-center">
+                                        <div 
+                                          class="rounded-circle d-flex align-items-center justify-content-center me-3"
+                                          style="width: 40px; height: 40px; background-color: #e9f3ff;"
+                                        >
+                                          <i class="bi bi-image text-primary fs-5"></i>
+                                        </div>
+                                        <div>
+                                          <div class="fw-semibold text-dark" id="fileName"></div>
+                                          <small class="text-muted" id="fileSize"></small>
+                                        </div>
+                                      </div>
+                                      <div class="text-success fw-bold" id="uploadPercent">100%</div>
+                                    </div>
+                                
+                                    <div class="progress mt-2" style="height: 6px;">
+                                      <div 
+                                        class="progress-bar bg-primary" 
+                                        id="progressBar"
+                                        role="progressbar" 
+                                        style="width: 0%;" 
+                                        aria-valuenow="0" 
+                                        aria-valuemin="0" 
+                                        aria-valuemax="100"
+                                      ></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-12 mb-3">
-                                <label for="create_image" class="form-label">Experiment Image</label>
-                                <input type="file" class="form-control" id="create_image" name="image" accept="image/*">
-                                <div class="form-text">Upload an image for your experiment (optional)</div>
-                            </div>
+                            <div class="col-12 mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                  <label class="fw-semibold mb-0" style="color: #344054;">Supplements</label>
+                                  <button class="text-primary fw-semibold text-decoration-none d-flex align-items-center gap-1 add-supplement-btn bg-white">
+                                    <i class="bi bi-plus-lg"></i> Add Supplement
+                                  </button>
+                                </div>
+                              
+                                {{-- <div class="border rounded-4 bg-white d-flex flex-column align-items-center justify-content-center text-center py-5 px-3" 
+                                     style="border-color: #EAECF0; min-height: 200px; border-radius: 6px;">
+                                  <img src="/images/supplement-icon.png" alt="Supplements illustration" 
+                                       class="mb-3" style="width: 180px; height: auto;">
+                              
+                                  <p class="mb-0" style="color: #98A2B3; font-size: 15px;">
+                                    Currently you don’t have any supplements. 
+                                    <br>
+                                    Click <span class="text-primary fw-semibold">Add Supplements</span> to create new ones
+                                  </p>
+                                </div> --}}
+                                <div id="supplementsContainer" class="gap-3 justify-content-start"></div>
+                              </div>
+                            
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -221,12 +282,131 @@
             </div>
         </div>
     </div>
+
+    <!-- Add Supplement Modal -->
+<div class="modal fade" id="addSupplementModal" tabindex="-1" aria-labelledby="addSupplementModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addSupplementModalLabel" style="color: #000">Add Supplement</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="addSupplementForm">
+                @csrf
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="supplement_name" class=" form-label fw-semibold" style="color: #344054;">Supplement Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="supplement_name" name="supplement_name" placeholder="Enter Title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="supplement_dosage" class="form-label fw-semibold" style="color: #344054;">Supplement Dosage <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="supplement_dosage" name="dosage" placeholder="200 mg" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="supplement_warning" class="form-label fw-semibold" style="color: #344054;">Warning/Caution Note</label>
+                        <textarea class="form-control" id="supplement_warning" name="notes" rows="3" placeholder="Enter description here"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="addSupplementBtn">
+                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                        Add Supplement
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('javascript')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
+        $(document).ready(function () {
+      fetchSupplements();
+    });
+    function fetchSupplements() {
+      $.ajax({
+        url: '/api/get-supplements', // your backend route
+        method: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            console.log('response', response);
+          const container = $('#supplementsContainer');
+          container.empty();
+
+          if (response.data.length === 0) {
+            const emptyHTML = `
+            <div class="border rounded-4 bg-white d-flex flex-column align-items-center justify-content-center text-center py-5 px-3" style="border-color: #EAECF0; min-height: 200px; border-radius: 6px;"> <img src="/images/supplement-icon.png" alt="Supplements illustration" class="mb-3" style="width: 180px; height: auto;"> <p class="mb-0" style="color: #98A2B3; font-size: 15px;"> Currently you don’t have any supplements. <br> Click <span class="text-primary fw-semibold">Add Supplements</span> to create new ones </p> </div>`;
+            container.append(emptyHTML);
+          } else {
+            response.data.forEach(supp => {
+              const cardHTML = `
+                <div class="supplement-card">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div>
+                      <div class="supplement-icon">
+                        <img src="/images/pill-icon.svg" alt="icon" width="18">
+                      </div>
+                      <div class="supplement-title">${supp.supplement_name}</div>
+                      <div class="supplement-desc">Currently you don't have any supplements. Click Add Supplements to create new ones</div>
+                    </div>
+                    <div>
+                      <button class="icon-btn"><i class="bi bi-pencil"></i></button>
+                      <button class="icon-btn"><i class="bi bi-trash"></i></button>
+                    </div>
+                  </div>
+                  <ul class="supplement-details">
+                    <li>${supp.notes}</li>
+                    <li>${supp.dosage}</li>
+                  </ul>
+                </div>
+              `;
+              container.append(cardHTML);
+            });
+          }
+        },
+        error: function () {
+          alert('Error fetching supplements');
+        }
+      });
+    }
         document.addEventListener('DOMContentLoaded', function() {
+            const fileInput = document.getElementById('create_image');
+  const uploadBox = document.getElementById('create_supplements');
+  const preview = document.getElementById('uploadPreview');
+  const fileName = document.getElementById('fileName');
+  const fileSize = document.getElementById('fileSize');
+  const progressBar = document.getElementById('progressBar');
+  const uploadPercent = document.getElementById('uploadPercent');
+
+  if (!fileInput) return; // Safety check
+
+  fileInput.addEventListener('change', function (e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Hide upload box, show preview
+    uploadBox.classList.add('d-none');
+    preview.classList.remove('d-none');
+
+    // Fill file info
+    fileName.textContent = file.name;
+    fileSize.textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+
+    // Simulated progress animation
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += 10;
+      progressBar.style.width = progress + '%';
+      uploadPercent.textContent = progress + '%';
+      if (progress >= 100) {
+        clearInterval(interval);
+        uploadPercent.innerHTML = '<i class="bi bi-check-circle-fill text-primary"></i>';
+      }
+    }, 100);
+  });
             const ITEMS_PER_PAGE = 10;
             const API_BASE_URL = '/contents/experiments';
 
@@ -336,9 +516,7 @@
                             <div class="d-flex align-items-center">
                                 ${experiment.image ? 
                                     `<img src="/storage/${experiment.image}" alt="${experiment.title}" class="rounded me-2" style="width: 40px; height: 40px; object-fit: cover;">` : 
-                                    `<div class="rounded me-2 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; background: #f0f0f0; color: #999;">
-                                        <i class="bi bi-file-earmark-text"></i>
-                                    </div>`
+                                    ``
                                 }
                                 <span class="fw-semibold text-dark">${experiment.title}</span>
                             </div>
@@ -514,45 +692,40 @@
             }
 
             function createExperiment() {
-                const formData = new FormData(createExperimentForm);
-                
-                // Show loading state
-                const spinner = createExperimentBtn.querySelector('.spinner-border');
-                const buttonText = createExperimentBtn.querySelector('span:not(.spinner-border)');
-                spinner.classList.remove('d-none');
-                buttonText.textContent = 'Creating...';
-                createExperimentBtn.disabled = true;
+    const formData = new FormData(createExperimentForm);
+    
+    // Simple loading state
+    createExperimentBtn.disabled = true;
+    createExperimentBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> Creating...';
 
-                fetch('/contents', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        createExperimentModal.hide();
-                        createExperimentForm.reset();
-                        Swal.fire('Success!', 'Experiment created successfully.', 'success');
-                        loadExperiments();
-                    } else {
-                        Swal.fire('Error!', data.message || 'Failed to create experiment.', 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error creating experiment:', error);
-                    Swal.fire('Error!', 'Failed to create experiment.', 'error');
-                })
-                .finally(() => {
-                    // Reset button state
-                    spinner.classList.add('d-none');
-                    buttonText.textContent = 'Create Experiment';
-                    createExperimentBtn.disabled = false;
-                });
-            }
-
+    fetch('/contents', {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            createExperimentModal.hide();
+            createExperimentForm.reset();
+            Swal.fire('Success!', 'Experiment created successfully.', 'success');
+            loadExperiments();
+        } else {
+            Swal.fire('Error!', data.message || 'Failed to create experiment.', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error creating experiment:', error);
+        Swal.fire('Error!', 'Failed to create experiment.', 'error');
+    })
+    .finally(() => {
+        // Reset button
+        createExperimentBtn.disabled = false;
+        createExperimentBtn.innerHTML = 'Create Experiment';
+    });
+}
             function updateExperiment() {
                 const formData = new FormData(editExperimentForm);
                 const experimentId = document.getElementById('edit_experiment_id').value;
@@ -673,6 +846,61 @@
                 });
             };
         });
+        // Create Experiment button click event
+document.querySelectorAll('[data-bs-target="#createExperimentModal"]').forEach(button => {
+    button.addEventListener('click', function() {
+        const createModal = new bootstrap.Modal(document.getElementById('createExperimentModal'));
+        createModal.show();
+    });
+});
+document.querySelectorAll('.add-supplement-btn').forEach(button => {
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        const supplementModal = new bootstrap.Modal(document.getElementById('addSupplementModal'));
+        supplementModal.show();
+    });
+});
+
+document.getElementById('addSupplementForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    addSupplement();
+});
+
+function addSupplement() {
+    const formData = new FormData(document.getElementById('addSupplementForm'));
+    const addSupplementBtn = document.getElementById('addSupplementBtn');
+    
+    // Loading state
+    addSupplementBtn.disabled = true;
+    addSupplementBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Adding...';
+
+    fetch('/supplements', {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            $('#addSupplementModal').modal('hide');
+            document.getElementById('addSupplementForm').reset();
+            
+            Swal.fire('Success!', 'Supplement added successfully.', 'success');
+        } else {
+            Swal.fire('Error!', data.message || 'Failed to add supplement.', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error adding supplement:', error);
+        Swal.fire('Error!', 'Failed to add supplement.', 'error');
+    })
+    .finally(() => {
+        addSupplementBtn.disabled = false;
+        addSupplementBtn.innerHTML = 'Add Supplement';
+    });
+}
     </script>
 
     <style>

@@ -113,22 +113,6 @@ class Content extends Model
     }
 
     // ==================== BUSINESS LOGIC METHODS ====================
-    public static function createContent(array $data)
-    {
-        $data['id'] = Str::uuid();
-        $data['creator_id'] = auth()->id();
-
-        if (isset($data['media_url']) && is_array($data['media_url'])) {
-            $data['media_url'] = json_encode($data['media_url']);
-        }
-
-        if (isset($data['categories']) && is_array($data['categories'])) {
-            $data['categories'] = json_encode($data['categories']);
-        }
-
-        return static::create($data);
-    }
-
     public function updateContent(array $data)
     {
         if (isset($data['media_url']) && is_array($data['media_url'])) {
