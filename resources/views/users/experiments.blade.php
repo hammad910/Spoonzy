@@ -188,18 +188,8 @@
                                   </button>
                                 </div>
                               
-                                {{-- <div class="border rounded-4 bg-white d-flex flex-column align-items-center justify-content-center text-center py-5 px-3" 
-                                     style="border-color: #EAECF0; min-height: 200px; border-radius: 6px;">
-                                  <img src="/images/supplement-icon.png" alt="Supplements illustration" 
-                                       class="mb-3" style="width: 180px; height: auto;">
-                              
-                                  <p class="mb-0" style="color: #98A2B3; font-size: 15px;">
-                                    Currently you don’t have any supplements. 
-                                    <br>
-                                    Click <span class="text-primary fw-semibold">Add Supplements</span> to create new ones
-                                  </p>
-                                </div> --}}
-                                <div id="supplementsContainer" class="gap-3 justify-content-start"></div>
+                                <div id="supplementsContainer" class="flex-wrap justify-content-start" style="gap: 5px;"></div>
+
                               </div>
                             
                         </div>
@@ -284,129 +274,260 @@
     </div>
 
     <!-- Add Supplement Modal -->
-<div class="modal fade" id="addSupplementModal" tabindex="-1" aria-labelledby="addSupplementModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addSupplementModalLabel" style="color: #000">Add Supplement</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="addSupplementModal" tabindex="-1" aria-labelledby="addSupplementModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addSupplementModalLabel" style="color: #000">Add Supplement</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="addSupplementForm">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="supplement_name" class=" form-label fw-semibold" style="color: #344054;">Supplement Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="supplement_name" name="supplement_name" placeholder="Enter Title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="supplement_dosage" class="form-label fw-semibold" style="color: #344054;">Supplement Dosage <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="supplement_dosage" name="dosage" placeholder="200 mg" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="supplement_warning" class="form-label fw-semibold" style="color: #344054;">Warning/Caution Note</label>
+                            <textarea class="form-control" id="supplement_warning" name="notes" rows="3" placeholder="Enter description here"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="addSupplementBtn">
+                            <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                            Add Supplement
+                        </button>
+                    </div>
+                </form>
             </div>
-            <form id="addSupplementForm">
-                @csrf
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="supplement_name" class=" form-label fw-semibold" style="color: #344054;">Supplement Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="supplement_name" name="supplement_name" placeholder="Enter Title" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="supplement_dosage" class="form-label fw-semibold" style="color: #344054;">Supplement Dosage <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="supplement_dosage" name="dosage" placeholder="200 mg" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="supplement_warning" class="form-label fw-semibold" style="color: #344054;">Warning/Caution Note</label>
-                        <textarea class="form-control" id="supplement_warning" name="notes" rows="3" placeholder="Enter description here"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary" id="addSupplementBtn">
-                        <span class="spinner-border spinner-border-sm d-none" role="status"></span>
-                        Add Supplement
-                    </button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
+
+    <!-- Edit Supplement Modal -->
+    <div class="modal fade" id="editSupplementModal" tabindex="-1" aria-labelledby="editSupplementModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editSupplementModalLabel" style="color: #000">Edit Supplement</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editSupplementForm">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" id="edit_supplement_id" name="id">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="edit_supplement_name" class=" form-label fw-semibold" style="color: #344054;">Supplement Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="edit_supplement_name" name="supplement_name" placeholder="Enter Title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_supplement_dosage" class="form-label fw-semibold" style="color: #344054;">Supplement Dosage <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="edit_supplement_dosage" name="dosage" placeholder="200 mg" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_supplement_warning" class="form-label fw-semibold" style="color: #344054;">Warning/Caution Note</label>
+                            <textarea class="form-control" id="edit_supplement_warning" name="notes" rows="3" placeholder="Enter description here"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="editSupplementBtn">
+                            <span class="spinner-border spinner-border-sm d-none" role="status"></span>
+                            Update Supplement
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('javascript')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).ready(function () {
-      fetchSupplements();
-    });
-    function fetchSupplements() {
-      $.ajax({
-        url: '/api/get-supplements', // your backend route
-        method: 'GET',
-        dataType: 'json',
-        success: function (response) {
-            console.log('response', response);
-          const container = $('#supplementsContainer');
-          container.empty();
+            fetchSupplements();
+        });
 
-          if (response.data.length === 0) {
-            const emptyHTML = `
-            <div class="border rounded-4 bg-white d-flex flex-column align-items-center justify-content-center text-center py-5 px-3" style="border-color: #EAECF0; min-height: 200px; border-radius: 6px;"> <img src="/images/supplement-icon.png" alt="Supplements illustration" class="mb-3" style="width: 180px; height: auto;"> <p class="mb-0" style="color: #98A2B3; font-size: 15px;"> Currently you don’t have any supplements. <br> Click <span class="text-primary fw-semibold">Add Supplements</span> to create new ones </p> </div>`;
-            container.append(emptyHTML);
-          } else {
-            response.data.forEach(supp => {
-              const cardHTML = `
-                <div class="supplement-card">
-                  <div class="d-flex justify-content-between align-items-start mb-2">
-                    <div>
-                      <div class="supplement-icon">
-                        <img src="/images/pill-icon.svg" alt="icon" width="18">
-                      </div>
-                      <div class="supplement-title">${supp.supplement_name}</div>
-                      <div class="supplement-desc">Currently you don't have any supplements. Click Add Supplements to create new ones</div>
-                    </div>
-                    <div>
-                      <button class="icon-btn"><i class="bi bi-pencil"></i></button>
-                      <button class="icon-btn"><i class="bi bi-trash"></i></button>
-                    </div>
-                  </div>
-                  <ul class="supplement-details">
-                    <li>${supp.notes}</li>
-                    <li>${supp.dosage}</li>
-                  </ul>
-                </div>
-              `;
-              container.append(cardHTML);
+        function fetchSupplements() {
+            $.ajax({
+                url: '/api/get-supplements',
+                method: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    console.log('response', response);
+                    const container = $('#supplementsContainer');
+                    container.empty();
+
+                    if (response.data.length === 0) {
+                        $('#supplementsContainer').css('display', 'block');
+                        const emptyHTML = `
+                        <div class="border rounded-4 bg-white d-flex flex-column align-items-center justify-content-center text-center py-5 px-3" style="border-color: #EAECF0; min-height: 200px; border-radius: 6px;"> 
+                            <img src="/images/supplement-icon.png" alt="Supplements illustration" class="mb-3" style="width: 180px; height: auto;"> 
+                            <p class="mb-0" style="color: #98A2B3; font-size: 15px;"> 
+                                Currently you don't have any supplements. 
+                                <br> 
+                                Click <span class="text-primary fw-semibold">Add Supplements</span> to create new ones 
+                            </p> 
+                        </div>`;
+                        container.append(emptyHTML);
+                    } else {
+                        response.data.forEach(supp => {
+                            $('#supplementsContainer').css('display', 'flex');
+                            const cardHTML = `
+                            <div class="supplement-card shadow-sm p-3 rounded-4 border" data-supplement-id="${supp.id}">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex align-items-center mb-1" style="gap: 7px;">
+                                            <div class="supplement-icon d-flex align-items-center justify-content-center me-2">
+                                                <img src="/images/supplement-card-img.png" alt="icon">
+                                            </div>
+                                            <h6 class="supplement-title mb-0 fw-semibold">${supp.supplement_name}</h6>
+                                        </div>
+                                        <p class="supplement-desc my-2">
+                                            ${supp.notes}
+                                        </p>
+                                    </div>
+                                    <div class="d-flex" style="gap: 3px;">
+                                        <button class="icon-btn border-0 bg-transparent p-0 edit-supplement-btn" data-supplement-id="${supp.id}">
+                                            <img src="/images/edit-icon.png" alt="icon">
+                                        </button>
+                                        <button class="icon-btn border-0 bg-transparent p-0 delete-supplement-btn" data-supplement-id="${supp.id}">
+                                            <img src="/images/delete-icon.png" alt="icon">
+                                        </button>
+                                    </div>
+                                </div>
+                                <ul class="list-unstyled mt-2 mb-0">
+                                    <li class="supplement-detail">– ${supp.dosage}</li>
+                                </ul>
+                            </div>
+                        `;
+                        container.append(cardHTML);
+                        });
+
+                        // Add event listeners for edit and delete buttons
+                        $('.edit-supplement-btn').on('click', function() {
+                            const supplementId = $(this).data('supplement-id');
+                            editSupplement(supplementId);
+                        });
+
+                        $('.delete-supplement-btn').on('click', function() {
+                            const supplementId = $(this).data('supplement-id');
+                            deleteSupplement(supplementId);
+                        });
+                    }
+                },
+                error: function () {
+                    alert('Error fetching supplements');
+                }
             });
-          }
-        },
-        error: function () {
-          alert('Error fetching supplements');
         }
-      });
-    }
+
+        function editSupplement(supplementId) {
+            // Fetch supplement data
+            $.ajax({
+                url: `/supplements/${supplementId}`,
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        const supplement = response.data;
+                        
+                        // Populate the edit form
+                        $('#edit_supplement_id').val(supplement.id);
+                        $('#edit_supplement_name').val(supplement.supplement_name);
+                        $('#edit_supplement_dosage').val(supplement.dosage);
+                        $('#edit_supplement_warning').val(supplement.notes);
+                        
+                        // Show the edit modal
+                        const editSupplementModal = new bootstrap.Modal(document.getElementById('editSupplementModal'));
+                        editSupplementModal.show();
+                    } else {
+                        Swal.fire('Error!', 'Failed to load supplement data.', 'error');
+                    }
+                },
+                error: function() {
+                    Swal.fire('Error!', 'Failed to load supplement data.', 'error');
+                }
+            });
+        }
+
+        function deleteSupplement(supplementId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonText: 'Cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: `/supplements/${supplementId}`,
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                Swal.fire('Deleted!', 'Supplement has been deleted.', 'success');
+                                fetchSupplements(); // Refresh the supplements list
+                            } else {
+                                Swal.fire('Error!', response.message || 'Failed to delete supplement.', 'error');
+                            }
+                        },
+                        error: function() {
+                            Swal.fire('Error!', 'Failed to delete supplement.', 'error');
+                        }
+                    });
+                }
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const fileInput = document.getElementById('create_image');
-  const uploadBox = document.getElementById('create_supplements');
-  const preview = document.getElementById('uploadPreview');
-  const fileName = document.getElementById('fileName');
-  const fileSize = document.getElementById('fileSize');
-  const progressBar = document.getElementById('progressBar');
-  const uploadPercent = document.getElementById('uploadPercent');
+            const uploadBox = document.getElementById('create_supplements');
+            const preview = document.getElementById('uploadPreview');
+            const fileName = document.getElementById('fileName');
+            const fileSize = document.getElementById('fileSize');
+            const progressBar = document.getElementById('progressBar');
+            const uploadPercent = document.getElementById('uploadPercent');
 
-  if (!fileInput) return; // Safety check
+            if (!fileInput) return; // Safety check
 
-  fileInput.addEventListener('change', function (e) {
-    const file = e.target.files[0];
-    if (!file) return;
+            fileInput.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (!file) return;
 
-    // Hide upload box, show preview
-    uploadBox.classList.add('d-none');
-    preview.classList.remove('d-none');
+                // Hide upload box, show preview
+                uploadBox.classList.add('d-none');
+                preview.classList.remove('d-none');
 
-    // Fill file info
-    fileName.textContent = file.name;
-    fileSize.textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
+                // Fill file info
+                fileName.textContent = file.name;
+                fileSize.textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
 
-    // Simulated progress animation
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += 10;
-      progressBar.style.width = progress + '%';
-      uploadPercent.textContent = progress + '%';
-      if (progress >= 100) {
-        clearInterval(interval);
-        uploadPercent.innerHTML = '<i class="bi bi-check-circle-fill text-primary"></i>';
-      }
-    }, 100);
-  });
+                // Simulated progress animation
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 10;
+                    progressBar.style.width = progress + '%';
+                    uploadPercent.textContent = progress + '%';
+                    if (progress >= 100) {
+                        clearInterval(interval);
+                        uploadPercent.innerHTML = '<i class="bi bi-check-circle-fill text-primary"></i>';
+                    }
+                }, 100);
+            });
+
             const ITEMS_PER_PAGE = 10;
             const API_BASE_URL = '/contents/experiments';
 
@@ -692,40 +813,41 @@
             }
 
             function createExperiment() {
-    const formData = new FormData(createExperimentForm);
-    
-    // Simple loading state
-    createExperimentBtn.disabled = true;
-    createExperimentBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> Creating...';
+                const formData = new FormData(createExperimentForm);
+                
+                // Simple loading state
+                createExperimentBtn.disabled = true;
+                createExperimentBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> Creating...';
 
-    fetch('/contents', {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            createExperimentModal.hide();
-            createExperimentForm.reset();
-            Swal.fire('Success!', 'Experiment created successfully.', 'success');
-            loadExperiments();
-        } else {
-            Swal.fire('Error!', data.message || 'Failed to create experiment.', 'error');
-        }
-    })
-    .catch(error => {
-        console.error('Error creating experiment:', error);
-        Swal.fire('Error!', 'Failed to create experiment.', 'error');
-    })
-    .finally(() => {
-        // Reset button
-        createExperimentBtn.disabled = false;
-        createExperimentBtn.innerHTML = 'Create Experiment';
-    });
-}
+                fetch('/contents', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        createExperimentModal.hide();
+                        createExperimentForm.reset();
+                        Swal.fire('Success!', 'Experiment created successfully.', 'success');
+                        loadExperiments();
+                    } else {
+                        Swal.fire('Error!', data.message || 'Failed to create experiment.', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error creating experiment:', error);
+                    Swal.fire('Error!', 'Failed to create experiment.', 'error');
+                })
+                .finally(() => {
+                    // Reset button
+                    createExperimentBtn.disabled = false;
+                    createExperimentBtn.innerHTML = 'Create Experiment';
+                });
+            }
+
             function updateExperiment() {
                 const formData = new FormData(editExperimentForm);
                 const experimentId = document.getElementById('edit_experiment_id').value;
@@ -846,61 +968,106 @@
                 });
             };
         });
+
         // Create Experiment button click event
-document.querySelectorAll('[data-bs-target="#createExperimentModal"]').forEach(button => {
-    button.addEventListener('click', function() {
-        const createModal = new bootstrap.Modal(document.getElementById('createExperimentModal'));
-        createModal.show();
-    });
-});
-document.querySelectorAll('.add-supplement-btn').forEach(button => {
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        const supplementModal = new bootstrap.Modal(document.getElementById('addSupplementModal'));
-        supplementModal.show();
-    });
-});
+        document.querySelectorAll('[data-bs-target="#createExperimentModal"]').forEach(button => {
+            button.addEventListener('click', function() {
+                const createModal = new bootstrap.Modal(document.getElementById('createExperimentModal'));
+                createModal.show();
+            });
+        });
 
-document.getElementById('addSupplementForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    addSupplement();
-});
+        document.querySelectorAll('.add-supplement-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const supplementModal = new bootstrap.Modal(document.getElementById('addSupplementModal'));
+                supplementModal.show();
+            });
+        });
 
-function addSupplement() {
-    const formData = new FormData(document.getElementById('addSupplementForm'));
-    const addSupplementBtn = document.getElementById('addSupplementBtn');
-    
-    // Loading state
-    addSupplementBtn.disabled = true;
-    addSupplementBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Adding...';
+        document.getElementById('addSupplementForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            addSupplement();
+        });
 
-    fetch('/supplements', {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            $('#addSupplementModal').modal('hide');
-            document.getElementById('addSupplementForm').reset();
+        document.getElementById('editSupplementForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            updateSupplement();
+        });
+
+        function addSupplement() {
+            const formData = new FormData(document.getElementById('addSupplementForm'));
+            const addSupplementBtn = document.getElementById('addSupplementBtn');
             
-            Swal.fire('Success!', 'Supplement added successfully.', 'success');
-        } else {
-            Swal.fire('Error!', data.message || 'Failed to add supplement.', 'error');
+            // Loading state
+            addSupplementBtn.disabled = true;
+            addSupplementBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Adding...';
+
+            fetch('/supplements', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    $('#addSupplementModal').modal('hide');
+                    document.getElementById('addSupplementForm').reset();
+                    fetchSupplements(); // Refresh the supplements list
+                    Swal.fire('Success!', 'Supplement added successfully.', 'success');
+                } else {
+                    Swal.fire('Error!', data.message || 'Failed to add supplement.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error adding supplement:', error);
+                Swal.fire('Error!', 'Failed to add supplement.', 'error');
+            })
+            .finally(() => {
+                addSupplementBtn.disabled = false;
+                addSupplementBtn.innerHTML = 'Add Supplement';
+            });
         }
-    })
-    .catch(error => {
-        console.error('Error adding supplement:', error);
-        Swal.fire('Error!', 'Failed to add supplement.', 'error');
-    })
-    .finally(() => {
-        addSupplementBtn.disabled = false;
-        addSupplementBtn.innerHTML = 'Add Supplement';
-    });
-}
+
+        function updateSupplement() {
+            const supplementId = $('#edit_supplement_id').val();
+            const formData = new FormData(document.getElementById('editSupplementForm'));
+            const editSupplementBtn = document.getElementById('editSupplementBtn');
+            
+            // Loading state
+            editSupplementBtn.disabled = true;
+            editSupplementBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Updating...';
+
+            fetch(`/supplements/${supplementId}`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'X-HTTP-Method-Override': 'PUT'
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('editSupplementForm').reset();
+                    fetchSupplements();
+                    Swal.fire('Success!', 'Supplement updated successfully.', 'success');
+                    $('#editSupplementModal').modal('hide');
+                } else {
+                    Swal.fire('Error!', data.message || 'Failed to update supplement.', 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error updating supplement:', error);
+                Swal.fire('Error!', 'Failed to update supplement.', 'error');
+            })
+            .finally(() => {
+                editSupplementBtn.disabled = false;
+                editSupplementBtn.innerHTML = 'Update Supplement';
+            });
+        }
     </script>
 
     <style>
@@ -968,6 +1135,50 @@ function addSupplement() {
 
         .hover-black:hover {
             color: black !important;
+        }
+        
+        .supplement-card {
+            background-color: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 20px;
+            width: 100%;
+            max-width: 380px;
+            transition: box-shadow 0.2s ease-in-out;
+        }
+
+        .supplement-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .supplement-icon {
+            background-color: #f0f7ff;
+            border-radius: 50%;
+            height: 40px;
+            width: 40px;
+        }
+
+        .supplement-title {
+            color: #0f172a;
+            font-size: 1.1rem;
+        }
+
+        .supplement-desc {
+            font-size: 0.88rem;
+            color: #94a3b8;
+            max-width: 270px;
+            line-height: 1.4;
+        }
+
+        .icon-btn i:hover {
+            color: #0f172a;
+        }
+
+        .supplement-detail {
+            font-size: 0.95rem;
+            color: #0f172a;
+            margin-bottom: 4px;
+            font-weight: 500;
         }
     </style>
 @endsection
