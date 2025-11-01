@@ -645,6 +645,7 @@ Route::get('verify/account/{confirmation_code}', [HomeController::class, 'getVer
 
 
 	Route::get('experiments', [ExperimentController::class, 'index']);
+	Route::get('creator-experiment/{id}', [ExperimentController::class, 'creatorExperiment']);
 	Route::get('health-tracking', [HealthTracking::class, 'index']);
 
  });//<------ End User Views LOGGED
@@ -1168,6 +1169,7 @@ Route::any('webhook/vault/coco/{mediaId}', [WebhookCoconutController::class, 'we
 
 // Health Tracking Work
 // Route::middleware('auth:sanctum')->group(function () {
+	Route::get('/experiment/{id}', [ExperimentController::class, 'fetchCreatorExperiement'])->name('experiment.fetch');
     Route::apiResource('bristol-entries', 'BristolStoolController');
 
     Route::get('supplements/today', [SupplementController::class, 'getTodaySupplements']);
@@ -1193,4 +1195,5 @@ Route::any('webhook/vault/coco/{mediaId}', [WebhookCoconutController::class, 'we
 	Route::get('/api/get-supplements', [ContentController::class, 'getSupplement'])->name('supplements.get');
     
     Route::apiResource('experiment-entries', 'ExperimentEntryController');
+
 // });

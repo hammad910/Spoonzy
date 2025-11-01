@@ -208,70 +208,114 @@
 
     <!-- Edit Experiment Modal -->
     <div class="modal fade" id="editExperimentModal" tabindex="-1" aria-labelledby="editExperimentModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editExperimentModalLabel">Edit Experiment</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form id="editExperimentForm" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-                    <div class="modal-body">
-                        <input type="hidden" id="edit_experiment_id" name="id">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="edit_title" class="form-label">Experiment Name</label>
-                                <input type="text" class="form-control" id="edit_title" name="title" required>
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 style="color: black" id="editExperimentModalLabel">Edit Experiment</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editExperimentForm" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <input type="hidden" id="edit_experiment_id" name="id">
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label for="edit_title" class="form-label" style="color: #344054">Title <span class="text-danger">*</span></label>
+                            <input type="text" placeholder="Experiement Title" class="form-control" id="edit_title" name="title" required>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="edit_categories" class="form-label" style="color: #344054">Category <span class="text-danger">*</span></label>
+                            <select class="form-control" id="edit_categories" name="categories" required>
+                                <option value="">Category Name</option>
+                                <option value="Biology">Biology</option>
+                                <option value="Chemistry">Chemistry</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Engineering">Engineering</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Psychology">Psychology</option>
+                                <option value="Environmental Science">Environmental Science</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="edit_description" class="form-label" style="color: #344054">Description</label>
+                            <textarea class="form-control" id="edit_description" name="description" rows="3" placeholder="Enter experiment description"></textarea>
+                        </div>
+                        <div class="col-12 mb-3" style="cursor: pointer">
+                            <label for="edit_image" class="form-label" style="color: #344054">Experiment Image</label>
+                            <input type="file" class="form-control" id="edit_image" name="media_url" accept="image/*">
+                            <div class="form-control d-flex flex-column align-items-center justify-content-center py-5 border-dashed rounded-4"  id="edit_supplements" style="border: 2px dashed #d0d7de; background-color: #fafbfc; cursor: pointer;">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center mb-2" 
+                                    style="width: 48px; height: 48px; background-color: #f2f6ff;">
+                                    <i class="bi bi-exclamation-circle text-primary fs-4"></i>
+                                </div>
+
+                                <div>
+                                    <span class="text-primary fw-semibold" style="cursor: pointer;">Click to upload</span>
+                                    <span class="text-muted"> or drag and drop</span>
+                                </div>
+
+                                <small class="text-muted mt-1">
+                                    SVG, PNG, JPG or GIF (max. 800×400px)
+                                </small>    
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="edit_content_type" class="form-label">Type</label>
-                                <select class="form-control" id="edit_content_type" name="content_type" required>
-                                    <option value="experiment">Experiment</option>
-                                    <option value="documentary">Documentary</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="edit_status" class="form-label">Status</label>
-                                <select class="form-control" id="edit_status" name="status" required>
-                                    <option value="active">Active</option>
-                                    <option value="pending">Pending</option>
-                                    <option value="archived">Archived</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="edit_categories" class="form-label">Category</label>
-                                <input type="text" class="form-control" id="edit_categories" name="categories"
-                                    required>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <label for="edit_description" class="form-label">Description</label>
-                                <textarea class="form-control" id="edit_description" name="description" rows="3"></textarea>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <label for="edit_supplements" class="form-label">Supplements</label>
-                                <textarea class="form-control" id="edit_supplements" name="supplements" rows="3"></textarea>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <label for="edit_image" class="form-label">Experiment Image</label>
-                                <input type="file" class="form-control" id="edit_image" name="image" accept="image/*">
-                                <div class="form-text">Current image will be replaced if a new one is uploaded</div>
-                                <div id="currentImageContainer" class="mt-2"></div>
+                            <div id="editUploadPreview" class="mt-3 d-none">
+                                <div class="border p-3 d-flex align-items-center justify-content-between" style="border-color: #469DFA; background-color: #f9fcff; border-radius: 6px;">
+                                  <div class="d-flex align-items-center">
+                                    <div 
+                                      class="rounded-circle d-flex align-items-center justify-content-center me-3"
+                                      style="width: 40px; height: 40px; background-color: #e9f3ff;"
+                                    >
+                                      <i class="bi bi-image text-primary fs-5"></i>
+                                    </div>
+                                    <div>
+                                      <div class="fw-semibold text-dark" id="editFileName"></div>
+                                      <small class="text-muted" id="editFileSize"></small>
+                                    </div>
+                                  </div>
+                                  <div class="text-success fw-bold" id="editUploadPercent">100%</div>
+                                </div>
+                            
+                                <div class="progress mt-2" style="height: 6px;">
+                                  <div 
+                                    class="progress-bar bg-primary" 
+                                    id="editProgressBar"
+                                    role="progressbar" 
+                                    style="width: 0%;" 
+                                    aria-valuenow="0" 
+                                    aria-valuemin="0" 
+                                    aria-valuemax="100"
+                                  ></div>
+                                </div>
                             </div>
                         </div>
+                        <div class="col-12 mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                              <label class="fw-semibold mb-0" style="color: #344054;">Supplements</label>
+                              <button class="text-primary fw-semibold text-decoration-none d-flex align-items-center gap-1 add-supplement-btn bg-white">
+                                <i class="bi bi-plus-lg"></i> Add Supplement
+                              </button>
+                            </div>
+                          
+                            <div id="editSupplementsContainer" class="flex-wrap justify-content-start" style="gap: 5px;"></div>
+
+                          </div>
+                        
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary" id="updateExperimentBtn">
-                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-                            Update Experiment
-                        </button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="updateExperimentBtn">
+                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                        Update Experiment
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
     <!-- Add Supplement Modal -->
     <div class="modal fade" id="addSupplementModal" tabindex="-1" aria-labelledby="addSupplementModalLabel" aria-hidden="true">
@@ -656,9 +700,7 @@
                                         <button class="btn btn-link text-danger p-0 me-2" onclick="deleteExperiment(${experiment.id})" title="Delete">
                                             <img src="/img/icons/trash-icon.png" alt="Delete"/>
                                         </button>
-                                        <button class="btn btn-link text-dark p-0" onclick="editExperiment(${experiment.id})" title="Edit">
-                                            <img src="/img/icons/edit-icon.png" alt="Edit"/>
-                                        </button>
+                                  
                                     ` : '<span class="text-muted">View Only</span>'}
                         </td>
                     </tr>
@@ -939,23 +981,8 @@
                         const experiment = data.data;
                         document.getElementById('edit_experiment_id').value = experiment.id;
                         document.getElementById('edit_title').value = experiment.title;
-                        document.getElementById('edit_content_type').value = experiment.content_type;
-                        document.getElementById('edit_status').value = experiment.status;
                         document.getElementById('edit_categories').value = experiment.categories || '';
                         document.getElementById('edit_description').value = experiment.description || '';
-                        document.getElementById('edit_supplements').value = experiment.supplements || '';
-                        
-                        // Handle image display
-                        const currentImageContainer = document.getElementById('currentImageContainer');
-                        if (experiment.image) {
-                            currentImageContainer.innerHTML = `
-                                <p class="mb-1">Current Image:</p>
-                                <img src="/storage/${experiment.image}" alt="${experiment.title}" 
-                                     class="img-thumbnail" style="max-width: 200px;">
-                            `;
-                        } else {
-                            currentImageContainer.innerHTML = '<p class="text-muted">No image uploaded</p>';
-                        }
                         
                         editExperimentModal.show();
                     } else {
