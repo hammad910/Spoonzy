@@ -7,6 +7,7 @@ use App\Http\Requests\StoreSupplementRequest;
 use App\Http\Requests\UpdateSupplementRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SupplementController extends Controller
 {
@@ -16,7 +17,11 @@ class SupplementController extends Controller
     public function index(Request $request): JsonResponse
     {
         try {
-            $supplements = Supplement::getUserSupplements();
+            // $supplements = Supplement::where('user_id', Auth::id())->get();
+            dd('route hit', Auth::id());
+            $supplements = Supplement::all();
+
+            dd($supplements);
             
             return response()->json([
                 'success' => true,

@@ -72,9 +72,9 @@
 @section('content')
     <section class="section section-sm">
         <div class="container pt-lg-4 pt-2 max-w-100" style="max-width: 100%">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center" style=" flex-wrap: nowrap !important;">
 
-                <div class="d-none d-lg-block" style="height: 100vh; border-right: 1px solid #ddd; padding: 20px; width: 15%">
+                <div class="d-none d-lg-block" style="height: 100vh; width: 20%; border-right: 1px solid #ddd; padding: 20px;">
                     @include('includes.menu-sidebar-home')
                 </div>
 

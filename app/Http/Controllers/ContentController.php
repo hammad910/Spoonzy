@@ -11,6 +11,7 @@ use App\Models\Supplement;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 
 class ContentController extends Controller
@@ -342,9 +343,18 @@ class ContentController extends Controller
             $experiment->status = 'active'; 
             $experiment->creator_id = Auth::id(); 
 
+            $directoryPath = public_path('images/experiments');
+
+            if (!File::exists($directoryPath)) {
+                File::makeDirectory($directoryPath, 0777, true, true);
+            }
+            
             if ($request->hasFile('media_url')) {
-                $imagePath = $request->file('media_url')->store('experiments', 'public');
-                $experiment->media_url = $imagePath;
+                $file = $request->file('media_url');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $file->move($directoryPath, $filename);
+            
+                $experiment->media_url = url('images/experiment/' . $filename);
             }
 
             $experiment->save();
@@ -395,7 +405,7 @@ class ContentController extends Controller
 
 public function getSupplement() {
     try {
-        $supplements = Supplement::getUserSupplements();
+        $supplements = Supplement::where('user_id', Auth::id())->get();
 
         return response()->json([
             'success' => true,

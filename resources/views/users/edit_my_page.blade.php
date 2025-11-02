@@ -8,7 +8,10 @@
 @endsection
 
 @section('content')
-<section class="section section-sm">
+<section class="section section-sm d-flex">
+    <div class="menu-sidebar d-none d-lg-block" style="width: 20%; border-right: 1px solid #ddd; padding: 20px;">
+      @include('includes.menu-sidebar-home')
+  </div>
     <div class="container">
       <div class="row justify-content-center text-center mb-sm">
         <div class="col-lg-8 py-5">

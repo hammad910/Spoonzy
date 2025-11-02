@@ -1170,12 +1170,14 @@ Route::any('webhook/vault/coco/{mediaId}', [WebhookCoconutController::class, 'we
 // Health Tracking Work
 // Route::middleware('auth:sanctum')->group(function () {
 	Route::get('/experiment/{id}', [ExperimentController::class, 'fetchCreatorExperiement'])->name('experiment.fetch');
+	Route::get('/experiment/supplements', [ExperimentController::class, 'getExperimentSupplements']);
     Route::apiResource('bristol-entries', 'BristolStoolController');
-
+	
     Route::get('supplements/today', [SupplementController::class, 'getTodaySupplements']);
     Route::get('supplements/stats', [SupplementController::class, 'getStats']);
     Route::get('supplements/frequent', [SupplementController::class, 'getFrequentlyUsed']);
     Route::apiResource('supplements', 'SupplementController');
+    Route::get('supplements/index', [SupplementController::class, 'index']);
     
     Route::get('mood-entries/today', [MoodController::class, 'getTodayMoods']);
     Route::get('mood-entries/stats', [MoodController::class, 'getStats']);
@@ -1195,5 +1197,6 @@ Route::any('webhook/vault/coco/{mediaId}', [WebhookCoconutController::class, 'we
 	Route::get('/api/get-supplements', [ContentController::class, 'getSupplement'])->name('supplements.get');
     
     Route::apiResource('experiment-entries', 'ExperimentEntryController');
+
 
 // });
