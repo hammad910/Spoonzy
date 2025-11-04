@@ -3,8 +3,11 @@
 @section('title') {{__('general.wallet')}} -@endsection
 
 @section('content')
-<section class="section section-sm">
-    <div class="container">
+<section class="section section-sm d-flex">
+   <div class="menu-sidebar d-none d-lg-block" style="width: 20%; border-right: 1px solid #ddd; padding: 20px;">
+            @include('includes.menu-sidebar-home')
+        </div>
+    <div class="container" style="background: #FBFBFB;">
       <div class="row justify-content-center text-center mb-sm">
         <div class="col-lg-8 py-5">
           <h2 class="mb-0 font-montserrat"><i class="iconmoon icon-Wallet mr-2"></i> {{__('general.wallet')}}</h2>
@@ -59,7 +62,7 @@
 
                 <span class="w-100 d-block mt-2">
                   @if (auth()->user()->balance != 0.00)
-                  <a href="#" data-toggle="modal" data-target="#modalTransfer" class="btn btn-1 btn-success mb-2 text-decoration-none">
+                  <a href="#" data-toggle="modal" data-target="#modalTransfer" class="btn btn-1 mb-2 text-decoration-none" style="color: white; background: {{ $settings->theme_color_pwa }}">
                     <i class="bi bi-arrow-left-right mr-2"></i> {{ __('general.transfer_balance') }}
                   </a>
                   @endif
@@ -205,7 +208,7 @@
                 </label>
               </div>
 
-            <button class="btn btn-1 btn-success btn-block mt-4" id="addFundsBtn" type="submit"><i></i> {{__('general.add_funds')}}</button>
+            <button class="btn btn-1 btn-block mt-4" style="color: white; background: {{ $settings->theme_color_pwa }}" id="addFundsBtn" type="submit"><i></i> {{__('general.add_funds')}}</button>
           </form>
 
           @if ($data->count() != 0)

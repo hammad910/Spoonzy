@@ -257,6 +257,10 @@ Route::get('verify/account/{confirmation_code}', [HomeController::class, 'getVer
 	// Subscription Page
    	Route::view('settings/subscription','users.subscription');
    	Route::post('settings/subscription', [UserController::class, 'saveSubscription']);
+	
+	// Help & Faqs
+   	Route::view('settings/faqs','users.faqs');
+
 
 	// Verify Account
    	Route::get('settings/verify/account', [UserController::class, 'verifyAccount']);

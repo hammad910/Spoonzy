@@ -25,19 +25,19 @@
 		</a>
 	</li>
 	<li>
-		<a href="/health-tracking">
+		<a href="/health-tracking" class="{{ request()->is('health-tracking') ? 'active disabled' : '' }}">
 			<image src="/img/icons/health-icon.png" style="height:20px"/>
 			<span class="ml-2">Health Tracking</span>
 		</a>
 	</li>
 	<li>
-		<a href="/experiments">
+		<a href="/experiments" class="{{ request()->is('experiments') ? 'active disabled' : '' }}">
 			<image src="/img/icons/experiment-icon.png" style="height:20px"/>
 			<span class="ml-2">Experiments</span>
 		</a>
 	</li>
 	<li>
-		<a href="/notifications">
+		<a href="/notifications" class="{{ request()->is('notifications') ? 'active disabled' : '' }}">
 			<image src="/img/icons/notification-icon.png" style="height:20px"/>
 			<span class="ml-2">Notifications</span>
 		</a>

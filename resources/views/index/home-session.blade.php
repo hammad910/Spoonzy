@@ -246,7 +246,7 @@
                                             <img src="/images/experiment-vector.png" alt="" class="me-2 img-fluid" style="width: 24px;">
                                             Trending Experiments
                                           </h6>
-                                          <a href="#" class="text-primary fw-semibold small text-decoration-none" style="font-size: 15px;">
+                                          <a href="/experiments" class="text-primary fw-semibold small text-decoration-none" style="font-size: 15px;">
                                             View all <i class="bi bi-arrow-up-right" style="font-size: 15px;"></i>
                                           </a>
                                         </div>

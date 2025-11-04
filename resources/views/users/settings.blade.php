@@ -4,7 +4,7 @@
 
 @section('content')
 <section class="section section-sm">
-    <div class="container">
+    <div class="container" style="background: #FBFBFB;">
       <div class="row justify-content-center text-center mb-sm">
         <div class="col-lg-8 py-5">
           <h2 class="mb-0 font-montserrat"><i class="fa fa-tools mr-2"></i> {{trans('users.settings')}}</h2>
@@ -67,7 +67,7 @@
                   </label>
                 </div>
 
-                <button class="btn btn-1 btn-success btn-block" type="submit">{{trans('general.save_changes')}}</button>
+                <button class="btn btn-1 btn-block" type="submit" style="background: {{ $settings->thme_color_pwa }}">{{trans('general.save_changes')}}</button>
           </form>
         </div><!-- end col-md-6 -->
       </div>
