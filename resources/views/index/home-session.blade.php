@@ -246,7 +246,7 @@
                                             <img src="/images/experiment-vector.png" alt="" class="me-2 img-fluid" style="width: 24px;">
                                             Trending Experiments
                                           </h6>
-                                          <a href="#" class="text-primary fw-semibold small text-decoration-none" style="font-size: 15px;">
+                                          <a href="/experiments" class="text-primary fw-semibold small text-decoration-none" style="font-size: 15px;">
                                             View all <i class="bi bi-arrow-up-right" style="font-size: 15px;"></i>
                                           </a>
                                         </div>
@@ -264,7 +264,6 @@
                                                 </div>
                                               </div>
                                             </div>
-                                            <button class="btn btn-primary btn-sm fw-semibold px-3 rounded-3 mt-2 mt-sm-0 ms-auto">Join</button>
                                           </div>                                          
                                       
                                         <!-- Repeat Items -->
@@ -278,7 +277,6 @@
                                               </div>
                                             </div>
                                           </div>
-                                          <button class="btn btn-primary btn-sm fw-semibold px-3 rounded-3">Join</button>
                                         </div>
                                       
                                         <div class="experiment-item d-flex justify-content-between align-items-center p-2 rounded-3">
@@ -291,7 +289,6 @@
                                               </div>
                                             </div>
                                           </div>
-                                          <button class="btn btn-primary btn-sm fw-semibold px-3 rounded-3">Join</button>
                                         </div>
                                     </div>
                                 </div>

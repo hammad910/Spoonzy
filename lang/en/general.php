@@ -763,6 +763,7 @@ return array(
 	// Version 2.7
 	'watermark_on_videos' => 'Watermark on videos',
 	'subscription_price' => 'Subscription price',
+	'faqs' => 'Help & FAQs',
 	'referrals' => 'Referrals',
 	'referral_system' => 'Referral system',
 	'percentage_referred' => 'Percentage of profit for each referral',

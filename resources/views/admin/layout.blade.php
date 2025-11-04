@@ -57,7 +57,7 @@
             <i class="bi bi-x-lg"></i>
           </button>
       </div>
-      <div class="offcanvas-body px-0 scrollbar">
+      <div class="offcanvas-body px-0 scrollbar" style="background: white">
           <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start list-sidebar" id="menu">
 
               @if (auth()->user()->hasPermission('dashboard'))
