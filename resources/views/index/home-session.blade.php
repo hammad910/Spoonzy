@@ -264,7 +264,6 @@
                                                 </div>
                                               </div>
                                             </div>
-                                            <button class="btn btn-primary btn-sm fw-semibold px-3 rounded-3 mt-2 mt-sm-0 ms-auto">Join</button>
                                           </div>                                          
                                       
                                         <!-- Repeat Items -->
@@ -278,7 +277,6 @@
                                               </div>
                                             </div>
                                           </div>
-                                          <button class="btn btn-primary btn-sm fw-semibold px-3 rounded-3">Join</button>
                                         </div>
                                       
                                         <div class="experiment-item d-flex justify-content-between align-items-center p-2 rounded-3">
@@ -291,7 +289,6 @@
                                               </div>
                                             </div>
                                           </div>
-                                          <button class="btn btn-primary btn-sm fw-semibold px-3 rounded-3">Join</button>
                                         </div>
                                     </div>
                                 </div>

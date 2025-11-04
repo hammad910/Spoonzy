@@ -31,7 +31,7 @@
 
     /* Left menu sidebar: desktop only */
     .menu-sidebar {
-        flex: 0 0 20%;
+        flex: 0 0 17%;
         max-width: 35%;
         border-right: 1px solid #ddd;
         padding: 20px;

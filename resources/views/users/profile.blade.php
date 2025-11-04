@@ -35,11 +35,32 @@
         var profile_id = {{ $user->id }};
         var sort_post_by_type_media = "{!! $sortPostByTypeMedia !!}";
     </script>
+
+    <style>
+        .menu-sidebar {
+            margin-top: 4% !important;
+        }
+
+        /* When screen width < 1400px */
+        @media (max-width: 1399.98px) {
+            .menu-sidebar {
+                margin-top: 6%;
+            }
+        }
+
+        @media (max-width: 1199.98px) {
+            .menu-sidebar {
+                margin-top: 8%;
+            }
+        }
+    </style>
 @endsection
+
 
 @section('content')
     <div class="d-flex">
-        <div class="d-none d-lg-block" style="height: 100vh; border-right: 1px solid #ddd; padding: 20px; width: 15%">
+        <div class="menu-sidebar d-none d-lg-block"
+            style="height: 100vh; border-right: 1px solid #ddd; padding: 20px; width: 20%">
             @include('includes.menu-sidebar-home')
         </div>
         <div class="flex-grow-1">
@@ -617,37 +638,38 @@
                                     <div class="card-body">
                                         <h6 class="card-title">{{ __('users.about_me') }}</h6>
                                         @if ($user->website)
-                                        <div class="mb-3 mt-2">
-                                             <a href="{{ $user->website }}" title="{{ $user->website }}"
+                                            <div class="mb-3 mt-2">
+                                                <a href="{{ $user->website }}" title="{{ $user->website }}"
                                                     target="_blank" class="d-flex align-items-center" style="gap: 5px">
                                                     <img src="/img/icons/link-icon.png" alt="link">
-                                                    <span style="color: #469DFA; font-weight: 500">{{ Helper::removeHTPP($user->website) }}</span>
-                                                    </a>
-                                        </div>
+                                                    <span
+                                                        style="color: #469DFA; font-weight: 500">{{ Helper::removeHTPP($user->website) }}</span>
+                                                </a>
+                                            </div>
                                         @endif
                                         @if ($user->facebook || $user->twitter || $user->instagram || $user->youtube)
-                                        <div class="d-flex" style="gap: 10px">
-                                            @if ($user->facebook)
-                                            <a href="{{ $user->facebook }}" title="{{ $user->facebook }}">
-                                                <img src="/img/icons/fb-icon.png" alt="facebook">
-                                            </a>
-                                            @endif
-                                            @if ($user->twitter)
-                                            <a href="{{ $user->twitter }}" title="{{ $user->twitter }}">
-                                                <img src="/img/icons/x-icon.png" alt="twitter">
-                                            </a>
-                                            @endif
-                                            @if ($user->instagram)
-                                            <a href="{{ $user->instagram }}" title="{{ $user->instagram }}">
-                                                <img src="/img/icons/insta-icon.png" alt="instagram">
-                                            </a>
-                                            @endif
-                                            @if ($user->youtube)
-                                            <a href="{{ $user->youtube }}" title="{{ $user->youtube }}">
-                                                <img src="/img/icons/yt-icon.png" alt="youtube">
-                                            </a>
-                                            @endif
-                                        </div>
+                                            <div class="d-flex" style="gap: 10px">
+                                                @if ($user->facebook)
+                                                    <a href="{{ $user->facebook }}" title="{{ $user->facebook }}">
+                                                        <img src="/img/icons/fb-icon.png" alt="facebook">
+                                                    </a>
+                                                @endif
+                                                @if ($user->twitter)
+                                                    <a href="{{ $user->twitter }}" title="{{ $user->twitter }}">
+                                                        <img src="/img/icons/x-icon.png" alt="twitter">
+                                                    </a>
+                                                @endif
+                                                @if ($user->instagram)
+                                                    <a href="{{ $user->instagram }}" title="{{ $user->instagram }}">
+                                                        <img src="/img/icons/insta-icon.png" alt="instagram">
+                                                    </a>
+                                                @endif
+                                                @if ($user->youtube)
+                                                    <a href="{{ $user->youtube }}" title="{{ $user->youtube }}">
+                                                        <img src="/img/icons/yt-icon.png" alt="youtube">
+                                                    </a>
+                                                @endif
+                                            </div>
                                         @endif
                                         <p class="card-text position-relative">
 
