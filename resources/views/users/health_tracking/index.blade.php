@@ -197,7 +197,7 @@
                     <h1 class="h3 mb-0" style="color: #101828;">Health Tracking</h1>
                     <p class="text-muted mb-0">Overview of your latest health metrics</p>
                 </div>
-                <button class="top-right-btn">+ Make new Entry</button>
+                {{-- <button class="top-right-btn">+ Make new Entry</button> --}}
             </div>
 
             <!-- KPI Cards -->
