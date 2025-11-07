@@ -7,7 +7,7 @@
 
             <span class="h5 align-top font-weight-bold">{{ trans('general.messages') }}</span>
             <small
-                style="color: {{ $settings->theme_color_pwa }}; background: {{ $settings->sidebar_bg_color }}; border-radius: 8px; padding: 2px 12px;">{{ $messagesInbox->count() }}</small>
+                style="color: white; background: {{ $settings->sidebar_bg_color }}; border-radius: 8px; padding: 2px 12px;">{{ $messagesInbox->count() }}</small>
         </div>
 
         <a href="#" class="h4 text-decoration-none" data-toggle="modal" data-target="#newMessageForm"
