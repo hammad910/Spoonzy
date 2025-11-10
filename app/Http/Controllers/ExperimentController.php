@@ -51,11 +51,17 @@ class ExperimentController extends Controller
         $experiment = Content::with('creator')->findOrFail($id);
         $userPlanMonthlyActive = $experiment->creator->planActive();
 
+        if ($experiment->media_url) {
+            $experimentImage = asset('images/' . $experiment->media_url);
+        } else {
+            $experimentImage = '';
+        }
+
         return response()->json([
             'success' => true,
             'title' => $experiment->title,
             'category' => $experiment->category ?? 'Healthcare',
-            'image_url' => asset('images/' . $experiment->media_url),
+            'image_url' => $experimentImage,
             'content_type' => $experiment->content_type,
             'user' => [
                 'name' => $experiment->creator->name,

@@ -5,9 +5,9 @@
     <div class="col-md-3">
       <a href="{{url('/')}}">
         @if (auth()->check() && auth()->user()->dark_mode == 'on')
-          <img src="{{url('public/img', $settings->logo)}}" alt="{{$settings->title}}" class="max-w-125">
+          <img src="{{url('images', $settings->logo)}}" alt="{{$settings->title}}" class="max-w-125" style="border-radius: 20px; width: 50px;">
         @else
-          <img src="{{url('public/img', $settings->logo_2)}}" alt="{{$settings->title}}" class="max-w-125">
+          <img src="{{url('images', $settings->logo_2)}}" alt="{{$settings->title}}" class="max-w-125" style="border-radius: 20px; width: 50px;">
       @endif
       </a>
       @if ($settings->facebook != ''

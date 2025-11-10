@@ -7,7 +7,8 @@
                 <div class="buttons-mobile-nav d-lg-none">
                     <a class="btn-mobile-nav navbar-toggler-mobile" href="#" data-toggle="collapse"
                         data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" role="button">
-                        <i class="feather icon-menu icon-navbar"></i>
+                        {{-- <i class="feather icon-menu icon-navbar"></i> --}}
+                        <i class="feather bi bi-list icon-navbar"></i>
                     </a>
                 </div>
             @endauth
@@ -185,6 +186,30 @@
                                 <div>
                                     <i class="feather icon-heart mr-2"></i>
                                     <span class="d-lg-none">{{ __('general.likes') }}</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown d-lg-none">
+                            <a href="{{ url('/health-tracking') }}" class="nav-link px-2 link-menu-mobile py-1">
+                                <div>
+                                    <i class="feather icon-bar-chart-2 mr-2"></i>
+                                    <span class="d-lg-none">Health Tracking</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown d-lg-none">
+                            <a href="{{ url('/experiments') }}" class="nav-link px-2 link-menu-mobile py-1">
+                                <div>
+                                    <i class="feather icon-more-vertical mr-2"></i>
+                                    <span class="d-lg-none">Experiments</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown d-lg-none border-bottom">
+                            <a href="{{ url('/notifications') }}" class="nav-link px-2 link-menu-mobile py-1">
+                                <div>
+                                    <i class="feather icon-bell mr-2"></i>
+                                    <span class="d-lg-none">Notifications</span>
                                 </div>
                             </a>
                         </li>
