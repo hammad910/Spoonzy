@@ -31,7 +31,8 @@
 
                     <div class="d-none d-lg-flex justify-content-between align-items-center mb-4">
                         <h4 class="fw-semibold mb-0" style="color: black">Experiments</h4>
-                        <button class="btn px-3" id="create-btn" data-bs-toggle="modal" data-bs-target="#createExperimentModal"
+                        <button class="btn px-3" id="create-btn" data-bs-toggle="modal"
+                            data-bs-target="#createExperimentModal"
                             style="background: {{ $settings->theme_color_pwa ?? '#469DFA' }}; color: white;">
                             <i class="bi bi-plus-lg"></i> Create Experiment
                         </button>
@@ -111,11 +112,14 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-6 mb-3">
-                                <label for="create_title" class="form-label" style="color: #344054">Title <span class="text-danger">*</span></label>
-                                <input type="text" placeholder="Experiement Title" class="form-control" id="create_title" name="title" required>
+                                <label for="create_title" class="form-label" style="color: #344054">Title <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" placeholder="Experiement Title" class="form-control" id="create_title"
+                                    name="title" required>
                             </div>
                             <div class="col-6 mb-3">
-                                <label for="create_categories" class="form-label" style="color: #344054">Category <span class="text-danger">*</span></label>
+                                <label for="create_categories" class="form-label" style="color: #344054">Category <span
+                                        class="text-danger">*</span></label>
                                 <select class="form-control" id="create_categories" name="categories" required>
                                     <option value="">Category Name</option>
                                     <option value="Biology">Biology</option>
@@ -129,75 +133,78 @@
                                 </select>
                             </div>
                             <div class="col-12 mb-3">
-                                <label for="create_description" class="form-label" style="color: #344054">Description</label>
-                                <textarea class="form-control" id="create_description" name="description" rows="3" placeholder="Enter experiment description"></textarea>
+                                <label for="create_description" class="form-label"
+                                    style="color: #344054">Description</label>
+                                <textarea class="form-control" id="create_description" name="description" rows="3"
+                                    placeholder="Enter experiment description"></textarea>
                             </div>
                             <div class="col-12 mb-3" style="cursor: pointer">
-                                <label for="create_image" class="form-label" style="color: #344054">Experiment Image</label>
-                                <input type="file" class="form-control" id="create_image" name="media_url" accept="image/*">
-                                <div class="form-control d-flex flex-column align-items-center justify-content-center py-5 border-dashed rounded-4"  id="create_supplements" style="border: 2px dashed #d0d7de; background-color: #fafbfc; cursor: pointer;">
-                                    <div class="rounded-circle d-flex align-items-center justify-content-center mb-2" 
+                                <label for="create_image" class="form-label" style="color: #344054">Experiment
+                                    Image</label>
+                                <input type="file" class="form-control" id="create_image" name="media_url"
+                                    accept="image/*">
+                                <div class="form-control d-flex flex-column align-items-center justify-content-center py-5 border-dashed rounded-4"
+                                    id="create_supplements"
+                                    style="border: 2px dashed #d0d7de; background-color: #fafbfc; cursor: pointer;">
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center mb-2"
                                         style="width: 48px; height: 48px; background-color: #f2f6ff;">
                                         <i class="bi bi-exclamation-circle text-primary fs-4"></i>
                                     </div>
 
                                     <div>
-                                        <span class="text-primary fw-semibold" style="cursor: pointer;">Click to upload</span>
+                                        <span class="text-primary fw-semibold" style="cursor: pointer;">Click to
+                                            upload</span>
                                         <span class="text-muted"> or drag and drop</span>
                                     </div>
 
                                     <small class="text-muted mt-1">
                                         SVG, PNG, JPG or GIF (max. 800×400px)
-                                    </small>    
+                                    </small>
                                 </div>
                                 <div id="uploadPreview" class="mt-3 d-none">
-                                    <div class="border p-3 d-flex align-items-center justify-content-between" style="border-color: #469DFA; background-color: #f9fcff; border-radius: 6px;">
-                                      <div class="d-flex align-items-center">
-                                        <div 
-                                          class="rounded-circle d-flex align-items-center justify-content-center me-3"
-                                          style="width: 40px; height: 40px; background-color: #e9f3ff;"
-                                        >
-                                          <i class="bi bi-image text-primary fs-5"></i>
+                                    <div class="border p-3 d-flex align-items-center justify-content-between"
+                                        style="border-color: #469DFA; background-color: #f9fcff; border-radius: 6px;">
+                                        <div class="d-flex align-items-center">
+                                            <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
+                                                style="width: 40px; height: 40px; background-color: #e9f3ff;">
+                                                <i class="bi bi-image text-primary fs-5"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-semibold text-dark" id="fileName"></div>
+                                                <small class="text-muted" id="fileSize"></small>
+                                            </div>
                                         </div>
-                                        <div>
-                                          <div class="fw-semibold text-dark" id="fileName"></div>
-                                          <small class="text-muted" id="fileSize"></small>
-                                        </div>
-                                      </div>
-                                      <div class="text-success fw-bold" id="uploadPercent">100%</div>
+                                        <div class="text-success fw-bold" id="uploadPercent">100%</div>
                                     </div>
-                                
+
                                     <div class="progress mt-2" style="height: 6px;">
-                                      <div 
-                                        class="progress-bar bg-primary" 
-                                        id="progressBar"
-                                        role="progressbar" 
-                                        style="width: 0%;" 
-                                        aria-valuenow="0" 
-                                        aria-valuemin="0" 
-                                        aria-valuemax="100"
-                                      ></div>
+                                        <div class="progress-bar bg-primary" id="progressBar" role="progressbar"
+                                            style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 mb-4">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                  <label class="fw-semibold mb-0" style="color: #344054;">Supplements</label>
-                                  <button class="text-primary fw-semibold text-decoration-none d-flex align-items-center gap-1 add-supplement-btn bg-white">
-                                    <i class="bi bi-plus-lg"></i> Add Supplement
-                                  </button>
+                                    <label class="fw-semibold mb-0" style="color: #344054;">Supplements</label>
+                                    <button
+                                        class="text-primary fw-semibold text-decoration-none d-flex align-items-center gap-1 add-supplement-btn bg-white">
+                                        <i class="bi bi-plus-lg"></i> Add Supplement
+                                    </button>
                                 </div>
-                              
-                                <div id="supplementsContainer" class="flex-wrap justify-content-start" style="gap: 5px;"></div>
 
-                              </div>
-                            
+                                <div id="supplementsContainer" class="flex-wrap justify-content-start" style="gap: 5px;">
+                                </div>
+
+                            </div>
+
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-secondary" id="createExperimentCloseBtn">Cancel</button>
                         <button type="submit" class="btn btn-primary" id="createExperimentBtn">
-                            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                            <span class="spinner-border spinner-border-sm d-none" role="status"
+                                aria-hidden="true"></span>
                             Create Experiment
                         </button>
                     </div>
@@ -208,117 +215,124 @@
 
     <!-- Edit Experiment Modal -->
     <div class="modal fade" id="editExperimentModal" tabindex="-1" aria-labelledby="editExperimentModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 style="color: black" id="editExperimentModalLabel">Edit Experiment</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form id="editExperimentForm" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
-                <div class="modal-body">
-                    <input type="hidden" id="edit_experiment_id" name="id">
-                    <div class="row">
-                        <div class="col-6 mb-3">
-                            <label for="edit_title" class="form-label" style="color: #344054">Title <span class="text-danger">*</span></label>
-                            <input type="text" placeholder="Experiement Title" class="form-control" id="edit_title" name="title" required>
-                        </div>
-                        <div class="col-6 mb-3">
-                            <label for="edit_categories" class="form-label" style="color: #344054">Category <span class="text-danger">*</span></label>
-                            <select class="form-control" id="edit_categories" name="categories" required>
-                                <option value="">Category Name</option>
-                                <option value="Biology">Biology</option>
-                                <option value="Chemistry">Chemistry</option>
-                                <option value="Physics">Physics</option>
-                                <option value="Engineering">Engineering</option>
-                                <option value="Computer Science">Computer Science</option>
-                                <option value="Psychology">Psychology</option>
-                                <option value="Environmental Science">Environmental Science</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                        <div class="col-12 mb-3">
-                            <label for="edit_description" class="form-label" style="color: #344054">Description</label>
-                            <textarea class="form-control" id="edit_description" name="description" rows="3" placeholder="Enter experiment description"></textarea>
-                        </div>
-                        <div class="col-12 mb-3" style="cursor: pointer">
-                            <label for="edit_image" class="form-label" style="color: #344054">Experiment Image</label>
-                            <input type="file" class="form-control" id="edit_image" name="media_url" accept="image/*">
-                            <div class="form-control d-flex flex-column align-items-center justify-content-center py-5 border-dashed rounded-4"  id="edit_supplements" style="border: 2px dashed #d0d7de; background-color: #fafbfc; cursor: pointer;">
-                                <div class="rounded-circle d-flex align-items-center justify-content-center mb-2" 
-                                    style="width: 48px; height: 48px; background-color: #f2f6ff;">
-                                    <i class="bi bi-exclamation-circle text-primary fs-4"></i>
-                                </div>
-
-                                <div>
-                                    <span class="text-primary fw-semibold" style="cursor: pointer;">Click to upload</span>
-                                    <span class="text-muted"> or drag and drop</span>
-                                </div>
-
-                                <small class="text-muted mt-1">
-                                    SVG, PNG, JPG or GIF (max. 800×400px)
-                                </small>    
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 style="color: black" id="editExperimentModalLabel">Edit Experiment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editExperimentForm" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="modal-body">
+                        <input type="hidden" id="edit_experiment_id" name="id">
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label for="edit_title" class="form-label" style="color: #344054">Title <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" placeholder="Experiement Title" class="form-control"
+                                    id="edit_title" name="title" required>
                             </div>
-                            <div id="editUploadPreview" class="mt-3 d-none">
-                                <div class="border p-3 d-flex align-items-center justify-content-between" style="border-color: #469DFA; background-color: #f9fcff; border-radius: 6px;">
-                                  <div class="d-flex align-items-center">
-                                    <div 
-                                      class="rounded-circle d-flex align-items-center justify-content-center me-3"
-                                      style="width: 40px; height: 40px; background-color: #e9f3ff;"
-                                    >
-                                      <i class="bi bi-image text-primary fs-5"></i>
+                            <div class="col-6 mb-3">
+                                <label for="edit_categories" class="form-label" style="color: #344054">Category <span
+                                        class="text-danger">*</span></label>
+                                <select class="form-control" id="edit_categories" name="categories" required>
+                                    <option value="">Category Name</option>
+                                    <option value="Biology">Biology</option>
+                                    <option value="Chemistry">Chemistry</option>
+                                    <option value="Physics">Physics</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Computer Science">Computer Science</option>
+                                    <option value="Psychology">Psychology</option>
+                                    <option value="Environmental Science">Environmental Science</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-12 mb-3">
+                                <label for="edit_description" class="form-label"
+                                    style="color: #344054">Description</label>
+                                <textarea class="form-control" id="edit_description" name="description" rows="3"
+                                    placeholder="Enter experiment description"></textarea>
+                            </div>
+                            <div class="col-12 mb-3" style="cursor: pointer">
+                                <label for="edit_image" class="form-label" style="color: #344054">Experiment
+                                    Image</label>
+                                <input type="file" class="form-control" id="edit_image" name="media_url"
+                                    accept="image/*">
+                                <div class="form-control d-flex flex-column align-items-center justify-content-center py-5 border-dashed rounded-4"
+                                    id="edit_supplements"
+                                    style="border: 2px dashed #d0d7de; background-color: #fafbfc; cursor: pointer;">
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center mb-2"
+                                        style="width: 48px; height: 48px; background-color: #f2f6ff;">
+                                        <i class="bi bi-exclamation-circle text-primary fs-4"></i>
                                     </div>
+
                                     <div>
-                                      <div class="fw-semibold text-dark" id="editFileName"></div>
-                                      <small class="text-muted" id="editFileSize"></small>
+                                        <span class="text-primary fw-semibold" style="cursor: pointer;">Click to
+                                            upload</span>
+                                        <span class="text-muted"> or drag and drop</span>
                                     </div>
-                                  </div>
-                                  <div class="text-success fw-bold" id="editUploadPercent">100%</div>
-                                </div>
-                            
-                                <div class="progress mt-2" style="height: 6px;">
-                                  <div 
-                                    class="progress-bar bg-primary" 
-                                    id="editProgressBar"
-                                    role="progressbar" 
-                                    style="width: 0%;" 
-                                    aria-valuenow="0" 
-                                    aria-valuemin="0" 
-                                    aria-valuemax="100"
-                                  ></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 mb-4">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                              <label class="fw-semibold mb-0" style="color: #344054;">Supplements</label>
-                              <button class="text-primary fw-semibold text-decoration-none d-flex align-items-center gap-1 add-supplement-btn bg-white">
-                                <i class="bi bi-plus-lg"></i> Add Supplement
-                              </button>
-                            </div>
-                          
-                            <div id="editSupplementsContainer" class="flex-wrap justify-content-start" style="gap: 5px;"></div>
 
-                          </div>
-                        
+                                    <small class="text-muted mt-1">
+                                        SVG, PNG, JPG or GIF (max. 800×400px)
+                                    </small>
+                                </div>
+                                <div id="editUploadPreview" class="mt-3 d-none">
+                                    <div class="border p-3 d-flex align-items-center justify-content-between"
+                                        style="border-color: #469DFA; background-color: #f9fcff; border-radius: 6px;">
+                                        <div class="d-flex align-items-center">
+                                            <div class="rounded-circle d-flex align-items-center justify-content-center me-3"
+                                                style="width: 40px; height: 40px; background-color: #e9f3ff;">
+                                                <i class="bi bi-image text-primary fs-5"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-semibold text-dark" id="editFileName"></div>
+                                                <small class="text-muted" id="editFileSize"></small>
+                                            </div>
+                                        </div>
+                                        <div class="text-success fw-bold" id="editUploadPercent">100%</div>
+                                    </div>
+
+                                    <div class="progress mt-2" style="height: 6px;">
+                                        <div class="progress-bar bg-primary" id="editProgressBar" role="progressbar"
+                                            style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <label class="fw-semibold mb-0" style="color: #344054;">Supplements</label>
+                                    <button
+                                        class="text-primary fw-semibold text-decoration-none d-flex align-items-center gap-1 add-supplement-btn bg-white">
+                                        <i class="bi bi-plus-lg"></i> Add Supplement
+                                    </button>
+                                </div>
+
+                                <div id="editSupplementsContainer" class="flex-wrap justify-content-start"
+                                    style="gap: 5px;"></div>
+
+                            </div>
+
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary" id="updateExperimentBtn">
-                        <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-                        Update Experiment
-                    </button>
-                </div>
-            </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="updateExperimentBtn">
+                            <span class="spinner-border spinner-border-sm d-none" role="status"
+                                aria-hidden="true"></span>
+                            Update Experiment
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
     <!-- Add Supplement Modal -->
-    <div class="modal fade" id="addSupplementModal" tabindex="-1" aria-labelledby="addSupplementModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addSupplementModal" tabindex="-1" aria-labelledby="addSupplementModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -329,20 +343,26 @@
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="supplement_name" class=" form-label fw-semibold" style="color: #344054;">Supplement Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="supplement_name" name="supplement_name" placeholder="Enter Title" required>
+                            <label for="supplement_name" class=" form-label fw-semibold"
+                                style="color: #344054;">Supplement Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="supplement_name" name="supplement_name"
+                                placeholder="Enter Title" required>
                         </div>
                         <div class="mb-3">
-                            <label for="supplement_dosage" class="form-label fw-semibold" style="color: #344054;">Supplement Dosage <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="supplement_dosage" name="dosage" placeholder="200 mg" required>
+                            <label for="supplement_dosage" class="form-label fw-semibold"
+                                style="color: #344054;">Supplement Dosage <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="supplement_dosage" name="dosage"
+                                placeholder="200 mg" required>
                         </div>
                         <div class="mb-3">
-                            <label for="supplement_warning" class="form-label fw-semibold" style="color: #344054;">Warning/Caution Note</label>
-                            <textarea class="form-control" id="supplement_warning" name="notes" rows="3" placeholder="Enter description here"></textarea>
+                            <label for="supplement_warning" class="form-label fw-semibold"
+                                style="color: #344054;">Warning/Caution Note</label>
+                            <textarea class="form-control" id="supplement_warning" name="notes" rows="3"
+                                placeholder="Enter description here"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-secondary" id="addSupplementCancelBtn">Cancel</button>
                         <button type="submit" class="btn btn-primary" id="addSupplementBtn">
                             <span class="spinner-border spinner-border-sm d-none" role="status"></span>
                             Add Supplement
@@ -354,7 +374,8 @@
     </div>
 
     <!-- Edit Supplement Modal -->
-    <div class="modal fade" id="editSupplementModal" tabindex="-1" aria-labelledby="editSupplementModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editSupplementModal" tabindex="-1" aria-labelledby="editSupplementModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -367,16 +388,22 @@
                     <input type="hidden" id="edit_supplement_id" name="id">
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="edit_supplement_name" class=" form-label fw-semibold" style="color: #344054;">Supplement Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="edit_supplement_name" name="supplement_name" placeholder="Enter Title" required>
+                            <label for="edit_supplement_name" class=" form-label fw-semibold"
+                                style="color: #344054;">Supplement Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="edit_supplement_name" name="supplement_name"
+                                placeholder="Enter Title" required>
                         </div>
                         <div class="mb-3">
-                            <label for="edit_supplement_dosage" class="form-label fw-semibold" style="color: #344054;">Supplement Dosage <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="edit_supplement_dosage" name="dosage" placeholder="200 mg" required>
+                            <label for="edit_supplement_dosage" class="form-label fw-semibold"
+                                style="color: #344054;">Supplement Dosage <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="edit_supplement_dosage" name="dosage"
+                                placeholder="200 mg" required>
                         </div>
                         <div class="mb-3">
-                            <label for="edit_supplement_warning" class="form-label fw-semibold" style="color: #344054;">Warning/Caution Note</label>
-                            <textarea class="form-control" id="edit_supplement_warning" name="notes" rows="3" placeholder="Enter description here"></textarea>
+                            <label for="edit_supplement_warning" class="form-label fw-semibold"
+                                style="color: #344054;">Warning/Caution Note</label>
+                            <textarea class="form-control" id="edit_supplement_warning" name="notes" rows="3"
+                                placeholder="Enter description here"></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -395,7 +422,7 @@
 @section('javascript')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             fetchSupplements();
         });
 
@@ -404,7 +431,7 @@
                 url: '/api/get-supplements',
                 method: 'GET',
                 dataType: 'json',
-                success: function (response) {
+                success: function(response) {
                     console.log('response', response);
                     const container = $('#supplementsContainer');
                     container.empty();
@@ -452,7 +479,7 @@
                                 </ul>
                             </div>
                         `;
-                        container.append(cardHTML);
+                            container.append(cardHTML);
                         });
 
                         // Add event listeners for edit and delete buttons
@@ -467,7 +494,7 @@
                         });
                     }
                 },
-                error: function () {
+                error: function() {
                     alert('Error fetching supplements');
                 }
             });
@@ -482,15 +509,16 @@
                 success: function(response) {
                     if (response.success) {
                         const supplement = response.data;
-                        
+
                         // Populate the edit form
                         $('#edit_supplement_id').val(supplement.id);
                         $('#edit_supplement_name').val(supplement.supplement_name);
                         $('#edit_supplement_dosage').val(supplement.dosage);
                         $('#edit_supplement_warning').val(supplement.notes);
-                        
+
                         // Show the edit modal
-                        const editSupplementModal = new bootstrap.Modal(document.getElementById('editSupplementModal'));
+                        const editSupplementModal = new bootstrap.Modal(document.getElementById(
+                            'editSupplementModal'));
                         editSupplementModal.show();
                     } else {
                         Swal.fire('Error!', 'Failed to load supplement data.', 'error');
@@ -518,14 +546,16 @@
                         url: `/supplements/${supplementId}`,
                         method: 'DELETE',
                         headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
                         },
                         success: function(response) {
                             if (response.success) {
                                 Swal.fire('Deleted!', 'Supplement has been deleted.', 'success');
                                 fetchSupplements(); // Refresh the supplements list
                             } else {
-                                Swal.fire('Error!', response.message || 'Failed to delete supplement.', 'error');
+                                Swal.fire('Error!', response.message || 'Failed to delete supplement.',
+                                    'error');
                             }
                         },
                         error: function() {
@@ -547,7 +577,7 @@
 
             if (!fileInput) return; // Safety check
 
-            fileInput.addEventListener('change', function (e) {
+            fileInput.addEventListener('change', function(e) {
                 const file = e.target.files[0];
                 if (!file) return;
 
@@ -567,7 +597,8 @@
                     uploadPercent.textContent = progress + '%';
                     if (progress >= 100) {
                         clearInterval(interval);
-                        uploadPercent.innerHTML = '<i class="bi bi-check-circle-fill text-primary"></i>';
+                        uploadPercent.innerHTML =
+                            '<i class="bi bi-check-circle-fill text-primary"></i>';
                     }
                 }, 100);
             });
@@ -697,11 +728,14 @@
                         </td>
                         <td class="text-end">
                             ${showActions ? `
-                                        <button class="btn btn-link text-danger p-0 me-2" onclick="deleteExperiment(${experiment.id})" title="Delete">
-                                            <img src="/img/icons/trash-icon.png" alt="Delete"/>
-                                        </button>
-                                  
-                                    ` : '<span class="text-muted">View Only</span>'}
+                                                    <button class="btn btn-link text-danger p-0 me-2" onclick="deleteExperiment(${experiment.id})" title="Delete">
+                                                        <img src="/img/icons/trash-icon.png" alt="Delete"/>
+                                                    </button>
+                                              
+                                                ` : '<span class="text-muted">View Only</span>'}
+                                                 <a href="/creator-experiment/${experiment.id}" style="margin-top: 6px; text-decoration: none;" class="btn btn-link text-danger p-0 me-2" title="View">
+                                                        <i class="feather icon-eye" style="font-size: 18px; color: #475467"></i>
+                                                    </a>
                         </td>
                     </tr>
                 `;
@@ -856,38 +890,40 @@
 
             function createExperiment() {
                 const formData = new FormData(createExperimentForm);
-                
+
                 // Simple loading state
                 createExperimentBtn.disabled = true;
-                createExperimentBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status"></span> Creating...';
+                createExperimentBtn.innerHTML =
+                    '<span class="spinner-border spinner-border-sm" role="status"></span> Creating...';
 
                 fetch('/contents', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        createExperimentModal.hide();
-                        createExperimentForm.reset();
-                        Swal.fire('Success!', 'Experiment created successfully.', 'success');
-                        loadExperiments();
-                    } else {
-                        Swal.fire('Error!', data.message || 'Failed to create experiment.', 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error creating experiment:', error);
-                    Swal.fire('Error!', 'Failed to create experiment.', 'error');
-                })
-                .finally(() => {
-                    // Reset button
-                    createExperimentBtn.disabled = false;
-                    createExperimentBtn.innerHTML = 'Create Experiment';
-                });
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content')
+                        },
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            createExperimentModal.hide();
+                            createExperimentForm.reset();
+                            Swal.fire('Success!', 'Experiment created successfully.', 'success');
+                            loadExperiments();
+                        } else {
+                            Swal.fire('Error!', data.message || 'Failed to create experiment.', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error creating experiment:', error);
+                        Swal.fire('Error!', 'Failed to create experiment.', 'error');
+                    })
+                    .finally(() => {
+                        // Reset button
+                        createExperimentBtn.disabled = false;
+                        createExperimentBtn.innerHTML = 'Create Experiment';
+                    });
             }
 
             function updateExperiment() {
@@ -902,33 +938,34 @@
                 updateExperimentBtn.disabled = true;
 
                 fetch(`/contents/${experimentId}`, {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                        'X-HTTP-Method-Override': 'PUT'
-                    },
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        editExperimentModal.hide();
-                        Swal.fire('Success!', 'Experiment updated successfully.', 'success');
-                        loadExperiments();
-                    } else {
-                        Swal.fire('Error!', data.message || 'Failed to update experiment.', 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error updating experiment:', error);
-                    Swal.fire('Error!', 'Failed to update experiment.', 'error');
-                })
-                .finally(() => {
-                    // Reset button state
-                    spinner.classList.add('d-none');
-                    buttonText.textContent = 'Update Experiment';
-                    updateExperimentBtn.disabled = false;
-                });
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute(
+                                'content'),
+                            'X-HTTP-Method-Override': 'PUT'
+                        },
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            editExperimentModal.hide();
+                            Swal.fire('Success!', 'Experiment updated successfully.', 'success');
+                            loadExperiments();
+                        } else {
+                            Swal.fire('Error!', data.message || 'Failed to update experiment.', 'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error updating experiment:', error);
+                        Swal.fire('Error!', 'Failed to update experiment.', 'error');
+                    })
+                    .finally(() => {
+                        // Reset button state
+                        spinner.classList.add('d-none');
+                        buttonText.textContent = 'Update Experiment';
+                        updateExperimentBtn.disabled = false;
+                    });
             }
 
             window.changePage = changePage;
@@ -948,7 +985,8 @@
                         fetch(`/contents/${id}`, {
                                 method: 'DELETE',
                                 headers: {
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                    'X-CSRF-TOKEN': document.querySelector(
+                                        'meta[name="csrf-token"]').getAttribute('content'),
                                     'Content-Type': 'application/json'
                                 },
                                 credentials: 'include'
@@ -956,10 +994,12 @@
                             .then(response => response.json())
                             .then(data => {
                                 if (data.success) {
-                                    Swal.fire('Deleted!', 'Experiment has been deleted.', 'success');
+                                    Swal.fire('Deleted!', 'Experiment has been deleted.',
+                                        'success');
                                     loadExperiments();
                                 } else {
-                                    Swal.fire('Error!', data.message || 'Failed to delete experiment.', 'error');
+                                    Swal.fire('Error!', data.message ||
+                                        'Failed to delete experiment.', 'error');
                                 }
                             })
                             .catch(error => {
@@ -972,45 +1012,68 @@
 
             window.editExperiment = function(id) {
                 fetch(`/contents/${id}`, {
-                    method: 'GET',
-                    credentials: 'include'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const experiment = data.data;
-                        document.getElementById('edit_experiment_id').value = experiment.id;
-                        document.getElementById('edit_title').value = experiment.title;
-                        document.getElementById('edit_categories').value = experiment.categories || '';
-                        document.getElementById('edit_description').value = experiment.description || '';
-                        
-                        editExperimentModal.show();
-                    } else {
-                        Swal.fire('Error!', data.message || 'Failed to load experiment details.', 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error loading experiment:', error);
-                    Swal.fire('Error!', 'Failed to load experiment details.', 'error');
-                });
+                        method: 'GET',
+                        credentials: 'include'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            const experiment = data.data;
+                            document.getElementById('edit_experiment_id').value = experiment.id;
+                            document.getElementById('edit_title').value = experiment.title;
+                            document.getElementById('edit_categories').value = experiment.categories || '';
+                            document.getElementById('edit_description').value = experiment.description ||
+                                '';
+
+                            editExperimentModal.show();
+                        } else {
+                            Swal.fire('Error!', data.message || 'Failed to load experiment details.',
+                                'error');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error loading experiment:', error);
+                        Swal.fire('Error!', 'Failed to load experiment details.', 'error');
+                    });
             };
         });
 
-        // Create Experiment button click event
-        document.querySelectorAll('[data-bs-target="#createExperimentModal"]').forEach(button => {
-            button.addEventListener('click', function() {
-                const createModal = new bootstrap.Modal(document.getElementById('createExperimentModal'));
-                createModal.show();
+        const createExperimentModalEl = document.getElementById('createExperimentModal');
+        const createExperimentModal = new bootstrap.Modal(createExperimentModalEl);
+
+        document.querySelectorAll('[data-bs-target="#createExperimentModal"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                createExperimentModal.show();
             });
         });
 
-        document.querySelectorAll('.add-supplement-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
+        document.getElementById('createExperimentCloseBtn').addEventListener('click', () => {
+            createExperimentModal.hide();
+        });
+
+        const addSupplementModalEl = document.getElementById('addSupplementModal');
+
+        const addSupplementModal = new bootstrap.Modal(addSupplementModalEl);
+
+        document.querySelectorAll('[data-bs-target="#addSupplementModal"]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                const supplementModal = new bootstrap.Modal(document.getElementById('addSupplementModal'));
-                supplementModal.show();
+                addSupplementModal.show();
             });
         });
+
+        document.querySelectorAll('.add-supplement-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                addSupplementModal.show();
+            });
+        });
+
+        document.getElementById('addSupplementCancelBtn').addEventListener('click', () => {
+            addSupplementModal.hide();
+            createExperimentModal.hide();
+        });
+
 
         document.getElementById('addSupplementForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -1025,75 +1088,75 @@
         function addSupplement() {
             const formData = new FormData(document.getElementById('addSupplementForm'));
             const addSupplementBtn = document.getElementById('addSupplementBtn');
-            
+
             // Loading state
             addSupplementBtn.disabled = true;
             addSupplementBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Adding...';
 
             fetch('/supplements', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                },
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    $('#addSupplementModal').modal('hide');
-                    document.getElementById('addSupplementForm').reset();
-                    fetchSupplements(); // Refresh the supplements list
-                    Swal.fire('Success!', 'Supplement added successfully.', 'success');
-                } else {
-                    Swal.fire('Error!', data.message || 'Failed to add supplement.', 'error');
-                }
-            })
-            .catch(error => {
-                console.error('Error adding supplement:', error);
-                Swal.fire('Error!', 'Failed to add supplement.', 'error');
-            })
-            .finally(() => {
-                addSupplementBtn.disabled = false;
-                addSupplementBtn.innerHTML = 'Add Supplement';
-            });
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        $('#addSupplementModal').modal('hide');
+                        document.getElementById('addSupplementForm').reset();
+                        fetchSupplements(); // Refresh the supplements list
+                        Swal.fire('Success!', 'Supplement added successfully.', 'success');
+                    } else {
+                        Swal.fire('Error!', data.message || 'Failed to add supplement.', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error adding supplement:', error);
+                    Swal.fire('Error!', 'Failed to add supplement.', 'error');
+                })
+                .finally(() => {
+                    addSupplementBtn.disabled = false;
+                    addSupplementBtn.innerHTML = 'Add Supplement';
+                });
         }
 
         function updateSupplement() {
             const supplementId = $('#edit_supplement_id').val();
             const formData = new FormData(document.getElementById('editSupplementForm'));
             const editSupplementBtn = document.getElementById('editSupplementBtn');
-            
+
             // Loading state
             editSupplementBtn.disabled = true;
             editSupplementBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Updating...';
 
             fetch(`/supplements/${supplementId}`, {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'X-HTTP-Method-Override': 'PUT'
-                },
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('editSupplementForm').reset();
-                    fetchSupplements();
-                    Swal.fire('Success!', 'Supplement updated successfully.', 'success');
-                    $('#editSupplementModal').modal('hide');
-                } else {
-                    Swal.fire('Error!', data.message || 'Failed to update supplement.', 'error');
-                }
-            })
-            .catch(error => {
-                console.error('Error updating supplement:', error);
-                Swal.fire('Error!', 'Failed to update supplement.', 'error');
-            })
-            .finally(() => {
-                editSupplementBtn.disabled = false;
-                editSupplementBtn.innerHTML = 'Update Supplement';
-            });
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'X-HTTP-Method-Override': 'PUT'
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('editSupplementForm').reset();
+                        fetchSupplements();
+                        Swal.fire('Success!', 'Supplement updated successfully.', 'success');
+                        $('#editSupplementModal').modal('hide');
+                    } else {
+                        Swal.fire('Error!', data.message || 'Failed to update supplement.', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error updating supplement:', error);
+                    Swal.fire('Error!', 'Failed to update supplement.', 'error');
+                })
+                .finally(() => {
+                    editSupplementBtn.disabled = false;
+                    editSupplementBtn.innerHTML = 'Update Supplement';
+                });
         }
     </script>
 
@@ -1163,7 +1226,7 @@
         .hover-black:hover {
             color: black !important;
         }
-        
+
         .supplement-card {
             background-color: #fff;
             border: 1px solid #e5e7eb;
@@ -1175,7 +1238,7 @@
         }
 
         .supplement-card:hover {
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
         .supplement-icon {

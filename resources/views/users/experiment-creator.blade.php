@@ -1060,7 +1060,8 @@
                 .then(data => {
                     if (data.success) {
                         const experiment = data;
-                        $('.experiment-bg-image').attr('src', experiment.image_url || '/images/experiment-img.jpg');
+                        console.log('images', experiment);
+                        $('.experiment-bg-image').attr('src', experiment.image_url || '/images/experiments/experiment-img.jpg');
 
                         // Update hero section with experiment data
                         updateHeroSection(experiment);
@@ -1081,8 +1082,6 @@
                 .catch(error => {
                     console.error('Error loading experiment data:', error);
                     showError('experiment-summary', 'Failed to load experiment data');
-                    // Set default values
-                    setDefaultValues();
                 });
         }
 
@@ -1241,19 +1240,6 @@
                 </div>
             `;
             return div;
-        }
-
-        // Set default values when API fails
-        function setDefaultValues() {
-            const userLabel = document.getElementById('userLabel').textContent.trim();
-            document.getElementById('experiment-title').textContent = '30-Day Beef Tallow Skin Transformation';
-            document.getElementById('experiment-category').textContent = 'Healthcare';
-            document.getElementById('experiment-days').textContent = userLabel;
-            document.getElementById('progress-text').textContent = '12/30 Days Complete';
-            document.getElementById('progress-bar').style.width = '40%';
-
-            // Show sample posts
-            showSamplePosts();
         }
 
         // Show sample posts when API fails

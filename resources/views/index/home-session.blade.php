@@ -166,7 +166,7 @@
                     @endif
                 </div>
 
-                <div class="col-md-3 @if ($users->count() != 0) mb-4 @endif d-block d-sm-none d-lg-block">
+                <div class="col-md-3 @if ($users->count() != 0) mb-4 @endif d-none d-md-block">
                     <div class="d-lg-block sticky-top">
                         @if ($users->count() == 0)
                             <div class="panel panel-default panel-transparent mb-4 d-block d-md-none d-lg-block">
