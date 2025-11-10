@@ -32,7 +32,7 @@ body a:focus {
   color :#72afd2;
 }
 body {
-  font-family: 'Barlow', Helvetica, Arial, sans-serif;
+  font-family: 'Onest', sans-serif;
 }
 h1, h2, h3, h4, h5, h6 {
   font-weight: 800 !important;
@@ -92,8 +92,8 @@ h1, h2, h3, h4, h5, h6 {
 .list-sidebar > li > a:focus,
 .list-sidebar > li > a:active,
 .list-sidebar > li > a.active {
-  color: #fbfbfb;
-  background-color: #1e282c!important;
+  color: #3998ff !important;
+  background-color: #d9effb !important;
   border-left-color: #fff !important;
 }
 .fs-7 {

@@ -2517,7 +2517,7 @@ class AdminController extends Controller
 				'creator:id,username'
 			]
 		])
-		->where('reply', '<>', '')
+			->where('reply', '<>', '')
 			->when(request('q'), function ($query) {
 				$query->where('reply', 'LIKE', '%' . request('q') . '%');
 			})
@@ -2557,7 +2557,7 @@ class AdminController extends Controller
 				'creator:id,username'
 			]
 		])
-		->where('reply', '<>', '')
+			->where('reply', '<>', '')
 			->when(request('q'), function ($query) {
 				$query->where('reply', 'LIKE', '%' . request('q') . '%');
 			})
@@ -2796,7 +2796,7 @@ class AdminController extends Controller
 		return back()->withSuccessMessage(__('admin.success_update'));
 	}
 
-	public function getImagePrivate($type,$filename)
+	public function getImagePrivate($type, $filename)
 	{
 		switch ($type) {
 			case 'verification':
@@ -2807,18 +2807,67 @@ class AdminController extends Controller
 				$path = config('path.admin') . $filename;
 				break;
 		}
-        
-        $file = Storage::get($path);
-        $mimeType = Storage::mimeType($path);
-        $size = Storage::size($path);
 
-        return response($file, 200, [
-            'Content-Type' => $mimeType,
-            'Content-Length' => $size,
-            'Cache-Control' => 'private, max-age=3600',
-            'Content-Security-Policy' => "default-src 'self'",
-            'X-Content-Type-Options' => 'nosniff',
-            'X-Frame-Options' => 'SAMEORIGIN',
-        ]);
+		$file = Storage::get($path);
+		$mimeType = Storage::mimeType($path);
+		$size = Storage::size($path);
+
+		return response($file, 200, [
+			'Content-Type' => $mimeType,
+			'Content-Length' => $size,
+			'Cache-Control' => 'private, max-age=3600',
+			'Content-Security-Policy' => "default-src 'self'",
+			'X-Content-Type-Options' => 'nosniff',
+			'X-Frame-Options' => 'SAMEORIGIN',
+		]);
+	}
+
+
+	public function fetchUsers(Request $request)
+	{
+		try {
+			$page = request()->get('page', 1);
+			$limit = request()->get('limit', 10);
+			$search = request()->get('search', '');
+			$status = request()->get('status', '');
+
+			$query = User::query();
+
+			// Search filter
+			if ($search) {
+				$query->where(function ($q) use ($search) {
+					$q->where('name', 'like', "%{$search}%")
+						->orWhere('username', 'like', "%{$search}%")
+						->orWhere('email', 'like', "%{$search}%");
+				});
+			}
+
+			// Status filter
+			if ($status && in_array($status, ['active', 'pending', 'suspended'])) {
+				$query->where('status', $status);
+			}
+
+			$users = $query->orderBy('created_at', 'desc')
+				->paginate($limit, ['*'], 'page', $page);
+
+			return response()->json([
+				'success' => true,
+				'data' => $users->items(),
+				'pagination' => [
+					'current_page' => $users->currentPage(),
+					'total_pages' => $users->lastPage(),
+					'total_items' => $users->total(),
+					'per_page' => $users->perPage(),
+					'has_more' => $users->hasMorePages(),
+				],
+				'message' => 'Users retrieved successfully.'
+			]);
+		} catch (\Exception $e) {
+			return response()->json([
+				'success' => false,
+				'message' => 'Failed to retrieve users.',
+				'error' => $e->getMessage()
+			], 500);
+		}
 	}
 }

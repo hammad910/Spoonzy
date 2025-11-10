@@ -1010,14 +1010,16 @@ Route::group(['middleware' => 'private.content'], function() {
 		Route::get('/stickers', [StickerController::class, 'show'])->name('stickers');
 		Route::post('/stickers', [StickerController::class, 'store'])->name('stickers.store');
 		Route::post('/stickers/delete/{id}', [StickerController::class, 'destroy'])->name('stickers.destroy');
-
+		
 		// Giphy API
 		Route::view('/giphy-api', 'admin.giphy-api')->name('giphy');
 		Route::post('/giphy-api', [AdminController::class, 'saveGiphyAPI']);
-
+		
 		// Moderation
 		Route::view('/moderation-image-video', 'admin.moderation-image-video')->name('moderation_image_video');
 		Route::post('/moderation-image-video', [AdminController::class, 'saveModeration']);
+		
+		Route::get('/users-fetch', [AdminController::class, 'fetchUsers'])->name('stickers');
 	});	
 
  });
