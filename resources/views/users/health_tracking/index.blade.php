@@ -264,7 +264,6 @@
         }
 
         svg {
-            transform: rotate(180deg);
             width: 100%;
             height: 100%;
         }
@@ -278,26 +277,742 @@
 
         .arc-progress {
             fill: none;
-            stroke: url(#gradient);
+            stroke: #47CA8B;
             stroke-width: 12;
             stroke-linecap: round;
             stroke-dasharray: 78.5;
-            stroke-dashoffset: -19.625;
+            stroke-dashoffset: 19.625;
             transition: stroke-dashoffset 0.3s ease;
         }
 
         @keyframes draw {
             from {
-                stroke-dashoffset: -78.5;
+                stroke-dashoffset: 78.5;
             }
+
             to {
-                stroke-dashoffset: -19.625;
+                stroke-dashoffset: 19.625;
             }
         }
 
         .arc-progress {
             animation: draw 1.5s ease-out forwards;
         }
+
+        .connection-container {
+            position: relative;
+            width: 123px;
+            height: 50px;
+        }
+
+        .connection-group {
+            position: absolute;
+        }
+
+        .dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(135deg, #ff7b7b 0%, #ff9292 100%);
+            border-radius: 50%;
+            box-shadow: 0 1px 4px rgba(255, 123, 123, 0.3);
+        }
+
+        .line {
+            position: absolute;
+            background: linear-gradient(180deg, #ff8585 0%, #ff9999 100%);
+            transform-origin: center;
+            width: 1.5px;
+        }
+
+        /* Group 1 - Left vertical connection */
+        .group1 {
+            left: 11px;
+            top: 5px;
+        }
+
+        .group1 .dot1 {
+            top: 0;
+            left: 0;
+        }
+
+        .group1 .line1 {
+            top: 10px;
+            left: 4.5px;
+            height: 18px;
+        }
+
+        .group1 .dot2 {
+            top: 28px;
+            left: 0;
+        }
+
+        /* Group 2 - Second vertical connection */
+        .group2 {
+            left: 30px;
+            top: 10px;
+        }
+
+        .group2 .dot1 {
+            top: 0;
+            left: 0;
+        }
+
+        .group2 .line1 {
+            top: 10px;
+            left: 4.5px;
+            height: 18px;
+        }
+
+        .group2 .dot2 {
+            top: 28px;
+            left: 0;
+        }
+
+        /* Group 3 - Third vertical connection */
+        .group3 {
+            left: 48px;
+            top: 5px;
+        }
+
+        .group3 .dot1 {
+            top: 0;
+            left: 0;
+        }
+
+        .group3 .line1 {
+            top: 10px;
+            left: 4.5px;
+            height: 18px;
+        }
+
+        .group3 .dot2 {
+            top: 28px;
+            left: 0;
+        }
+
+        /* Group 4 - Fourth vertical connection with middle dot */
+        .group4 {
+            left: 63px;
+            top: 5px;
+        }
+
+        .group4 .dot1 {
+            top: 0;
+            left: 0;
+        }
+
+        .group4 .line1 {
+            top: 10px;
+            left: 4.5px;
+            height: 9px;
+        }
+
+        .group4 .dot2 {
+            top: 19px;
+            left: 0;
+            width: 8px;
+            height: 8px;
+        }
+
+        .group4 .line2 {
+            top: 27px;
+            left: 4.5px;
+            height: 9px;
+        }
+
+        .group4 .dot3 {
+            top: 36px;
+            left: 0;
+        }
+
+        /* Group 5 - Fifth vertical connection */
+        .group5 {
+            left: 81px;
+            top: 8px;
+        }
+
+        .group5 .dot1 {
+            top: 0;
+            left: 0;
+        }
+
+        .group5 .line1 {
+            top: 10px;
+            left: 4.5px;
+            height: 13px;
+        }
+
+        .group5 .dot2 {
+            top: 23px;
+            left: 0;
+            width: 8.5px;
+            height: 8.5px;
+        }
+
+        /* Group 6 - Sixth vertical connection */
+        .group6 {
+            left: 96px;
+            top: 13px;
+        }
+
+        .group6 .dot1 {
+            top: 0;
+            left: 0;
+            width: 9px;
+            height: 9px;
+        }
+
+        .group6 .line1 {
+            top: 9px;
+            left: 4px;
+            height: 9px;
+        }
+
+        .group6 .dot2 {
+            top: 18px;
+            left: 0;
+            width: 9px;
+            height: 9px;
+        }
+
+        /* Group 7 - Seventh vertical connection */
+        .group7 {
+            left: 109px;
+            top: 5px;
+        }
+
+        .group7 .dot1 {
+            top: 0;
+            left: 0;
+        }
+
+        .group7 .line1 {
+            top: 10px;
+            left: 4.5px;
+            height: 13px;
+        }
+
+        .group7 .dot2 {
+            top: 23px;
+            left: 0;
+            width: 9px;
+            height: 9px;
+        }
+
+        /* Hover effects */
+        .dot {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .dot:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(255, 123, 123, 0.5);
+        }
+
+        .gauge-container {
+            position: relative;
+            width: 500px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        svg {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .gauge-outer-ring {
+            fill: none;
+            stroke: #d4f5d4;
+            stroke-width: 5;
+            stroke-linecap: round;
+            opacity: 0.8;
+        }
+
+        .gauge-bg {
+            fill: none;
+            stroke: #e8e8e8;
+            stroke-width: 55;
+            stroke-linecap: round;
+        }
+
+        .gauge-progress {
+            fill: none;
+            stroke: url(#gaugeGradient);
+            stroke-width: 55;
+            stroke-linecap: round;
+            stroke-dasharray: 471;
+            stroke-dashoffset: 117.75;
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        @keyframes drawGauge {
+            from {
+                stroke-dashoffset: 471;
+            }
+
+            to {
+                stroke-dashoffset: 117.75;
+            }
+        }
+
+        .gauge-progress {
+            animation: drawGauge 1.5s ease-out forwards;
+        }
+
+        .checkpoint {
+            position: absolute;
+            z-index: 10;
+        }
+
+        .checkpoint-circle {
+            width: 52px;
+            height: 52px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .checkpoint-circle.completed {
+            background: white;
+        }
+
+        .checkpoint-circle.pending {
+            background: white;
+        }
+
+        .checkmark {
+            color: #34CB9D;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .checkpoint-number {
+            color: #4caf50;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        /* Checkpoint positions - on the progress bar */
+        .checkpoint1 {
+            bottom: 35px;
+            left: 25px;
+        }
+
+        .checkpoint2 {
+            bottom: 145px;
+            left: 70px;
+        }
+
+        .checkpoint3 {
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .checkpoint4 {
+            bottom: 125px;
+            right: 53px;
+        }
+
+        .checkpoint5 {
+            bottom: 35px;
+            right: 25px;
+        }
+
+        .center-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, 10%);
+            text-align: center;
+            z-index: 5;
+        }
+
+        .score-label {
+            font-size: 22px;
+            color: #637FA6;
+            font-weight: 500;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .score-value {
+            font-size: 90px;
+            color: #34CB9D;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        /* White center background */
+        .center-bg {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            background: white;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        @media (max-width: 1850px) and (min-width: 1501px) {
+            .gauge-container {
+                width: 460px;
+                height: 276px;
+            }
+
+            .checkpoint-circle {
+                width: 48px;
+                height: 48px;
+            }
+
+            .checkmark {
+                font-size: 24px;
+            }
+
+            .checkpoint-number {
+                font-size: 20px;
+            }
+
+            .center-bg {
+                width: 260px;
+                height: 260px;
+            }
+
+            .score-value {
+                font-size: 82px;
+            }
+
+            .score-label {
+                font-size: 20px;
+            }
+
+            .checkpoint1 {
+                bottom: 30px;
+                left: 23px;
+            }
+
+            .checkpoint2 {
+                bottom: 135px;
+                left: 65px;
+            }
+
+            .checkpoint3 {
+                top: 45px;
+            }
+
+            .checkpoint4 {
+                bottom: 115px;
+                right: 48px;
+            }
+
+            .checkpoint5 {
+                bottom: 30px;
+                right: 23px;
+            }
+        }
+
+        /* Medium Desktop: 1500px to 1200px */
+        @media (max-width: 1500px) and (min-width: 1025px) {
+            .gauge-container {
+                width: 430px;
+                height: 258px;
+            }
+
+            .checkpoint-circle {
+                width: 45px;
+                height: 45px;
+            }
+
+            .checkmark {
+                font-size: 23px;
+            }
+
+            .checkpoint-number {
+                font-size: 19px;
+            }
+
+            .center-bg {
+                width: 240px;
+                height: 240px;
+            }
+
+            .score-value {
+                font-size: 75px;
+            }
+
+            .score-label {
+                font-size: 19px;
+            }
+
+            .checkpoint1 {
+                bottom: 28px;
+                left: 22px;
+            }
+
+            .checkpoint2 {
+                bottom: 125px;
+                left: 60px;
+            }
+
+            .checkpoint3 {
+                top: 42px;
+            }
+
+            .checkpoint4 {
+                bottom: 110px;
+                right: 45px;
+            }
+
+            .checkpoint5 {
+                bottom: 28px;
+                right: 22px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .gauge-container {
+                width: 400px;
+                height: 240px;
+            }
+
+            .checkpoint-circle {
+                width: 42px;
+                height: 42px;
+            }
+
+            .checkmark {
+                font-size: 22px;
+            }
+
+            .checkpoint-number {
+                font-size: 18px;
+            }
+
+            .center-bg {
+                width: 220px;
+                height: 220px;
+            }
+
+            .score-value {
+                font-size: 70px;
+            }
+
+            .score-label {
+                font-size: 18px;
+            }
+
+            /* adjust positions */
+            .checkpoint1 {
+                bottom: 25px;
+                left: 20px;
+            }
+
+            .checkpoint2 {
+                bottom: 110px;
+                left: 55px;
+            }
+
+            .checkpoint3 {
+                top: 40px;
+            }
+
+            .checkpoint4 {
+                bottom: 100px;
+                right: 40px;
+            }
+
+            .checkpoint5 {
+                bottom: 25px;
+                right: 20px;
+            }
+        }
+
+        /* Mobile Landscape: ~60% scale */
+        @media (max-width: 768px) {
+            .gauge-container {
+                width: 300px;
+                height: 180px;
+            }
+
+            .checkpoint-circle {
+                width: 35px;
+                height: 35px;
+            }
+
+            .checkmark {
+                font-size: 18px;
+            }
+
+            .checkpoint-number {
+                font-size: 16px;
+            }
+
+            .center-bg {
+                width: 170px;
+                height: 170px;
+            }
+
+            .score-value {
+                font-size: 55px;
+            }
+
+            .score-label {
+                font-size: 16px;
+            }
+
+            .checkpoint1 {
+                bottom: 20px;
+                left: 15px;
+            }
+
+            .checkpoint2 {
+                bottom: 85px;
+                left: 40px;
+            }
+
+            .checkpoint3 {
+                top: 30px;
+            }
+
+            .checkpoint4 {
+                bottom: 75px;
+                right: 35px;
+            }
+
+            .checkpoint5 {
+                bottom: 20px;
+                right: 15px;
+            }
+        }
+
+        /* Extra Small Devices: 480px to 400px */
+        @media (max-width: 480px) and (min-width: 401px) {
+            .gauge-container {
+                width: 100%;
+            }
+
+            .checkpoint-circle {
+                width: 32px;
+                height: 32px;
+            }
+
+            .checkmark {
+                font-size: 12px;
+            }
+
+            .checkpoint-number {
+                font-size: 12px;
+            }
+
+            .center-bg {
+                width: 110px;
+                height: 110px;
+            }
+
+            .score-value {
+                font-size: 34px;
+            }
+
+            .score-label {
+                font-size: 12px;
+            }
+
+            .checkpoint1 {
+                bottom: 0px;
+                left: 59px;
+            }
+
+            .checkpoint2 {
+                bottom: 90px;
+                left: 93px;
+            }
+
+            .checkpoint3 {
+                top: 15px;
+            }
+
+            .checkpoint4 {
+                bottom: 75px;
+                right: 80px;
+            }
+
+            .checkpoint5 {
+                bottom: 0px;
+                right: 5px;
+            }
+        }
+
+
+        /* Mobile Portrait: ~45% scale */
+        @media (max-width: 400px) {
+            .gauge-container {
+                width: 100%;
+            }
+
+            .checkpoint-circle {
+                width: 30px;
+                height: 30px;
+            }
+
+            .checkmark {
+                font-size: 14px;
+            }
+
+            .checkpoint-number {
+                font-size: 14px;
+            }
+
+            .center-bg {
+                width: 130px;
+                height: 130px;
+            }
+
+            .score-value {
+                font-size: 40px;
+            }
+
+            .score-label {
+                font-size: 14px;
+            }
+
+            .checkpoint1 {
+                bottom: 5px;
+                left: 23px;
+            }
+
+            .checkpoint2 {
+                bottom: 90px;
+                left: 54px;
+            }
+
+            .checkpoint3 {
+                top: 20px;
+            }
+
+            .checkpoint4 {
+                bottom: 85px;
+                right: 49px;
+            }
+
+            .checkpoint5 {
+                bottom: 6px;
+                right: 20px;
+            }
+        }
+        
     </style>
 @endsection
 
@@ -321,7 +1036,7 @@
             <!-- KPI Cards -->
             <div class="row g-4 mb-4 kpi-cards">
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <div class="card shadow border-0 p-3 h-100" style="border-radius: 20px">
+                    <div class="card border-0 p-3 h-100" style="border-radius: 20px; box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
                         <div class="d-flex justify-content-between">
                             <div>
                                 <h6 class="fw-semibold text-dark" style="margin-bottom: 24px">Heart rate</h6>
@@ -351,11 +1066,10 @@
                 </div>
 
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <div class="card shadow border-0 p-3 h-100" style="border-radius: 20px">
+                    <div class="card border-0 p-3 h-100" style="border-radius: 20px; box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
                         <div class="d-flex justify-content-between">
                             <div>
                                 <h6 class="fw-semibold text-dark" style="margin-bottom: 24px">Hydration level</h6>
-                                {{-- <img src="/images/hydration.png" alt="" style="height: 40px;"> --}}
                                 <div class="arc-container">
                                     <svg viewBox="0 0 80 50">
                                         <defs>
@@ -366,10 +1080,8 @@
                                             </linearGradient>
                                         </defs>
 
-                                        <!-- Background semi-circle arc -->
                                         <path class="arc-background" d="M 10 40 A 30 30 0 0 1 70 40" pathLength="78.5" />
 
-                                        <!-- Progress semi-circle arc (75% complete) -->
                                         <path class="arc-progress" d="M 10 40 A 30 30 0 0 1 70 40" pathLength="78.5" />
                                     </svg>
                                 </div>
@@ -385,11 +1097,62 @@
                 </div>
 
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <div class="card shadow border-0 p-3 h-100" style="border-radius: 20px">
+                    <div class="card border-0 p-3 h-100" style="border-radius: 20px; box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h6 class="fw-semibold text-dark mb-3">Blood cells</h6>
-                                <img src="/images/blood-cell.png" alt="" style="height: 40px;">
+                                <h6 class="fw-semibold text-dark mb-3" style="margin-bottom: 24px">Blood cells</h6>
+                                <div class="connection-container">
+                                    <!-- Group 1 -->
+                                    <div class="connection-group group1">
+                                        <div class="dot dot1"></div>
+                                        <div class="line line1"></div>
+                                        <div class="dot dot2"></div>
+                                    </div>
+
+                                    <!-- Group 2 -->
+                                    <div class="connection-group group2">
+                                        <div class="dot dot1"></div>
+                                        <div class="line line1"></div>
+                                        <div class="dot dot2"></div>
+                                    </div>
+
+                                    <!-- Group 3 -->
+                                    <div class="connection-group group3">
+                                        <div class="dot dot1"></div>
+                                        <div class="line line1"></div>
+                                        <div class="dot dot2"></div>
+                                    </div>
+
+                                    <!-- Group 4 -->
+                                    <div class="connection-group group4">
+                                        <div class="dot dot1"></div>
+                                        <div class="line line1"></div>
+                                        <div class="dot dot2"></div>
+                                        <div class="line line2"></div>
+                                        <div class="dot dot3"></div>
+                                    </div>
+
+                                    <!-- Group 5 -->
+                                    <div class="connection-group group5">
+                                        <div class="dot dot1"></div>
+                                        <div class="line line1"></div>
+                                        <div class="dot dot2"></div>
+                                    </div>
+
+                                    <!-- Group 6 -->
+                                    <div class="connection-group group6">
+                                        <div class="dot dot1"></div>
+                                        <div class="line line1"></div>
+                                        <div class="dot dot2"></div>
+                                    </div>
+
+                                    <!-- Group 7 -->
+                                    <div class="connection-group group7">
+                                        <div class="dot dot1"></div>
+                                        <div class="line line1"></div>
+                                        <div class="dot dot2"></div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="text-end">
                                 <h1 class="fw-bold text-dark mb-0" style="font-size: 42px;">1100<span class="text-muted"
@@ -405,14 +1168,74 @@
             <!-- Second Row -->
             <div class="row g-4 mb-4" style="padding-bottom: 20px; padding-top: 20px;">
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <div class="card-ht bg-white">
+                    <div class="card-ht bg-white" style="box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
                         <div class="d-flex align-items-center mb-2">
                             <img src="/images/bristol-scale-icon.png" alt="">
                             <h6 class="ms-2 mb-0 text-dark fw-bold">Bristol Scale</h6>
                         </div>
                         <p class="text-muted small mb-3">Lorem ipsum dolor sit amet consectetur.</p>
                         <div class="d-flex align-items-center justify-content-center">
-                            <img src="/images/today-score.png" alt="">
+                            {{-- <img src="/images/today-score.png" alt=""> --}}
+                            <div class="gauge-container">
+                                <!-- White center background circle -->
+                                <!-- Removed -->
+
+                                <svg width="500" height="260" viewBox="0 0 500 260">
+                                    <defs>
+                                        <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%"
+                                            y2="0%">
+                                            <stop offset="0%" style="stop-color:#50E9BB; stop-opacity:1" />
+                                            <stop offset="100%" style="stop-color:#24B78B; stop-opacity:1" />
+                                        </linearGradient>
+                                    </defs>
+
+                                    <!-- Outer decorative ring -->
+                                    <path class="gauge-outer-ring" d="M 30 240 A 220 220 0 0 1 470 240"
+                                        pathLength="471" />
+
+                                    <!-- Background arc (gray remaining) -->
+                                    <path class="gauge-bg" d="M 60 235 A 190 190 0 0 1 440 235" pathLength="471" />
+
+                                    <!-- Progress arc (75% complete - 3 out of 4) -->
+                                    <path class="gauge-progress" d="M 60 235 A 190 190 0 0 1 440 235" pathLength="450" />
+                                </svg>
+
+                                <!-- Checkpoints on progress bar -->
+                                <div class="checkpoint checkpoint1">
+                                    <div class="checkpoint-circle completed">
+                                        <span class="checkmark">✓</span>
+                                    </div>
+                                </div>
+
+                                <div class="checkpoint checkpoint2">
+                                    <div class="checkpoint-circle completed">
+                                        <span class="checkmark">✓</span>
+                                    </div>
+                                </div>
+
+                                <div class="checkpoint checkpoint3">
+                                    <div class="checkpoint-circle completed">
+                                        <span class="checkmark">✓</span>
+                                    </div>
+                                </div>
+
+                                <div class="checkpoint checkpoint4">
+                                    <div class="checkpoint-circle completed">
+                                        <span class="checkmark">4</span>
+                                    </div>
+                                </div>
+
+                                <div class="checkpoint checkpoint5">
+                                    <div class="checkpoint-circle pending">
+                                    </div>
+                                </div>
+
+                                <!-- Center score display -->
+                                <div class="center-content">
+                                    <div class="score-label">Today Score</div>
+                                    <div class="score-value">4</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
