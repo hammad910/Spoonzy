@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ url('img', $settings->favicon) }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <title>{{ __('admin.admin') }}</title>
 
@@ -50,7 +51,7 @@
 
     <main>
 
-      <div class="offcanvas offcanvas-start sidebar bg-dark text-white" tabindex="-1" id="sidebar-nav" data-bs-keyboard="false" data-bs-backdrop="false">
+      <div class="offcanvas offcanvas-start sidebar text-white" style="background: #469DFA" tabindex="-1" id="sidebar-nav" data-bs-keyboard="false" data-bs-backdrop="false">
       <div class="offcanvas-header">
           <h5 class="offcanvas-title"><img src="{{ url('img', $settings->logo) }}" width="100" /></h5>
           <button type="button" class="btn-close btn-close-custom text-white toggle-menu d-lg-none" data-bs-dismiss="offcanvas" aria-label="Close">
