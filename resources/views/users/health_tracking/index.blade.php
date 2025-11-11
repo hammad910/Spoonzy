@@ -70,7 +70,7 @@
         .med-header {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
             margin-bottom: 20px;
         }
 
@@ -528,7 +528,7 @@
 
         .gauge-outer-ring {
             fill: none;
-            stroke: #d4f5d4;
+            stroke: #CEFF83;
             stroke-width: 5;
             stroke-linecap: round;
             opacity: 0.8;
@@ -715,12 +715,12 @@
 
             .checkpoint4 {
                 bottom: 115px;
-                right: 48px;
+                right: 55px;
             }
 
             .checkpoint5 {
-                bottom: 30px;
-                right: 23px;
+                bottom: 25px;
+                right: 27px;
             }
         }
 
@@ -932,12 +932,12 @@
 
             .checkpoint1 {
                 bottom: 0px;
-                left: 59px;
+                left: 35px;
             }
 
             .checkpoint2 {
                 bottom: 90px;
-                left: 93px;
+                left: 69px;
             }
 
             .checkpoint3 {
@@ -946,12 +946,12 @@
 
             .checkpoint4 {
                 bottom: 75px;
-                right: 80px;
+                right: 55px;
             }
 
             .checkpoint5 {
                 bottom: 0px;
-                right: 5px;
+                right: 35px;
             }
         }
 
@@ -1012,14 +1012,240 @@
                 right: 20px;
             }
         }
-        
+
+        .chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 16px;
+            padding: 40px 20px 0;
+            border-radius: 12px;
+            height: 280px;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
+            /* Prevent overflow */
+            overflow-y: hidden;
+            box-sizing: border-box;
+        }
+
+        /* Prevent horizontal scrollbar from breaking layout */
+        .chart::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .chart::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        /* Each group adapts inside */
+        .bar-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            flex: 0 0 auto;
+            /* Prevent shrinking */
+        }
+
+        /* Bars inside adapt smoothly */
+        .bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            height: 180px;
+            flex: 0 0 auto;
+        }
+
+        .bar {
+            width: 12px;
+            border-radius: 10px;
+            background: linear-gradient(to top, #4a90e2, #72b3ff);
+            opacity: 0.95;
+        }
+
+        /* Your existing color sets remain exactly the same */
+        .bar.blue {
+            background: linear-gradient(to top, #fff, #469DFA);
+        }
+
+        .bar.green {
+            background: linear-gradient(to top, #fff, #46FABB);
+        }
+
+        .bar.orange {
+            background: linear-gradient(to top, #fff, #FF874B);
+        }
+
+        /* Bar heights remain identical */
+        .mon .blue {
+            height: 160px;
+        }
+
+        .mon .orange {
+            height: 80px;
+        }
+
+        .tue .green {
+            height: 130px;
+        }
+
+        .tue .orange {
+            height: 80px;
+        }
+
+        .wed .blue {
+            height: 180px;
+        }
+
+        .wed .orange {
+            height: 80px;
+        }
+
+        .thu .green {
+            height: 160px;
+        }
+
+        .thu .orange {
+            height: 100px;
+        }
+
+        .fri .blue {
+            height: 160px;
+        }
+
+        .fri .orange {
+            height: 90px;
+        }
+
+        .sat .blue {
+            height: 140px;
+        }
+
+        .sat .orange {
+            height: 80px;
+        }
+
+        .sun .blue {
+            height: 100px;
+        }
+
+        .sun .orange {
+            height: 70px;
+        }
+
+        .day {
+            font-size: 16px;
+            color: #6c757d;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .chart {
+                gap: 12px;
+                padding: 30px 10px 0;
+                height: auto;
+                overflow-x: auto;
+            }
+
+            .bars {
+                gap: 10px;
+                height: 150px;
+            }
+
+            .bar {
+                width: 10px;
+            }
+
+            .day {
+                font-size: 14px;
+            }
+
+            .row.mt-5 {
+                gap: 10px;
+            }
+        }
+
+        .row.mt-5 {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .row.mt-5>[class*="col-"] {
+            display: flex;
+        }
+
+        .med-card,
+        .ai-card {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+
+        .ai-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+            max-width: 100%;
+            height: 100%
+        }
+
+        .ai-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .ai-header i {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 20px;
+            height: 20px;
+            color: #4a90e2;
+            font-size: 18px;
+        }
+
+        .ai-header h5 {
+            font-weight: 700;
+            font-size: 18px;
+            color: #000;
+            margin: 0;
+        }
+
+        .advice-box {
+            background: linear-gradient(135deg, #eef7ff, #f7f0ff, #e8f5ff);
+            border-radius: 12px;
+            padding: 16px 20px;
+        }
+
+        .advice-box h6 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #469DFA;
+            margin-bottom: 8px;
+        }
+
+        .advice-box p {
+            color: #475569;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+        }
     </style>
 @endsection
 
 @section('content')
     <div class="d-flex" style="min-height: 100vh; background: #FBFBFB;">
         <!-- Sidebar -->
-        <div class="menu-sidebar d-none d-lg-block" style="width: 20%; border-right: 1px solid #ddd; padding: 20px;">
+        <div class="menu-sidebar d-none d-lg-block" style="width: 40%; border-right: 1px solid #ddd; padding: 20px;">
             @include('includes.menu-sidebar-home')
         </div>
 
@@ -1036,7 +1262,8 @@
             <!-- KPI Cards -->
             <div class="row g-4 mb-4 kpi-cards">
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <div class="card border-0 p-3 h-100" style="border-radius: 20px; box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
+                    <div class="card border-0 p-3 h-100"
+                        style="border-radius: 20px; box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
                         <div class="d-flex justify-content-between">
                             <div>
                                 <h6 class="fw-semibold text-dark" style="margin-bottom: 24px">Heart rate</h6>
@@ -1066,7 +1293,8 @@
                 </div>
 
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <div class="card border-0 p-3 h-100" style="border-radius: 20px; box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
+                    <div class="card border-0 p-3 h-100"
+                        style="border-radius: 20px; box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
                         <div class="d-flex justify-content-between">
                             <div>
                                 <h6 class="fw-semibold text-dark" style="margin-bottom: 24px">Hydration level</h6>
@@ -1097,7 +1325,8 @@
                 </div>
 
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <div class="card border-0 p-3 h-100" style="border-radius: 20px; box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
+                    <div class="card border-0 p-3 h-100"
+                        style="border-radius: 20px; box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
                         <div class="d-flex justify-content-between">
                             <div>
                                 <h6 class="fw-semibold text-dark mb-3" style="margin-bottom: 24px">Blood cells</h6>
@@ -1169,7 +1398,7 @@
             <div class="row g-4 mb-4" style="padding-bottom: 20px; padding-top: 20px;">
                 <div class="col-xl-4 col-lg-6 col-md-6">
                     <div class="card-ht bg-white" style="box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
-                        <div class="d-flex align-items-center mb-2">
+                        <div class="d-flex align-items-center mb-2" style="gap: 12px;">
                             <img src="/images/bristol-scale-icon.png" alt="">
                             <h6 class="ms-2 mb-0 text-dark fw-bold">Bristol Scale</h6>
                         </div>
@@ -1177,59 +1406,45 @@
                         <div class="d-flex align-items-center justify-content-center">
                             {{-- <img src="/images/today-score.png" alt=""> --}}
                             <div class="gauge-container">
-                                <!-- White center background circle -->
-                                <!-- Removed -->
-
                                 <svg width="500" height="260" viewBox="0 0 500 260">
                                     <defs>
-                                        <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%"
-                                            y2="0%">
+                                        <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                                             <stop offset="0%" style="stop-color:#50E9BB; stop-opacity:1" />
                                             <stop offset="100%" style="stop-color:#24B78B; stop-opacity:1" />
                                         </linearGradient>
                                     </defs>
-
-                                    <!-- Outer decorative ring -->
-                                    <path class="gauge-outer-ring" d="M 30 240 A 220 220 0 0 1 470 240"
-                                        pathLength="471" />
-
                                     <!-- Background arc (gray remaining) -->
                                     <path class="gauge-bg" d="M 60 235 A 190 190 0 0 1 440 235" pathLength="471" />
-
                                     <!-- Progress arc (75% complete - 3 out of 4) -->
                                     <path class="gauge-progress" d="M 60 235 A 190 190 0 0 1 440 235" pathLength="450" />
+                                    <!-- Outer decorative ring - MOVED TO END -->
+                                    <path class="gauge-outer-ring" d="M 30 240 A 220 220 0 0 1 470 240" pathLength="471" transform="translate(0, -10)"/>
                                 </svg>
-
                                 <!-- Checkpoints on progress bar -->
                                 <div class="checkpoint checkpoint1">
                                     <div class="checkpoint-circle completed">
                                         <span class="checkmark">✓</span>
                                     </div>
                                 </div>
-
                                 <div class="checkpoint checkpoint2">
                                     <div class="checkpoint-circle completed">
                                         <span class="checkmark">✓</span>
                                     </div>
                                 </div>
-
                                 <div class="checkpoint checkpoint3">
                                     <div class="checkpoint-circle completed">
                                         <span class="checkmark">✓</span>
                                     </div>
                                 </div>
-
                                 <div class="checkpoint checkpoint4">
                                     <div class="checkpoint-circle completed">
                                         <span class="checkmark">4</span>
                                     </div>
                                 </div>
-
                                 <div class="checkpoint checkpoint5">
                                     <div class="checkpoint-circle pending">
                                     </div>
                                 </div>
-
                                 <!-- Center score display -->
                                 <div class="center-content">
                                     <div class="score-label">Today Score</div>
@@ -1243,28 +1458,85 @@
                 <div class="col-xl-4 col-lg-6 col-md-6">
                     <div class="mood-widget">
                         <div class="mood-inner">
-                            <img src="/images/health-widget-2.png" style="width: 170%" alt="Health Widget">
+                            <img src="/images/health-widget.png" style="width: 170%" alt="Health Widget">
                         </div>
                     </div>
                 </div>
 
                 <div class="col-xl-4 col-lg-6 col-md-6">
                     <div class="card-ht bg-white">
-                        <div class="d-flex align-items-center mb-2">
+                        <div class="d-flex align-items-center mb-2" style="gap: 12px;">
                             <img src="/images/bristol-scale-icon.png" alt="">
                             <h6 class="ms-2 mb-0 text-dark fw-bold">Sleep Overview</h6>
                         </div>
                         <p class="text-muted small mb-3">Lorem ipsum dolor sit amet consectetur.</p>
                         <div class="d-flex align-items-center justify-content-center">
-                            <img src="/images/sleep-chart.png" alt="">
+                            {{-- <img src="/images/sleep-chart.png" alt=""> --}}
+                            <div class="chart">
+                                <div class="bar-group mon">
+                                    <div class="bars">
+                                        <div class="bar blue"></div>
+                                        <div class="bar orange"></div>
+                                    </div>
+                                    <div class="day">Mon</div>
+                                </div>
+
+                                <div class="bar-group tue">
+                                    <div class="bars">
+                                        <div class="bar green"></div>
+                                        <div class="bar orange"></div>
+                                    </div>
+                                    <div class="day">Tue</div>
+                                </div>
+
+                                <div class="bar-group wed">
+                                    <div class="bars">
+                                        <div class="bar blue"></div>
+                                        <div class="bar orange"></div>
+                                    </div>
+                                    <div class="day">Wed</div>
+                                </div>
+
+                                <div class="bar-group thu">
+                                    <div class="bars">
+                                        <div class="bar green"></div>
+                                        <div class="bar orange"></div>
+                                    </div>
+                                    <div class="day">Thu</div>
+                                </div>
+
+                                <div class="bar-group fri">
+                                    <div class="bars">
+                                        <div class="bar blue"></div>
+                                        <div class="bar orange"></div>
+                                    </div>
+                                    <div class="day">Fri</div>
+                                </div>
+
+                                <div class="bar-group sat">
+                                    <div class="bars">
+                                        <div class="bar blue"></div>
+                                        <div class="bar orange"></div>
+                                    </div>
+                                    <div class="day">Sat</div>
+                                </div>
+
+                                <div class="bar-group sun">
+                                    <div class="bars">
+                                        <div class="bar blue"></div>
+                                        <div class="bar orange"></div>
+                                    </div>
+                                    <div class="day">Sun</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Medicament -->
-            <div class="row mt-5">
-                <div class="col-12">
+            <div class="row mt-5 gap-md-4">
+                <div class="col-md-8">
                     <div class="med-card">
                         <div class="med-header">
                             <img src="/images/madicament-icon.png" alt="">
@@ -1294,6 +1566,28 @@
                             <div class="med-item" style="width: 95%"><span>Magnesium <small>250 mg</small></span><span
                                     class="med-time">09:00 PM <img src="/images/moon-icon.png" alt=""></span>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-6 col-md-6">
+                    <div class="ai-card">
+                        <div class="ai-header">
+                            <img src="/images/ai_advice.png" alt="">
+                            <h5>AI Advice</h5>
+                        </div>
+
+                        <div class="advice-box">
+                            <h6>Advice Title</h6>
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur. Tincidunt scelerisque tincidunt ipsum scelerisque
+                                ac.
+                                Phasellus aliquam gravida quis sed parturient vulputate vulputate. Ultrices faucibus quam ut
+                                volutpat pharetra. Ultrices faucibus quam ut volutpat pharetra.
+                                Lorem ipsum dolor sit amet consectetur. Tincidunt scelerisque tincidunt ipsum scelerisque
+                                ac.
+                                Phasellus aliquam gravida quis sed parturient vulputate vulputate. Ultrices faucibus quam ut
+                                volutpat pharetra. Ultrices faucibus quam ut volutpat pharetra.
+                            </p>
                         </div>
                     </div>
                 </div>
