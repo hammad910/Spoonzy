@@ -63,7 +63,7 @@
         .med-card {
             background: #fff;
             border-radius: 16px;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+            /*box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);*/
             padding: 24px;
         }
 
@@ -1190,7 +1190,7 @@
         .ai-card {
             background: #fff;
             border-radius: 16px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            /*box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);*/
             padding: 24px;
             max-width: 100%;
             height: 100%
@@ -1464,7 +1464,7 @@
                 </div>
 
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <div class="card-ht bg-white">
+                    <div class="card-ht bg-white" style="box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
                         <div class="d-flex align-items-center mb-2" style="gap: 12px;">
                             <img src="/images/bristol-scale-icon.png" alt="">
                             <h6 class="ms-2 mb-0 text-dark fw-bold">Sleep Overview</h6>
@@ -1537,7 +1537,7 @@
             <!-- Medicament -->
             <div class="row mt-5 gap-md-4">
                 <div class="col-md-8">
-                    <div class="med-card">
+                    <div class="med-card" style="box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
                         <div class="med-header">
                             <img src="/images/madicament-icon.png" alt="">
                             <h5>Medicament</h5>
@@ -1570,7 +1570,7 @@
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <div class="ai-card">
+                    <div class="ai-card" style="box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
                         <div class="ai-header">
                             <img src="/images/ai_advice.png" alt="">
                             <h5>AI Advice</h5>
@@ -1579,7 +1579,7 @@
                         <div class="advice-box">
                             <h6>Advice Title</h6>
                             <p>
-                                Lorem ipsum dolor sit amet consectetur. Tincidunt scelerisque tincidunt ipsum scelerisque
+                                Lorem ipsum dolor sit amet consectetur. Tincidunt scelerisque tincidunt ipsum scelerisquese
                                 ac.
                                 Phasellus aliquam gravida quis sed parturient vulputate vulputate. Ultrices faucibus quam ut
                                 volutpat pharetra. Ultrices faucibus quam ut volutpat pharetra.
