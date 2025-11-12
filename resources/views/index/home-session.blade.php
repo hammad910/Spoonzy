@@ -57,6 +57,30 @@
         transform: translateY(-2px);
     }
 
+    /* FIXED SIDEBAR STYLES */
+    .sidebar-container {
+        height: 100vh;
+        width: 20%; /* Increased from 20% */
+        border-right: 1px solid #ddd;
+        padding: 20px;
+        flex-shrink: 0; /* Prevents sidebar from shrinking */
+        overflow-y: auto; /* Adds scroll if content overflows */ 
+    }
+
+    .main-content {
+        flex: 1;
+        padding: 20px;
+        background-color: #fbfbfb;
+        min-width: 0; /* Allows content to shrink properly */
+    }
+
+    .right-sidebar {
+        width: 25%; /* Adjust if needed */
+        padding: 20px;
+        background-color: #fbfbfb;
+        flex-shrink: 0; /* Prevents shrinking */
+    }
+
     @media (max-width: 576px) {
         .experiment-item {
             flex-wrap: wrap;
@@ -66,20 +90,28 @@
             margin-left: auto;
             margin-top: 0 !important;
         }
+        
+        .sidebar-container {
+            display: none !important;
+        }
+        
+        .right-sidebar {
+            display: none !important;
+        }
     }
 </style>
+
 @section('content')
     <section class="section section-sm">
-        <div class="container pt-lg-4 pt-2 max-w-100" style="max-width: 100%">
-            <div class="row justify-content-center" style=" flex-wrap: nowrap !important;">
-
-                <div class="d-none d-lg-block"
-                    style="height: 100vh; width: 20%; border-right: 1px solid #ddd; padding: 20px;">
+        <div class="container pt-lg-0 pt-2 max-w-100" style="max-width: 100%">
+            <div class="row justify-content-center" style="flex-wrap: nowrap !important;">
+                <!-- LEFT SIDEBAR - FIXED WIDTH -->
+                <div class="sidebar-container d-none d-lg-block">
                     @include('includes.menu-sidebar-home')
                 </div>
 
-                <div class="col-md-7 p-0 second wrap-post">
-
+                <!-- MAIN CONTENT - FLEXIBLE WIDTH -->
+                <div class="main-content col-md-7 wrap-post">
                     @if ($stories->count() || ($settings->story_status && auth()->user()->verified_id == 'yes'))
                         <div id="stories" class="storiesWrapper mb-2 p-2">
                             @if ($settings->story_status && auth()->user()->verified_id == 'yes')
@@ -138,7 +170,6 @@
 
                     @if (auth()->user()->verified_id == 'yes')
                         @include('includes.modal-add-story')
-
                         @include('includes.form-post')
                     @endif
 
@@ -166,13 +197,14 @@
                     @endif
                 </div>
 
-                <div class="col-md-3 @if ($users->count() != 0) mb-4 @endif d-none d-md-block">
+                <!-- RIGHT SIDEBAR - FIXED WIDTH -->
+                <div class="right-sidebar col-md-3 mb-4 d-none d-md-block">
                     <div class="d-lg-block sticky-top">
                         @if ($users->count() == 0)
                             <div class="panel panel-default panel-transparent mb-4 d-block d-md-none d-lg-block">
                                 <div class="panel-body">
-                                    <div class="shadow-sm border-0 rounded-4 p-3 h-100">
-                                        <div class="card-body p-0">
+                                    <div class="shadow-sm border-0 rounded-4">
+                                        <div class="card-body" style="padding: 16px; background: #fff; border-radius: 12px;">
                                             <div class="d-flex justify-content-between align-items-center mb-3">
                                                 <h6 class="mt-2 fw-semibold" style="color: #000; font-size: 18px;">
                                                     <img src="/images/health-vector.png" alt=""
@@ -258,8 +290,13 @@
                                                 </button>
                                             </div>
                                         </div>
-
-                                        <div class="card border-0 rounded-4 p-3 mt-5">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default panel-transparent mb-4 d-block d-md-none d-lg-block">
+                                <div class="panel-body">
+                                    <div class="shadow-sm border-0 rounded-4">
+                                        <div class="card border-0 rounded-4" style="padding: 16px; border-radius: 12px;">
                                             <div class="d-flex justify-content-between align-items-center mb-3">
                                                 <h6 class="fw-bold mb-0 d-flex align-items-center"
                                                     style="color: #000; font-size: 18px; gap: 5px;">
@@ -293,9 +330,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
-                            {{-- <div class="card health-widget shadow-sm border-0 rounded-4 p-3"> --}}
                         @endif
 
                         @if ($users->count() != 0)
@@ -306,13 +340,13 @@
                             {{-- @include('includes.footer-tiny') --}}
                         </div>
                     </div><!-- sticky-top -->
-
-                </div><!-- col-md -->
+                </div><!-- right-sidebar -->
             </div>
         </div>
     </section>
 @endsection
 
+<!-- Rest of your JavaScript code remains the same -->
 @section('javascript')
     @if (session('noty_error'))
         <script type="text/javascript">

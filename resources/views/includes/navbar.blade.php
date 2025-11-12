@@ -1,6 +1,6 @@
 <header>
     <nav
-        class="navbar navbar-expand-lg navbar-inverse fixed-top p-nav @if (auth()->guest() && request()->path() == '/' && $settings->home_style == 0) scroll @else p-3 @if (request()->is('live/*')) d-none @endif  @if (request()->is('messages/*')) d-none d-lg-block shadow-sm @elseif(request()->is('messages')) shadow-sm @else @endif {{ auth()->check() && auth()->user()->dark_mode == 'on' ? 'bg-white' : 'navbar_background_color' }} link-scroll @endif" style="border: 1px solid #ddd; border-bottom: #ddd; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);">
+        class="navbar navbar-expand-lg navbar-inverse fixed-top p-nav @if (auth()->guest() && request()->path() == '/' && $settings->home_style == 0) scroll @else @if (request()->is('live/*')) d-none @endif  @if (request()->is('messages/*')) d-none d-lg-block shadow-sm @elseif(request()->is('messages')) shadow-sm @else @endif {{ auth()->check() && auth()->user()->dark_mode == 'on' ? 'bg-white' : 'navbar_background_color' }} link-scroll @endif" style="border: 1px solid #ddd; border-bottom: #ddd; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); padding: 10px;">
         <div class="container-fluid d-flex position-relative">
 
             @auth
@@ -329,7 +329,7 @@
                             </li>
                         @endif --}}
 
-                        <li class="nav-item dropdown d-lg-block d-none">
+                        {{-- <li class="nav-item dropdown d-lg-block d-none">
                             <a href="{{ url('messages') }}" class="nav-link px-2" title="{{ __('general.messages') }}">
 
                                 <span class="noti_msg notify @if (auth()->user()->messagesInbox() != 0) d-block @endif">
@@ -339,7 +339,7 @@
                                 <i class="feather icon-send icon-navbar"></i>
                                 <span class="d-lg-none align-middle ml-1">{{ __('general.messages') }}</span>
                             </a>
-                        </li>
+                        </li> --}}
 
                         <li class="nav-item dropdown d-lg-block d-none">
                             <a href="{{ url('notifications') }}" class="nav-link px-2"
@@ -350,7 +350,7 @@
                                 </span>
 
                                 {{-- <i class="far fa-bell icon-navbar"></i> --}}
-                                <img src="/images/notification.png" alt="" style="width: 16px;">
+                                <img src="/images/notification.png" alt="" style="width: 16px; margin-top: 4px;">
                                 <span class="d-lg-none align-middle ml-1">{{ __('general.notifications') }}</span>
                             </a>
                         </li>

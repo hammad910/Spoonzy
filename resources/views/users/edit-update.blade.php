@@ -32,7 +32,7 @@
           <form method="POST" action="{{ url('update/edit') }}" enctype="multipart/form-data" id="formUpdateEdit">
             @csrf
             <input type="hidden" name="id" value="{{$data->id}}" />
-          <div class="card mb-4 card-border-0 rounded-large shadow-large">
+          <div class="card mb-4 card-border-0 shadow-large" style="border-radius: 12px !important;">
             <div class="blocked display-none"></div>
             <div class="card-body pb-0">
 

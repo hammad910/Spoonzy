@@ -1247,7 +1247,7 @@
 @section('content')
     <div class="d-flex" style="min-height: 100vh; background: #FBFBFB;">
         <!-- Sidebar -->
-        <div class="menu-sidebar d-none d-lg-block" style="width: 40%; border-right: 1px solid #ddd; padding: 20px;">
+        <div class="menu-sidebar d-none d-lg-block" style="width: 60%; border-right: 1px solid #ddd; padding: 20px 20px 20px 0px; background: #fff;">
             @include('includes.menu-sidebar-home')
         </div>
 

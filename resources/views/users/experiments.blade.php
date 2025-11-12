@@ -6,21 +6,14 @@
 
 @section('content')
     <section class="section section-sm">
-        <div class="container-fluid p-0">
-            <div class="row g-0">
-                <div class="col-lg-2 d-none d-lg-block bg-white" style="min-height: 100vh; border-right: 1px solid #ddd;">
-                    <div class="p-3">
-                        @include('includes.menu-sidebar-home')
-                    </div>
-                </div>
-
-                <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="mobileSidebar">
-                    <div class="offcanvas-body p-3">
-                        @include('includes.menu-sidebar-home')
-                    </div>
-                </div>
-
-                <div class="col-lg-10 col-12 p-4" style="background: #FBFBFB;">
+        <div class="d-flex">
+            <div class="menu-sidebar d-none d-lg-block z-999" style="width: 18.5%; border-right: 1px solid #ddd; padding: 20px 20px 20px 0px; background: #fff;">
+                @include('includes.menu-sidebar-home')
+            </div>
+            <div class="" style="
+    background: #fbfbfb;
+"> 
+                <div class="col-lg-12 col-12 p-4" style="background: #FBFBFB;">
                     <div class="d-flex d-lg-none justify-content-between align-items-center mb-3">
                         <h4 class="fw-semibold mb-0">Experiments</h4>
                         <button class="btn px-2" data-bs-toggle="modal" data-bs-target="#createExperimentModal"
@@ -1205,11 +1198,6 @@
         .pagination .page-item.active .page-link {
             background-color: {{ $settings->theme_color_pwa ?? '#007bff' }};
             color: white;
-        }
-
-        .container-fluid {
-            padding-right: 0 !important;
-            padding-left: 0 !important;
         }
 
         .offcanvas {

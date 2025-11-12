@@ -1,4 +1,4 @@
-<ul class="list-unstyled d-lg-block d-none menu-left-home ">
+<ul class="list-unstyled d-lg-block d-none menu-left-home" style="padding-left: 15px;">
 	<li>
 		<a href="{{url('/')}}" @if (request()->is('/')) class="active disabled" @endif>
 			<i class="bi-house-door"></i>

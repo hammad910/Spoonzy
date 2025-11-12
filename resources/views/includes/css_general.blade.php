@@ -1282,15 +1282,16 @@ input[type=number] {
   font-size: 19px; /* default desktop */
   text-decoration: none;
   margin-bottom: 8px;
-  border-radius: {{ $settings->button_style == 'rounded' ? '20px' : '4px' }};
-  color: #8a96a3;
+  border-radius: {{ $settings->button_style == 'rounded' ? '11px' : '4px' }};
+  color: #475467;
   transition: all 200ms linear;
 }
 
 .menu-left-home li > a:hover,
 .menu-left-home li > a.active {
   background-color: {{$settings->sidebar_bg_color}};
-  color: #fff;
+  color: {{$settings->theme_color_pwa}};
+  border-left: 2px solid {{$settings->theme_color_pwa}};
 }
 
 /* Medium screens (tablet) */
