@@ -1799,11 +1799,11 @@ border-color: #adb5bd !important;
   border-radius: inherit;
 }
 .search-bar {
-  border-radius: 60px;
+  border-radius: 8px;
   padding: 12px 20px !important;
   height: 40px !important;
-  background-color: #f6f6f6;
-  border: 1px solid transparent !important;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.1) !important;
 }
 .search-bar:focus {
   border: 1px solid #ced4da !important;

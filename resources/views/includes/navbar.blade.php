@@ -1,6 +1,6 @@
 <header>
     <nav
-        class="navbar navbar-expand-lg navbar-inverse fixed-top p-nav @if (auth()->guest() && request()->path() == '/' && $settings->home_style == 0) scroll @else p-3 @if (request()->is('live/*')) d-none @endif  @if (request()->is('messages/*')) d-none d-lg-block shadow-sm @elseif(request()->is('messages')) shadow-sm @else shadow-custom @endif {{ auth()->check() && auth()->user()->dark_mode == 'on' ? 'bg-white' : 'navbar_background_color' }} link-scroll @endif">
+        class="navbar navbar-expand-lg navbar-inverse fixed-top p-nav @if (auth()->guest() && request()->path() == '/' && $settings->home_style == 0) scroll @else p-3 @if (request()->is('live/*')) d-none @endif  @if (request()->is('messages/*')) d-none d-lg-block shadow-sm @elseif(request()->is('messages')) shadow-sm @else @endif {{ auth()->check() && auth()->user()->dark_mode == 'on' ? 'bg-white' : 'navbar_background_color' }} link-scroll @endif" style="border: 1px solid #ddd; border-bottom: #ddd; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);">
         <div class="container-fluid d-flex position-relative">
 
             @auth
@@ -22,7 +22,7 @@
                     {{-- <img src="{{ asset('img', auth()->guest() && request()->path() == '/' && $settings->home_style == 0 ? $settings->logo : $settings->logo_2) }}"
                         data-logo="{{ $settings->logo }}" data-logo-2="{{ $settings->logo_2 }}"
                         alt="{{ $settings->title }}" class="logo align-bottom max-w-100" /> --}}
-                    <img src="/images/login-logo.png" alt="LabVlog logo" style="border-radius: 20px; width: 50px;">
+                    <img src="/images/login-logo.png" alt="LabVlog logo" style="border-radius: 8px; width: 50px;">
                 @endif
             </a>
 
@@ -44,18 +44,18 @@
                 </div>
 
                 @if ((auth()->guest() && $settings->who_can_see_content == 'all') || auth()->check())
-                    <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto" style="margin-left: 20px;">
 
                         @if (!$settings->disable_creators_section)
                             @if (!$settings->disable_search_creators)
                                 <form class="form-inline my-lg-0 position-relative" method="get"
                                     action="{{ url('creators') }}">
+                                    <button class="btn btn-outline-success my-sm-0 button-search e-none"
+                                        type="submit"><i class="bi bi-search"></i></button>
                                     <input id="searchCreatorNavbar"
                                         class="form-control search-bar @if (auth()->guest() && request()->path() == '/') border-0 @endif"
                                         type="text" required name="q" autocomplete="off" minlength="3"
-                                        placeholder="{{ __('general.find_user') }}" aria-label="Search">
-                                    <button class="btn btn-outline-success my-sm-0 button-search e-none"
-                                        type="submit"><i class="bi bi-search"></i></button>
+                                        placeholder="Search..." aria-label="Search">
 
                                     <div class="dropdown-menu dd-menu-user position-absolute"
                                         style="width: 95%; top: 48px;" id="dropdownCreators">
@@ -349,7 +349,8 @@
                                     {{ auth()->user()->unseenNotifications() }}
                                 </span>
 
-                                <i class="far fa-bell icon-navbar"></i>
+                                {{-- <i class="far fa-bell icon-navbar"></i> --}}
+                                <img src="/images/notification.png" alt="" style="width: 16px;">
                                 <span class="d-lg-none align-middle ml-1">{{ __('general.notifications') }}</span>
                             </a>
                         </li>
