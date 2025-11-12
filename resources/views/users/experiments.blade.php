@@ -10,7 +10,7 @@
             <div class="menu-sidebar d-none d-lg-block z-999" style="width: 18.5%; border-right: 1px solid #ddd; padding: 20px 20px 20px 0px; background: #fff;">
                 @include('includes.menu-sidebar-home')
             </div>
-            <div class="" style="
+            <div class="flex-grow-1" style="
     background: #fbfbfb;
 "> 
                 <div class="col-lg-12 col-12 p-4" style="background: #FBFBFB;">
@@ -58,8 +58,8 @@
                                 </span>
                             </div>
 
-                            <div class="table-responsive p-3">
-                                <table class="table align-middle mb-0" id="experimentsTable">
+                            <div class="table-responsive p-3" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                                <table class="table align-middle mb-0" id="experimentsTable" style="min-width: 800px;">
                                     <thead>
                                         <tr class="text-muted small">
                                             <th>S no</th>
