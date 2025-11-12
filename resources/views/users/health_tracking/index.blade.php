@@ -20,34 +20,36 @@
         }
 
         .mood-widget {
-            height: 240px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            border-radius: 14px;
-            background: radial-gradient(circle at 40% 30%, rgba(151, 139, 255, 0.12), transparent 20%),
-                radial-gradient(circle at 70% 70%, rgba(99, 232, 255, 0.06), transparent 30%),
-                var(--card);
-            box-shadow: var(--shadow);
+            width: 100%;
+            aspect-ratio: 1/1;
+            max-width: 320px;
+            /* adjust based on design */
+            margin: auto;
         }
 
-        .mood-inner {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: linear-gradient(180deg, #fff, #f8fbff);
+        .center-text {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.08), inset 0 -6px 10px rgba(0, 0, 0, 0.03);
             flex-direction: column;
+            gap: 20px;
         }
 
-        .mood-score {
-            font-size: 36px;
-            font-weight: 800;
-            color: #2b6cb0;
+        .score {
+            font-size: 65px;
+            font-weight: 500;
+            color: #469DFA;
+            line-height: 39.87px;
+            margin-top: 22px;
+        }
+
+        .mood-text {
+            font-size: 18px;
+            font-weight: 500;
+            color: #8E99AA;
+            /* subtle gray */
+            line-height: 100%;
         }
 
         .top-right-btn {
@@ -1408,7 +1410,8 @@
                             <div class="gauge-container">
                                 <svg width="500" height="260" viewBox="0 0 500 260">
                                     <defs>
-                                        <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%"
+                                            y2="0%">
                                             <stop offset="0%" style="stop-color:#50E9BB; stop-opacity:1" />
                                             <stop offset="100%" style="stop-color:#24B78B; stop-opacity:1" />
                                         </linearGradient>
@@ -1418,7 +1421,8 @@
                                     <!-- Progress arc (75% complete - 3 out of 4) -->
                                     <path class="gauge-progress" d="M 60 235 A 190 190 0 0 1 440 235" pathLength="450" />
                                     <!-- Outer decorative ring - MOVED TO END -->
-                                    <path class="gauge-outer-ring" d="M 30 240 A 220 220 0 0 1 470 240" pathLength="471" transform="translate(0, -10)"/>
+                                    <path class="gauge-outer-ring" d="M 30 240 A 220 220 0 0 1 470 240" pathLength="471"
+                                        transform="translate(0, -10)" />
                                 </svg>
                                 <!-- Checkpoints on progress bar -->
                                 <div class="checkpoint checkpoint1">
@@ -1456,9 +1460,15 @@
                 </div>
 
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <div class="mood-widget">
-                        <div class="mood-inner">
-                            <img src="/images/health-widget.png" style="width: 170%" alt="Health Widget">
+                    <div class="mood-widget position-relative d-flex justify-content-center align-items-center"
+                        style="overflow:hidden;">
+                        <img src="/svg/AIsphere.svg" class="img-fluid w-100" alt="Health Widget"
+                            style="object-fit:cover;">
+
+                        <!-- Centered content -->
+                        <div class="center-text position-absolute text-center">
+                            <div class="score">99</div>
+                            <div class="mood-text">Excellent<br>Mood</div>
                         </div>
                     </div>
                 </div>
