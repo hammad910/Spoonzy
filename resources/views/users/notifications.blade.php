@@ -33,9 +33,9 @@
     <div class="container-fluid">
       <div class="row">
         <!-- Left Sidebar -->
-        <div class="col-lg-2 d-none d-lg-block" style="border-right: 1px solid #ddd; padding: 20px;">
+        {{-- <div class="col-lg-2 d-none d-lg-block" style="border-right: 1px solid #ddd; padding: 20px;">
           @include('includes.menu-sidebar-home')
-        </div>
+        </div> --}}
         
         <!-- Main Content Area -->
         <div class="col-lg-10">

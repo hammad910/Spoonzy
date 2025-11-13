@@ -59,10 +59,10 @@
 
 @section('content')
     <div class="d-flex">
-        <div class="menu-sidebar d-none d-lg-block"
+        {{-- <div class="menu-sidebar d-none d-lg-block"
             style="height: 100vh; border-right: 1px solid #ddd; padding: 20px; width: 20%">
             @include('includes.menu-sidebar-home')
-        </div>
+        </div> --}}
         <div class="flex-grow-1">
             <div class="jumbotron jumbotron-cover-user home m-0 position-relative"
                 style="padding: @if ($user->cover != '') @if (request()->path() == $user->username) 240px @else 125px @endif

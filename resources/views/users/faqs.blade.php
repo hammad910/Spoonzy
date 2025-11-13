@@ -41,9 +41,9 @@
 
 @section('content')
     <section class="section section-sm d-flex">
-        <div class="menu-sidebar d-none d-lg-block" style="width: 20%; border-right: 1px solid #ddd; padding: 20px;">
+        {{-- <div class="menu-sidebar d-none d-lg-block" style="width: 20%; border-right: 1px solid #ddd; padding: 20px;">
             @include('includes.menu-sidebar-home')
-        </div>
+        </div> --}}
         <div class="container" style="background: #FBFBFB;">
             <div class="row justify-content-center text-center mb-sm">
                 <div class="col-lg-8 py-5">

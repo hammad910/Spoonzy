@@ -7,10 +7,10 @@
   <div class="d-flex h-100" style="width: 100%;">
 
     {{-- Left: Menu Sidebar - Desktop Only --}}
-    <div class="d-none d-lg-block" 
+    {{-- <div class="d-none d-lg-block" 
          style="height: 100vh; border-right: 1px solid #ddd; padding: 20px; width: 15%; flex-shrink: 0;">
       @include('includes.menu-sidebar-home')
-    </div>
+    </div> --}}
 
     {{-- Middle: Message Inbox Sidebar - Always Visible --}}
     <div class="wrapper-msg-inbox border-right" 

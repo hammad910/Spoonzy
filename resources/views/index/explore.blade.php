@@ -7,9 +7,9 @@
     <div class="container container-lg-3 pt-lg-5 pt-3">
       <div class="row">
 
-        <div class="col-md-2">
+        {{-- <div class="col-md-2">
           @include('includes.menu-sidebar-home')
-        </div>
+        </div> --}}
 
         <div class="col-md-6 p-0 second wrap-post">
 

@@ -417,9 +417,9 @@
 @section('content')
     <div class="d-flex flex-column flex-lg-row content-container">
         <!-- Sidebar -->
-        <div class="menu-sidebar d-none d-lg-block" style="width: 20%; border-right: 1px solid #ddd; padding: 20px;">
+        {{-- <div class="menu-sidebar d-none d-lg-block" style="width: 20%; border-right: 1px solid #ddd; padding: 20px;">
             @include('includes.menu-sidebar-home')
-        </div>
+        </div> --}}
 
         <!-- Main Content -->
         <div class="flex-grow-1 main-content">

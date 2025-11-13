@@ -14,37 +14,27 @@
     /* Container fills viewport and uses flex layout */
     .section-msg {
         position: fixed;
-        top: 0;
-        left: 0;
+        top: 70px; /* Navbar height */
+        left: 250px; /* Sidebar width */
         right: 0;
         bottom: 0;
         background: #fff;
         z-index: 10;
+        width: calc(100% - 250px); /* Full width minus sidebar */
     }
 
     .msg-row {
         display: flex;
-        height: 100vh;
+        height: 100%;
         width: 100%;
         overflow: hidden;
-    }
-
-    /* Left menu sidebar: desktop only */
-    .menu-sidebar {
-        flex: 0 0 17%;
-        max-width: 35%;
-        border-right: 1px solid #ddd;
-        padding: 20px;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        background: transparent;
     }
 
     /* Messages inbox: appears on md+ and lg */
     .msg-inbox {
         flex: 0 0 25%;
         border-right: 1px solid #ddd;
-        height: 100vh;
+        height: 100%;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
         background: transparent;
@@ -54,7 +44,7 @@
     .chat-wrap {
         flex: 1 1 auto;
         overflow-y: auto;
-        height: 100vh;
+        height: 100%;
         display: flex;
         flex-direction: column;
         background: transparent;
@@ -71,25 +61,22 @@
 
     .chat-card .card-header {
         z-index: 5;
+        flex-shrink: 0;
     }
 
     .chat-body {
         flex: 1 1 auto;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+        min-height: 0;
     }
 
     .chat-footer {
         border-top: 1px solid #e9ecef;
+        flex-shrink: 0;
     }
 
     /* Fileuploader fix kept */
-    @media (max-width: 1200px) {
-        .menu-sidebar {
-        flex: 0 0 23%;
-
-    }
-    }
     @media (min-width: 991px) {
         .fileuploader-theme-thumbnails .fileuploader-thumbnails-input,
         .fileuploader-theme-thumbnails .fileuploader-items-list .fileuploader-item {
@@ -98,25 +85,33 @@
         }
     }
 
-    /* Responsive rules:
-       - >= lg (992px): show menu + inbox + chat (menu-sidebar, msg-inbox visible)
-       - >= md and < lg (768px to 991.98px): hide menu, show inbox + chat
-       - < md (<= 767.98px): hide menu and inbox, show only chat (full width)
-    */
-
-    /* Hide left menu for widths < 992px */
+    /* Responsive rules */
+    /* For tablets: 768px to 991px */
     @media (max-width: 991.98px) {
-        .menu-sidebar { display: none !important; }
-        .msg-inbox { flex: 0 0 35%; } /* give more room on tablet */
+        .section-msg {
+            left: 0;
+            width: 100%;
+            top: 60px;
+        }
+        .msg-inbox { 
+            flex: 0 0 35%;
+        }
     }
 
-    /* Hide inbox (and menu) for widths < 768px */
+    /* For mobile: less than 768px */
     @media (max-width: 767.98px) {
-        .menu-sidebar { display: none !important; }
-        .msg-inbox { display: none !important; }
-        .chat-wrap { flex: 1 1 100%; max-width: 100%; }
-        .chat-card { height: 100vh; }
-        .card-header .media a.fa-arrow-left { display: inline-block; } /* back arrow remains useful */
+        .section-msg {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+        }
+        .msg-inbox { 
+            display: none !important; 
+        }
+        .chat-wrap { 
+            flex: 1 1 100%; 
+        }
     }
 
     /* Small helpers */
@@ -125,18 +120,25 @@
     .w-100-mobile { width: 100%; }
 
     /* keep scrollbars visually consistent */
-    .d-scrollbars { overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .d-scrollbars { 
+        overflow-y: auto; 
+        -webkit-overflow-scrolling: touch; 
+        flex: 1;
+        min-height: 0;
+    }
+
+    /* Fix for chat body height */
+    .container-msg {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
 </style>
 @endsection
 
 @section('content')
 <section class="section section-sm pb-0 h-100 section-msg">
     <div class="msg-row">
-
-        {{-- Left: Menu Sidebar (desktop only) --}}
-        <aside class="menu-sidebar d-none d-lg-block">
-            @include('includes.menu-sidebar-home')
-        </aside>
 
         {{-- Middle: Message Inbox Sidebar (md+ visible) --}}
         <aside id="messagesContainer" class="msg-inbox d-none d-md-block" role="complementary">
@@ -190,7 +192,7 @@
                             @endif
                         </div>
 
-                        {{-- Action buttons (kept exactly as in original) --}}
+                        {{-- Action buttons --}}
                         <div class="ml-2 d-flex align-items-center">
                             @if (auth()->user()->verified_id == 'yes' 
                                 && $settings->audio_call_status
@@ -278,7 +280,7 @@
                     @endif
                 </div>
 
-                {{-- Chat footer: message form & controls (preserved exactly) --}}
+                {{-- Chat footer: message form & controls --}}
                 @if (!auth()->user()->checkRestriction($user->id) && $user->allow_dm || auth()->user()->isSuperAdmin())
                     <div class="card-footer bg-white position-relative chat-footer">
                         @if ($subscribedToYourContent || $subscribedToMyContent || auth()->user()->isSuperAdmin() || $user->isSuperAdmin())
