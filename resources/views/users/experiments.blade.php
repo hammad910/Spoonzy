@@ -7,9 +7,9 @@
 @section('content')
     <section class="section section-sm">
         <div class="d-flex">
-            <div class="menu-sidebar d-none d-lg-block z-999" style="width: 18.5%; border-right: 1px solid #ddd; padding: 20px 20px 20px 0px; background: #fff;">
+            {{-- <div class="menu-sidebar d-none d-lg-block z-999" style="width: 18.5%; border-right: 1px solid #ddd; padding: 20px 20px 20px 0px; background: #fff;">
                 @include('includes.menu-sidebar-home')
-            </div>
+            </div> --}}
             <div class="flex-grow-1" style="
     background: #fbfbfb;
 "> 

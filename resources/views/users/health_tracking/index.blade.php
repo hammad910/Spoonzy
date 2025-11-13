@@ -142,7 +142,7 @@
         }
 
         .main-content {
-            margin-top: 4%;
+            /* margin-top: 4%; */
         }
 
         /* When screen width < 1400px */
@@ -152,7 +152,7 @@
             }
 
             .main-content {
-                margin-top: 6%;
+                /* margin-top: 6%; */
             }
         }
 
@@ -162,31 +162,31 @@
             }
 
             .main-content {
-                margin-top: 8%;
+                /* margin-top: 8%; */
             }
         }
 
         @media (max-width: 999.98px) {
             .main-content {
-                margin-top: 10%;
+                /* margin-top: 10%; */
             }
         }
 
         @media (max-width: 699.98px) {
             .main-content {
-                margin-top: 15%;
+                /* margin-top: 15%; */
             }
         }
 
         @media (max-width: 499.98px) {
             .main-content {
-                margin-top: 20%;
+                /* margin-top: 20%; */
             }
         }
 
         @media (max-width: 399.98px) {
             .main-content {
-                margin-top: 24%;
+                /* margin-top: 24%; */
             }
         }
 
@@ -1247,9 +1247,9 @@
 @section('content')
     <div class="d-flex" style="min-height: 100vh; background: #FBFBFB;">
         <!-- Sidebar -->
-        <div class="menu-sidebar d-none d-lg-block" style="width: 60%; border-right: 1px solid #ddd; padding: 20px 20px 20px 0px; background: #fff;">
+        {{-- <div class="menu-sidebar d-none d-lg-block" style="width: 60%; border-right: 1px solid #ddd; padding: 20px 20px 20px 0px; background: #fff;">
             @include('includes.menu-sidebar-home')
-        </div>
+        </div> --}}
 
         <!-- Main Content -->
         <div class="flex-grow-1 health-container main-content">
@@ -1459,7 +1459,7 @@
                     </div>
                 </div>
 
-                <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="col-xl-4 col-lg-6 col-md-6 d-flex align-items-center">
                     <div class="mood-widget position-relative d-flex justify-content-center align-items-center"
                         style="overflow:hidden;">
                         <img src="/svg/AIsphere.svg" class="img-fluid w-100" alt="Health Widget"

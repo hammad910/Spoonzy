@@ -18,7 +18,6 @@
 <link href="{{ asset('img', $settings->favicon) }}" rel="icon">
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-
 @if ($settings->google_tag_manager_head != '')
     {!! $settings->google_tag_manager_head !!}
 @endif
@@ -34,9 +33,84 @@
 @if ($settings->google_analytics != '')
     {!! $settings->google_analytics !!}
 @endif
+
+<style>
+    body {
+        font-family: 'Onest', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .app-layout {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+
+    .main-content-wrapper {
+        display: flex;
+        flex: 1;
+        margin-top: 70px; /* Navbar height */
+    }
+
+    .sidebar-left {
+        width: 250px;
+        flex-shrink: 0;
+        background: #fff;
+        border-right: 1px solid #ddd;
+        position: fixed;
+        /* top: 100px; */
+        left: 0;
+        height: calc(100vh - 70px);
+        overflow-y: auto;
+        z-index: 100;
+        padding: 20px 10px 20px 10px;
+    }
+
+    .content-area {
+        flex: 1;
+        margin-left: 250px; /* Sidebar width */
+        min-height: calc(100vh - 70px);
+        background-color: #fbfbfb;
+    }
+
+    .content-area-full {
+        margin-left: 0;
+    }
+
+    /* Mobile styles */
+    @media (max-width: 1024px) {
+        .sidebar-left {
+            width: 220px;
+        }
+        .content-area {
+            margin-left: 220px;
+        }
+    }
+
+    @media (max-width: 990px) {
+        .sidebar-left {
+            display: none;
+        }
+        .content-area {
+            margin-left: 0;
+        }
+        .main-content-wrapper {
+            margin-top: 60px; /* Adjusted for mobile navbar */
+        }
+    }
+
+    /* For login/signup pages */
+    .auth-pages .main-content-wrapper {
+        margin-top: 0;
+    }
+    .auth-pages .content-area {
+        margin-left: 0;
+    }
+</style>
 </head>
 
-<body>
+<body class="@if(request()->is('login', 'signup', 'password*')) auth-pages @endif">
 @if ($settings->google_tag_manager_body != '')
     {!! $settings->google_tag_manager_body !!}
 @endif
@@ -79,125 +153,130 @@
     </div>
 @endif
 
-
 <div class="popout popout-error font-default"></div>
 
-@if (
-    (auth()->guest() && request()->path() == '/' && $settings->home_style == 0) ||
-        (auth()->guest() && request()->path() != '/' && $settings->home_style == 0) ||
-        (auth()->guest() && request()->path() != '/' && $settings->home_style == 1) ||
-        (auth()->guest() && request()->path() == '/' && $settings->home_style == 2) ||
-        (auth()->guest() && request()->path() != '/' && $settings->home_style == 2) ||
-        auth()->check())
-    @unless (request()->is('login', 'signup', 'password*'))
-        @include('includes.navbar')
-    @endunless
-@endif
-
-<main @if (request()->is('messages/*') || request()->is('live/*')) class="h-100" @endif role="main">
-    @yield('content')
-
+<div class="app-layout">
     @if (
-        (auth()->guest() &&
-            !request()->route()->named('profile') &&
-            !request()->is(['creators', 'category/*', 'creators/*'])) ||
-            (auth()->check() &&
-                request()->path() != '/' &&
-                !request()->route()->named('profile') &&
-                !request()->is([
-                    'my/bookmarks',
-                    'my/likes',
-                    'my/purchases',
-                    'explore',
-                    'messages',
-                    'messages/*',
-                    'creators',
-                    'category/*',
-                    'creators/*',
-                    'live/*',
-                ])))
-
-        @if (
-            (auth()->guest() && request()->path() == '/' && $settings->home_style == 0) ||
-                (auth()->guest() && request()->path() != '/' && $settings->home_style == 0) ||
-                (auth()->guest() && request()->path() != '/' && $settings->home_style == 1) ||
-                (auth()->guest() && request()->path() != '/' && $settings->home_style == 2) ||
-                auth()->check())
-
-             @unless (request()->is('login', 'signup', 'password*'))
-
-                @if (auth()->guest() && $settings->who_can_see_content == 'users')
-                    <div class="text-center py-3 px-3">
-                        @include('includes.footer-tiny')
-                    </div>
-                @else
-                    @include('includes.footer')
-                @endif
-
-            @endunless
-        @endif
-
+        (auth()->guest() && request()->path() == '/' && $settings->home_style == 0) ||
+            (auth()->guest() && request()->path() != '/' && $settings->home_style == 0) ||
+            (auth()->guest() && request()->path() != '/' && $settings->home_style == 1) ||
+            (auth()->guest() && request()->path() == '/' && $settings->home_style == 2) ||
+            (auth()->guest() && request()->path() != '/' && $settings->home_style == 2) ||
+            auth()->check())
+        @unless (request()->is('login', 'signup', 'password*'))
+            @include('includes.navbar')
+        @endunless
     @endif
 
-    @guest
+    <div class="main-content-wrapper">
+        <!-- LEFT SIDEBAR - Only show on non-auth pages and when user is authenticated -->
+        @unless (request()->is('login', 'signup', 'password*'))
+            @if (auth()->check() || 
+                (auth()->guest() && request()->path() == '/' && $settings->home_style == 0) ||
+                (auth()->guest() && request()->path() != '/' && $settings->home_style == 0) ||
+                (auth()->guest() && request()->path() != '/' && $settings->home_style == 1) ||
+                (auth()->guest() && request()->path() == '/' && $settings->home_style == 2) ||
+                (auth()->guest() && request()->path() != '/' && $settings->home_style == 2))
+                <div class="sidebar-left d-none d-lg-block">
+                    @include('includes.menu-sidebar-home')
+                </div>
+            @endif
+        @endunless
 
-        @if (Helper::showLoginFormModal())
-            @include('includes.modal-login')
-        @endif
+        <!-- MAIN CONTENT AREA -->
+        <div class="content-area @if(request()->is('login', 'signup', 'password*') || !auth()->check()) content-area-full @endif">
+            <main @if (request()->is('messages/*') || request()->is('live/*')) class="h-100" @endif role="main">
+                @yield('content')
 
-    @endguest
+                @if (
+                    (auth()->guest() &&
+                        !request()->route()->named('profile') &&
+                        !request()->is(['creators', 'category/*', 'creators/*'])) ||
+                        (auth()->check() &&
+                            request()->path() != '/' &&
+                            !request()->route()->named('profile') &&
+                            !request()->is([
+                                'my/bookmarks',
+                                'my/likes',
+                                'my/purchases',
+                                'explore',
+                                'messages',
+                                'messages/*',
+                                'creators',
+                                'category/*',
+                                'creators/*',
+                                'live/*',
+                            ])))
 
-    @auth
+                    @if (
+                        (auth()->guest() && request()->path() == '/' && $settings->home_style == 0) ||
+                            (auth()->guest() && request()->path() != '/' && $settings->home_style == 0) ||
+                            (auth()->guest() && request()->path() != '/' && $settings->home_style == 1) ||
+                            (auth()->guest() && request()->path() != '/' && $settings->home_style == 2) ||
+                            auth()->check())
+                        @unless (request()->is('login', 'signup', 'password*'))
+                            @if (auth()->guest() && $settings->who_can_see_content == 'users')
+                                <div class="text-center py-3 px-3">
+                                    @include('includes.footer-tiny')
+                                </div>
+                            @else
+                                @include('includes.footer')
+                            @endif
+                        @endunless
+                    @endif
+                @endif
 
-        @if ($settings->disable_tips == 'off')
-            @include('includes.modal-tip')
-        @endif
+                @guest
+                    @if (Helper::showLoginFormModal())
+                        @include('includes.modal-login')
+                    @endif
+                @endguest
 
-        @if ($settings->gifts)
-            @include('includes.modal-gifts')
-        @endif
+                @auth
+                    @if ($settings->disable_tips == 'off')
+                        @include('includes.modal-tip')
+                    @endif
 
-        @include('includes.modal-payperview')
+                    @if ($settings->gifts)
+                        @include('includes.modal-gifts')
+                    @endif
 
-        @if ($settings->live_streaming_status == 'on')
-            @include('includes.modal-live-stream')
-        @endif
+                    @include('includes.modal-payperview')
 
-        @if ($settings->allow_scheduled_posts)
-            @include('includes.modal-scheduled-posts')
-        @endif
+                    @if ($settings->live_streaming_status == 'on')
+                        @include('includes.modal-live-stream')
+                    @endif
 
-        @if ($settings->video_call_status)
-            @include('includes.modal-video-call-incoming')
-        @endif
+                    @if ($settings->allow_scheduled_posts)
+                        @include('includes.modal-scheduled-posts')
+                    @endif
 
-        @if ($settings->audio_call_status)
-            @include('includes.modal-audio-call-incoming')
-        @endif
+                    @if ($settings->video_call_status)
+                        @include('includes.modal-video-call-incoming')
+                    @endif
 
-        @if ($settings->allow_vault)
-            @include('includes.modal-vault')
-        @endif
+                    @if ($settings->audio_call_status)
+                        @include('includes.modal-audio-call-incoming')
+                    @endif
 
-    @endauth
+                    @if ($settings->allow_vault)
+                        @include('includes.modal-vault')
+                    @endif
+                @endauth
 
-    @guest
-        @include('includes.modal-2fa')
-    @endguest
-</main>
+                @guest
+                    @include('includes.modal-2fa')
+                @endguest
+            </main>
+        </div>
+    </div>
+</div>
 
 @include('includes.javascript_general')
-
 @yield('javascript')
 
 @auth
     <div id="bodyContainer"></div>
 @endauth
-<style>
-    body {
-        font-family: 'Onest', sans-serif;
-    }
-</style>
 </body>
-
 </html>

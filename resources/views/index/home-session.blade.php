@@ -60,25 +60,31 @@
     /* FIXED SIDEBAR STYLES */
     .sidebar-container {
         height: 100vh;
-        width: 20%; /* Increased from 20% */
+        width: 20%;
+        /* Increased from 20% */
         border-right: 1px solid #ddd;
         padding: 20px;
-        flex-shrink: 0; /* Prevents sidebar from shrinking */
-        overflow-y: auto; /* Adds scroll if content overflows */ 
+        flex-shrink: 0;
+        /* Prevents sidebar from shrinking */
+        overflow-y: auto;
+        /* Adds scroll if content overflows */
     }
 
     .main-content {
         flex: 1;
         padding: 20px;
         background-color: #fbfbfb;
-        min-width: 0; /* Allows content to shrink properly */
+        min-width: 0;
+        /* Allows content to shrink properly */
     }
 
     .right-sidebar {
-        width: 25%; /* Adjust if needed */
+        width: 25%;
+        /* Adjust if needed */
         padding: 20px;
         background-color: #fbfbfb;
-        flex-shrink: 0; /* Prevents shrinking */
+        flex-shrink: 0;
+        /* Prevents shrinking */
     }
 
     @media (max-width: 576px) {
@@ -90,13 +96,46 @@
             margin-left: auto;
             margin-top: 0 !important;
         }
-        
+
         .sidebar-container {
             display: none !important;
         }
-        
+
         .right-sidebar {
             display: none !important;
+        }
+
+        .mood-widget-2 {
+            width: 100%;
+            aspect-ratio: 1/1;
+            max-width: 320px;
+            /* adjust based on design */
+            margin: auto;
+        }
+
+        .center-text-2 {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .score {
+            font-size: 65px;
+            font-weight: 500;
+            color: #469DFA;
+            line-height: 39.87px;
+            margin-top: 22px;
+        }
+
+        .mood-text {
+            font-size: 18px;
+            font-weight: 500;
+            color: #8E99AA;
+            /* subtle gray */
+            line-height: 100%;
         }
     }
 </style>
@@ -106,9 +145,9 @@
         <div class="container pt-lg-0 pt-2 max-w-100" style="max-width: 100%">
             <div class="row justify-content-center" style="flex-wrap: nowrap !important;">
                 <!-- LEFT SIDEBAR - FIXED WIDTH -->
-                <div class="sidebar-container d-none d-lg-block">
+                {{-- <div class="sidebar-container d-none d-lg-block">
                     @include('includes.menu-sidebar-home')
-                </div>
+                </div> --}}
 
                 <!-- MAIN CONTENT - FLEXIBLE WIDTH -->
                 <div class="main-content col-md-7 wrap-post">
@@ -200,141 +239,146 @@
                 <!-- RIGHT SIDEBAR - FIXED WIDTH -->
                 <div class="right-sidebar col-md-3 mb-4 d-none d-md-block">
                     <div class="d-lg-block sticky-top">
-                        @if ($users->count() == 0)
-                            <div class="panel panel-default panel-transparent mb-4 d-block d-md-none d-lg-block">
-                                <div class="panel-body">
-                                    <div class="shadow-sm border-0 rounded-4">
-                                        <div class="card-body" style="padding: 16px; background: #fff; border-radius: 12px;">
-                                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                                <h6 class="mt-2 fw-semibold" style="color: #000; font-size: 18px;">
-                                                    <img src="/images/health-vector.png" alt=""
-                                                        class="me-2 img-fluid" style="width: 24px;">
-                                                    Your Health Today
-                                                </h6>
+                        <div class="panel panel-default panel-transparent mb-4 d-block d-md-none d-lg-block">
+                            <div class="panel-body">
+                                <div class="shadow-sm border-0 rounded-4">
+                                    <div class="card-body" style="padding: 16px; background: #fff; border-radius: 12px;">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h6 class="mt-2 fw-semibold" style="color: #000; font-size: 18px;">
+                                                <img src="/images/health-vector.png" alt="" class="me-2 img-fluid"
+                                                    style="width: 24px;">
+                                                Your Health Today
+                                            </h6>
+                                        </div>
+
+                                        <!-- Circular Score + Emotional Stats -->
+                                        <div class="d-flex flex-column flex-sm-row align-items-center">
+                                            <div class="mood-widget-2 position-relative d-flex justify-content-center align-items-center"
+                                                style="overflow:hidden;">
+                                                <img src="/svg/AIsphere.svg" class="img-fluid" alt="Health Widget"
+                                                    style="object-fit:cover;">
+
+                                                <!-- Centered content -->
+                                                <div class="center-text-2 position-absolute text-center">
+                                                    <div class="score" style=" font-size: 36px; font-weight: 500; color: #469DFA; line-height: 24pxpx; margin-bottom: -5px;">
+                                                        99
+                                                    </div>
+                                                    <div class="mood-text" style="font-size: 12px; font-weight: 500; color: #469DFA; line-height: 100%; margin-bottom: 10px;">
+                                                        Excellent</div>
+                                                </div>
                                             </div>
 
-                                            <!-- Circular Score + Emotional Stats -->
-                                            <div class="d-flex flex-column flex-sm-row align-items-center">
-                                                <div class="text-center position-relative mb-3 mb-sm-0">
-                                                    <img src="/images/health-widget.png" alt="Health Widget"
-                                                        class="img-fluid">
-                                                </div>
+                                            <!-- Emotional Stats -->
+                                            <div class="w-100 px-sm-3">
+                                                <div class="mb-3">
+                                                    <div class="d-flex justify-content-between">
+                                                        <span
+                                                            style="font-weight: 600; color: #000; font-size: 16px;">Happiness</span>
+                                                        <span class="small" style="font-weight: 600; color: #CF73FF">24
+                                                            Days</span>
+                                                    </div>
+                                                    <div class="progress progress-sm mb-2" style="height: 4px;">
+                                                        <div class="progress-bar" style="width: 90%; background: #CF73FF">
+                                                        </div>
+                                                    </div>
 
-                                                <!-- Emotional Stats -->
-                                                <div class="w-100 px-sm-3">
-                                                    <div class="mb-3">
-                                                        <div class="d-flex justify-content-between">
-                                                            <span
-                                                                style="font-weight: 600; color: #000; font-size: 16px;">Happiness</span>
-                                                            <span class="small" style="font-weight: 600; color: #CF73FF">24
-                                                                Days</span>
-                                                        </div>
-                                                        <div class="progress progress-sm mb-2" style="height: 4px;">
-                                                            <div class="progress-bar"
-                                                                style="width: 90%; background: #CF73FF"></div>
-                                                        </div>
+                                                    <div class="d-flex justify-content-between mt-2">
+                                                        <span
+                                                            style="font-weight: 600; color: #000; font-size: 16px;">Excitement</span>
+                                                        <span class="text-primary small" style="font-weight: 600;">12
+                                                            Days</span>
+                                                    </div>
+                                                    <div class="progress progress-sm mb-2" style="height: 4px;">
+                                                        <div class="progress-bar bg-primary" style="width: 60%;"></div>
+                                                    </div>
 
-                                                        <div class="d-flex justify-content-between mt-2">
-                                                            <span
-                                                                style="font-weight: 600; color: #000; font-size: 16px;">Excitement</span>
-                                                            <span class="text-primary small" style="font-weight: 600;">12
-                                                                Days</span>
-                                                        </div>
-                                                        <div class="progress progress-sm mb-2" style="height: 4px;">
-                                                            <div class="progress-bar bg-primary" style="width: 60%;"></div>
-                                                        </div>
-
-                                                        <div class="d-flex justify-content-between mt-2">
-                                                            <span
-                                                                style="font-weight: 600; color: #000; font-size: 16px;">Sadness</span>
-                                                            <span class="text-danger small" style="font-weight: 600;">2
-                                                                Days</span>
-                                                        </div>
-                                                        <div class="progress progress-sm" style="height: 4px;">
-                                                            <div class="progress-bar bg-danger" style="width: 15%;"></div>
-                                                        </div>
+                                                    <div class="d-flex justify-content-between mt-2">
+                                                        <span
+                                                            style="font-weight: 600; color: #000; font-size: 16px;">Sadness</span>
+                                                        <span class="text-danger small" style="font-weight: 600;">2
+                                                            Days</span>
+                                                    </div>
+                                                    <div class="progress progress-sm" style="height: 4px;">
+                                                        <div class="progress-bar bg-danger" style="width: 15%;"></div>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            <!-- Supplements -->
-                                            <div
-                                                class="d-flex gap-4 align-items-center justify-content-between px-3 mb-4 mt-4">
-                                                <span class="text-muted small d-flex align-items-center"
-                                                    style="gap: 4px;">
-                                                    <img src="/images/suppliment-icon.png" alt=""> <span
-                                                        style="color: #000; font-weight: 500; font-size: 16px"> Suppliments
-                                                    </span>
+                                        <!-- Supplements -->
+                                        <div
+                                            class="d-flex gap-4 align-items-center justify-content-between px-3 mb-4 mt-4">
+                                            <span class="text-muted small d-flex align-items-center" style="gap: 4px;">
+                                                <img src="/images/suppliment-icon.png" alt=""> <span
+                                                    style="color: #000; font-weight: 500; font-size: 16px"> Suppliments
                                                 </span>
-                                                <span
-                                                    class="badge bg-success-subtle text-success px-3 py-1 rounded-pill">Taken</span>
-                                            </div>
+                                            </span>
+                                            <span
+                                                class="badge bg-success-subtle text-success px-3 py-1 rounded-pill">Taken</span>
+                                        </div>
 
-                                            <!-- Bristol Scale -->
-                                            <div class="d-flex align-items-center justify-content-between px-3 mb-4">
-                                                <span class="text-muted small d-flex align-items-center"
-                                                    style="gap: 4px;">
-                                                    <img src="/images/bristol-icon.png" alt=""> <span
-                                                        style="color: #000; font-weight: 500; font-size: 16px"> Bristol
-                                                        Scale</span>
+                                        <!-- Bristol Scale -->
+                                        <div class="d-flex align-items-center justify-content-between px-3 mb-4">
+                                            <span class="text-muted small d-flex align-items-center" style="gap: 4px;">
+                                                <img src="/images/bristol-icon.png" alt=""> <span
+                                                    style="color: #000; font-weight: 500; font-size: 16px"> Bristol
+                                                    Scale</span>
+                                            </span>
+                                            <span class="badge bg-success-subtle text-success px-3 py-1 rounded-pill">Type
+                                                4</span>
+                                        </div>
+
+                                        <!-- Button -->
+                                        <div class="text-center">
+                                            <button class="btn btn-primary w-100 rounded-3 fw-semibold log-btn">
+                                                Log Today's Health
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default panel-transparent mb-4 d-block d-md-none d-lg-block">
+                            <div class="panel-body">
+                                <div class="shadow-sm border-0 rounded-4">
+                                    <div class="card border-0 rounded-4" style="padding: 16px; border-radius: 12px;">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h6 class="fw-bold mb-0 d-flex align-items-center"
+                                                style="color: #000; font-size: 18px; gap: 5px;">
+                                                <img src="/images/experiment-vector.png" alt=""
+                                                    class="me-2 img-fluid" style="width: 24px;">
+                                                Trending Experiments
+                                            </h6>
+                                            <a href="/experiments"
+                                                class="text-primary fw-semibold small text-decoration-none"
+                                                style="font-size: 15px;">
+                                                View all <i class="bi bi-arrow-up-right" style="font-size: 15px;"></i>
+                                            </a>
+                                        </div>
+
+                                        <!-- Experiment Item -->
+                                        <div
+                                            class="experiment-item d-flex justify-content-between align-items-center p-2 rounded-3 mb-2 flex-wrap">
+                                            <div class="d-flex align-items-center flex-grow-1"
+                                                style="gap: 10px; min-width: 0;">
+                                                <span class="me-2 fs-5">
+                                                    <img src="/images/fasting-icon.png" alt=""
+                                                        style="width: 28px; height: 28px;">
                                                 </span>
-                                                <span
-                                                    class="badge bg-success-subtle text-success px-3 py-1 rounded-pill">Type
-                                                    4</span>
-                                            </div>
-
-                                            <!-- Button -->
-                                            <div class="text-center">
-                                                <button class="btn btn-primary w-100 rounded-3 fw-semibold log-btn">
-                                                    Log Today's Health
-                                                </button>
+                                                <div class="text-truncate">
+                                                    <div class="fw-semibold" style="color: #000;">No Experiments Available
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel panel-default panel-transparent mb-4 d-block d-md-none d-lg-block">
-                                <div class="panel-body">
-                                    <div class="shadow-sm border-0 rounded-4">
-                                        <div class="card border-0 rounded-4" style="padding: 16px; border-radius: 12px;">
-                                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                                <h6 class="fw-bold mb-0 d-flex align-items-center"
-                                                    style="color: #000; font-size: 18px; gap: 5px;">
-                                                    <img src="/images/experiment-vector.png" alt=""
-                                                        class="me-2 img-fluid" style="width: 24px;">
-                                                    Trending Experiments
-                                                </h6>
-                                                <a href="/experiments"
-                                                    class="text-primary fw-semibold small text-decoration-none"
-                                                    style="font-size: 15px;">
-                                                    View all <i class="bi bi-arrow-up-right" style="font-size: 15px;"></i>
-                                                </a>
-                                            </div>
+                        </div>
 
-                                            <!-- Experiment Item -->
-                                            <div
-                                                class="experiment-item d-flex justify-content-between align-items-center p-2 rounded-3 mb-2 flex-wrap">
-                                                <div class="d-flex align-items-center flex-grow-1"
-                                                    style="gap: 10px; min-width: 0;">
-                                                    <span class="me-2 fs-5">
-                                                        <img src="/images/fasting-icon.png" alt=""
-                                                            style="width: 28px; height: 28px;">
-                                                    </span>
-                                                    <div class="text-truncate">
-                                                        <div class="fw-semibold" style="color: #000;">No Experiments Available
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-
-                        @if ($users->count() != 0)
+                        {{-- @if ($users->count() != 0)
                             @include('includes.explore_creators')
-                        @endif
+                        @endif --}}
 
                         <div class="d-lg-block d-none">
                             {{-- @include('includes.footer-tiny') --}}
@@ -525,41 +569,41 @@
         </script>
     @endif
 @endsection
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                loadTrendingExperiments();
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        loadTrendingExperiments();
 
-                window.addEventListener('load', function() {
-                    loadTrendingExperiments();
-                });
+        window.addEventListener('load', function() {
+            loadTrendingExperiments();
+        });
+    });
+
+    function loadTrendingExperiments() {
+        fetch('/contents/experiments')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success && data.data && data.data.length > 0) {
+                    updateTrendingExperiments(data.data);
+                }
+            })
+            .catch(error => {
+                console.error('Error loading trending experiments:', error);
+                showDefaultExperiments();
             });
+    }
 
-            function loadTrendingExperiments() {
-                fetch('/contents/experiments')
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.success && data.data && data.data.length > 0) {
-                            updateTrendingExperiments(data.data);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error loading trending experiments:', error);
-                        showDefaultExperiments();
-                    });
-            }
+    function updateTrendingExperiments(experiments) {
+        const container = document.querySelector('.card.border-0.rounded-4.p-3.mt-5');
+        if (!container) return;
 
-            function updateTrendingExperiments(experiments) {
-                const container = document.querySelector('.card.border-0.rounded-4.p-3.mt-5');
-                if (!container) return;
+        const trendingExperiments = experiments.slice(0, 3);
 
-                const trendingExperiments = experiments.slice(0, 3);
-
-                let experimentsHTML = `
+        let experimentsHTML = `
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h6 class="fw-bold mb-0 d-flex align-items-center" style="color: #000; font-size: 18px; gap: 5px;">
                             <img src="/images/experiment-vector.png" alt="" class="me-2 img-fluid" style="width: 24px;">
@@ -571,8 +615,8 @@
                     </div>
                 `;
 
-                trendingExperiments.forEach(experiment => {
-                    experimentsHTML += `
+        trendingExperiments.forEach(experiment => {
+            experimentsHTML += `
                         <div class="experiment-item d-flex justify-content-between align-items-center p-2 rounded-3 mb-2">
                             <div class="d-flex align-items-center flex-grow-1" style="gap: 10px; min-width: 0;">
                                 <span class="me-2 fs-5">
@@ -584,8 +628,8 @@
                             </div>
                         </div>
                     `;
-                });
+        });
 
-                container.innerHTML = experimentsHTML;
-            }
-        </script>
+        container.innerHTML = experimentsHTML;
+    }
+</script>
