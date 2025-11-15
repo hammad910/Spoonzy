@@ -89,7 +89,8 @@
                             </div>
                         </div>
 
-                        <div class="card-footer bg-white text-center py-3 border-0" id="paginationContainer"></div>
+                        <div class="card-footer bg-white text-center py-3 border-0" id="paginationContainer"
+                            style="border-radius: 10px !important;"></div>
                     </div>
                 </div>
             </div>
@@ -742,11 +743,11 @@
                         </td>
                         <td class="text-end">
                             ${showActions ? `
-                                                        <button class="btn btn-link text-danger p-0 me-2" onclick="deleteExperiment(${experiment.id})" title="Delete">
-                                                            <img src="/img/icons/trash-icon.png" alt="Delete"/>
-                                                        </button>
-                                                  
-                                                    ` : ''}
+                                                            <button class="btn btn-link text-danger p-0 me-2" onclick="deleteExperiment(${experiment.id})" title="Delete">
+                                                                <img src="/img/icons/trash-icon.png" alt="Delete"/>
+                                                            </button>
+                                                      
+                                                        ` : ''}
                                                  <a href="/creator-experiment/${experiment.id}" style="margin-top: 6px; text-decoration: none;" class="btn btn-link text-danger p-0 me-2" title="View">
                                                         <i class="feather icon-eye" style="font-size: 18px; color: #475467"></i>
                                                     </a>
@@ -803,8 +804,8 @@
                 };
                 const config = statusConfig[status] || statusConfig.pending;
                 return `
-                <span class="badge bg-opacity-10 px-3 py-2 rounded-pill"
-                      style="background: ${config.bg}; font-weight: 500; color: ${config.color}; font-size: 12px">
+                <span class="badge bg-opacity-10 rounded-pill"
+                      style="background: ${config.bg}; font-weight: 500; color: ${config.color}; font-size: 12px; padding-top: 2px; padding-bottom: 2px; padding-right: 8px; padding-left: 6px;">
                     <span style="color: ${config.dotColor}; margin-right: 3px; font-size: 16px;">●</span>${config.text}
                 </span>
             `;
@@ -816,34 +817,39 @@
                     return;
                 }
 
-                let paginationHTML = '<nav><ul class="pagination justify-content-center mb-0">';
+                let paginationHTML =
+                    '<nav<ul class="pagination d-flex justify-content-between align-items-center mb-0" style="width: 100%;">';
 
                 if (currentPage > 1) {
                     paginationHTML +=
-                        `<li class="page-item"><a class="page-link" href="#" onclick="changePage(${currentPage - 1}); return false;"><i class="bi bi-chevron-left"></i> Previous</a></li>`;
+                        `<li class="page-item"><a class="page-link" style=" color: #344054 !important; border: 1px solid #D0D5DD; border-radius: 8px !important; display: flex; align-items: center; gap: 10px;" href="#" onclick="changePage(${currentPage - 1}); return false;"><i class="fas fa-arrow-left" style=" color: #344054 !important;"></i> Previous</a></li>`;
                 } else {
                     paginationHTML +=
-                        `<li class="page-item disabled"><span class="page-link"><i class="bi bi-chevron-left"></i> Previous</span></li>`;
+                        `<li class="page-item disabled"><span class="page-link" style="border: 1px solid #D0D5DD; border-radius: 8px !important; display: flex; align-items: center; gap: 10px;"><i class="fas fa-arrow-left"></i> Previous</span></li>`;
                 }
+
+                paginationHTML += `<div class="d-flex justify-content-center" style="gap: 4px;">`;
 
                 const startPage = Math.max(1, currentPage - 2);
                 const endPage = Math.min(totalPages, currentPage + 2);
 
                 for (let i = startPage; i <= endPage; i++) {
                     if (i === currentPage) {
-                        paginationHTML += `<li class="page-item active"><span class="page-link" style="border-radius: 8px !important;">${i}</span></li>`;
+                        paginationHTML +=
+                            `<li class="page-item active"><span class="page-link" style="border-radius: 8px !important;">${i}</span></li>`;
                     } else {
                         paginationHTML +=
                             `<li class="page-item"><a class="page-link" href="#" onclick="changePage(${i}); return false;">${i}</a></li>`;
                     }
                 }
+                paginationHTML += `</div>`;
 
                 if (currentPage < totalPages) {
                     paginationHTML +=
-                        `<li class="page-item"><a class="page-link" href="#" onclick="changePage(${currentPage + 1}); return false;">Next <i class="bi bi-chevron-right"></i></a></li>`;
+                        `<li class="page-item"><a class="page-link" style=" color: #344054 !important; border: 1px solid #D0D5DD; border-radius: 8px !important; display: flex; align-items: center; gap: 10px;" href="#" onclick="changePage(${currentPage + 1}); return false;">Next <i class="fas fa-arrow-right" style=" color: #344054 !important;"></i></a></li>`;
                 } else {
                     paginationHTML +=
-                        `<li class="page-item disabled"><span class="page-link">Next <i class="bi bi-chevron-right"></i></span></li>`;
+                        `<li class="page-item disabled"><span class="page-link" style="border: 1px solid #D0D5DD; border-radius: 8px !important; display: flex; align-items: center; gap: 10px;">Next <i class="fas fa-arrow-right"></i></span></li>`;
                 }
 
                 paginationHTML += '</ul></nav>';
@@ -892,15 +898,15 @@
                 if (!dateString) return 'N/A';
                 try {
                     const date = new Date(dateString);
-                    return date.toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit'
-                    });
+                    const month = String(date.getMonth() + 1).padStart(2, '0'); // 0-based months
+                    const day = String(date.getDate()).padStart(2, '0');
+                    const year = String(date.getFullYear()).slice(-2); // last 2 digits
+                    return `${month}.${day}.${year}`;
                 } catch (e) {
                     return dateString;
                 }
             }
+
 
             function createExperiment() {
                 const formData = new FormData(createExperimentForm);
@@ -1175,19 +1181,51 @@
     </script>
 
     <style>
-#experimentsTable {
-    table-layout: fixed;
-    width: 100%;
-}
+        #experimentsTable {
+            table-layout: fixed;
+            width: 100%;
+        }
 
-#experimentsTable th:nth-child(1) { width: 14%; } /* Experiment Name */
-#experimentsTable th:nth-child(2) { width: 10%; } /* Status */
-#experimentsTable th:nth-child(3) { width: 10%; } /* Created Date */
-#experimentsTable th:nth-child(4) { width: 10%; } /* Created By */
-#experimentsTable th:nth-child(5) { width: 10%; } /* Participants */
-#experimentsTable th:nth-child(6) { width: 10%; } /* Stats */
-#experimentsTable th:nth-child(7) { width: 10%; } /* Category */
-#experimentsTable th:nth-child(8) { width: 6%; }  /* Actions */
+        #experimentsTable th:nth-child(1) {
+            width: 14%;
+        }
+
+        /* Experiment Name */
+        #experimentsTable th:nth-child(2) {
+            width: 10%;
+        }
+
+        /* Status */
+        #experimentsTable th:nth-child(3) {
+            width: 10%;
+        }
+
+        /* Created Date */
+        #experimentsTable th:nth-child(4) {
+            width: 10%;
+        }
+
+        /* Created By */
+        #experimentsTable th:nth-child(5) {
+            width: 10%;
+        }
+
+        /* Participants */
+        #experimentsTable th:nth-child(6) {
+            width: 10%;
+        }
+
+        /* Stats */
+        #experimentsTable th:nth-child(7) {
+            width: 10%;
+        }
+
+        /* Category */
+        #experimentsTable th:nth-child(8) {
+            width: 6%;
+        }
+
+        /* Actions */
         .text-muted th {
             color: #475467 !important;
         }
@@ -1293,5 +1331,7 @@
             margin-bottom: 4px;
             font-weight: 500;
         }
+
+        .page-link:hover {}
     </style>
 @endsection

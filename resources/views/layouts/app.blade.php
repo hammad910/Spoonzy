@@ -17,6 +17,13 @@
 <!-- Favicon -->
 <link href="{{ asset('img', $settings->favicon) }}" rel="icon">
 <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link 
+    rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" 
+    integrity="sha512-pap7XgC9v+ljyFJx0KXzvL6v/Jc1RtaEkIejcXc8H8rK+5tV8rjYwB+J0h7z6a8e0aYZl2R8W2mvNf6qR3+5Vg==" 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer" 
+/>
 
 @if ($settings->google_tag_manager_head != '')
     {!! $settings->google_tag_manager_head !!}
