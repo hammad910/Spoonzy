@@ -49,7 +49,7 @@
     "></div>
 
     <!-- Forgot Password Card -->
-    <div class="forgot-container p-4 rounded bg-white position-relative shadow border-0 b-radio-custom" 
+    <div class="forgot-container p-4 rounded bg-white position-relative border-0 b-radio-custom" 
          style="max-width: 400px; width: 100%; z-index: 1;">
 
         <div class="illustration text-center mb-4">

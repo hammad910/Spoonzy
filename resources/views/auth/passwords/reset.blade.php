@@ -15,9 +15,9 @@
 
             <div class="p-4">
               <h4 class="text-center mb-0 font-weight-bold">
-                {{__('auth.reset_password')}}
+                Forgot Password?
               </h4>
-              <small class="btn-block text-center mt-2">{{ __('auth.reset_pass_subtitle') }}</small>
+              <small class="btn-block text-center mt-2">Enter your email below and we’ll send recovery code</small>
             </div>
 
             <div class="card-body px-lg-5 py-lg-5">
@@ -37,8 +37,9 @@
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="feather icon-mail"></i></span>
+                      {{-- <span class="input-group-text"><i class="feather icon-mail"></i></span> --}}
                     </div>
+                    <label for="email">Email</label>
                     <input class="form-control" value="{{ old('email')}}" placeholder="{{__('auth.email')}}" name="email" required type="text">
                   </div>
                 </div>

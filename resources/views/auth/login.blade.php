@@ -4,11 +4,6 @@
 
 @section('content')
     <style>
-        body {
-            background-color: #f8f9fc;
-            font-family: 'Inter', sans-serif;
-        }
-
         .login-container {
             display: flex;
             min-height: 100vh;
@@ -25,19 +20,17 @@
 
         .login-right {
             flex: 1;
-            background: url('https://images.unsplash.com/photo-1588776814546-981cedd6a1a1?auto=format&fit=crop&w=870&q=80') center/cover no-repeat;
+            background: url('/images/login-img.jpg') no-repeat center center;
+            background-size: cover;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
             position: relative;
-            border-top-left-radius: 70px;
-            border-bottom-left-radius: 70px;
+            border-top-left-radius: 80px;
+            border-bottom-left-radius: 80px;
             overflow: hidden;
-        }
-        @media (max-width: 768px) {
-            .login-right {
-                border-top-left-radius: 40px;
-                border-top-right-radius: 40px;
-                border-bottom-left-radius: 0;
-                border-bottom-right-radius: 0;
-            }
         }
 
         .login-right::after {
@@ -48,22 +41,111 @@
         }
 
         .testimonial {
-            position: absolute;
-            left: 50px;
+            position: relative;
             color: white;
-            max-width: 80%;
+            max-width: 100%;
             z-index: 1;
+            padding: 0 50px;
+            top: 130px
+        }
+
+        .testimonial h4 {
+            font-size: 48px;
+            line-height: 1.3;
+            font-weight: 500 !important;
+            margin-bottom: 30px;
         }
 
         .testimonial h5 {
             font-weight: 600;
             margin-top: 15px;
+            font-size: 30px;
+            margin-bottom: 0;
         }
 
         .testimonial p {
             opacity: 0.9;
             margin-bottom: 5px;
             font-size: 14px;
+        }
+
+        .testimonial-bottom {
+            position: relative;
+            top: 190px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            width: 60%
+        }
+
+        /* Arrow Navigation Styles - Now on left side */
+        .testimonial-nav {
+            display: flex;
+            gap: 12px;
+            justify-content: end;
+            margin-top: 130px;
+        }
+
+        .nav-arrow {
+            background: transparent;
+            border: 1px solid #FFFFFF80;
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+        }
+
+        .nav-arrow:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+
+        .nav-arrow:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Testimonial slider styles */
+        .testimonial-slide {
+            display: none;
+        }
+
+        .testimonial-slide.active {
+            display: block;
+        }
+
+        /* Author info container */
+        .author-info {
+            flex: 1;
+        }
+
+        /* Laptop / smaller desktops (but still >=992px) */
+        @media (max-width: 1200px) {
+            .testimonial-bottom {
+                top: 80px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .login-right {
+                border-top-left-radius: 40px;
+                border-top-right-radius: 40px;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .login-right {
+                display: none;
+            }
         }
 
         .login-box {
@@ -169,20 +251,6 @@
             margin-bottom: 20px;
         }
 
-        .login-right {
-          background: url('/images/login-img.jpg') no-repeat center center;
-          background-size: cover;
-          color: #fff;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          min-height: 100vh;
-        }
-
-        .testimonial {
-            max-width: 500px;
-        }
-
         .form-check-input {
             margin-right: 8px;
         }
@@ -206,8 +274,8 @@
                     <img src="/images/login-logo.png" alt="LabVlog logo" style="border-radius: 20px">
                 </div>
 
-                <h3 class="fw-semibold mb-2" style="color: black">{{ __('auth.welcome_back') }}</h3>
-                <p class="text-muted mb-4">{{ __('auth.login_welcome') }}</p>
+                <h3 class="fw-semibold mb-2" style="color: #101828; font-size: 36px;">Login</h3>
+                <p class="text-muted mb-4" style="color: #475467; font-size: 16px;">Welcome back! Please enter your details.</p>
 
                 <!-- Display Alert Messages -->
                 @if (session('login_required'))
@@ -352,25 +420,69 @@
 
         <!-- Right Section -->
         <div class="login-right d-none d-md-flex flex-column justify-content-center align-items-center">
-          <div class="testimonial text-white">
-            <h4 style="font-size: 48px; line-height: 1.3; font-weight: 500 !important; margin-bottom: 150px;">
-              "We've been using LabVlog to kick start every new project and can't imagine working without it."
-            </h4>
-            <div>
-              <h5 class="mt-3 mb-0 text-white" style="font-size: 30px;">Olivia Rhye</h5>
-              <p class="text-white mb-0">
-                Lead Designer, Layers<br>Web Development Agency
-              </p>
+            <div class="testimonial text-white">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-slide active">
+                    <h4 style="font-size: 48px; line-height: 1.3; font-weight: 500 !important;">
+                        “We've been using LabVlog to kick start every new project and can't imagine working without it.”
+                    </h4>
+                    <div class="testimonial-bottom">
+                        <div class="author-info">
+                            <h5 class="mt-3 mb-0 text-white" style="font-size: 30px;">Olivia Rhye</h5>
+                            <p class="text-white mb-0">
+                                Lead Designer, Layers<br>Web Development Agency
+                            </p>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Testimonial 2 -->
+                <div class="testimonial-slide">
+                    <h4 style="font-size: 48px; line-height: 1.3; font-weight: 500 !important;">
+                        “LabVlog has completely transformed our workflow. The collaboration features are exceptional!.”
+                    </h4>
+                    <div class="testimonial-bottom">
+                        <div class="author-info">
+                            <h5 class="mt-3 mb-0 text-white" style="font-size: 30px;">Michael Chen</h5>
+                            <p class="text-white mb-0">
+                                CTO, TechSolutions Inc.<br>Software Development
+                            </p>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Testimonial 3 -->
+                <div class="testimonial-slide">
+                    <h4 style="font-size: 48px; line-height: 1.3; font-weight: 500 !important;">
+                        “As a startup founder, LabVlog gave us the competitive edge we needed to scale rapidly.”
+                    </h4>
+                    <div class="testimonial-bottom">
+                        <div class="author-info">
+                            <h5 class="mt-3 mb-0 text-white" style="font-size: 30px;">Sarah Johnson</h5>
+                            <p class="text-white mb-0">
+                                Founder & CEO, InnovateCo<br>Startup Consulting
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Navigation Arrows - MOVED OUTSIDE ALL SLIDES (SINGLE INSTANCE) -->
+                <div class="testimonial-nav">
+                    <button class="nav-arrow" id="prevTestimonial">
+                        <img src="/svg/left-icon.svg" alt="" >
+                    </button>
+                    <button class="nav-arrow" id="nextTestimonial">
+                        <img src="/svg/right-icon.svg" alt="">
+                    </button>
+                </div>
             </div>
-          </div>
         </div>
         
-        </div>
     </div>
 
     <script>
-        // Password toggle functionality
         document.addEventListener('DOMContentLoaded', function() {
+            // Password toggle functionality
             const togglePassword = document.querySelector('#togglePassword');
             const password = document.querySelector('#password');
             
@@ -387,7 +499,7 @@
                     }
                 });
             }
-
+    
             // Form submission handling for error display
             const form = document.getElementById('formLoginRegister');
             if (form) {
@@ -399,6 +511,48 @@
                     }
                 });
             }
+    
+            // Testimonial slider functionality - FIXED
+            const slides = document.querySelectorAll('.testimonial-slide');
+            const prevBtn = document.getElementById('prevTestimonial');
+            const nextBtn = document.getElementById('nextTestimonial');
+            let currentSlide = 0;
+    
+            function showSlide(index) {
+                // Hide all slides
+                slides.forEach(slide => slide.classList.remove('active'));
+                
+                // Show current slide
+                slides[index].classList.add('active');
+                
+                // Update button states
+                prevBtn.disabled = index === 0;
+                nextBtn.disabled = index === slides.length - 1;
+            }
+    
+            // Next testimonial
+            nextBtn.addEventListener('click', function() {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    showSlide(currentSlide);
+                }
+            });
+    
+            // Previous testimonial
+            prevBtn.addEventListener('click', function() {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    showSlide(currentSlide);
+                }
+            });
+    
+            // Pause auto-advance on hover
+            const testimonialContainer = document.querySelector('.testimonial');
+            testimonialContainer.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+    
+            showSlide(currentSlide);
         });
     </script>
 @endsection
