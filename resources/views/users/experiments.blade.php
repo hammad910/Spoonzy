@@ -12,7 +12,7 @@
             </div> --}}
             <div class="flex-grow-1" style="
     background: #fbfbfb;
-"> 
+">
                 <div class="col-lg-12 col-12 p-4" style="background: #FBFBFB;">
                     <div class="d-flex d-lg-none justify-content-between align-items-center mb-3">
                         <h4 class="fw-semibold mb-0">Experiments</h4>
@@ -32,7 +32,7 @@
                     </div>
 
                     <ul class="nav nav-tabs mb-3 border-0 flex-wrap" id="experimentTabs">
-                        <li class="nav-item hover-black">
+                        <li class="nav-item">
                             <a class="nav-link active" href="#" data-tab="my-experiments">My Experiments</a>
                         </li>
                         <li class="nav-item">
@@ -46,28 +46,33 @@
                         </li>
                     </ul>
 
-                    <div class="card shadow-sm border-0" style="border-radius: 10px">
+                    <div class="card shadow-sm" style="border-radius: 10px; border: 1px solid #EAECF0 !important;">
                         <div class="card-body p-0">
                             <div class="d-flex align-items-center p-3 pb-0 flex-wrap" style="gap: 10px">
                                 <h6 class="fw-semibold mb-2 mb-sm-0" style="color: black" id="tableTitle">My Experiments
                                 </h6>
-                                <span class="badge bg-light border rounded-pill px-3 py-2"
-                                    style="font-size: 0.8rem; color: {{ $settings->theme_color_pwa ?? '#469DFA' }}; background: {{ $settings->sidebar_bg_color ?? '#F8F9FA' }}"
+                                <span class="badge bg-light border-none rounded-pill px-3 py-2"
+                                    style="font-size: 0.8rem; color: {{ $settings->theme_color_pwa ?? '#469DFA' }}; background: #E5F3F9 !important;"
                                     id="experimentCount">
                                     Loading...
                                 </span>
                             </div>
 
-                            <div class="table-responsive p-3" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                            <div class="table-responsive" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
                                 <table class="table align-middle mb-0" id="experimentsTable" style="min-width: 800px;">
-                                    <thead>
+                                    <thead
+                                        style="background: #F9FAFB; border-bottom: 1px solid #EAECF0; border-top: 1px solid #EAECF0;">
                                         <tr class="text-muted small">
-                                            <th>S no</th>
-                                            <th>Experiment Name</th>
-                                            <th>Type</th>
+                                            <th>
+                                                <img src="/images/checkbox.png" style="margin-right: 12px;">
+                                                Experiment Name
+                                            </th>
+                                            {{-- <th>Type</th> --}}
                                             <th>Status</th>
                                             <th>Created Date</th>
                                             <th>Created By</th>
+                                            <th>Participants</th>
+                                            <th>Stats</th>
                                             <th>Category</th>
                                             <th class="text-end">Actions</th>
                                         </tr>
@@ -700,20 +705,36 @@
 
                     return `
                     <tr>
-                        <td>${serialNumber}</td>
                         <td>
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center" style="gap: 10px;">
+                                <img src="/images/checkbox.png">
                                 ${experiment.image ? 
                                     `<img src="/storage/${experiment.image}" alt="${experiment.title}" class="rounded me-2" style="width: 40px; height: 40px; object-fit: cover;">` : 
-                                    ``
+                                    `<img src="/images/exp-img.png" class="rounded me-2" style="width: 40px; height: 40px; object-fit: cover; background: #C7B9DA; border-radius: 10px !important">`
                                 }
                                 <span class="fw-semibold text-dark">${experiment.title}</span>
                             </div>
                         </td>
-                        <td>${getContentBadge(experiment.content_type)}</td>
                         <td>${getStatusBadge(experiment.status)}</td>
                         <td>${formatDate(experiment.created_at)}</td>
                         <td>${experiment.creator?.name || 'N/A'}</td>
+                        <td>130k</td>
+                        <td>
+                            <div style="display: flex; gap: 9px">
+                            <div class="d-flex" style="gap: 4px;">
+                                20k
+                                <img src="/svg/eye.svg">
+                                </div>
+                            <div class="d-flex" style="gap: 4px;">
+                                121
+                                <img src="/svg/heart.svg">
+                                </div>
+                            <div class="d-flex" style="gap: 4px;">
+                                14
+                                <img src="/svg/comment.svg">
+                                </div>
+                            </div>
+                        </td>
                         <td>
                             <span class="badge px-3 py-2 rounded-pill" style="background: #F9F5FF; color: #6941C6;">
                                 ${experiment.categories || 'N/A'}
@@ -721,11 +742,11 @@
                         </td>
                         <td class="text-end">
                             ${showActions ? `
-                                                    <button class="btn btn-link text-danger p-0 me-2" onclick="deleteExperiment(${experiment.id})" title="Delete">
-                                                        <img src="/img/icons/trash-icon.png" alt="Delete"/>
-                                                    </button>
-                                              
-                                                ` : '<span class="text-muted">View Only</span>'}
+                                                        <button class="btn btn-link text-danger p-0 me-2" onclick="deleteExperiment(${experiment.id})" title="Delete">
+                                                            <img src="/img/icons/trash-icon.png" alt="Delete"/>
+                                                        </button>
+                                                  
+                                                    ` : ''}
                                                  <a href="/creator-experiment/${experiment.id}" style="margin-top: 6px; text-decoration: none;" class="btn btn-link text-danger p-0 me-2" title="View">
                                                         <i class="feather icon-eye" style="font-size: 18px; color: #475467"></i>
                                                     </a>
@@ -754,7 +775,7 @@
                 return `
                 <span class="badge bg-opacity-10 px-3 py-2 rounded-pill"
                       style="background: ${config.bg}; font-weight: 500; color: ${config.color}; font-size: 12px">
-                    <span style="color: ${config.dotColor}; margin-right: 3px;">●</span>${config.text}
+                    <span style="color: ${config.dotColor}; margin-right: 3px; font-size: 16px;">●</span>${config.text}
                 </span>
             `;
             }
@@ -784,7 +805,7 @@
                 return `
                 <span class="badge bg-opacity-10 px-3 py-2 rounded-pill"
                       style="background: ${config.bg}; font-weight: 500; color: ${config.color}; font-size: 12px">
-                    <span style="color: ${config.dotColor}; margin-right: 3px;">●</span>${config.text}
+                    <span style="color: ${config.dotColor}; margin-right: 3px; font-size: 16px;">●</span>${config.text}
                 </span>
             `;
             }
@@ -810,7 +831,7 @@
 
                 for (let i = startPage; i <= endPage; i++) {
                     if (i === currentPage) {
-                        paginationHTML += `<li class="page-item active"><span class="page-link">${i}</span></li>`;
+                        paginationHTML += `<li class="page-item active"><span class="page-link" style="border-radius: 8px !important;">${i}</span></li>`;
                     } else {
                         paginationHTML +=
                             `<li class="page-item"><a class="page-link" href="#" onclick="changePage(${i}); return false;">${i}</a></li>`;
@@ -841,7 +862,7 @@
                 const startItem = ((currentPage - 1) * ITEMS_PER_PAGE) + 1;
                 const endItem = Math.min(currentPage * ITEMS_PER_PAGE, totalItems);
                 experimentCount.textContent =
-                    `Showing ${startItem}-${endItem} of ${totalItems} Experiment${totalItems !== 1 ? 's' : ''}`;
+                    `${totalItems} Experiment${totalItems !== 1 ? 's' : ''}`;
             }
 
             function showLoading() {
@@ -1154,23 +1175,41 @@
     </script>
 
     <style>
+#experimentsTable {
+    table-layout: fixed;
+    width: 100%;
+}
+
+#experimentsTable th:nth-child(1) { width: 14%; } /* Experiment Name */
+#experimentsTable th:nth-child(2) { width: 10%; } /* Status */
+#experimentsTable th:nth-child(3) { width: 10%; } /* Created Date */
+#experimentsTable th:nth-child(4) { width: 10%; } /* Created By */
+#experimentsTable th:nth-child(5) { width: 10%; } /* Participants */
+#experimentsTable th:nth-child(6) { width: 10%; } /* Stats */
+#experimentsTable th:nth-child(7) { width: 10%; } /* Category */
+#experimentsTable th:nth-child(8) { width: 6%; }  /* Actions */
+        .text-muted th {
+            color: #475467 !important;
+        }
+
         .nav-tabs .nav-link {
             color: #555;
             border: none;
-            padding: 0.75rem 1.5rem;
+            /* padding: 8px 8px 15px 15px !important; */
             font-weight: 500;
             cursor: pointer;
         }
 
         .nav-tabs .nav-link.active {
-            border-bottom: 3px solid {{ $settings->theme_color_pwa ?? '#469DFA' }};
-            color: {{ $settings->theme_color_pwa ?? '#469DFA' }};
-            background: transparent;
+            border-radius: 11px !important;
+            color: {{ $settings->theme_color_pwa ?? '#469DFA' }} !important;
+            background: #E5F3F9 !important;
         }
 
         .nav-tabs .nav-link:hover {
-            color: #555 !important;
-            background: transparent !important;
+            border-radius: 11px;
+            color: {{ $settings->theme_color_pwa ?? '#469DFA' }} !important;
+            background: #E5F3F9 !important;
         }
 
         .table th,
@@ -1209,10 +1248,6 @@
                 padding-right: 2rem !important;
                 padding-left: 2rem !important;
             }
-        }
-
-        .hover-black:hover {
-            color: black !important;
         }
 
         .supplement-card {

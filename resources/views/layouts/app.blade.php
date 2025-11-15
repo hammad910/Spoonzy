@@ -214,7 +214,7 @@
                             (auth()->guest() && request()->path() != '/' && $settings->home_style == 1) ||
                             (auth()->guest() && request()->path() != '/' && $settings->home_style == 2) ||
                             auth()->check())
-                        @unless (request()->is('login', 'signup', 'password*'))
+                        {{-- @unless (request()->is('login', 'signup', 'password*'))
                             @if (auth()->guest() && $settings->who_can_see_content == 'users')
                                 <div class="text-center py-3 px-3">
                                     @include('includes.footer-tiny')
@@ -222,7 +222,7 @@
                             @else
                                 @include('includes.footer')
                             @endif
-                        @endunless
+                        @endunless --}}
                     @endif
                 @endif
 
