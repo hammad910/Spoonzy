@@ -1968,7 +1968,6 @@ a:hover.choose-type-sale {
 }
 .triggerEmoji {
   font-size: 20px;
-  position: absolute;
   right: 0;
   top: 40%;
   cursor: pointer;

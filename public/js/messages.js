@@ -226,7 +226,7 @@
 	      } else if (res.userOnline == false) {
 	        $('.user-status').removeClass('user-online').addClass('user-offline');
 	        $('#lastSeen').remove();
-	        $('#timeAgo').html('<small class="timeAgo" id="lastSeen" data="'+res.last_seen+'" style="display: inline;"></small>')
+	        $('#timeAgo').html('<small class="timeAgo" id="lastSeen" data="'+res.last_seen+'" style="display: inline; font-weight: 500 !important;"></small>')
 
 	        jQuery(".timeAgo").timeago();
 	      } else {

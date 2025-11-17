@@ -133,6 +133,11 @@
         display: flex;
         flex-direction: column;
     }
+
+    .verified {
+    bottom: 0;        
+    right: 0;        
+}
 </style>
 @endsection
 
@@ -152,48 +157,56 @@
                 <div class="card-header bg-white pt-3">
                     <div class="media align-items-center">
                         {{-- Back (useful on mobile) --}}
-                        <a href="{{ url()->previous() }}" class="mr-3 d-inline-block">
+                        {{-- <a href="{{ url()->previous() }}" class="mr-3 d-inline-block">
                             <i class="fa fa-arrow-left"></i>
-                        </a>
+                        </a> --}}
 
                         {{-- Avatar --}}
-                        <a href="{{ url($user->username) }}" class="mr-3 d-inline-block">
-                            <span class="position-relative user-status
-                                @if ($user->active_status_online == 'yes')
-                                    @if (Helper::isOnline($user->id)) user-online @else user-offline @endif
-                                @endif
-                                d-block">
-                                <img src="{{ Helper::getFile(config('path.avatar').$user->avatar) }}" class="rounded-circle" width="40" height="40" alt="{{ $user->username }}">
-                            </span>
+                        <a href="{{ url($user->username) }}" class="mr-3 d-inline-block position-relative">
+                            <img src="{{ Helper::getFile(config('path.avatar').$user->avatar) }}" 
+                                 class="rounded-circle" width="40" height="40" alt="{{ $user->username }}">
+                        
+                            @if ($user->verified_id == 'yes')
+                                <small class="verified position-absolute">
+                                    <img src="/images/Verified-tick.png" width="15px" height="14px" alt="">
+                                </small>
+                            @endif
                         </a>
 
                         {{-- User info --}}
-                        <div class="media-body">
-                            <h6 class="m-0">
-                                <a href="{{ url($user->username) }}">
-                                    {{ $user->hide_name == 'yes' ? $user->username : $user->name }}
-                                </a>
-                                @if ($user->verified_id == 'yes')
-                                    <small class="verified"><i class="bi bi-patch-check-fill"></i></small>
-                                @endif
-                            </h6>
-
-                            @if ($user->active_status_online == 'yes')
-                                @if ($user->hide_last_seen == 'no')
-                                    <small>{{ __('general.active') }}</small>
-                                    <span id="timeAgo">
-                                        <small class="timeAgo @if (Helper::isOnline($user->id)) display-none @endif" id="lastSeen" data="{{ date('c', strtotime($user->last_seen ?? $user->date)) }}"></small>
-                                    </span>
-                                @else
-                                    {{ '@' . $user->username }}
-                                @endif
-                            @else
-                                {{ '@' . $user->username }}
-                            @endif
+                        <div class="media-body" style="font-size: 14px; color: #475467;">
+                            <div class="d-flex align-items-center" style="gap: 8px;">
+                                <div>
+                                    <h6 class="m-0">
+                                        <a href="{{ url($user->username) }}" style="color: #101828">
+                                            {{ $user->hide_name == 'yes' ? $user->username : $user->name }}
+                                        </a>
+                                        {{-- @if ($user->verified_id == 'yes')
+                                        <small class="verified"><i class="bi bi-patch-check-fill"></i></small>
+                                        @endif --}}
+                                    </h6>
+                                </div>
+                                <div class="d-flex" style="color: #469DFA; background: {{ $settings->sidebar_bg_color }}; border-radius: 16px; padding-top: 2px;padding-bottom: 2px;padding-left: 6px;padding-right: 8px; gap: 4px;">
+                                    @if ($user->active_status_online == 'yes')
+                                        @if ($user->hide_last_seen == 'no')
+                                        <div>
+                                            <img src="/images/dot.png" alt="">
+                                        </div>
+                                        <div>
+                                            <small style="font-weight: 500 !important">{{ __('general.active') }}</small>
+                                            <span id="timeAgo">
+                                                <small style="font-weight: 500 !important" class="timeAgo @if (Helper::isOnline($user->id)) display-none @endif" id="lastSeen" data="{{ date('c', strtotime($user->last_seen ?? $user->date)) }}"></small>
+                                            </span>
+                                        </div>
+                                        @endif
+                                    @endif
+                                </div>
+                            </div>
+                            {{ '@' . $user->username }}
                         </div>
 
                         {{-- Action buttons --}}
-                        <div class="ml-2 d-flex align-items-center">
+                        <div class="ml-2 d-flex align-items-center" style="gap: 12px">
                             @if (auth()->user()->verified_id == 'yes' 
                                 && $settings->audio_call_status
                                 && auth()->user()->price_audio_call
@@ -214,7 +227,11 @@
                                 </a>
                             @endif
 
-                            <a href="{{ url($user->username) }}" class="btn btn-sm mr-3" style="background: {{ $settings->theme_color_pwa ?? '#469DFA' }}; color: white; font-size: 12px;">
+                            <a href="{{ url($user->username) }}" class="btn btn-sm" style="padding-left: 16px;padding-right: 16px;padding-top: 10px;padding-bottom: 10px; color: white; font-size: 14px;border: 1px solid #D0D5DD;color: #475467;">
+                                Archive
+                            </a>
+                            
+                            <a href="{{ url($user->username) }}" class="btn btn-sm" style="padding-left: 16px;padding-right: 16px;padding-top: 10px;padding-bottom: 10px; background: {{ $settings->theme_color_pwa ?? '#469DFA' }}; color: white; font-size: 14px;">
                                 View Profile
                             </a>
 
@@ -282,7 +299,7 @@
 
                 {{-- Chat footer: message form & controls --}}
                 @if (!auth()->user()->checkRestriction($user->id) && $user->allow_dm || auth()->user()->isSuperAdmin())
-                    <div class="card-footer bg-white position-relative chat-footer">
+                    <div class="card-footer bg-white position-relative chat-footer" style="margin-bottom: 70px; width: 95%;margin-left: auto;margin-right: auto; border: 1px solid #D0D5DD;border-radius: 8px;">
                         @if ($subscribedToYourContent || $subscribedToMyContent || auth()->user()->isSuperAdmin() || $user->isSuperAdmin())
                             <div class="w-100 display-none" id="previewFile">
                                 <div class="previewFile d-inline"></div>
@@ -303,14 +320,14 @@
                                 <input type="file" name="zip" id="zipFile" accept="application/x-zip-compressed" class="visibility-hidden">
 
                                 <div class="w-100 mr-2 position-relative">
-                                    <div>
+                                    {{-- <div>
                                         <span class="triggerEmoji" data-toggle="dropdown">
                                             <i class="bi-emoji-smile"></i>
                                         </span>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-emoji custom-scrollbar" aria-labelledby="dropdownMenuButton">
                                             @include('includes.emojis')
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <textarea class="form-control textareaAutoSize emojiArea border-0" data-post-length="{{ $settings->update_length }}" rows="1" placeholder="{{ __('general.write_something') }}" id="message" name="message"></textarea>
                                 </div>
 
@@ -383,12 +400,22 @@
                                         @endif
                                     </div>
 
+                                    <div class="d-flex align-items-center" style="gap: 8px">
+                                    <div>
+                                        <span class="triggerEmoji" data-toggle="dropdown">
+                                            <img src="/images/emoji.png" alt="">
+                                        </span>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-emoji custom-scrollbar" aria-labelledby="dropdownMenuButton">
+                                            @include('includes.emojis')
+                                        </div>
+                                    </div>
                                     <div class="d-inline-block rounded-pill mt-1 position-relative">
                                         <div class="btn-blocked display-none"></div>
-                                        <button type="submit" id="button-reply-msg" disabled data-send="{{ __('auth.send') }}" data-wait="{{ __('general.send_wait') }}" class="btn btn-sm btn-primary rounded-pill e-none w-100-mobile">
-                                            <i class="far fa-paper-plane"></i>
+                                        <button type="submit" id="button-reply-msg" disabled data-send="{{ __('auth.send') }}" data-wait="{{ __('general.send_wait') }}" class="btn btn-sm btn-primary rounded-pill e-none w-100-mobile" style="color: white; border-radius: 8px !important; padding: 10px 16px;">
+                                            Send
                                         </button>
                                     </div>
+                                </div>
                                 </div>
                             </form>
                         @else
