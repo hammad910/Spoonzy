@@ -85,9 +85,7 @@
         .med-days {
             display: flex;
             justify-content: space-between;
-            border-bottom: 1px dashed #e6e6e6;
-            padding-bottom: 12px;
-            color: #666;
+            color: #7A828E;
             font-size: 14px;
             font-weight: 500;
         }
@@ -111,6 +109,22 @@
             font-weight: 500;
         }
 
+        .dot-line {
+            flex: 1;
+            height: 1px;
+            /* thickness of line */
+            background-image: repeating-linear-gradient(to right,
+                    #EAEAEA 0,
+                    #EAEAEA 15px,
+                    /* dash length */
+                    transparent 3px,
+                    transparent 30px
+                    /* gap between dashes */
+                );
+            margin: 0 8px;
+        }
+
+
         .med-item small {
             color: #888;
             font-weight: 400;
@@ -119,6 +133,23 @@
         .med-time {
             color: #666;
             font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .med-name {
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .med-name::after {
+            content: "";
+            flex: 1;
+            border-bottom: 2px dotted #ddd;
+            margin-left: 10px;
+            display: inline-block;
+            height: 0;
         }
 
         @media (max-width: 1199px) {
@@ -1174,7 +1205,7 @@
         }
 
         .advice-box p {
-            color: #475569;
+            color: #637FA6;
             font-size: 14px;
             line-height: 1.6;
             margin: 0;
@@ -1223,8 +1254,10 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <h1 class="fw-bold text-dark mb-0 d-flex" style="font-size: 48px; font-weight: 300 !important;">89<span class="text-muted"
-                                        style="font-size: 28px; padding-left: 4px; padding-top:4px; color: #AEAEB2 !important; font-weight: 300 !important;"> bpm</span></h1>
+                                <h1 class="fw-bold text-dark mb-0 d-flex"
+                                    style="font-size: 48px; font-weight: 300 !important;">89<span class="text-muted"
+                                        style="font-size: 28px; padding-left: 4px; padding-top:4px; color: #AEAEB2 !important; font-weight: 300 !important;">
+                                        bpm</span></h1>
                                 <small class="d-block" style="color: #AEAEB2 !important">Reduce caffeine</small>
                                 <small style="color: #101828 !important;">60 - 100 beats/min</small>
                             </div>
@@ -1255,9 +1288,12 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <h1 class="fw-bold text-dark mb-0 d-flex" style="font-size: 48px; font-weight: 300 !important;">80<span class="text-muted"
-                                        style="font-size: 28px; padding-left: 4px; padding-top:4px; color: #AEAEB2 !important; font-weight: 300 !important;">%</span></h1>
-                                <small class="text-muted d-block" style="color: #AEAEB2 !important">130 ml mineral water</small>
+                                <h1 class="fw-bold text-dark mb-0 d-flex"
+                                    style="font-size: 48px; font-weight: 300 !important;">80<span class="text-muted"
+                                        style="font-size: 28px; padding-left: 4px; padding-top:4px; color: #AEAEB2 !important; font-weight: 300 !important;">%</span>
+                                </h1>
+                                <small class="text-muted d-block" style="color: #AEAEB2 !important">130 ml mineral
+                                    water</small>
                                 <small style="color: #101828 !important;">2L/day</small>
                             </div>
                         </div>
@@ -1322,8 +1358,11 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <h1 class="fw-bold text-dark mb-0 d-flex" style="font-size: 48px; font-weight: 300 !important; padding-left: 4px; padding-top:4px;">1100<span class="text-muted"
-                                        style="font-size: 28px; color: #AEAEB2 !important; font-weight: 300 !important;">ul</span></h1>
+                                <h1 class="fw-bold text-dark mb-0 d-flex"
+                                    style="font-size: 48px; font-weight: 300 !important; padding-left: 4px; padding-top:4px;">
+                                    1100<span class="text-muted"
+                                        style="font-size: 28px; color: #AEAEB2 !important; font-weight: 300 !important;">ul</span>
+                                </h1>
                                 <small class="d-block" style="color: #AEAEB2 !important">Need more sleep</small>
                                 <small style="color: #101828 !important;">4k - 11k normal</small>
                             </div>
@@ -1412,7 +1451,7 @@
                 <div class="col-xl-4 col-lg-6 col-md-6">
                     <div class="card-ht bg-white" style="box-shadow: 0 1px 1px rgba(0,0,0,0.1);">
                         <div class="d-flex align-items-center mb-2" style="gap: 12px;">
-                            <img src="/images/bristol-scale-icon.png" alt="">
+                            <img src="/images/sleep.png" alt="">
                             <h6 class="ms-2 mb-0 text-dark fw-bold">Sleep Overview</h6>
                         </div>
                         <p class="text-muted small mb-3">Lorem ipsum dolor sit amet consectetur.</p>
@@ -1500,10 +1539,42 @@
                         </div>
 
                         <div class="med-list">
-                            <div class="med-item" style="width: 40%"><span>Vitamin D <small>100 mg</small></span><span
-                                    class="med-time">06:00 AM <img src="/images/sun-icon.png" alt=""></span>
+                            <div class="d-flex align-items-center">
+                                <div class="med-item" style="width: 40%">
+                                    <span class="med-name">Vitamin D <small>100 mg</small></span>
+                                    <span class="med-time">06:00 AM <img src="/images/sun-icon.png"
+                                            alt=""></span>
+                                </div>
+                                <span class="dot-line"></span>
                             </div>
-                            <div class="med-item" style="width: 55%"><span>Loratadine <small>100 mg</small></span><span
+                            <div class="d-flex align-items-center">
+                                <span class="dot-line" style="flex: .2 !important;"></span>
+                                <div class="med-item" style="width: 40%">
+                                    <span class="med-name">Vitamin D <small>100 mg</small></span>
+                                    <span class="med-time">06:00 AM <img src="/images/sun-icon.png"
+                                            alt=""></span>
+                                </div>
+                                <span class="dot-line"></span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="dot-line" style="flex: .5 !important;"></span>
+                                <div class="med-item" style="width: 40%">
+                                    <span class="med-name">Vitamin D <small>100 mg</small></span>
+                                    <span class="med-time">06:00 AM <img src="/images/sun-icon.png"
+                                            alt=""></span>
+                                </div>
+                                <span class="dot-line"></span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="dot-line" style="flex: 1 !important;"></span>
+                                <div class="med-item" style="width: 40%">
+                                    <span class="med-name">Vitamin D <small>100 mg</small></span>
+                                    <span class="med-time">06:00 AM <img src="/images/sun-icon.png"
+                                            alt=""></span>
+                                </div>
+                                <span class="dot-line"></span>
+                            </div>
+                            {{-- <div class="med-item" style="width: 55%"><span class="med-name">Loratadine <small>100 mg</small></span><span
                                     class="med-time">09:00 AM <img src="/images/sun-icon.png" alt=""></span>
                             </div>
                             <div class="med-item" style="width: 70%"><span>Vitamine B12 <small>100 mg</small></span><span
@@ -1511,7 +1582,7 @@
                             </div>
                             <div class="med-item" style="width: 95%"><span>Magnesium <small>250 mg</small></span><span
                                     class="med-time">09:00 PM <img src="/images/moon-icon.png" alt=""></span>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
