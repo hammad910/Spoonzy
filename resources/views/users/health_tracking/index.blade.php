@@ -22,7 +22,7 @@
         .mood-widget {
             width: 100%;
             aspect-ratio: 1/1;
-            max-width: 320px;
+            max-width: 380px;
             /* adjust based on design */
             margin: auto;
         }
@@ -261,8 +261,8 @@
 
         .arc-container {
             position: relative;
-            width: 80px;
-            height: 50px;
+            width: 103px;
+            height: 52px;
         }
 
         svg {
@@ -315,14 +315,14 @@
             position: absolute;
             width: 10px;
             height: 10px;
-            background: linear-gradient(135deg, #ff7b7b 0%, #ff9292 100%);
+            background: #F87171;
             border-radius: 50%;
             box-shadow: 0 1px 4px rgba(255, 123, 123, 0.3);
         }
 
         .line {
             position: absolute;
-            background: linear-gradient(180deg, #ff8585 0%, #ff9999 100%);
+            background: #F87171;
             transform-origin: center;
             width: 1.5px;
         }
@@ -396,7 +396,7 @@
         /* Group 4 - Fourth vertical connection with middle dot */
         .group4 {
             left: 63px;
-            top: 5px;
+            top: 7px;
         }
 
         .group4 .dot1 {
@@ -407,24 +407,11 @@
         .group4 .line1 {
             top: 10px;
             left: 4.5px;
-            height: 9px;
+            height: 10px;
         }
 
         .group4 .dot2 {
-            top: 19px;
-            left: 0;
-            width: 8px;
-            height: 8px;
-        }
-
-        .group4 .line2 {
-            top: 27px;
-            left: 4.5px;
-            height: 9px;
-        }
-
-        .group4 .dot3 {
-            top: 36px;
+            top: 20px;
             left: 0;
         }
 
@@ -592,7 +579,7 @@
             background: white;
         }
 
-        .checkmark {
+        .checkmark-4 {
             color: #34CB9D;
             font-size: 26px;
             font-weight: bold;
@@ -641,15 +628,15 @@
         }
 
         .score-label {
-            font-size: 22px;
+            font-size: 14px;
             color: #637FA6;
-            font-weight: 500;
+            font-weight: 400;
             margin-bottom: 8px;
             letter-spacing: 0.5px;
         }
 
         .score-value {
-            font-size: 90px;
+            font-size: 36px;
             color: #34CB9D;
             font-weight: 700;
             line-height: 1;
@@ -680,7 +667,7 @@
                 height: 48px;
             }
 
-            .checkmark {
+            .checkmark-4 {
                 font-size: 24px;
             }
 
@@ -691,14 +678,6 @@
             .center-bg {
                 width: 260px;
                 height: 260px;
-            }
-
-            .score-value {
-                font-size: 82px;
-            }
-
-            .score-label {
-                font-size: 20px;
             }
 
             .checkpoint1 {
@@ -738,7 +717,7 @@
                 height: 45px;
             }
 
-            .checkmark {
+            .checkmark-4 {
                 font-size: 23px;
             }
 
@@ -749,14 +728,6 @@
             .center-bg {
                 width: 240px;
                 height: 240px;
-            }
-
-            .score-value {
-                font-size: 75px;
-            }
-
-            .score-label {
-                font-size: 19px;
             }
 
             .checkpoint1 {
@@ -795,7 +766,7 @@
                 height: 42px;
             }
 
-            .checkmark {
+            .checkmark-4 {
                 font-size: 22px;
             }
 
@@ -806,14 +777,6 @@
             .center-bg {
                 width: 220px;
                 height: 220px;
-            }
-
-            .score-value {
-                font-size: 70px;
-            }
-
-            .score-label {
-                font-size: 18px;
             }
 
             /* adjust positions */
@@ -854,7 +817,7 @@
                 height: 35px;
             }
 
-            .checkmark {
+            .checkmark-4 {
                 font-size: 18px;
             }
 
@@ -865,14 +828,6 @@
             .center-bg {
                 width: 170px;
                 height: 170px;
-            }
-
-            .score-value {
-                font-size: 55px;
-            }
-
-            .score-label {
-                font-size: 16px;
             }
 
             .checkpoint1 {
@@ -911,7 +866,7 @@
                 height: 32px;
             }
 
-            .checkmark {
+            .checkmark-4 {
                 font-size: 12px;
             }
 
@@ -922,14 +877,6 @@
             .center-bg {
                 width: 110px;
                 height: 110px;
-            }
-
-            .score-value {
-                font-size: 34px;
-            }
-
-            .score-label {
-                font-size: 12px;
             }
 
             .checkpoint1 {
@@ -969,7 +916,7 @@
                 height: 30px;
             }
 
-            .checkmark {
+            .checkmark-4 {
                 font-size: 14px;
             }
 
@@ -980,14 +927,6 @@
             .center-bg {
                 width: 130px;
                 height: 130px;
-            }
-
-            .score-value {
-                font-size: 40px;
-            }
-
-            .score-label {
-                font-size: 14px;
             }
 
             .checkpoint1 {
@@ -1061,9 +1000,8 @@
         }
 
         .bar {
-            width: 12px;
-            border-radius: 10px;
-            background: linear-gradient(to top, #4a90e2, #72b3ff);
+            width: 8px;
+            border-radius: 9999px;
             opacity: 0.95;
         }
 
@@ -1265,10 +1203,10 @@
             <div class="row g-4 mb-4 kpi-cards">
                 <div class="col-xl-4 col-lg-6 col-md-6">
                     <div class="card border-0 p-3 h-100"
-                        style="border-radius: 20px; box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
+                        style="border-radius: 20px; box-shadow: 0 1px 1px rgba(0,0,0,0.1);">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h6 class="fw-semibold text-dark" style="margin-bottom: 24px">Heart rate</h6>
+                                <h6 class="fw-semibold text-dark" style="margin-bottom: 30px">Heart rate</h6>
                                 <div class="graph-container">
                                     <div class="bar bar1"></div>
                                     <div class="bar bar2"></div>
@@ -1285,10 +1223,10 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <h1 class="fw-bold text-dark mb-0" style="font-size: 42px;">89<span class="text-muted"
-                                        style="font-size: 20px;"> bpm</span></h1>
-                                <small class="text-muted d-block">Reduce caffeine</small>
-                                <small class="text-muted">60 - 100 beats/min</small>
+                                <h1 class="fw-bold text-dark mb-0 d-flex" style="font-size: 48px; font-weight: 300 !important;">89<span class="text-muted"
+                                        style="font-size: 28px; padding-left: 4px; padding-top:4px; color: #AEAEB2 !important; font-weight: 300 !important;"> bpm</span></h1>
+                                <small class="d-block" style="color: #AEAEB2 !important">Reduce caffeine</small>
+                                <small style="color: #101828 !important;">60 - 100 beats/min</small>
                             </div>
                         </div>
                     </div>
@@ -1296,10 +1234,10 @@
 
                 <div class="col-xl-4 col-lg-6 col-md-6">
                     <div class="card border-0 p-3 h-100"
-                        style="border-radius: 20px; box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
+                        style="border-radius: 20px; box-shadow: 0 1px 1px rgba(0,0,0,0.1);">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h6 class="fw-semibold text-dark" style="margin-bottom: 24px">Hydration level</h6>
+                                <h6 class="fw-semibold text-dark" style="margin-bottom: 30px">Hydration level</h6>
                                 <div class="arc-container">
                                     <svg viewBox="0 0 80 50">
                                         <defs>
@@ -1317,10 +1255,10 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <h1 class="fw-bold text-dark mb-0" style="font-size: 42px;">80<span class="text-muted"
-                                        style="font-size: 20px;">%</span></h1>
-                                <small class="text-muted d-block">130 ml mineral water</small>
-                                <small class="text-muted">Goal: 2L/day</small>
+                                <h1 class="fw-bold text-dark mb-0 d-flex" style="font-size: 48px; font-weight: 300 !important;">80<span class="text-muted"
+                                        style="font-size: 28px; padding-left: 4px; padding-top:4px; color: #AEAEB2 !important; font-weight: 300 !important;">%</span></h1>
+                                <small class="text-muted d-block" style="color: #AEAEB2 !important">130 ml mineral water</small>
+                                <small style="color: #101828 !important;">2L/day</small>
                             </div>
                         </div>
                     </div>
@@ -1328,10 +1266,10 @@
 
                 <div class="col-xl-4 col-lg-6 col-md-6">
                     <div class="card border-0 p-3 h-100"
-                        style="border-radius: 20px; box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
+                        style="border-radius: 20px; box-shadow: 0 1px 1px rgba(0,0,0,0.1);">
                         <div class="d-flex justify-content-between">
                             <div>
-                                <h6 class="fw-semibold text-dark mb-3" style="margin-bottom: 24px">Blood cells</h6>
+                                <h6 class="fw-semibold text-dark" style="margin-bottom: 30px">Blood cells</h6>
                                 <div class="connection-container">
                                     <!-- Group 1 -->
                                     <div class="connection-group group1">
@@ -1359,8 +1297,6 @@
                                         <div class="dot dot1"></div>
                                         <div class="line line1"></div>
                                         <div class="dot dot2"></div>
-                                        <div class="line line2"></div>
-                                        <div class="dot dot3"></div>
                                     </div>
 
                                     <!-- Group 5 -->
@@ -1386,10 +1322,10 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <h1 class="fw-bold text-dark mb-0" style="font-size: 42px;">1100<span class="text-muted"
-                                        style="font-size: 20px;">ul</span></h1>
-                                <small class="text-muted d-block">Need more sleep</small>
-                                <small class="text-muted">4k - 11k normal</small>
+                                <h1 class="fw-bold text-dark mb-0 d-flex" style="font-size: 48px; font-weight: 300 !important; padding-left: 4px; padding-top:4px;">1100<span class="text-muted"
+                                        style="font-size: 28px; color: #AEAEB2 !important; font-weight: 300 !important;">ul</span></h1>
+                                <small class="d-block" style="color: #AEAEB2 !important">Need more sleep</small>
+                                <small style="color: #101828 !important;">4k - 11k normal</small>
                             </div>
                         </div>
                     </div>
@@ -1399,7 +1335,7 @@
             <!-- Second Row -->
             <div class="row g-4 mb-4" style="padding-bottom: 20px; padding-top: 20px;">
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <div class="card-ht bg-white" style="box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
+                    <div class="card-ht bg-white" style="box-shadow: 0 1px 1px rgba(0,0,0,0.1);">
                         <div class="d-flex align-items-center mb-2" style="gap: 12px;">
                             <img src="/images/bristol-scale-icon.png" alt="">
                             <h6 class="ms-2 mb-0 text-dark fw-bold">Bristol Scale</h6>
@@ -1427,22 +1363,22 @@
                                 <!-- Checkpoints on progress bar -->
                                 <div class="checkpoint checkpoint1">
                                     <div class="checkpoint-circle completed">
-                                        <span class="checkmark">✓</span>
+                                        <span class="checkmark"><img src="/svg/check.svg" alt=""></span>
                                     </div>
                                 </div>
                                 <div class="checkpoint checkpoint2">
                                     <div class="checkpoint-circle completed">
-                                        <span class="checkmark">✓</span>
+                                        <span class="checkmark"><img src="/svg/check.svg" alt=""></span>
                                     </div>
                                 </div>
                                 <div class="checkpoint checkpoint3">
                                     <div class="checkpoint-circle completed">
-                                        <span class="checkmark">✓</span>
+                                        <span class="checkmark"><img src="/svg/check.svg" alt=""></span>
                                     </div>
                                 </div>
                                 <div class="checkpoint checkpoint4">
                                     <div class="checkpoint-circle completed">
-                                        <span class="checkmark">4</span>
+                                        <span class="checkmark-4">4</span>
                                     </div>
                                 </div>
                                 <div class="checkpoint checkpoint5">
@@ -1474,7 +1410,7 @@
                 </div>
 
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <div class="card-ht bg-white" style="box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
+                    <div class="card-ht bg-white" style="box-shadow: 0 1px 1px rgba(0,0,0,0.1);">
                         <div class="d-flex align-items-center mb-2" style="gap: 12px;">
                             <img src="/images/bristol-scale-icon.png" alt="">
                             <h6 class="ms-2 mb-0 text-dark fw-bold">Sleep Overview</h6>
@@ -1547,7 +1483,7 @@
             <!-- Medicament -->
             <div class="row mt-5 gap-md-4">
                 <div class="col-md-8">
-                    <div class="med-card" style="box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
+                    <div class="med-card" style="box-shadow: 0 1px 1px rgba(0,0,0,0.1);">
                         <div class="med-header">
                             <img src="/images/madicament-icon.png" alt="">
                             <h5>Medicament</h5>
@@ -1580,7 +1516,7 @@
                     </div>
                 </div>
                 <div class="col-xl-4 col-lg-6 col-md-6">
-                    <div class="ai-card" style="box-shadow: 0 2px 2px rgba(0,0,0,0.1);">
+                    <div class="ai-card" style="box-shadow: 0 1px 1px rgba(0,0,0,0.1);">
                         <div class="ai-header">
                             <img src="/images/ai_advice.png" alt="">
                             <h5>AI Advice</h5>
