@@ -10,7 +10,7 @@
         .experiment-hero {
             position: relative;
             width: 100%;
-            height: 400px;
+            height: 267px;
             overflow: hidden;
             margin-bottom: 30px;
         }
@@ -28,7 +28,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            padding: 40px;
+            padding: 40px 40px 20px 40px;;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -37,7 +37,7 @@
 
         .experiment-header h1 {
             font-weight: 700;
-            font-size: 2.5rem;
+            font-size: 36px;
             margin-bottom: 10px;
         }
 
@@ -46,7 +46,10 @@
             font-size: 0.9rem;
             font-weight: 600;
             border-radius: 20px;
-            padding: 8px 16px;
+            padding-top: 2px;
+            padding-bottom: 2px;
+            padding-left: 8px;
+            padding-right: 8px;
             margin-left: 15px;
         }
 
@@ -82,29 +85,6 @@
             padding: 10px 25px;
             font-size: 1rem;
             font-weight: 600;
-        }
-
-        .progress-container {
-            background: rgba(255, 255, 255, 0.95);
-            color: #333;
-            padding: 20px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .progress {
-            width: 250px;
-            height: 8px;
-            border-radius: 10px;
-            background: #e0e0e0;
-        }
-
-        .progress-bar {
-            background-color: #4c8ef7;
-            border-radius: 10px;
         }
 
         @media (max-width: 768px) {
@@ -195,15 +175,14 @@
         .post-card {
             background: white;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
             margin-bottom: 25px;
             overflow: hidden;
             border: 1px solid #f0f0f0;
         }
 
         .post-header {
-            padding: 20px;
-            border-bottom: 1px solid #f0f0f0;
+            padding: 20px 20px 0 20px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -244,6 +223,7 @@
             margin-bottom: 15px;
             max-height: 300px;
             width: 100%;
+            object-fit: cover
         }
 
         .post-actions {
@@ -411,6 +391,40 @@
                 max-width: 100%;
             }
         }
+
+        .progress-wrapper {
+    width: 100%;
+}
+
+.progress-text {
+    color: white;
+    font-size: 24px;
+    font-weight: 400;
+    /* margin-bottom: 6px; */
+}
+
+.progress {
+    height: 9px;
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 50px;
+}
+
+.progress-bar {
+    border-radius: 50px;
+}
+
+.quote-box {
+    border-left: 2px solid #469DFA; /* blue line */
+    background: #FBFBFB;            /* light background */
+    padding: 12px 16px;
+    margin-top: 12px;
+    font-style: italic;
+    font-size: 15px;
+    color: #475467;
+    font-weight: 400;
+}
+
+
     </style>
 @endsection
 
@@ -422,56 +436,38 @@
         </div> --}}
 
         <!-- Main Content -->
-        <div class="flex-grow-1 main-content">
+        <div class="flex-grow-1">
             <!-- Full Width Experiment Hero Section -->
             <div class="experiment-hero">
                 <img alt="30-Day Beef Tallow Skin Transformation" class="experiment-bg-image">
 
                 <div class="experiment-overlay">
                     <!-- Top Section: Title and Badge -->
-                    <div class="experiment-header">
+                    <div class="experiment-header d-flex justify-content-between">
                         <div class="d-flex align-items-center flex-wrap">
                             <h1 id="experiment-title">Loading...</h1>
                             <span class="badge-healthcare" id="experiment-category">Loading...</span>
                         </div>
-                    </div>
-
-                    <!-- Bottom Section: Profile and Buttons -->
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="profile-section">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="James Danton">
-                            <div>
-                                <span class="fw-semibold fs-5" id="experiment-days">Loading...</span>
-                                <span class="d-none" id="userLabel">
-                                    {{ auth()->user()->first_name }}
-                                </span>
-                                @if ($user->verified_id == 'yes')
-                                            <small style="color: #fff; font-size: 16px" title="{{ __('general.verified_account') }}"
-                                                data-toggle="tooltip" data-placement="top">
-                                                <i class="bi-patch-check-fill"></i>
-                                            </small>
-                                        @endif
-                                {{-- <button class="btn btn-sm btn-primary rounded-pill ms-3"
-                                    style="background-color:#4c8ef7;border:none;">
-                                    Follow
-                                </button> --}}
-                            </div>
-                        </div>
-
                         <div class="d-flex gap-3">
                             @if (
                                 ($userPlanMonthlyActive && $user->verified_id == 'yes') ||
                                     ($user->free_subscription == 'yes' && $user->verified_id == 'yes'))
 
                                 @if (auth()->check() &&
-                                        auth()->id() != $user->id &&
+                                        auth()->id() == $user->id &&
                                         !$checkSubscription &&
                                         !$paymentIncomplete &&
                                         $user->free_subscription == 'no' &&
                                         $totalPosts != 0)
                                     <a href="javascript:void(0);" data-toggle="modal" data-target="#subscriptionForm"
-                                        class="btn btn-primary btn-profile mr-1">
-                                        <i class="feather icon-unlock mr-1"></i>
+                                        class="btn btn-primary btn-profile mr-1" style="
+                                        padding-top: 6px !important;
+                                        padding-bottom: 6px !important;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        font-size: 14px;
+                                    ">
                                         {{ __('general.subscribe_month', ['price' => Helper::formatPrice($user->getPlan('monthly', 'price'))]) }}
                                     </a>
                                 @elseif (auth()->check() && auth()->id() != $user->id && !$checkSubscription && $paymentIncomplete)
@@ -947,6 +943,52 @@
                                 </div>
                             </div><!-- End Modal Subscription Free -->
                         @endif
+                        <button class="btn btn-sm btn-primary rounded-pill ms-3"
+                        style="background-color:transparent;border: 1px solid #fff;font-size: 14px;font-weight: 600;">
+                                    Join
+                                </button>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Section: Profile and Buttons -->
+                    <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 30px;">
+                        <div class="profile-section">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="James Danton">
+                            <div>
+                                <span class="fw-semibold fs-5" id="experiment-days">Loading...</span>
+                                <span class="d-none" id="userLabel">
+                                    {{ auth()->user()->first_name }}
+                                </span>
+                                @if ($user->verified_id == 'yes')
+                                            <small style="color: #fff; font-size: 16px" title="{{ __('general.verified_account') }}"
+                                                data-toggle="tooltip" data-placement="top">
+                                                <i class="bi-patch-check-fill"></i>
+                                            </small>
+                                        @endif
+                            </div>
+                            <a href="javascript:void(0);" data-toggle="modal" data-target="#subscriptionForm"
+                                        class="btn btn-primary btn-profile mr-1" style="
+                                        padding-top: 10px !important;
+                                        padding-bottom: 10px !important;
+                                        padding-left: 16px !important;
+                                        padding-right: 16px;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        font-size: 14px;
+                                    ">
+                                        Follow
+                                    </a>
+                        </div>
+                    </div>
+                              <!-- Progress Bar Section -->
+                    <div class="mt-3 w-100 progress-wrapper">
+                        <div class="progress-text">12/30 Dokus Complete</div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar"
+                                style="width: 40%; background-color:#469DFA;"
+                                aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -955,12 +997,12 @@
                 <div class="progress-container">
                     <span class="fs-6" id="progress-text">Loading...</span>
                     <div class="progress">
-                        <div class="progress-bar" id="progress-bar" style="width:0%;"></div>
+                        <div class="progress-bar" id="progress-bar" style="width:80%;"></div>
                     </div>
                 </div>
             </div>
 
-            <div class="container py-4">
+            <div class="" style="padding: 40px;">
                 <div class="posts-container">
                     <!-- Left Side - Wider Post Cards -->
                     <div class="posts-main" id="posts-container">
@@ -1210,13 +1252,22 @@
             div.innerHTML = `
                 <div class="post-header">
                     <div class="post-user-info">
-                        <h2 style="color: black; margin-bottom: 0px !important;">${experimentTitle}</h2>
-                        <span>${post.created_at}</span>
+                        <h2 style="color: black; margin-bottom: 0px !important; font-size: 28px;">Day 12</h2>
+                        <span style="font-size: 14px;">October 12, 2025</span>
                     </div>
                 </div>
                 <div class="post-content">
                     <p>${post.content}</p>
-                    ${post.image ? `<img src="${post.image}" alt="${experimentTitle}" class="experiment-image">` : ''}
+                    ${post.image ? `<img src="${post.image}" alt="${experimentTitle}" class="experiment-image">` : '<img src="/images/skin.png" alt="${experimentTitle}" class="experiment-image">'}
+                    <small style="color: #469DFA; background: {{ $settings->sidebar_bg_color }}; border-radius: 16px; padding: 4px 8px; font-size: 14px;">Mood: 8/10</small>
+                    <small style="color: #469DFA; background: {{ $settings->sidebar_bg_color }}; border-radius: 16px; padding: 4px 8px; font-size: 14px;">Energy: 7/10</small>
+                    <small style="color: #469DFA; background: {{ $settings->sidebar_bg_color }}; border-radius: 16px; padding: 4px 8px; font-size: 14px;">Sleep: 7h 30m</small>
+                    <small style="color: #469DFA; background: {{ $settings->sidebar_bg_color }}; border-radius: 16px; padding: 4px 8px; font-size: 14px;">Bristol: Type 4</small>
+                    <div class="quote-box">
+                        "I'm really starting to see the compound effects. My skin feels more hydrated and 
+                        the inflammation is definitely decreasing. Sticking with the protocol!"
+                    </div>
+
                 </div>
             `;
             return div;
