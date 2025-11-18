@@ -91,7 +91,9 @@
 
 				@if (auth()->check() && auth()->user()->id == $response->creator->id)
 				<a href="javascript:void(0);" class="text-muted float-right d-flex align-item-center" style="gap: 10px;" id="dropdown_options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-					<small class="timeAgo text-muted" data="{{date('c', strtotime($response->date))}}"></small>
+					<small class="timeAgo post-time" style=" color: #A8ACB1; font-weight: 400; font-size: 16px; " data-time="{{ date('c', strtotime($response->date)) }}">
+						{{ $response->date }}
+					</small>
 					<i class="fa fa-ellipsis-h"></i>
 				</a>
 
@@ -808,3 +810,32 @@ if (request()->ajax()) {
 		{{__('general.loadmore')}}
 	</button>
 @endif
+
+<script>
+function timeAgo(date) {
+    const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+
+    const intervals = [
+        { label: 'year', seconds: 31536000 },
+        { label: 'month', seconds: 2592000 },
+        { label: 'week', seconds: 604800 },
+        { label: 'day', seconds: 86400 },
+        { label: 'hour', seconds: 3600 },
+        { label: 'minute', seconds: 60 },
+        { label: 'second', seconds: 1 }
+    ];
+
+    for (const interval of intervals) {
+        const count = Math.floor(seconds / interval.seconds);
+        if (count > 0) {
+            return `${count} ${interval.label}${count !== 1 ? 's' : ''} ago`;
+        }
+    }
+    return "just now";
+}
+
+document.querySelectorAll('.post-time').forEach(el => {
+    const time = el.getAttribute('data-time');
+    el.textContent = timeAgo(time);
+});
+</script>

@@ -136,8 +136,10 @@
                                         alt="{{ $user->hide_name == 'yes' ? $user->username : $user->name }}"
                                         class="rounded-circle img-user mb-2 avatarUser @if (auth()->check() && auth()->id() != $user->id && Helper::isCreatorLive($getCurrentLiveCreators, $user->id)) border-0 @endif">
                                 </div><!-- avatar-wrap -->
-                                <div class="media-body" style="margin-top: 80px">
-                                    <h4 class="mt-1">
+                                <div class="media-body" style="margin-top: 80px; display: flex; align-items: center; justify-content: space-between">
+                                    <div class="d-flex" style="flex-direction: column">
+
+                                    <h4 class="mt-1" style="color: #101828; font-weight: 600 !important; font-size: 30px; margin-bottom: 0;">
                                         {{ $user->hide_name == 'yes' ? $user->username : $user->name }}
 
                                         @if ($user->verified_id == 'yes')
@@ -154,6 +156,14 @@
                                             </small>
                                         @endif
                                     </h4>
+                                    <div class="d-flex align-items-center" style="gap: 8px;">
+                                        <img src="/images/followers-icon.png" alt="">
+                                        <h1 style="font-size: 16px; font-weight: 800; margin: 0; color: #101828">111k
+                                            <small style="font-size: 16px; font-weight: 400;">followers</small>
+                                        </h1>
+                                    </div>
+                                    </div>
+
 
                                     <p>
                                         <span>
@@ -673,7 +683,7 @@
                                         @endif
                                         <p class="card-text position-relative">
 
-                                            @if ($likeCount != 0 || $subscriptionsActive != 0)
+                                            {{-- @if ($likeCount != 0 || $subscriptionsActive != 0)
                                                 <span class="btn-block">
                                                     @if ($likeCount != 0)
                                                         <small class="mr-2"><i class="far fa-heart mr-1"></i>
@@ -686,7 +696,7 @@
                                                             {{ trans_choice('general.subscribers', $subscriptionsActive) }}</small>
                                                     @endif
                                                 </span>
-                                            @endif
+                                            @endif --}}
 
                                             @if (isset($user->country()->country_name) && $user->hide_my_country == 'no')
                                                 <small class="btn-block">
@@ -814,6 +824,26 @@
                                                 class="text-muted share-btn-user"><i
                                                     class="fab fa-kickstarter mr-2"></i></a>
                                         @endif --}}
+
+                                        <div class="d-flex align-items-center" style="gap: 8px;">
+
+                                            
+                                            <span class="badge bg-light border-none rounded-pill px-3 py-2"
+                                            style="font-size: 0.8rem; color: {{ $settings->theme_color_pwa ?? '#469DFA' }}; background: #E5F3F9 !important;"
+                                            >
+                                            #Designer
+                                            </span>
+                                            <span class="badge bg-light border-none rounded-pill px-3 py-2"
+                                            style="font-size: 0.8rem; color: {{ $settings->theme_color_pwa ?? '#469DFA' }}; background: #E5F3F9 !important;"
+                                            >
+                                            #Development
+                                            </span>
+                                            <span class="badge bg-light border-none rounded-pill px-3 py-2"
+                                            style="font-size: 0.8rem; color: {{ $settings->theme_color_pwa ?? '#469DFA' }}; background: #E5F3F9 !important;"
+                                            >
+                                            #Experience
+                                            </span>
+                                        </div>
 
                                         @if ($user->categories_id != '0' && $user->categories_id != '' && $user->verified_id == 'yes')
                                             <div class="w-100 mt-2">
