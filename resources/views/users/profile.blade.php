@@ -724,6 +724,23 @@
                                                     class="display-none link-border">{{ __('general.view_all') }}</a>
                                             @endif
                                         </p>
+                                        <div class="d-flex align-items-center" style="gap: 8px;">
+                                            <span class="badge bg-light border-none rounded-pill"
+                                            style="font-size: 0.8rem; color: {{ $settings->theme_color_pwa ?? '#469DFA' }}; background: #E5F3F9 !important; padding-top: 10px; padding-bottom: 10px; padding-left: 18px; padding-right: 18px;"
+                                            >
+                                            #Designer
+                                            </span>
+                                            <span class="badge bg-light border-none rounded-pill"
+                                            style="font-size: 0.8rem; color: {{ $settings->theme_color_pwa ?? '#469DFA' }}; background: #E5F3F9 !important; padding-top: 10px; padding-bottom: 10px; padding-left: 18px; padding-right: 18px;"
+                                            >
+                                            #Development
+                                            </span>
+                                            <span class="badge bg-light border-none rounded-pill"
+                                            style="font-size: 0.8rem; color: {{ $settings->theme_color_pwa ?? '#469DFA' }}; background: #E5F3F9 !important; padding-top: 10px; padding-bottom: 10px; padding-left: 18px; padding-right: 18px;"
+                                            >
+                                            #Experience
+                                            </span>
+                                        </div>
 
                                         {{-- @if ($user->website != '')
                                             <div class="d-block mb-1 text-truncate">
@@ -824,26 +841,6 @@
                                                 class="text-muted share-btn-user"><i
                                                     class="fab fa-kickstarter mr-2"></i></a>
                                         @endif --}}
-
-                                        <div class="d-flex align-items-center" style="gap: 8px;">
-
-                                            
-                                            <span class="badge bg-light border-none rounded-pill px-3 py-2"
-                                            style="font-size: 0.8rem; color: {{ $settings->theme_color_pwa ?? '#469DFA' }}; background: #E5F3F9 !important;"
-                                            >
-                                            #Designer
-                                            </span>
-                                            <span class="badge bg-light border-none rounded-pill px-3 py-2"
-                                            style="font-size: 0.8rem; color: {{ $settings->theme_color_pwa ?? '#469DFA' }}; background: #E5F3F9 !important;"
-                                            >
-                                            #Development
-                                            </span>
-                                            <span class="badge bg-light border-none rounded-pill px-3 py-2"
-                                            style="font-size: 0.8rem; color: {{ $settings->theme_color_pwa ?? '#469DFA' }}; background: #E5F3F9 !important;"
-                                            >
-                                            #Experience
-                                            </span>
-                                        </div>
 
                                         @if ($user->categories_id != '0' && $user->categories_id != '' && $user->verified_id == 'yes')
                                             <div class="w-100 mt-2">

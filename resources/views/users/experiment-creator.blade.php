@@ -175,14 +175,13 @@
         .post-card {
             background: white;
             border-radius: 15px;
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
             margin-bottom: 25px;
             overflow: hidden;
             border: 1px solid #f0f0f0;
         }
 
         .post-header {
-            padding: 20px 20px 0 20px;
+            padding: 30px 30px 0 30px;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -206,9 +205,79 @@
             font-size: 15px;
             color: #475467;
         }
+        .progress-info h5 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
 
-        .post-content {
+        .progress-info span {
+            font-size: 15px;
+            color: #475467;
+        }
+
+        .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+.summary-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 20px;
+    border: 1px solid #E5E5E5;
+    position: relative;
+    overflow: hidden;
+}
+
+.summary-card h4 {
+    font-size: 16px;
+    color: #0F172A;
+    margin: 0 0 10px 0;
+    font-weight: 600;
+}
+
+.summary-card .value {
+    font-size: 24px;
+    color: #14A44D;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* NEW ACCURATE WAVE */
+.wave {
+    width: 100%;
+    height: 70px;
+    background: linear-gradient(
+        180deg, 
+        rgba(20,164,77,0.20) 0%, 
+        rgba(20,164,77,0.06) 100%
+    );
+
+    /* WebKit browsers (Chrome, Safari, Edge) */
+    -webkit-mask: url("data:image/svg+xml,%3Csvg%20viewBox='0%200%20500%20120'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cpath%20d='M0%2080%20C60%2060,%20110%20100,%20170%2075%20C240%2045,%20300%20105,%20360%2070%20C420%2040,%20470%2095,%20500%2060%20L500%20120%20L0%20120%20Z'%20fill='black'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+
+    /* Standard browsers (Firefox, modern) */
+    mask: url("data:image/svg+xml,%3Csvg%20viewBox='0%200%20500%20120'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cpath%20d='M0%2080%20C60%2060,%20110%20100,%20170%2075%20C240%2045,%20300%20105,%20360%2070%20C420%2040,%20470%2095,%20500%2060%20L500%20120%20L0%20120%20Z'%20fill='black'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+}
+
+
+
+
+        .progress-content {
             padding: 20px;
+        }
+
+        .progress-content p {
+            margin-bottom: 15px;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #555;
+        }
+        .post-content {
+            padding: 30px;
         }
 
         .post-content p {
@@ -309,7 +378,6 @@
         .widget-card {
             background: white;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             margin-bottom: 25px;
             overflow: hidden;
             border: 1px solid #f0f0f0;
@@ -422,6 +490,129 @@
     font-size: 15px;
     color: #475467;
     font-weight: 400;
+}
+
+.discussion-wrapper {
+    font-family: Inter, sans-serif;
+}
+
+/* Input Box */
+.comment-input-box {
+    background: #F9FAFB;
+    border: 1px solid #E5E8EB;
+    border-radius: 14px;
+    padding: 16px;
+}
+
+.comment-input-box textarea {
+    width: 100%;
+    height: 100px;
+    border: none;
+    outline: none;
+    resize: none;
+    background: transparent;
+    font-size: 15px;
+    color: #0F172A;
+}
+
+.toolbar {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tools-left button {
+    background: none;
+    border: none;
+    margin-right: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    color: #4B5563;
+}
+
+.send-btn {
+    background: #3B82F6;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Comments Header */
+.comments-header {
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.comments-header h4 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-right: 12px;
+}
+
+.count-comment {
+    background: #E0ECFF;
+    color: #3B82F6;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.sort {
+    margin-left: auto;
+    color: #6B7280;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Comment Item */
+.comment-item {
+    display: flex;
+    margin-top: 25px;
+}
+
+.comment-item .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 14px;
+}
+
+.comment-body .meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.name {
+    font-weight: 600;
+    color: #0F172A;
+}
+
+.time {
+    color: #6B7280;
+    font-size: 14px;
+}
+
+.comment-body p {
+    color: #374151;
+    font-size: 15px;
+    margin: 8px 0 12px;
+    line-height: 1.45;
+}
+
+.actions span {
+    margin-right: 18px;
+    font-size: 14px;
+    color: #475569;
+    cursor: pointer;
 }
 
 
@@ -1005,12 +1196,201 @@
             <div class="" style="padding: 40px;">
                 <div class="posts-container">
                     <!-- Left Side - Wider Post Cards -->
-                    <div class="posts-main" id="posts-container">
-                        <!-- Posts will be loaded here dynamically -->
-                        <div class="text-center py-5">
-                            <div class="spinner-border text-primary" role="status">
+                    <div class="d-flex" style="flex-direction: column; width: 75%;">
+                        <div  class="card border-0 rounded-4 p-3 widget-card"style="
+                        border: 1px solid #00000014 !important;
+                        ">
+                            <div class="d-flex align-items-center" style="gap: 20px;">
+                                <span class="badge bg-light border-none rounded-pill"
+                                    style="font-size: 15px; font-weight: 400; background: {{ $settings->theme_color_pwa ?? '#469DFA' }} !important; color: #fff !important; padding: 8px 16px;"
+                                    >
+                                    All Days
+                                </span>
+                                <span class="badge bg-light border-none rounded-pill"
+                                    style="font-size: 15px; font-weight: 400; background: transparent !important; color: #475467 !important; padding: 8px 16px; border: 1px solid #E5E5E5;"
+                                    >
+                                    Highlights
+                                </span>
+                                <span class="badge bg-light border-none rounded-pill"
+                                    style="font-size: 15px; font-weight: 400; background: transparent !important; color: #475467 !important; padding: 8px 16px; border: 1px solid #E5E5E5;"
+                                    >
+                                    Videos
+                                </span>
+                                <span class="badge bg-light border-none rounded-pill"
+                                    style="font-size: 15px; font-weight: 400; background: transparent !important; color: #475467 !important; padding: 8px 16px; border: 1px solid #E5E5E5;"
+                                    >
+                                    Documentary
+                                </span>
                             </div>
-                            <p class="mt-2">Loading experiment posts...</p>
+                        </div>
+                        <div class="posts-main" id="posts-container">
+                            <!-- Posts will be loaded here dynamically -->
+                            <div class="text-center py-5">
+                                <div class="spinner-border text-primary" role="status">
+                                </div>
+                                <p class="mt-2">Loading experiment posts...</p>
+                            </div>
+                        </div>
+                            <div  class="card border-0 rounded-4 widget-card"style="
+                            border: 1px solid #00000014 !important; padding: 30px;
+                            ">
+                            <div class="" style="gap: 20px;">
+                                <div class="progress-info">
+                                    <h2 style="color: {{ $settings->theme_color_pwa }}; margin-bottom: 6px !important; font-size: 28px; font-weight: 600 !important;">7-Day Progress Summary</h2>
+                                    <span style="font-size: 16px; color: #1f2e46; font-weight: 400;">Energy increased 12% this week. Face scan clarity improved by 8%.</span>
+                                </div>
+                                <div class="summary-grid">
+                                    <div class="summary-card">
+                                        <h4>Mood Trend</h4>
+                                        <div class="value">↑ 10%</div>
+                                        <div class="wave"></div>
+                                    </div>
+                                
+                                    <div class="summary-card">
+                                        <h4>Sleep Quality</h4>
+                                        <div class="value">↑ Sleep: 7h 30m</div>
+                                        <div class="wave"></div>
+                                    </div>
+                                
+                                    <div class="summary-card">
+                                        <h4>Skin Rating</h4>
+                                        <div class="value">↑ 22%</div>
+                                        <div class="wave"></div>
+                                    </div>
+                                
+                                    <div class="summary-card">
+                                        <h4>Energy Level</h4>
+                                        <div class="value">↑ 12%</div>
+                                        <div class="wave"></div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div  class="card border-0 rounded-4 p-3 widget-card"style="border: 1px solid #00000014 !important; ">
+                            <div class="post-header">
+                                <div class="post-user-info">
+                                    <h2 style="color: black; margin-bottom: 0px !important; font-size: 28px;">Day 11</h2>
+                                    <span style="font-size: 14px;">October 11, 2025</span>
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <p>Significant improvement in skin texture today! The redness around my cheeks has reduced noticeably.</p>
+                                <img src="/images/skin.png" alt="${experimentTitle}" class="experiment-image">
+                                <small style="color: #469DFA; background: {{ $settings->sidebar_bg_color }}; border-radius: 16px; padding: 4px 8px; font-size: 14px;">Mood: 8/10</small>
+                                <small style="color: #469DFA; background: {{ $settings->sidebar_bg_color }}; border-radius: 16px; padding: 4px 8px; font-size: 14px;">Energy: 7/10</small>
+                                <small style="color: #469DFA; background: {{ $settings->sidebar_bg_color }}; border-radius: 16px; padding: 4px 8px; font-size: 14px;">Sleep: 7h 30m</small>
+                                <small style="color: #469DFA; background: {{ $settings->sidebar_bg_color }}; border-radius: 16px; padding: 4px 8px; font-size: 14px;">Bristol: Type 4</small>
+                                <div class="quote-box">
+                                    "I'm really starting to see the compound effects. My skin feels more hydrated and 
+                                    the inflammation is definitely decreasing. Sticking with the protocol!"
+                                </div>
+                                <div class="w-100 my-3 containerLikeComment">
+                                    <!-- LIKE BUTTON -->
+                                    <a class="pulse-btn btnLike text-muted mr-14px" href="javascript:void(0);">
+                                        <span class="countLikes text-muted ml-1" style="font-size: 16px; color: #475467 !important;">12</span>
+                                        <i class="far fa-heart" style="font-size: 16px; color: #475467 !important;"></i>
+                                    </a>
+            
+                                    <!-- COMMENTS -->
+                                    <span class="text-muted totalComments mr-14px">
+                                        <span class="count ml-1" style="font-size: 16px; color: #475467 !important;">34</span>
+                                        <i class="far fa-comment" style="font-size: 16px; color: #475467 !important;"></i>
+                                    </span>
+            
+                                    <!-- SHARE -->
+                                    <a class="pulse-btn text-muted text-decoration-none mr-14px" href="javascript:void(0);" title="Share">
+                                        <i class="feather icon-share" style="font-size: 16px; color: #475467 !important;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div  class="card border-0 rounded-4 p-3 widget-card"style="border: 1px solid #00000014 !important; ">
+                            <div class="discussion-wrapper">
+
+                                <!-- Input Box -->
+                                <div class="comment-input-box">
+                                    <textarea placeholder="Add comment"></textarea>
+                            
+                                    <div class="toolbar">
+                                        <div class="tools-left">
+                                            <button>B</button>
+                                            <button><i>I</i></button>
+                                            <button>H</button>
+                                            <button>”</button>
+                                            <button>🖼️</button>
+                                            <button>🔗</button>
+                                            <button>•</button>
+                                            <button>1.</button>
+                                        </div>
+                            
+                                        <button class="send-btn">Send</button>
+                                    </div>
+                                </div>
+                            
+                                <!-- Comments Header -->
+                                <div class="comments-header">
+                                    <h4>Comments</h4>
+                                    <span class="count-comment">25</span>
+                            
+                                    <div class="sort">
+                                        <span>Most Recent</span>
+                                        <span>⇅</span>
+                                    </div>
+                                </div>
+                            
+                                <!-- Comment Item -->
+                                <div class="comment-item">
+                                    <img src="https://randomuser.me/api/portraits/men/10.jpg" class="avatar">
+                            
+                                    <div class="comment-body">
+                                        <div class="meta">
+                                            <span class="name">John Doe</span>
+                                            <span class="time">2 days ago</span>
+                                        </div>
+                            
+                                        <p>
+                                            I'm a Product Designer based in Melbourne, Australia. I specialise in UX/UI design,
+                                            brand strategy, and Webflow development. I'm passionate about helping startups grow,
+                                            improve their customer experience, and raise capital through good design.
+                                        </p>
+                            
+                                        <div class="actions">
+                                            <span>👍 25</span>
+                                            <span>💬 12</span>
+                                            <span>Reply</span>
+                                            <span>···</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                                <!-- Another Comment -->
+                                <div class="comment-item">
+                                    <img src="https://randomuser.me/api/portraits/men/32.jpg" class="avatar">
+                            
+                                    <div class="comment-body">
+                                        <div class="meta">
+                                            <span class="name">James Doe</span>
+                                            <span class="time">3 days ago</span>
+                                        </div>
+                            
+                                        <p>
+                                            I'm a Product Designer based in Melbourne, Australia. I specialise in UX/UI design,
+                                            brand strategy, and Webflow development. I'm passionate about helping startups grow
+                                            and improve their customer experience.
+                                        </p>
+                            
+                                        <div class="actions">
+                                            <span>👍 13</span>
+                                            <span>💬 8</span>
+                                            <span>Reply</span>
+                                            <span>···</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                            
                         </div>
                     </div>
 
@@ -1028,7 +1408,9 @@
                             </div>
                         </div>
 
-                        <div class="card border-0 rounded-4 p-3 widget-card">
+                        <div class="card border-0 rounded-4 p-3 widget-card" style="
+                        border: 1px solid #00000014 !important;
+                    ">
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <h6 class="fw-bold mb-0 d-flex align-items-center"
                                     style="color: #000; font-size: 18px; gap: 5px;">
@@ -1267,7 +1649,24 @@
                         "I'm really starting to see the compound effects. My skin feels more hydrated and 
                         the inflammation is definitely decreasing. Sticking with the protocol!"
                     </div>
+                    <div class="w-100 my-3 containerLikeComment">
+                        <!-- LIKE BUTTON -->
+                        <a class="pulse-btn btnLike text-muted mr-14px" href="javascript:void(0);">
+                            <span class="countLikes text-muted ml-1" style="font-size: 16px; color: #475467 !important;">12</span>
+                            <i class="far fa-heart" style="font-size: 16px; color: #475467 !important;"></i>
+                        </a>
 
+                        <!-- COMMENTS -->
+                        <span class="text-muted totalComments mr-14px">
+                            <span class="count ml-1" style="font-size: 16px; color: #475467 !important;">34</span>
+                            <i class="far fa-comment" style="font-size: 16px; color: #475467 !important;"></i>
+                        </span>
+
+                        <!-- SHARE -->
+                        <a class="pulse-btn text-muted text-decoration-none mr-14px" href="javascript:void(0);" title="Share">
+                            <i class="feather icon-share" style="font-size: 16px; color: #475467 !important;"></i>
+                        </a>
+                    </div>
                 </div>
             `;
             return div;
