@@ -152,7 +152,7 @@
 
         {{-- Right: Main Message Content --}}
         <main class="chat-wrap" role="main">
-            <div class="card chat-card w-100">
+            <div class="card chat-card w-100" style="background: #FCFCFD;">
                 {{-- Header --}}
                 <div class="card-header bg-white pt-3">
                     <div class="media align-items-center">
@@ -235,9 +235,9 @@
                                 View Profile
                             </a>
 
-                            <a href="javascript:void(0);" class="f-size-20 text-muted" id="dropdown_options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{-- <a href="javascript:void(0);" class="f-size-20 text-muted" id="dropdown_options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-ellipsis-h"></i>
-                            </a>
+                            </a> --}}
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown_options">
                                 @if ($user->verified_id == 'yes' 
@@ -299,7 +299,7 @@
 
                 {{-- Chat footer: message form & controls --}}
                 @if (!auth()->user()->checkRestriction($user->id) && $user->allow_dm || auth()->user()->isSuperAdmin())
-                    <div class="card-footer bg-white position-relative chat-footer" style="margin-bottom: 70px; width: 95%;margin-left: auto;margin-right: auto; border: 1px solid #D0D5DD;border-radius: 8px;">
+                    <div class="card-footer bg-white position-relative chat-footer" style="margin-bottom: 80px; width: 95%;margin-left: auto;margin-right: auto; border: 1px solid #D0D5DD;border-radius: 8px;">
                         @if ($subscribedToYourContent || $subscribedToMyContent || auth()->user()->isSuperAdmin() || $user->isSuperAdmin())
                             <div class="w-100 display-none" id="previewFile">
                                 <div class="previewFile d-inline"></div>
@@ -352,8 +352,8 @@
 
                                 <input type="file" name="media[]" id="file" accept="image/*,video/mp4,video/x-m4v,video/quicktime,audio/mp3" multiple class="visibility-hidden filepond input-fileuploader">
 
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <div class="d-flex align-items-center">
+                                <div class="d-flex justify-content-end align-items-center mt-3">
+                                    {{-- <div class="d-flex align-items-center">
                                         <button type="button" class="btnMultipleUpload btn btn-upload btn-tooltip e-none align-bottom @if (auth()->user()->dark_mode == 'off') text-primary @else text-white @endif rounded-pill mr-2" data-toggle="tooltip" data-placement="top" title="{{ __('general.upload_media') }} ({{ $settings->disable_audio ? __('general.photo_video') : __('general.media_type_upload') }})">
                                             <i class="feather icon-image align-middle f-size-25"></i>
                                         </button>
@@ -398,15 +398,101 @@
                                                 <i class="bi-gift f-size-25 align-middle"></i>
                                             </button>
                                         @endif
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="d-flex align-items-center" style="gap: 8px">
+                                    <div class="d-flex align-items-center" style="gap: 10px">
                                     <div>
                                         <span class="triggerEmoji" data-toggle="dropdown">
                                             <img src="/images/emoji.png" alt="">
                                         </span>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-emoji custom-scrollbar" aria-labelledby="dropdownMenuButton">
                                             @include('includes.emojis')
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <a href="javascript:void(0);" class="f-size-20 text-muted" id="dropdown_options" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{-- <i class="fa fa-ellipsis-h"></i> --}}
+                                            <img src="/images/3-dots.png" alt="">
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown_options">
+                                            {{-- @if ($messages->count() != 0 && $settings->users_can_delete_messages)
+                                                <form method="POST" action="{{ url('conversation/delete', $user->id) }}" class="d-inline">
+                                                    @csrf
+                                                    <button type="submit" class="dropdown-item actionDelete">
+                                                        <i class="feather icon-trash-2 mr-2"></i> {{ __('general.delete') }}
+                                                    </button>
+                                                </form>
+                                            @endif
+
+                                            @if (auth()->user()->isRestricted($user->id))
+                                                <button type="button" class="dropdown-item removeRestriction" data-user="{{ $user->id }}" id="restrictUser">
+                                                    <i class="fas fa-ban mr-2"></i> {{ __('general.remove_restriction') }}
+                                                </button>
+                                            @else
+                                                <button type="button" class="dropdown-item" data-user="{{ $user->id }}" id="restrictUser">
+                                                    <i class="fas fa-ban mr-2"></i> {{ __('general.restrict') }}
+                                                </button>
+                                            @endif --}}
+
+                                            <div class="mb-2">
+                                    <button type="button" class="dropdown-item d-flex align-items-center btnMultipleUpload">
+                                        <div>
+                                            <div class="fw-bold">Upload Media</div>
+                                        </div>
+                                    </button>
+                                    
+                                    <!-- Zip File Upload -->
+                                    <button type="button" class="dropdown-item d-flex align-items-center" onclick="document.getElementById('zipFile').click()">
+                                        <div>
+                                            <div class="fw-bold">Upload ZIP</div>
+                                        </div>
+                                    </button>
+                                    
+                                    <!-- ePub File Upload -->
+                                    @if (auth()->user()->verified_id == 'yes' && $settings->allow_epub_files)
+                                        <button type="button" class="dropdown-item d-flex align-items-center" onclick="document.getElementById('ePubFile').click()">
+                                            <div>
+                                                <div class="fw-bold">Upload ePub</div>
+                                            </div>
+                                        </button>
+                                    @endif
+                                    
+                                    <!-- Media from Vault -->
+                                    <button type="button" class="dropdown-item d-flex align-items-center btnShowVault">
+                                        <div>
+                                            <div class="fw-bold">From Vault</div>
+                                        </div>
+                                    </button>
+                                    
+                                    <!-- Set Price -->
+                                    @if (auth()->user()->verified_id == 'yes' && auth()->user()->free_subscription == 'yes' && $settings->ppv_only_free_accounts || !$settings->ppv_only_free_accounts && auth()->user()->verified_id == 'yes')
+                                        <button type="button" class="dropdown-item d-flex align-items-center" id="setPrice">
+                                            <div>
+                                                <div class="fw-bold">Set Price</div>
+                                            </div>
+                                        </button>
+                                    @endif
+                                    
+                                    <!-- Tip Button -->
+                                    @if ($user->verified_id == 'yes' && $settings->disable_tips == 'off')
+                                    <button type="button" class="dropdown-item d-flex btn-tooltip align-items-center" data-toggle="modal" title="{{ __('general.tip') }}" data-target="#tipForm" data-cover="{{ Helper::getFile(config('path.cover').$user->cover) }}" data-avatar="{{ Helper::getFile(config('path.avatar').$user->avatar) }}" data-name="{{ $user->hide_name == 'yes' ? $user->username : $user->name }}" data-userid="{{ $user->id }}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-coin me-2" viewBox="0 0 16 16">
+                                            <path d="M5.5 9.511c.076.954.83 1.697 2.182 1.785V12h.6v-.709c1.4-.098 2.218-.846 2.218-1.932 0-.987-.626-1.496-1.745-1.76l-.473-.112V5.57c.6.068.982.396 1.074.85h1.052c-.076-.919-.864-1.638-2.126-1.716V4h-.6v.719c-1.195.117-2.01.836-2.01 1.853 0 .9.606 1.472 1.613 1.707l.397.098v2.034c-.615-.093-1.022-.43-1.114-.9H5.5zm2.177-2.166c-.59-.137-.91-.416-.91-.836 0-.47.345-.822.915-.925v1.76h-.005zm.692 1.193c.717.166 1.048.435 1.048.91 0 .542-.412.914-1.135.982V8.518l.087.02z"/>
+                                            <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                            <path fill-rule="evenodd" d="M8 13.5a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zm0 .5A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/>
+                                        </svg>
+                                        <div>
+                                            <div class="fw-bold">Send Tip</div>
+                                        </div>
+                                    </button>
+                                    @endif
+                                    <!-- Gifts -->
+                                     {{-- @if ($user->verified_id == 'yes' && $settings->gifts) --}}
+                                            {{-- <button type="button" data-toggle="modal" title="{{ __('general.gifts') }}" data-target="#giftsForm" class="btn btn-upload btn-tooltip e-none align-bottom @if (auth()->user()->dark_mode == 'off') text-primary @else text-white @endif rounded-pill">
+                                                <i class="bi-gift f-size-25 align-middle"></i>
+                                            </button> --}}
+                                    {{-- @endif --}}
+                                </div>
                                         </div>
                                     </div>
                                     <div class="d-inline-block rounded-pill mt-1 position-relative">
