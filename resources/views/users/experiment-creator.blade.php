@@ -88,6 +88,36 @@
             font-weight: 600;
         }
 
+        .left-sec {
+            width: 70%;
+        }
+
+        @media (max-width: 992px) {
+            .left-sec {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .left-sec {
+                width: 80%;
+            }
+
+            .right-sec {
+                width: 80%;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .left-sec {
+                width: 60%;
+            }
+
+            .right-sec {
+                width: 60%;
+            }
+        }
+
         @media (max-width: 768px) {
             .experiment-hero {
                 height: 300px;
@@ -222,45 +252,75 @@
         .summary-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
+            gap: 16px;
+            margin-top: 20px;
         }
 
         .summary-card {
             background: #fff;
-            border-radius: 14px;
-            padding: 20px;
-            border: 1px solid #E5E5E5;
+            border-radius: 16px;
+            padding: 24px 20px 0 20px;
+            border: 1px solid #E8E8E8;
             position: relative;
             overflow: hidden;
+            min-height: 160px;
         }
 
         .summary-card h4 {
             font-size: 16px;
-            color: #0F172A;
-            margin: 0 0 10px 0;
-            font-weight: 600;
+            color: #101828;
+            margin: 0;
+            font-weight: 500 !important;
         }
 
         .summary-card .value {
-            font-size: 24px;
-            color: #14A44D;
-            font-weight: 600;
-            margin-bottom: 10px;
+            font-size: 39px;
+            color: #12B76A;
+            font-weight: 500;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
         }
 
-        /* NEW ACCURATE WAVE */
+        /* Wave with Clear Border on Top - Full Width */
         .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
             width: 100%;
-            height: 70px;
+            height: 90px;
+        }
+
+        /* Dark Green Wave Line */
+        .wave::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100%25' height='100' viewBox='0 0 500 100' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M0,65 Q60,25 125,60 T250,55 T375,35 T500,60' stroke='%2312B76A' stroke-width='2' fill='none' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") top left;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            z-index: 2;
+        }
+
+        /* Light Green Wave Fill */
+        .wave::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(180deg,
-                    rgba(20, 164, 77, 0.20) 0%,
-                    rgba(20, 164, 77, 0.06) 100%);
+                    rgba(16, 185, 129, 0.18) 0%,
+                    rgba(16, 185, 129, 0.10) 40%,
+                    rgba(16, 185, 129, 0.04) 100%);
 
-            /* WebKit browsers (Chrome, Safari, Edge) */
-            -webkit-mask: url("data:image/svg+xml,%3Csvg%20viewBox='0%200%20500%20120'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cpath%20d='M0%2080%20C60%2060,%20110%20100,%20170%2075%20C240%2045,%20300%20105,%20360%2070%20C420%2040,%20470%2095,%20500%2060%20L500%20120%20L0%20120%20Z'%20fill='black'/%3E%3C/svg%3E") center/100% 100% no-repeat;
-
-            /* Standard browsers (Firefox, modern) */
-            mask: url("data:image/svg+xml,%3Csvg%20viewBox='0%200%20500%20120'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cpath%20d='M0%2080%20C60%2060,%20110%20100,%20170%2075%20C240%2045,%20300%20105,%20360%2070%20C420%2040,%20470%2095,%20500%2060%20L500%20120%20L0%20120%20Z'%20fill='black'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+            -webkit-mask: url("data:image/svg+xml,%3Csvg width='100%25' height='100' viewBox='0 0 500 100' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M0,65 Q60,25 125,60 T250,55 T375,35 T500,60 L500,100 L0,100 Z' fill='black'/%3E%3C/svg%3E") top left / 100% 100% no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg width='100%25' height='100' viewBox='0 0 500 100' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'%3E%3Cpath d='M0,65 Q60,25 125,60 T250,55 T375,35 T500,60 L500,100 L0,100 Z' fill='black'/%3E%3C/svg%3E") top left / 100% 100% no-repeat;
+            z-index: 1;
         }
 
 
@@ -629,56 +689,87 @@
         }
 
         .metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    width: 100%;
-}
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
 
-.metric-box {
-    background: #ffffff;
-    border: 1px solid #E5E7EB;
-    border-radius: 16px;
-    padding: 20px 0px;
-    text-align: left;
-}
+        .metric-box {
+            background: #ffffff;
+            border: 1px solid #E5E7EB;
+            border-radius: 16px;
+            padding: 20px 0px;
+            text-align: left;
+        }
 
-.metric-value {
-    font-size: 20px;
-    font-weight: 600;
-    color: #101828;
-    margin-bottom: 4px;
-    text-align: center;
-}
+        .metric-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: #101828;
+            margin-bottom: 4px;
+            text-align: center;
+        }
 
-.metric-change {
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 14px;
-    text-align: center;
-}
+        .metric-change {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 14px;
+            text-align: center;
+        }
 
-.metric-change.positive {
-    color: #30D276;
-}
+        .metric-change.positive {
+            color: #30D276;
+        }
 
-.metric-change.negative {
-    color: #DC2626;
-}
+        .metric-change.negative {
+            color: #DC2626;
+        }
 
-.metric-icon-title {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 14px;
-    font-weight: 400;
-    color: #475467;
-    justify-content: center;
-}
+        .metric-icon-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 400;
+            color: #475467;
+            justify-content: center;
+        }
 
-.metric-icon {
-    font-size: 18px;
-}
+        .metric-icon {
+            font-size: 18px;
+        }
+
+        .summary-earnings-box {
+            background: #DBFBE6;
+            /* light green background */
+            border-radius: 14px;
+            padding: 20px 20px;
+            text-align: center;
+        }
+
+        .earnings-amount {
+            font-size: 32px;
+            font-weight: 600;
+            color: #45996C;
+            margin-bottom: 4px;
+        }
+
+        .earnings-text {
+            font-size: 14px;
+            color: #475467;
+            font-weight: 400;
+        }
+
+        .doc {
+            background: transparent !important; 
+            color: #475467 !important;
+        }
+
+        .doc-active {
+            background: #469DFA !important;
+            color: #fff !important;
+        }
 
     </style>
 @endsection
@@ -1296,13 +1387,13 @@
             <div class="" style="padding: 30px;">
                 <div class="posts-container">
                     <!-- Left Side - Wider Post Cards -->
-                    <div class="d-flex" style="flex-direction: column; width: 70%;">
+                    <div class="d-flex left-sec" style="flex-direction: column;">
                         <div class="card border-0 rounded-4 p-3 widget-card"style="
-                            border: 1px solid #00000014 !important;
-                            ">
+                                    border: 1px solid #00000014 !important;
+                                    ">
                             <div class="d-flex align-items-center" style="gap: 20px;">
-                                <span class="badge bg-light border-none rounded-pill"
-                                    style="font-size: 15px; font-weight: 400; background: {{ $settings->theme_color_pwa ?? '#469DFA' }} !important; color: #fff !important; padding: 8px 16px;">
+                                <span id="all" class="badge bg-light border-none rounded-pill"
+                                    style="font-size: 15px; font-weight: 400; cursor: pointer; background: {{ $settings->theme_color_pwa ?? '#469DFA' }} !important; color: #fff !important; padding: 8px 16px;">
                                     All Days
                                 </span>
                                 <span class="badge bg-light border-none rounded-pill"
@@ -1313,13 +1404,14 @@
                                     style="font-size: 15px; font-weight: 400; background: transparent !important; color: #475467 !important; padding: 8px 16px; border: 1px solid #E5E5E5;">
                                     Videos
                                 </span>
-                                <span class="badge bg-light border-none rounded-pill"
-                                    style="font-size: 15px; font-weight: 400; background: transparent !important; color: #475467 !important; padding: 8px 16px; border: 1px solid #E5E5E5;">
-                                    Documentary
+                                <span id="doc" class="badge bg-light border-none rounded-pill doc"
+                                    style="font-size: 15px; font-weight: 400; padding: 8px 16px; border: 1px solid #E5E5E5; cursor: pointer;">
+                                    Documentory
                                 </span>
                             </div>
                         </div>
-                        <div class="card border-0 rounded-4 widget-card"style="border: 1px solid #00000014 !important; ">
+                        <div
+                            class="card card-1 border-0 rounded-4 widget-card"style="border: 1px solid #00000014 !important; ">
                             <div class="post-header">
                                 <div class="post-user-info">
                                     <h2 style="color: black; margin-bottom: 0px !important; font-size: 28px;">Day 12</h2>
@@ -1370,15 +1462,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card border-0 rounded-4 widget-card"style="
-                                border: 1px solid #00000014 !important; padding: 30px;
-                                ">
+                        <div class="card card-2 border-0 rounded-4 widget-card"style="
+                                        border: 1px solid #00000014 !important; padding: 30px;
+                                        ">
                             <div class="" style="gap: 20px;">
                                 <div class="progress-info">
                                     <h2
                                         style="color: {{ $settings->theme_color_pwa }}; margin-bottom: 6px !important; font-size: 28px; font-weight: 600 !important;">
                                         7-Day Progress Summary</h2>
-                                    <span style="font-size: 16px; color: #1f2e46; font-weight: 400;">Energy increased 12%
+                                    <span style="font-size: 16px; color: #475467; font-weight: 400;">Energy increased 12%
                                         this week. Face scan clarity improved by 8%.</span>
                                 </div>
                                 <div class="summary-grid">
@@ -1409,7 +1501,8 @@
 
                             </div>
                         </div>
-                        <div class="card border-0 rounded-4 widget-card"style="border: 1px solid #00000014 !important; ">
+                        <div
+                            class="card card-3 border-0 rounded-4 widget-card"style="border: 1px solid #00000014 !important; ">
                             <div class="post-header">
                                 <div class="post-user-info">
                                     <h2 style="color: black; margin-bottom: 0px !important; font-size: 28px;">Day 11</h2>
@@ -1461,7 +1554,7 @@
                             </div>
                         </div>
                         <div
-                            class="card border-0 rounded-4 widget-card"style="border: 1px solid #00000014 !important; padding: 30px;">
+                            class="card card-4 border-0 rounded-4 widget-card"style="border: 1px solid #00000014 !important; padding: 30px;">
                             <div class="discussion-wrapper">
                                 <h2 style="color: black; margin-bottom: 20px !important; font-size: 28px;">Community
                                     Discussion</h2>
@@ -1507,7 +1600,7 @@
 
                                 <!-- Comment Item -->
                                 <div class="comment-item">
-                                    <img src="https://randomuser.me/api/portraits/men/10.jpg" class="avatar">
+                                    <img src="/uploads/avatar/default.jpg" class="avatar">
 
                                     <div class="comment-body" style="margin-top: 12px;">
                                         <div class="meta">
@@ -1534,7 +1627,7 @@
                                     </div>
                                 </div>
                                 <div class="comment-item">
-                                    <img src="https://randomuser.me/api/portraits/men/10.jpg" class="avatar">
+                                    <img src="/uploads/avatar/default.jpg" class="avatar">
 
                                     <div class="comment-body" style="margin-top: 12px;">
                                         <div class="meta">
@@ -1567,7 +1660,7 @@
                         </div>
                     </div>
 
-                    <div class="widgets-sidebar">
+                    <div class="widgets-sidebar card-5 right-sec">
                         <div class="widget-card">
                             <div class="widget-header">
                                 <img src="/images/experiment-summary.png" alt="">
@@ -1605,7 +1698,7 @@
                             style="
                         border: 1px solid #00000014 !important; padding: 20px;
                     ">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
+                            <div class="d-flex card-6 justify-content-between align-items-center mb-3">
                                 <h6 class="fw-bold mb-0 d-flex align-items-center"
                                     style="color: #101828; font-size: 18px; gap: 10px; font-weight: 600 !important;">
                                     <img src="/images/experiment-vector.png" alt="" class="me-2 img-fluid"
@@ -1669,14 +1762,15 @@
                             </div>
                         </div>
                         {{-- Tracking --}}
-                        <div class="card border-0 rounded-4 widget-card"
+                        <div class="card card-7 border-0 rounded-4 widget-card"
                             style=" border: 1px solid #00000014 !important; padding: 20px; ">
-                            <div class="d-flex justify-content-between align-items-center mb-3" style="flex-direction: column; width: 100%">
+                            <div class="d-flex justify-content-between align-items-center mb-3"
+                                style="flex-direction: column; width: 100%">
                                 <h6 class="fw-bold mb-0 d-flex align-items-center"
                                     style="color: #101828; font-size: 18px; gap: 10px; font-weight: 600 !important; width: 100%;">
                                     <img src="/images/tracking.png" alt="" class="me-2 img-fluid"
                                         style="width: 24px;">
-                                        Tracking Metrics
+                                    Tracking Metrics
                                 </h6>
                                 <div class="metrics-grid" style="margin-top: 20px;">
 
@@ -1684,57 +1778,67 @@
                                     <div class="metric-box">
                                         <div class="metric-value">9.8</div>
                                         <div class="metric-change positive">(+12%)</div>
-                                
+
                                         <div class="metric-icon-title">
-                                            <span class="metric-icon"><img src="/images/emoji-blue.png" alt=""></span>
+                                            <span class="metric-icon"><img src="/images/emoji-blue.png"
+                                                    alt=""></span>
                                             <span class="metric-title">Mood</span>
                                         </div>
                                     </div>
-                                
+
                                     <!-- Box 2 -->
                                     <div class="metric-box">
                                         <div class="metric-value">7.3</div>
                                         <div class="metric-change positive">(+8%)</div>
-                                
+
                                         <div class="metric-icon-title">
-                                            <span class="metric-icon"><img src="/images/energy.png" alt=""></span>
+                                            <span class="metric-icon"><img src="/images/energy.png"
+                                                    alt=""></span>
                                             <span class="metric-title">Energy</span>
                                         </div>
                                     </div>
-                                
+
                                     <!-- Box 3 -->
                                     <div class="metric-box">
                                         <div class="metric-value">115</div>
                                         <div class="metric-change negative">(-15%)</div>
-                                
+
                                         <div class="metric-icon-title">
-                                            <span class="metric-icon"><img src="/images/bristol-scale-icon-2.png" alt=""></span>
+                                            <span class="metric-icon"><img src="/images/bristol-scale-icon-2.png"
+                                                    alt=""></span>
                                             <span class="metric-title">Bristol</span>
                                         </div>
                                     </div>
-                                
+
                                     <!-- Box 4 -->
                                     <div class="metric-box">
                                         <div class="metric-value">$228</div>
                                         <div class="metric-change positive">(+15%)</div>
-                                
+
                                         <div class="metric-icon-title">
                                             <span class="metric-icon"><img src="/images/sleep.png" alt=""></span>
                                             <span class="metric-title">Sleep</span>
                                         </div>
                                     </div>
-                                
+
                                 </div>
-                                
+
                             </div>
                         </div>
 
                         {{-- Earning --}}
-                        <div class="widget-card">
+                        <div class="widget-card card-8">
                             <div class="widget-header">
                                 <img src="/images/experiment-summary.png" alt="">
                                 <h5>Earnings</h5>
                             </div>
+                            <div style="padding: 20px 20px 0 20px !important;">
+                                <div class="summary-earnings-box">
+                                    <div class="earnings-amount">$1,204.00</div>
+                                    <div class="earnings-text">Total Earned to Date from this Experiment</div>
+                                </div>
+                            </div>
+
                             <div class="widget-content" style="padding: 20px 20px 0 20px !important;">
                                 <div class="d-flex justify-content-between"
                                     style="border-bottom: 1px solid #00000012; margin-bottom: 10px;">
@@ -1756,6 +1860,21 @@
 
 @section('javascript')
     <script>
+        document.getElementById("doc").addEventListener("click", function() {
+            document.querySelectorAll(".card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8")
+                .forEach(card => card.style.display = "none");
+                this.classList.add("doc-active");
+                this.classList.remove("doc");
+        });
+        document.getElementById("all").addEventListener("click", function() {
+            document.querySelectorAll(".card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8")
+                .forEach(card => card.style.display = "block");
+                document.getElementById("doc").classList.remove("doc-active");
+                document.getElementById("doc").classList.add("doc");
+        });
+
+
+
         document.addEventListener('DOMContentLoaded', function() {
             // Load all data from single API call
             loadAllExperimentData();
