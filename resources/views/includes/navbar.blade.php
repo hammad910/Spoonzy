@@ -99,8 +99,8 @@
                 <ul class="navbar-nav ml-auto">
                     @guest
                         <li class="nav-item mr-1">
-                            <a @if (Helper::showLoginFormModal()) data-toggle="modal" data-target="#loginFormModal" @endif
-                                class="nav-link login-btn @if ($settings->registration_active == '0') btn btn-main btn-primary pr-3 pl-3 @endif"
+                            <a @if (Helper::showLoginFormModal()) @endif
+                                class="nav-link login-btn @if ($settings->registration_active == '0') btn btn-main btn-primary pr-3 pl-3 @endif" style="color: #212529;"
                                 href="{{ in_array(config('settings.home_style'), [0, 2]) ? url('login') : url('/') }}">
                                 {{ __('auth.login') }}
                             </a>
@@ -110,7 +110,7 @@
                             <li class="nav-item">
                                 <a @if (Helper::showLoginFormModal()) data-toggle="modal" data-target="#loginFormModal" @endif
                                     class="toggleRegister nav-link btn btn-main @if (request()->path() == '/' && $settings->home_style == 0) btn-light @else btn-primary @endif btn-register-menu pr-3 pl-3 btn-arrow btn-arrow-sm"
-                                    href="{{ in_array(config('settings.home_style'), [0, 2]) ? url('signup') : url('/') }}">
+                                    style="color: #212529;" href="{{ in_array(config('settings.home_style'), [0, 2]) ? url('signup') : url('/') }}">
                                     {{ __('general.getting_started') }}
                                 </a>
                             </li>
