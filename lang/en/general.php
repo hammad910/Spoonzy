@@ -67,7 +67,7 @@ return array(
 	'full_name_misc'            =>      'Full name',
 	'username_misc'             =>      'Username',
 	'website_misc'              =>      'Website',
-	'save_changes'              =>      'Save changes',
+	'save_changes'              =>      'Save',
 	'username_on_twitter'       =>      'Username on Twitter',
 	'old_password'              =>      'Old password',
 	'new_password'              =>      'New password',

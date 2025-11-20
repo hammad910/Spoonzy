@@ -131,9 +131,8 @@
                                             <i class="fa fa-camera"></i>
                                         </a>
                                     @endif
-                                    <img src="{{ Helper::getFile(config('path.avatar') . $user->avatar) }}" width="150"
+                                    <img src="{{ Helper::getFile(config('path.avatar') . Auth()->user->avatar) }}" width="150"
                                         height="150"
-                                        alt="{{ $user->hide_name == 'yes' ? $user->username : $user->name }}"
                                         class="rounded-circle img-user mb-2 avatarUser @if (auth()->check() && auth()->id() != $user->id && Helper::isCreatorLive($getCurrentLiveCreators, $user->id)) border-0 @endif">
                                 </div><!-- avatar-wrap -->
                                 <div class="media-body" style="margin-top: 80px; display: flex; align-items: center; justify-content: space-between">

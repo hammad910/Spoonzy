@@ -148,6 +148,19 @@
                 width: 100%;
             }
         }
+        @media (max-width: 550px) {
+            .progress {
+                width: 77%;
+            }
+        }
+        @media (max-width: 400px) {
+            .progress {
+                width: 54%;
+            }
+            .experiment-header h1 {
+                width: 60%;
+            }
+        }
 
         .menu-sidebar {
             margin-top: 4%;
@@ -181,6 +194,12 @@
         @media (max-width: 999.98px) {
             .main-content {
                 margin-top: 10%;
+            }
+            .experiment-header {
+                flex-direction: column;
+            }
+            #experiment-category {
+                display: none;
             }
         }
 
@@ -443,8 +462,7 @@
         }
 
         .widget-header {
-            padding: 15px 20px;
-            border-bottom: 1px solid #f0f0f0;
+            padding: 15px 20px 0;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -762,7 +780,7 @@
         }
 
         .doc {
-            background: transparent !important; 
+            background: transparent !important;
             color: #475467 !important;
         }
 
@@ -771,6 +789,52 @@
             color: #fff !important;
         }
 
+        .task-item {
+            padding: 0;
+        }
+
+        .task-title {
+            font-size: 20px;
+            font-weight: 600 !important;
+            color: #101828;
+            margin: 0 0 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+
+        .task-desc {
+            font-size: 15px;
+            color: #475467;
+            margin: 0;
+            font-weight: 400;
+        }
+
+        /* Upload button */
+        .btn-upload {
+            background: #4C8DF6;
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* Mark Complete */
+        .btn-complete {
+            background: #fff;
+            color: #475467;
+            padding: 6px 20px !important;
+            /* padding-bottom: 6px !important;
+        padding-left: 20px !important;
+        padding-right: 20px; */
+            border-radius: 20px;
+            border: 1px solid #D0D5DD;
+
+        }
     </style>
 @endsection
 
@@ -785,14 +849,16 @@
         <div class="flex-grow-1">
             <!-- Full Width Experiment Hero Section -->
             <div class="experiment-hero">
-                <img alt="30-Day Beef Tallow Skin Transformation" class="experiment-bg-image">
+                <img alt="30-Day Beef Tallow Skin Transformation" src="/images/experiments/experiment-img.jpg" class="experiment-bg-image">
 
                 <div class="experiment-overlay">
                     <!-- Top Section: Title and Badge -->
                     <div class="experiment-header d-flex justify-content-between">
                         <div class="d-flex align-items-center flex-wrap">
-                            <h1 id="experiment-title">Loading...</h1>
-                            <span class="badge-healthcare" id="experiment-category">Loading...</span>
+                            <h1 id="experiment-title" class="mt-md-0 mt-3">30-Day Beef Tallow Skin Transformation</h1>
+                            <div style="margin-bottom: 8px; ">
+                                <span class="badge-healthcare" style="height: 30%;" id="experiment-category">Healthcare</span>
+                            </div>
                         </div>
                         <div class="d-flex gap-3">
                             @if (
@@ -808,12 +874,13 @@
                                     <a href="javascript:void(0);" data-toggle="modal" data-target="#subscriptionForm"
                                         class="btn btn-primary btn-profile mr-1"
                                         style="
-                                        padding-top: 6px !important;
-                                        padding-bottom: 6px !important;
+                                        padding-top: 0px !important;
+                                        padding-bottom: 0px !important;
                                         display: flex;
                                         justify-content: center;
                                         align-items: center;
                                         font-size: 14px;
+                                        width: auto;
                                     ">
                                         {{ __('general.subscribe_month', ['price' => Helper::formatPrice($user->getPlan('monthly', 'price'))]) }}
                                     </a>
@@ -1334,12 +1401,9 @@
                     <!-- Bottom Section: Profile and Buttons -->
                     <div class="d-flex justify-content-between align-items-center" style="margin-bottom: 30px;">
                         <div class="profile-section">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="James Danton">
-                            <div>
-                                <span class="fw-semibold fs-5" id="experiment-days">Loading...</span>
-                                <span class="d-none" id="userLabel">
-                                    {{ auth()->user()->first_name }}
-                                </span>
+                            <img src="/uploads/avatar/default.jpg" alt="img">
+                            <div style="display: flex; gap: 8px; ">
+                                <span class="fw-semibold fs-5" id="experiment-days"> {{ auth()->user()->first_name }}</span>
                                 @if ($user->verified_id == 'yes')
                                     <small style="color: #fff; font-size: 16px"
                                         title="{{ __('general.verified_account') }}" data-toggle="tooltip"
@@ -1351,10 +1415,10 @@
                             <a href="javascript:void(0);" data-toggle="modal" data-target="#subscriptionForm"
                                 class="btn btn-primary btn-profile mr-1"
                                 style="
-                                        padding-top: 10px !important;
-                                        padding-bottom: 10px !important;
-                                        padding-left: 16px !important;
-                                        padding-right: 16px;
+                                        padding-top: 4px !important;
+                                        padding-bottom: 4px !important;
+                                        padding-left: 20px !important;
+                                        padding-right: 20px;
                                         display: flex;
                                         justify-content: center;
                                         align-items: center;
@@ -1365,7 +1429,7 @@
                         </div>
                     </div>
                     <!-- Progress Bar Section -->
-                    <div class="mt-3 w-100 progress-wrapper">
+                    <div class="mt-md-3 w-100 progress-wrapper">
                         <div class="progress-text">12/30 Dokus Complete</div>
                         <div class="progress">
                             <div class="progress-bar" role="progressbar" style="width: 40%; background-color:#469DFA;"
@@ -1388,24 +1452,24 @@
                 <div class="posts-container">
                     <!-- Left Side - Wider Post Cards -->
                     <div class="d-flex left-sec" style="flex-direction: column;">
-                        <div class="card border-0 rounded-4 p-3 widget-card"style="
-                                    border: 1px solid #00000014 !important;
-                                    ">
+                        <div class="card border-0 p-3 widget-card"style="
+                                        border: 1px solid #00000014 !important; border-radius: 9px !important;
+                                        ">
                             <div class="d-flex align-items-center" style="gap: 20px;">
-                                <span id="all" class="badge bg-light border-none rounded-pill"
-                                    style="font-size: 15px; font-weight: 400; cursor: pointer; background: {{ $settings->theme_color_pwa ?? '#469DFA' }} !important; color: #fff !important; padding: 8px 16px;">
+                                <span id="all" class="badge bg-light border-none rounded-pill doc-active"
+                                    style="font-size: 15px; font-weight: 400; cursor: pointer; user-select: none; padding: 8px 16px; border: 1px solid #E5E5E5;">
                                     All Days
                                 </span>
                                 <span class="badge bg-light border-none rounded-pill"
-                                    style="font-size: 15px; font-weight: 400; background: transparent !important; color: #475467 !important; padding: 8px 16px; border: 1px solid #E5E5E5;">
+                                    style="font-size: 15px; font-weight: 400; cursor: pointer; user-select: none; background: transparent !important; color: #475467 !important; padding: 8px 16px; border: 1px solid #E5E5E5;">
                                     Highlights
                                 </span>
                                 <span class="badge bg-light border-none rounded-pill"
-                                    style="font-size: 15px; font-weight: 400; background: transparent !important; color: #475467 !important; padding: 8px 16px; border: 1px solid #E5E5E5;">
+                                    style="font-size: 15px; font-weight: 400; cursor: pointer; user-select: none; background: transparent !important; color: #475467 !important; padding: 8px 16px; border: 1px solid #E5E5E5;">
                                     Videos
                                 </span>
                                 <span id="doc" class="badge bg-light border-none rounded-pill doc"
-                                    style="font-size: 15px; font-weight: 400; padding: 8px 16px; border: 1px solid #E5E5E5; cursor: pointer;">
+                                    style="font-size: 15px; font-weight: 400; cursor: pointer; user-select: none; padding: 8px 16px; border: 1px solid #E5E5E5; cursor: pointer;">
                                     Documentory
                                 </span>
                             </div>
@@ -1463,8 +1527,8 @@
                             </div>
                         </div>
                         <div class="card card-2 border-0 rounded-4 widget-card"style="
-                                        border: 1px solid #00000014 !important; padding: 30px;
-                                        ">
+                                            border: 1px solid #00000014 !important; padding: 30px;
+                                            ">
                             <div class="" style="gap: 20px;">
                                 <div class="progress-info">
                                     <h2
@@ -1658,10 +1722,186 @@
                             </div>
 
                         </div>
+                        <div class="card-9 border-0 rounded-4" style="display: none;">
+                            <div class="discussion-wrapper">
+                                <h2 style="color: black; margin-bottom: 20px !important; font-size: 28px;">My Daily Task
+                                </h2>
+                            </div>
+                            <div class="card border-0 rounded-4 widget-card"style="
+                                    border: 1px solid #00000014 !important; border-radius: 9px !important; padding: 20px;">
+                                <div class="d-flex align-items-center" style="gap: 20px;">
+                                    <div class="task-item d-flex align-items-center justify-content-between w-100">
+
+                                        <div>
+                                            <h6 class="task-title">
+                                                <img src="/images/sun-icon-2.png" alt="" class="icon">
+                                                Morning Reflection
+                                            </h6>
+                                            <p class="task-desc">Film yourself discussing how your skin feels today</p>
+                                        </div>
+
+                                        <div class="d-flex align-items-center" style="gap: 10px;">
+                                            <button href="javascript:void(0);" class="btn btn-primary btn-profile mr-1"
+                                                style="
+                                        padding-top: 6px !important;
+                                        padding-bottom: 6px !important;
+                                        padding-left: 20px !important;
+                                        padding-right: 20px;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        font-size: 14px;
+                                    ">
+                                                Upload
+                                            </button>
+                                            <button class="btn-complete">Mark as Complete</button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card border-0 rounded-4 widget-card"style="
+                                    border: 1px solid #00000014 !important; border-radius: 9px !important; padding: 20px;">
+                                <div class="d-flex align-items-center" style="gap: 20px;">
+                                    <div class="task-item d-flex align-items-center justify-content-between w-100">
+
+                                        <div>
+                                            <h6 class="task-title">
+                                                <img src="/images/sun-icon-2.png" alt="" class="icon">
+                                                Morning Reflection
+                                            </h6>
+                                            <p class="task-desc">Film yourself discussing how your skin feels today</p>
+                                        </div>
+
+                                        <div class="d-flex align-items-center" style="gap: 10px;">
+                                            <button href="javascript:void(0);"class="btn btn-primary btn-profile mr-1"
+                                                style="
+                                        padding-top: 6px !important;
+                                        padding-bottom: 6px !important;
+                                        padding-left: 20px !important;
+                                        padding-right: 20px;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        font-size: 14px;
+                                    ">
+                                                Upload
+                                            </button>
+                                            <button class="btn-complete">Mark as Complete</button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card border-0 rounded-4 widget-card"style="
+                                    border: 1px solid #00000014 !important; border-radius: 9px !important; padding: 20px;">
+                                <div class="d-flex align-items-center" style="gap: 20px;">
+                                    <div class="task-item d-flex align-items-center justify-content-between w-100">
+
+                                        <div>
+                                            <h6 class="task-title">
+                                                <img src="/images/sun-icon-2.png" alt="" class="icon">
+                                                Morning Reflection
+                                            </h6>
+                                            <p class="task-desc">Film yourself discussing how your skin feels today</p>
+                                        </div>
+
+                                        <div class="d-flex align-items-center" style="gap: 10px;">
+                                            <button href="javascript:void(0);"class="btn btn-primary btn-profile mr-1"
+                                                style="
+                                        padding-top: 6px !important;
+                                        padding-bottom: 6px !important;
+                                        padding-left: 20px !important;
+                                        padding-right: 20px;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        font-size: 14px;
+                                    ">
+                                                Upload
+                                            </button>
+                                            <button class="btn-complete">Mark as Complete</button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card border-0 rounded-4 widget-card"style="
+                                    border: 1px solid #00000014 !important; border-radius: 9px !important; padding: 20px;">
+                                <div class="d-flex align-items-center" style="gap: 20px;">
+                                    <div class="task-item d-flex align-items-center justify-content-between w-100">
+
+                                        <div>
+                                            <h6 class="task-title">
+                                                <img src="/images/sun-icon-2.png" alt="" class="icon">
+                                                Morning Reflection
+                                            </h6>
+                                            <p class="task-desc">Film yourself discussing how your skin feels today</p>
+                                        </div>
+
+                                        <div class="d-flex align-items-center" style="gap: 10px;">
+                                            <button href="javascript:void(0);"class="btn btn-primary btn-profile mr-1"
+                                                style="
+                                        padding-top: 6px !important;
+                                        padding-bottom: 6px !important;
+                                        padding-left: 20px !important;
+                                        padding-right: 20px;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        font-size: 14px;
+                                    ">
+                                                Upload
+                                            </button>
+                                            <button class="btn-complete">Mark as Complete</button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card border-0 rounded-4 widget-card"style="
+                                    border: 1px solid #00000014 !important; border-radius: 9px !important; padding: 20px;">
+                                <div class="d-flex align-items-center" style="gap: 20px;">
+                                    <div class="task-item d-flex align-items-center justify-content-between w-100">
+
+                                        <div>
+                                            <h6 class="task-title">
+                                                <img src="/images/sun-icon-2.png" alt="" class="icon">
+                                                Morning Reflection
+                                            </h6>
+                                            <p class="task-desc">Film yourself discussing how your skin feels today</p>
+                                        </div>
+
+                                        <div class="d-flex align-items-center" style="gap: 10px;">
+                                            <button href="javascript:void(0);"class="btn btn-primary btn-profile mr-1"
+                                                style="
+                                        padding-top: 6px !important;
+                                        padding-bottom: 6px !important;
+                                        padding-left: 20px !important;
+                                        padding-right: 20px;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        font-size: 14px;
+                                    ">
+                                                Upload
+                                            </button>
+                                            <button class="btn-complete">Mark as Complete</button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="widgets-sidebar card-5 right-sec">
-                        <div class="widget-card">
+                    <div class="widgets-sidebar right-sec">
+                        <div class="widget-card card-5">
                             <div class="widget-header">
                                 <img src="/images/experiment-summary.png" alt="">
                                 <h5>Experiment Summary</h5>
@@ -1693,8 +1933,41 @@
                                     skin clarity and reduce inflammatory acne.</div>
                             </div>
                         </div>
+                        <div class="widget-card navigation" style="display: none;">
+                            <div class="widget-header" style="padding-bottom: 20px;">
+                                <h5>Navigation</h5>
+                            </div>
+                            <div class="widget-content" style="padding: 0 20px !important;">
+                                <div class="d-flex"
+                                    style="border-bottom: 1px solid #00000012; margin-bottom: 10px; gap: 8px;">
+                                    <p><img src="/images/daily-task.png" alt=""></p>
+                                    <p style="color: {{ $settings->theme_color_pwa }}; font-weight: 600">Daily Tasks</p>
+                                </div>
+                            </div>
+                            <div class="widget-content" style="padding: 0 20px !important;">
+                                <div class="d-flex"
+                                    style="border-bottom: 1px solid #00000012; margin-bottom: 10px; gap: 8px;">
+                                    <p><img src="/images/schedule.png" alt=""></p>
+                                    <p style="color: #475467; font-weight: 600">Schedule</p>
+                                </div>
+                            </div>
+                            <div class="widget-content" style="padding: 0 20px !important;">
+                                <div class="d-flex"
+                                    style="border-bottom: 1px solid #00000012; margin-bottom: 10px; gap: 8px;">
+                                    <p><img src="/images/uploads.png" alt=""></p>
+                                    <p style="color: #475467; font-weight: 600">Clips & Uploads</p>
+                                </div>
+                            </div>
+                            <div class="widget-content"style="padding: 0 20px !important;">
+                                <div class="d-flex"
+                                    style="gap: 8px;">
+                                    <p><img src="/images/Assembly.png" alt=""></p>
+                                    <p style="color: #475467; font-weight: 600">Assembly</p>
+                                </div>
+                            </div>
+                        </div>
 
-                        <div class="card border-0 rounded-4 widget-card"
+                        <div class="card border-0 card-5 rounded-4 widget-card"
                             style="
                         border: 1px solid #00000014 !important; padding: 20px;
                     ">
@@ -1863,14 +2136,26 @@
         document.getElementById("doc").addEventListener("click", function() {
             document.querySelectorAll(".card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8")
                 .forEach(card => card.style.display = "none");
-                this.classList.add("doc-active");
-                this.classList.remove("doc");
+            this.classList.add("doc-active");
+            this.classList.remove("doc");
+            let card9 = document.querySelector(".card-9");
+            card9.style.display = "block";
+            let navigation = document.querySelector(".navigation");
+            navigation.style.display = "block";
+            let all = document.querySelector("#all");
+            all.classList.remove("doc-active");
+            all.classList.add("doc");
         });
         document.getElementById("all").addEventListener("click", function() {
             document.querySelectorAll(".card-1, .card-2, .card-3, .card-4, .card-5, .card-6, .card-7, .card-8")
                 .forEach(card => card.style.display = "block");
-                document.getElementById("doc").classList.remove("doc-active");
-                document.getElementById("doc").classList.add("doc");
+            document.getElementById("doc").classList.remove("doc-active");
+            document.getElementById("doc").classList.add("doc");
+            let card9 = document.querySelector(".card-9");
+            card9.style.display = "none";
+            let navigation = document.querySelector(".navigation");
+            navigation.style.display = "none";
+            this.classList.add("doc-active");
         });
 
 
@@ -1923,20 +2208,9 @@
                 .then(data => {
                     if (data.success) {
                         const experiment = data;
-                        console.log('images', experiment);
-                        $('.experiment-bg-image').attr('src', experiment.image_url ||
-                            '/images/experiments/experiment-img.jpg');
-
-                        // Update hero section with experiment data
                         updateHeroSection(experiment);
-
-                        // Update experiment summary
                         updateExperimentSummary(experiment);
-
-                        // Create and display posts from experiment data
                         createPostsFromExperimentData(experiment);
-
-                        // Load supplements
                         loadSupplementsData();
 
                     } else {
@@ -1952,8 +2226,6 @@
         // Update hero section with experiment data
         function updateHeroSection(experiment) {
             const userLabel = document.getElementById('userLabel').textContent.trim();
-            document.getElementById('experiment-title').textContent = experiment.title;
-            document.getElementById('experiment-category').textContent = experiment.category || 'Healthcare';
 
             // Calculate days based on completed and total
             const completed = experiment.completed || 12;
@@ -1964,12 +2236,6 @@
             const progressPercentage = (completed / total) * 100;
             document.getElementById('progress-text').textContent = `${completed}/${total} Days Complete`;
             document.getElementById('progress-bar').style.width = `${progressPercentage}%`;
-
-            // Update profile image if available
-            if (experiment.user && experiment.user.avatar) {
-                document.querySelector('.profile-section img').src = `/uploads/avatar/${experiment.user.avatar}`;
-                document.querySelector('.profile-section img').alt = experiment.user.name;
-            }
         }
 
         // Create posts from experiment data
