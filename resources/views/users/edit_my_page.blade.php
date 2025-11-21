@@ -63,8 +63,13 @@
         padding: 25px 0;
         border-bottom: 1px solid #e5e5e5;
         display: flex;
-        justify-content: space-between;
+        /* justify-content: space-between; */
+        gap: 35%;
         align-items: flex-start;
+    }
+
+    .main-heading {
+        width: 40%;
     }
 
 
@@ -112,31 +117,33 @@
     input.form-control {
         width: 50% !important;
     }
+
     .upload {
         width: 50% !important;
     }
 
     @media (max-width: 786px) {
-           .section {
+        .section {
             flex-direction: column;
             gap: 15px;
-           }
-
-           .form-group {
-            flex-direction: column;
-           }
-
-           .input-group {
-            width: 100% !important;
-           }
-
-           input.form-control {
-            width: 100% !important;
-           }
-           .upload {
-            width: 100% !important;
-           }
         }
+
+        .form-group {
+            flex-direction: column;
+        }
+
+        .input-group {
+            width: 100% !important;
+        }
+
+        input.form-control {
+            width: 100% !important;
+        }
+
+        .upload {
+            width: 100% !important;
+        }
+    }
 
     /* Toggle Switch */
     .toggle {
@@ -187,6 +194,298 @@
     input:checked+.slider:before {
         transform: translateX(20px);
     }
+
+    .privacy-sec {
+        margin-top: 16px;
+    }
+
+    .privacy-block {
+        margin-bottom: 40px;
+    }
+
+    .privacy-block h2 {
+        font-size: 24px;
+        font-weight: 600 !important;
+        margin-bottom: 16px;
+        color: #222;
+    }
+
+    .privacy-block p {
+        font-size: 18px;
+        line-height: 1.7;
+        margin-bottom: 14px;
+        color: #475467;
+    }
+
+    .privacy-block ol {
+        margin-top: 10px;
+        padding-left: 20px;
+        font-size: 15px;
+        line-height: 1.7;
+        color: #444;
+    }
+
+    .subscription-wrapper {
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    /* PLAN CARD */
+    .plan-card {
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: #fff;
+    }
+
+    .plan-card:hover {
+        border-color: #93c5fd;
+    }
+
+    .plan-card.active {
+        border: 2px solid #3b82f6;
+        background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
+    }
+
+    .plan-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+        padding: 20px 24px;
+    }
+
+    .plan-content {
+        padding: 0 24px;
+    }
+
+    .plan-icon {
+        width: 22px;
+        height: 22px;
+        border: 2px solid #d1d5db;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .plan-icon.selected {
+        border: none;
+        background: #3b82f6;
+    }
+
+    .plan-icon.selected svg {
+        display: block;
+    }
+
+    .plan-icon svg {
+        display: none;
+        width: 14px;
+        height: 14px;
+        color: #fff;
+    }
+
+    .plan-icon.enterprise {
+        background: #dbeafe;
+        border: none;
+    }
+
+    .plan-icon.enterprise svg {
+        display: block;
+        color: #3b82f6;
+    }
+
+    .plan-title {
+        font-size: 16px;
+        font-weight: 600;
+        color: #101828;
+    }
+
+    .plan-card.active .plan-title {
+        color: {{ $settings->theme_color_pwa }};
+    }
+
+    .price {
+        font-size: 30px;
+        font-weight: 600 !important;
+        color: #101828;
+        line-height: 1.2;
+    }
+
+    .price span {
+        font-size: 14px;
+        font-weight: 400;
+        color: #475467;
+    }
+
+    .plan-description {
+        margin-top: 4px;
+        font-size: 14px;
+        color: #475467;
+        line-height: 1.5;
+    }
+
+    /* BADGE */
+    .badge {
+        background: #ecfdf5;
+        color: #059669;
+        padding: 6px 12px;
+        border-radius: 16px;
+        font-size: 13px;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+
+    /* PAYMENT SECTION */
+    .payment-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 40px;
+        margin-bottom: 16px;
+    }
+
+    .payment-title {
+        font-size: 24px;
+        font-weight: 600;
+        color: #101828;
+    }
+
+    .download-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #fff;
+        border: 1px solid {{ $settings->theme_color_pwa }};
+        color: {{ $settings->theme_color_pwa }};
+        padding: 10px 16px;
+        border-radius: 36px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .download-btn:hover {
+        background: #eff6ff;
+    }
+
+    /* PAYMENT TABLE */
+    .payment-table {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .payment-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr 50px;
+        padding: 16px 20px;
+        border-bottom: 1px solid #e5e7eb;
+        font-size: 14px;
+        align-items: center;
+    }
+
+    .payment-row:last-child {
+        border-bottom: none;
+    }
+
+    .payment-row.header {
+        background: #f9fafb;
+        font-weight: 500;
+        font-size: 13px;
+        color: #6b7280;
+    }
+
+    .payment-row.header .invoice-col {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .payment-row.header .invoice-col svg {
+        width: 14px;
+        height: 14px;
+    }
+
+    .checkbox-col {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .checkbox {
+        width: 18px;
+        height: 18px;
+        border: 2px solid #d1d5db;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .invoice-name {
+        font-weight: 500;
+        color: #111827;
+    }
+
+    .amount-col {
+        color: #374151;
+    }
+
+    .date-col {
+        color: #6b7280;
+    }
+
+    /* STATUS */
+    .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    .status.paid {
+        color: #059669;
+    }
+
+    .status.paid::before {
+        content: '✓';
+        font-size: 11px;
+    }
+
+    .status.declined {
+        color: #dc2626;
+    }
+
+    .status.declined::before {
+        content: '✕';
+        font-size: 11px;
+    }
+
+    .download-icon {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .download-icon svg {
+        width: 20px;
+        height: 20px;
+        color: #9ca3af;
+        cursor: pointer;
+        transition: color 0.2s;
+    }
+
+    .download-icon svg:hover {
+        color: #6b7280;
+    }
 </style>
 
 @section('content')
@@ -203,13 +502,13 @@
                     </h2>
                     <ul class="nav nav-tabs border-0 flex-wrap" id="experimentTabs" style="padding: 20px 0;">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#">Profile & Notifications</a>
+                            <a class="nav-link active profile" href="#">Profile & Notifications</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Privacy & Security</a>
+                            <a class="nav-link privacy" href="#">Privacy & Security</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Subscription & Billing</a>
+                            <a class="nav-link subscription" href="#">Subscription & Billing</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Help & FAQ</a>
@@ -220,77 +519,79 @@
                     </ul>
                 </div>
             </div>
-            <div>
-
-                {{-- @include('includes.cards-settings') --}}
-
+            <div class="profile-sec">
                 <div>
 
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
+                    {{-- @include('includes.cards-settings') --}}
 
-                            {{ trans('admin.success_update') }}
-                        </div>
-                    @endif
+                    <div>
 
-                    @include('errors.errors-forms')
+                        @if (session('status'))
+                            <div class="alert alert-success">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
 
-                    @include('includes.alert-payment-disabled')
-
-                    <form method="POST" action="{{ url('settings/page') }}" id="formEditPage" accept-charset="UTF-8"
-                        enctype="multipart/form-data">
-
-                        @csrf
-
-                        <input type="hidden" id="featured_content" name="featured_content"
-                            value="{{ auth()->user()->featured_content }}">
-
-                        <div class="form-group">
-                            <label>{{ trans('auth.full_name') }}</label>
-                            <div class="input-group width mb-4 ">
-                                <input class="form-control" name="full_name" placeholder="{{ trans('auth.full_name') }}"
-                                    value="{{ auth()->user()->name }}" type="text">
+                                {{ trans('admin.success_update') }}
                             </div>
-                        </div><!-- End form-group -->
+                        @endif
 
-                        <div class="form-group">
-                            <label>{{ trans('auth.username') }}</label>
-                            <div class="input-group" style="margin-bottom: 20px;">
-                                <input class="form-control" name="username" maxlength="25"
-                                    placeholder="{{ trans('auth.username') }}" value="{{ auth()->user()->username }}"
-                                    type="text">
-                            </div>
-                        </div><!-- End form-group -->
+                        @include('errors.errors-forms')
 
-                        <div class="form-group" style="padding-bottom: 1.2rem; ">
-                            <label>Email</label>
-                            <input class="form-control" placeholder="{{ trans('auth.email') }}"
-                                {!! auth()->user()->isSuperAdmin() ? 'name="email"' : 'disabled' !!} value="{{ auth()->user()->email }}"
-                                type="text">
-                        </div><!-- End form-group -->
+                        @include('includes.alert-payment-disabled')
 
-                        <!-- Profile Photo Upload -->
-                        <div class="form-group" style="padding-bottom: 1.2rem;">
-                            <label>
-                                <label style="width: auto;">Your photo</label>
-                                <p style="color:#6c757d; margin-top:-5px; white-space: nowrap;">This will be displayed on your profile.</p>
-                            </label>
+                        <form method="POST" action="{{ url('settings/page') }}" id="formEditPage" accept-charset="UTF-8"
+                            enctype="multipart/form-data">
 
-                            <div class="d-flex align-items-start gap-4 upload" style="margin-top: 1rem; gap: 32px;">
+                            @csrf
 
-                                <!-- Current Photo -->
-                                <div>
-                                    <img src="{{ Helper::getFile(config('path.avatar') . Auth::user()->avatar) }}"
-                                        alt="Profile"
-                                        style="width:64px; height:64px; border-radius:50%; object-fit:cover;">
+                            <input type="hidden" id="featured_content" name="featured_content"
+                                value="{{ auth()->user()->featured_content }}">
+
+                            <div class="form-group">
+                                <label>{{ trans('auth.full_name') }}</label>
+                                <div class="input-group width mb-4 ">
+                                    <input class="form-control" name="full_name"
+                                        placeholder="{{ trans('auth.full_name') }}" value="{{ auth()->user()->name }}"
+                                        type="text">
                                 </div>
+                            </div><!-- End form-group -->
 
-                                <!-- Upload Area -->
-                                <label class="upload-box"
-                                    style="
+                            <div class="form-group">
+                                <label>{{ trans('auth.username') }}</label>
+                                <div class="input-group" style="margin-bottom: 20px;">
+                                    <input class="form-control" name="username" maxlength="25"
+                                        placeholder="{{ trans('auth.username') }}" value="{{ auth()->user()->username }}"
+                                        type="text">
+                                </div>
+                            </div><!-- End form-group -->
+
+                            <div class="form-group" style="padding-bottom: 1.2rem; ">
+                                <label>Email</label>
+                                <input class="form-control" placeholder="{{ trans('auth.email') }}" {!! auth()->user()->isSuperAdmin() ? 'name="email"' : 'disabled' !!}
+                                    value="{{ auth()->user()->email }}" type="text">
+                            </div><!-- End form-group -->
+
+                            <!-- Profile Photo Upload -->
+                            <div class="form-group" style="padding-bottom: 1.2rem;">
+                                <label>
+                                    <label style="width: auto;">Your photo</label>
+                                    <p style="color:#6c757d; margin-top:-5px; white-space: nowrap;">This will be displayed
+                                        on your profile.</p>
+                                </label>
+
+                                <div class="d-flex align-items-start gap-4 upload" style="margin-top: 1rem; gap: 32px;">
+
+                                    <!-- Current Photo -->
+                                    <div>
+                                        <img src="{{ Helper::getFile(config('path.avatar') . Auth::user()->avatar) }}"
+                                            alt="Profile"
+                                            style="width:64px; height:64px; border-radius:50%; object-fit:cover;">
+                                    </div>
+
+                                    <!-- Upload Area -->
+                                    <label class="upload-box"
+                                        style="
                                     border: 1.5px solid #D0D5DD;
                                     border-radius: 12px;
                                     padding: 16px 24px;
@@ -299,49 +600,49 @@
                                     display: block;
                                     width: 100%;
                                 ">
-                                    <input type="file" name="avatar" accept="image/*" style="display:none;">
+                                        <input type="file" name="avatar" accept="image/*" style="display:none;">
 
-                                    <div style="margin-bottom:10px;">
-                                        <img src="/images/i-icon-2.png" alt="">
-                                    </div>
+                                        <div style="margin-bottom:10px;">
+                                            <img src="/images/i-icon-2.png" alt="">
+                                        </div>
 
-                                    <span style="color:{{ $settings->theme_color_pwa }}; font-weight:600;">Click to
-                                        upload</span>
-                                    <span style="color:#475467;"> or drag and drop</span>
-                                    <p style="margin:6px 0 0; color:#475467;">
-                                        SVG, PNG, JPG or GIF (max. 800×400px)
-                                    </p>
-                                </label>
+                                        <span style="color:{{ $settings->theme_color_pwa }}; font-weight:600;">Click to
+                                            upload</span>
+                                        <span style="color:#475467;"> or drag and drop</span>
+                                        <p style="margin:6px 0 0; color:#475467;">
+                                            SVG, PNG, JPG or GIF (max. 800×400px)
+                                        </p>
+                                    </label>
 
+                                </div>
                             </div>
-                        </div>
 
-                        {{-- <div class="form-group" style="padding-bottom: 1.2rem; ">
+                            {{-- <div class="form-group" style="padding-bottom: 1.2rem; ">
                             <label>Email</label>
                             <input class="form-control" placeholder="{{ trans('auth.email') }}"
                             {!! auth()->user()->isSuperAdmin() ? 'name="email"' : 'disabled' !!} value="{{ auth()->user()->email }}"
                             type="text">
                         </div> --}}
 
-                        @if (auth()->user()->password != '')
+                            @if (auth()->user()->password != '')
+                                <div class="form-group">
+                                    <label>Old Password</label>
+                                    <div class="input-group mb-4">
+                                        <input class="form-control" name="old_password"
+                                            placeholder="{{ __('general.old_password') }}" type="password" required>
+                                    </div>
+                                </div>
+                            @endif
+
                             <div class="form-group">
-                                <label>Old Password</label>
-                                <div class="input-group mb-4">
-                                    <input class="form-control" name="old_password"
-                                        placeholder="{{ __('general.old_password') }}" type="password" required>
+                                <label>New Password</label>
+                                <div class="input-group mb-4" id="showHidePassword">
+                                    <input class="form-control" name="new_password"
+                                        placeholder="{{ __('general.new_password') }}" type="password" required>
                                 </div>
                             </div>
-                        @endif
 
-                        <div class="form-group">
-                            <label>New Password</label>
-                            <div class="input-group mb-4" id="showHidePassword">
-                                <input class="form-control" name="new_password"
-                                    placeholder="{{ __('general.new_password') }}" type="password" required>
-                            </div>
-                        </div>
-
-                        {{-- <div class="row form-group mb-0">
+                            {{-- <div class="row form-group mb-0">
                             <div class="col-md-6">
                                 <div class="input-group mb-4">
                                     <div class="input-group-prepend">
@@ -499,7 +800,7 @@
 
                         </div><!-- End Row Form Group --> --}}
 
-                        {{-- @if (auth()->user()->verified_id == 'yes')
+                            {{-- @if (auth()->user()->verified_id == 'yes')
                             <div class="row form-group mb-0">
                                 <div class="col-lg-12 py-2">
                                     <h6 class="text-muted">-- {{ trans('admin.profiles_social') }}</h6>
@@ -708,147 +1009,390 @@
                             </div><!-- End Form Group -->
                         @endif --}}
 
-                        <!-- Alert -->
-                        <div class="alert alert-danger my-3 display-none" id="errorUdpateEditPage">
-                            <ul class="list-unstyled m-0" id="showErrorsUdpatePage">
-                                <li></li>
-                            </ul>
-                        </div><!-- Alert -->
+                            <!-- Alert -->
+                            <div class="alert alert-danger my-3 display-none" id="errorUdpateEditPage">
+                                <ul class="list-unstyled m-0" id="showErrorsUdpatePage">
+                                    <li></li>
+                                </ul>
+                            </div><!-- Alert -->
 
-                        <div style="width: 100%; display: flex; justify-content: end; gap: 16px;">
-                            <button class="btn btn-1"
-                                style="color: {{ $settings->theme_color_pwa }}; background: transparent; border: 1px solid {{ $settings->theme_color_pwa }}; padding: 5px 35px; font-weight: 600">
-                                Cancel</button>
-                            <button class="btn btn-1"
-                                style="color: white; background: {{ $settings->theme_color_pwa }}; padding: 5px 35px; font-weight: 600"
-                                data-msg-success="{{ trans('admin.success_update') }}" id="saveChangesEditPage"
-                                type="submit"><i></i> {{ trans('general.save_changes') }}</button>
+                            <div style="width: 100%; display: flex; justify-content: end; gap: 16px;">
+                                <button class="btn btn-1"
+                                    style="color: {{ $settings->theme_color_pwa }}; background: transparent; border: 1px solid {{ $settings->theme_color_pwa }}; padding: 5px 35px; font-weight: 600">
+                                    Cancel</button>
+                                <button class="btn btn-1"
+                                    style="color: white; background: {{ $settings->theme_color_pwa }}; padding: 5px 35px; font-weight: 600"
+                                    data-msg-success="{{ trans('admin.success_update') }}" id="saveChangesEditPage"
+                                    type="submit"><i></i> {{ trans('general.save_changes') }}</button>
+                            </div>
+                        </form>
+
+                        <div>
+                            <h2 style="color: #101828; font-size: 24px; font-weight: 600 !important;">Notification
+                                Preferences</h2>
                         </div>
-                    </form>
+                    </div>
+                </div>
 
-                    <div>
-                        <h2 style="color: #101828; font-size: 24px; font-weight: 600 !important;">Notification Preferences</h2>
+
+                <div class="section">
+                    <div class="main-heading">
+                        <div class="section-title">Comments</div>
+                        <div class="section-desc">These are notifications for comments on your posts and replies to your
+                            comments.</div>
+                    </div>
+                    <div class="options">
+                        <label class="toggle-wrapper">
+                            <div class="toggle">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </div>
+                            Push
+                        </label>
+                        <label class="toggle-wrapper">
+                            <div class="toggle">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </div>
+                            Email
+                        </label>
+                        <label class="toggle-wrapper">
+                            <div class="toggle">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </div>
+                            SMS
+                        </label>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="main-heading">
+                        <div class="section-title">Tags</div>
+                        <div class="section-desc">These are notifications for when someone tags you in a comment, post or
+                            story.</div>
+                    </div>
+                    <div class="options">
+                        <label class="toggle-wrapper">
+                            <div class="toggle">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </div>
+                            Push
+                        </label>
+                        <label class="toggle-wrapper">
+                            <div class="toggle">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </div>
+                            Email
+                        </label>
+                        <label class="toggle-wrapper">
+                            <div class="toggle">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </div>
+                            SMS
+                        </label>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="main-heading">
+                        <div class="section-title">Reminders</div>
+                        <div class="section-desc">These are notifications to remind you of updates you might have missed.
+                        </div>
+                    </div>
+                    <div class="options">
+                        <label class="toggle-wrapper">
+                            <div class="toggle">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </div>
+                            Push
+                        </label>
+                        <label class="toggle-wrapper">
+                            <div class="toggle">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </div>
+                            Email
+                        </label>
+                        <label class="toggle-wrapper">
+                            <div class="toggle">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </div>
+                            SMS
+                        </label>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="main-heading">
+                        <div class="section-title">More activity about you</div>
+                        <div class="section-desc">These are notifications for posts on your profile, likes and other
+                            reactions to your posts, and more.</div>
+                    </div>
+                    <div class="options">
+                        <label class="toggle-wrapper">
+                            <div class="toggle">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </div>
+                            Push
+                        </label>
+                        <label class="toggle-wrapper">
+                            <div class="toggle">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </div>
+                            Email
+                        </label>
+                        <label class="toggle-wrapper">
+                            <div class="toggle">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </div>
+                            SMS
+                        </label>
                     </div>
                 </div>
             </div>
+            <div class="privacy-sec" style="display: none">
+                <section class="privacy-block">
+                    <h2>What information do we collect?</h2>
+                    <p>
+                        Mi tincidunt elit, id quisque ligula ac diam, amet. Vel etiam suspendisse morbi eleifend faucibus
+                        eget vestibulum felis. Dictum quis montes, sit sit. Tellus aliquam enim urna, etiam. Mauris posuere
+                        vulputate arcu amet, vitae nisi, tellus tincidunt. At feugiat sapien varius id.
+                    </p>
+                    <p>
+                        Eget quis mi enim, leo lacinia pharetra, semper. Eget in volutpat mollis at volutpat lectus velit,
+                        sed auctor. Porttitor fames arcu quis fusce augue enim. Quis at habitant diam at. Suscipit tristique
+                        risus, at donec. In turpis vel et quam imperdiet. Ipsum molestie aliquet sodales id est ac volutpat.
+                    </p>
+                </section>
 
+                <section class="privacy-block">
+                    <h2>What information do we collect?</h2>
+                    <p>
+                        Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum, nulla odio nisl vitae. In aliquet
+                        pellentesque aenean hac vestibulum turpis mi bibendum diam. Tempor integer aliquam in vitae
+                        malesuada
+                        fringilla.
+                    </p>
+                    <p>
+                        Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur convallis
+                        risus.
+                        Sed condimentum enim dignissim adipiscing faucibus consequat, urna. Viverra purus et erat auctor
+                        aliquam.
+                        Risus, volutpat vulputate posuere purus sit congue convallis aliquet. Arcu id augue ut feugiat donec
+                        porttitor neque. Mauris, neque ultricies eu vestibulum, bibendum quam lorem id. Dolor lacus, eget
+                        nunc
+                        lectus in tellus, pharetra, porttitor.
+                    </p>
+                    <p>
+                        Ipsum sit mattis nulla quam nulla. Gravida id gravida ac enim mauris id. Non pellentesque congue
+                        eget
+                        consectetur turpis. Sapien, dictum molestie sem tempor. Diam elit, orci, tincidunt aenean tempus.
+                        Quis
+                        velit eget ut tortor tellus. Sed vel, congue felis elit erat nam nibh orci.
+                    </p>
+                </section>
 
-            <div class="section">
-                <div>
-                    <div class="section-title">Comments</div>
-                    <div class="section-desc">These are notifications for comments on your posts and replies to your comments.</div>
-                </div>
-                <div class="options">
-                    <label class="toggle-wrapper">
-                        <div class="toggle">
-                            <input type="checkbox">
-                            <span class="slider"></span>
-                        </div>
-                        Push
-                    </label>
-                    <label class="toggle-wrapper">
-                        <div class="toggle">
-                            <input type="checkbox">
-                            <span class="slider"></span>
-                        </div>
-                        Email
-                    </label>
-                    <label class="toggle-wrapper">
-                        <div class="toggle">
-                            <input type="checkbox">
-                            <span class="slider"></span>
-                        </div>
-                        SMS
-                    </label>
-                </div>
+                <section class="privacy-block">
+                    <h2>How do we use your information?</h2>
+                    <p>
+                        Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum, nulla odio nisl vitae. In aliquet
+                        pellentesque aenean hac vestibulum turpis mi bibendum diam. Tempor integer aliquam in vitae
+                        malesuada
+                        fringilla.
+                    </p>
+                    <p>
+                        Elit nisi in eleifend sed nisi. Pulvinar at orci, proin imperdiet commodo consectetur convallis
+                        risus.
+                        Sed condimentum enim dignissim adipiscing faucibus consequat, urna. Viverra purus et erat auctor
+                        aliquam.
+                        Risus, volutpat vulputate posuere purus sit congue convallis aliquet. Arcu id augue ut feugiat donec
+                        porttitor neque. Mauris, neque ultricies eu vestibulum, bibendum quam lorem id. Dolor lacus, eget
+                        nunc
+                        lectus in tellus, pharetra, porttitor.
+                    </p>
+                    <p>
+                        Ipsum sit mattis nulla quam nulla. Gravida id gravida ac enim mauris id. Non pellentesque congue
+                        eget
+                        consectetur turpis. Sapien, dictum molestie sem tempor. Diam elit, orci, tincidunt aenean tempus.
+                        Quis
+                        velit eget ut tortor tellus. Sed vel, congue felis elit erat nam nibh orci.
+                    </p>
+                </section>
+                <section class="privacy-block">
+                    <h2>Do we use cookies and other tracking technologies?</h2>
+                    <p>
+                        Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum, nulla odio nisl vitae. In aliquet
+                        pellentesque aenean hac vestibulum turpis mi bibendum diam. Tempor integer aliquam in vitae
+                        malesuada
+                        fringilla.
+                    </p>
+                </section>
+                <section class="privacy-block">
+                    <h2>How long do we keep your information?</h2>
+                    <p>
+                        Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum, nulla odio nisl vitae. In aliquet
+                        pellentesque aenean hac vestibulum turpis mi bibendum diam. Tempor integer aliquam in vitae
+                        malesuada
+                        fringilla.
+                    </p>
+                </section>
+                <section class="privacy-block">
+                    <h2>How do we keep your information safe?</h2>
+                    <p>
+                        Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum, nulla odio nisl vitae. In aliquet
+                        pellentesque aenean hac vestibulum turpis mi bibendum diam. Tempor integer aliquam in vitae
+                        malesuada
+                        fringilla.
+                    </p>
+                </section>
+                <section class="privacy-block">
+                    <h2>What are your privacy rights?</h2>
+                    <p>
+                        Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum, nulla odio nisl vitae. In aliquet
+                        pellentesque aenean hac vestibulum turpis mi bibendum diam. Tempor integer aliquam in vitae
+                        malesuada
+                        fringilla.
+                    </p>
+                </section>
+                <section class="privacy-block">
+                    <h2>How can you contact us about this policy?</h2>
+                    <p>
+                        Dolor enim eu tortor urna sed duis nulla. Aliquam vestibulum, nulla odio nisl vitae.
+                        In aliquet pellentesque aenean hac vestibulum turpis mi bibendum diam.
+                        Tempor integer aliquam in vitae malesuada fringilla.
+                    </p>
+
+                    <p>
+                        1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        2. Vestibulum posuere nunc eget urna facilisis faucibus.
+                        3. Aliquam luctus magna vitae odio ultrices elementum.
+                    </p>
+                </section>
+
             </div>
-            <div class="section">
-                <div>
-                    <div class="section-title">Tags</div>
-                    <div class="section-desc">These are notifications for when someone tags you in a comment, post or story.</div>
+
+            <div class="subscription-wrapper">
+
+                <!-- PLAN CARDS -->
+                <div class="plan-card active">
+                    <div class="plan-content-wrapper">
+                        <div class="plan-header">
+                            <div class="selected">
+                                <img src="/images/subscription-icon.png" alt="">
+                            </div>
+                            <span class="plan-title">Basic plan</span>
+                        </div>
+                        <div class="plan-content">
+                            <div class="price">$10 <span>per month</span></div>
+                            <p class="plan-description">Includes up to 10 users, 20GB individual data and access to all
+                                features.</p>
+                        </div>
+                    </div>
+                    <span class="badge">Limited time only</span>
                 </div>
-                <div class="options">
-                    <label class="toggle-wrapper">
-                        <div class="toggle">
-                            <input type="checkbox">
-                            <span class="slider"></span>
+
+                <div class="plan-card">
+                    <div class="plan-content-wrapper">
+                        <div class="plan-header">
+                            <div>
+                                <img src="/images/subscription-icon.png" alt="">
+                            </div>
+                            <span class="plan-title">Business plan</span>
                         </div>
-                        Push
-                    </label>
-                    <label class="toggle-wrapper">
-                        <div class="toggle">
-                            <input type="checkbox">
-                            <span class="slider"></span>
+                        <div class="plan-content">
+                            <div class="price">$20 <span>per month</span></div>
+                            <p class="plan-description">Includes up to 20 users, 40GB individual data and access to all
+                                features.</p>
                         </div>
-                        Email
-                    </label>
-                    <label class="toggle-wrapper">
-                        <div class="toggle">
-                            <input type="checkbox">
-                            <span class="slider"></span>
-                        </div>
-                        SMS
-                    </label>
+                    </div>
                 </div>
+
+                <div class="plan-card">
+                    <div class="plan-content-wrapper">
+                        <div class="plan-header">
+                            <div class="plan-icon enterprise">
+                                <img src="/images/subscription-icon.png" alt="">
+                            </div>
+                            <span class="plan-title">Enterprise plan</span>
+                        </div>
+                        <div class="plan-content">
+                            <div class="price">$40 <span>per month</span></div>
+                            <p class="plan-description">Unlimited users, unlimited individual data and access to all
+                                features.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PAYMENT HISTORY HEADER -->
+                <div class="payment-header">
+                    <h2 class="payment-title">Payment history</h2>
+                    <button class="download-btn">
+                        <img src="/images/download.png" alt="">
+                        Download all
+                    </button>
+                </div>
+
+                <!-- PAYMENT TABLE -->
+                <div class="payment-table">
+                    <div class="payment-row header">
+                        <div class="checkbox-col">
+                            <div class="checkbox"></div>
+                            <div class="invoice-col">
+                                Invoice
+                                <img src="/images/arrow-icon.png" alt="">
+                            </div>
+                        </div>
+                        <div>Amount</div>
+                        <div>Date</div>
+                        <div>Status</div>
+                        <div></div>
+                    </div>
+
+                    <div class="payment-row">
+                        <div class="checkbox-col">
+                            <div class="checkbox"></div>
+                            <span class="invoice-name">Basic Plan – Dec 2025</span>
+                        </div>
+                        <div class="amount-col">USD $10.00</div>
+                        <div class="date-col">Dec 1, 2022</div>
+                        <div><span class="status declined">Declined</span></div>
+                        <div class="download-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="payment-row">
+                        <div class="checkbox-col">
+                            <div class="checkbox"></div>
+                            <span class="invoice-name">Basic Plan – Nov 2025</span>
+                        </div>
+                        <div class="amount-col">USD $10.00</div>
+                        <div class="date-col">Nov 1, 2022</div>
+                        <div><span class="status paid">Paid</span></div>
+                        <div class="download-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7 10 12 15 17 10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-            <div class="section">
-                <div>
-                    <div class="section-title">Reminders</div>
-                    <div class="section-desc">These are notifications to remind you of updates you might have missed.</div>
-                </div>
-                <div class="options">
-                    <label class="toggle-wrapper">
-                        <div class="toggle">
-                            <input type="checkbox">
-                            <span class="slider"></span>
-                        </div>
-                        Push
-                    </label>
-                    <label class="toggle-wrapper">
-                        <div class="toggle">
-                            <input type="checkbox">
-                            <span class="slider"></span>
-                        </div>
-                        Email
-                    </label>
-                    <label class="toggle-wrapper">
-                        <div class="toggle">
-                            <input type="checkbox">
-                            <span class="slider"></span>
-                        </div>
-                        SMS
-                    </label>
-                </div>
-            </div>
-            <div class="section">
-                <div>
-                    <div class="section-title">More activity about you</div>
-                    <div class="section-desc">These are notifications for posts on your profile, likes and other reactions to your posts, and more.</div>
-                </div>
-                <div class="options">
-                    <label class="toggle-wrapper">
-                        <div class="toggle">
-                            <input type="checkbox">
-                            <span class="slider"></span>
-                        </div>
-                        Push
-                    </label>
-                    <label class="toggle-wrapper">
-                        <div class="toggle">
-                            <input type="checkbox">
-                            <span class="slider"></span>
-                        </div>
-                        Email
-                    </label>
-                    <label class="toggle-wrapper">
-                        <div class="toggle">
-                            <input type="checkbox">
-                            <span class="slider"></span>
-                        </div>
-                        SMS
-                    </label>
-                </div>
-            </div>
+
         </div>
         </div><!-- end col-md-6 -->
         </div>
@@ -895,6 +1439,21 @@
             startDate: '01/01/1920',
             endDate: '{{ now()->subYears(18)->format(Helper::formatDatepicker()) }}',
             language: '{{ config('app.locale') }}'
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelector(".privacy").addEventListener("click", () => {
+                document.querySelector(".profile-sec").style.display = "none";
+                document.querySelector(".privacy-sec").style.display = "block";
+            });
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelector(".subscription").addEventListener("click", () => {
+                document.querySelector(".profile-sec").style.display = "none";
+                document.querySelector(".privacy-sec").style.display = "none";
+                document.querySelector(".subscription-sec").style.display = "block";
+            });
         });
     </script>
 @endsection
