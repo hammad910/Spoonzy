@@ -11,6 +11,29 @@
 @endsection
 
 <style>
+    .main-sec {
+        padding: 40px 30px;
+    }
+
+    @media (max-width: 425px) {
+        .main-sec {
+            padding: 40px 15px;
+            width: 62%;
+        }
+    }
+    @media (max-width: 375px) {
+        .main-sec {
+            padding: 40px 15px;
+            width: 55%;
+        }
+    }
+    @media (max-width: 340px) {
+        .main-sec {
+            padding: 40px 15px;
+            width: 47%;
+        }
+    }
+
     .nav-tabs .nav-link {
         color: #475467;
         border: none;
@@ -236,12 +259,10 @@
     .plan-card {
         border: 1px solid #e5e7eb;
         border-radius: 12px;
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
         cursor: pointer;
         transition: all 0.2s ease;
         background: #fff;
+        margin-bottom: 15px;
     }
 
     .plan-card:hover {
@@ -249,20 +270,26 @@
     }
 
     .plan-card.active {
-        border: 2px solid #3b82f6;
-        background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
+        border: 2px solid {{ $settings->theme_color_pwa }};
     }
 
     .plan-header {
-        display: flex;
+        /* display: flex; */
         align-items: center;
-        gap: 12px;
+        gap: 8px;
         margin-bottom: 12px;
-        padding: 20px 24px;
+        padding: 10px 12px;
+        border-bottom: 1px solid #EAECF0;
+    }
+
+    .plan-header.active {
+        background: #E5F3F9;
+        border-bottom: 2px solid {{ $settings->theme_color_pwa }};
+        border-radius: 12px 12px 0 0;
     }
 
     .plan-content {
-        padding: 0 24px;
+        padding: 2px 18px;
     }
 
     .plan-icon {
@@ -354,7 +381,7 @@
 
     .payment-title {
         font-size: 24px;
-        font-weight: 600;
+        font-weight: 600 !important;
         color: #101828;
     }
 
@@ -377,17 +404,40 @@
         background: #eff6ff;
     }
 
+    .limited-btn {
+        background: #ECFDF3;
+        color: #027A48;
+        padding: 4px 10px;
+        border-radius: 36px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .limited-btn:hover {
+        background: #eff6ff;
+    }
+
     /* PAYMENT TABLE */
     .payment-table {
         background: #fff;
         border: 1px solid #e5e7eb;
         border-radius: 12px;
         overflow: hidden;
+        min-width: 700px;
+    }
+
+    .payment-table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+            width: 100%;
+        /* Smooth scrolling on iOS */
     }
 
     .payment-row {
         display: grid;
-        grid-template-columns: 2fr 1fr 1fr 1fr 50px;
+        grid-template-columns: 4fr 1fr 1fr 1fr 50px;
         padding: 16px 20px;
         border-bottom: 1px solid #e5e7eb;
         font-size: 14px;
@@ -399,10 +449,11 @@
     }
 
     .payment-row.header {
-        background: #f9fafb;
+        background: #F9FAFB;
         font-weight: 500;
-        font-size: 13px;
-        color: #6b7280;
+        font-size: 14px;
+        color: #475467;
+        padding: 10px 20px;
     }
 
     .payment-row.header .invoice-col {
@@ -432,15 +483,20 @@
 
     .invoice-name {
         font-weight: 500;
-        color: #111827;
+        color: #101828;
+        font-size: 16px;
     }
 
     .amount-col {
-        color: #374151;
+        color: #475467;
+        font-size: 14px;
+        font-weight: 400;
     }
 
     .date-col {
-        color: #6b7280;
+        color: #475467;
+        font-size: 14px;
+        font-weight: 400;
     }
 
     /* STATUS */
@@ -453,21 +509,24 @@
     }
 
     .status.paid {
-        color: #059669;
+        color: #027A48;
+        background: #ECFDF3;
+        padding: 2px 9px;
+        border-radius: 16px
     }
 
-    .status.paid::before {
-        content: '✓';
-        font-size: 11px;
+    .status.progress {
+        color: #469DFA;
+        background: #F0F9FF;
+        padding: 12px 9px;
+        border-radius: 16px
     }
 
     .status.declined {
-        color: #dc2626;
-    }
-
-    .status.declined::before {
-        content: '✕';
-        font-size: 11px;
+        color: #FF5F59;
+        background: #FFF0EF;
+        padding: 2px 9px;
+        border-radius: 16px
     }
 
     .download-icon {
@@ -486,10 +545,37 @@
     .download-icon svg:hover {
         color: #6b7280;
     }
+
+    @media (max-width: 768px) {
+    .payment-table-container {
+        border-radius: 8px;
+    }
+    
+    .payment-table {
+        min-width: 650px; /* Slightly smaller min-width for mobile */
+    }
+    
+    .payment-row {
+        padding: 12px 16px;
+    }
+    
+    .invoice-name {
+        font-size: 14px;
+    }
+    
+    .amount-col,
+    .date-col {
+        font-size: 13px;
+    }
+    
+    .status {
+        font-size: 12px;
+    }
+}
 </style>
 
 @section('content')
-    <section style="padding: 40px 30px;">
+    <section id="main-sec" style="padding: 40px 30px;">
         {{-- <div class="menu-sidebar d-none d-lg-block" style="width: 20%; border-right: 1px solid #ddd; padding: 20px;">
             @include('includes.menu-sidebar-home')
         </div> --}}
@@ -511,10 +597,10 @@
                             <a class="nav-link subscription" href="#">Subscription & Billing</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Help & FAQ</a>
+                            <a class="nav-link faq" href="#">Help & FAQ</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About & Terms</a>
+                            <a class="nav-link about" href="#">About & Terms</a>
                         </li>
                     </ul>
                 </div>
@@ -1282,28 +1368,48 @@
                 <!-- PLAN CARDS -->
                 <div class="plan-card active">
                     <div class="plan-content-wrapper">
-                        <div class="plan-header">
-                            <div class="selected">
-                                <img src="/images/subscription-icon.png" alt="">
+                        <div class="plan-header active">
+                            <div class="d-flex align-items-center" style="justify-content: space-between;">
+                                <div style="display: flex; align-items: center;">
+                                    <img src="/images/subscription-icon.png" alt="">
+                                    <span class="plan-title">Basic plan</span>
+                                </div>
+                                <div>
+                                    <img src="/images/check.png" alt="">
+                                </div>
                             </div>
-                            <span class="plan-title">Basic plan</span>
                         </div>
                         <div class="plan-content">
-                            <div class="price">$10 <span>per month</span></div>
+                            <div class="d-flex" style="justify-content: space-between;">
+                                <div class="price">$10
+                                    <span>per month</span>
+                                </div>
+                                <div>
+                                    <button class="limited-btn">
+                                        Limited time only
+                                    </button>
+                                </div>
+                            </div>
                             <p class="plan-description">Includes up to 10 users, 20GB individual data and access to all
                                 features.</p>
                         </div>
                     </div>
-                    <span class="badge">Limited time only</span>
                 </div>
 
                 <div class="plan-card">
                     <div class="plan-content-wrapper">
-                        <div class="plan-header">
-                            <div>
-                                <img src="/images/subscription-icon.png" alt="">
+                        <div class="plan-header align-items-center">
+                            <div class="d-flex align-items-center" style="justify-content: space-between;">
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <div>
+                                        <img src="/images/subscription-icon.png" alt="">
+                                    </div>
+                                    <span class="plan-title">Business plan</span>
+                                </div>
+                                <div>
+                                    <img src="/images/radio.png" alt="">
+                                </div>
                             </div>
-                            <span class="plan-title">Business plan</span>
                         </div>
                         <div class="plan-content">
                             <div class="price">$20 <span>per month</span></div>
@@ -1312,19 +1418,25 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="plan-card">
                     <div class="plan-content-wrapper">
-                        <div class="plan-header">
-                            <div class="plan-icon enterprise">
-                                <img src="/images/subscription-icon.png" alt="">
+                        <div class="plan-header align-items-center">
+                            <div class="d-flex align-items-center" style="justify-content: space-between;">
+                                <div style="display: flex; align-items: center; gap: 4px;">
+                                    <div>
+                                        <img src="/images/enterprise.png" alt="">
+                                    </div>
+                                    <span class="plan-title">Enterprise plan</span>
+                                </div>
+                                <div>
+                                    <img src="/images/radio.png" alt="">
+                                </div>
                             </div>
-                            <span class="plan-title">Enterprise plan</span>
                         </div>
                         <div class="plan-content">
                             <div class="price">$40 <span>per month</span></div>
                             <p class="plan-description">Unlimited users, unlimited individual data and access to all
-                                features.</p>
+                                features</p>
                         </div>
                     </div>
                 </div>
@@ -1339,54 +1451,127 @@
                 </div>
 
                 <!-- PAYMENT TABLE -->
-                <div class="payment-table">
-                    <div class="payment-row header">
-                        <div class="checkbox-col">
-                            <div class="checkbox"></div>
-                            <div class="invoice-col">
-                                Invoice
-                                <img src="/images/arrow-icon.png" alt="">
+                <div class="payment-table-container">
+                    <div class="payment-table">
+                        <div class="payment-row header">
+                            <div class="checkbox-col">
+                                <div class="checkbox"></div>
+                                <div class="invoice-col">
+                                    Invoice
+                                    <img src="/images/arrow-icon.png" alt="">
+                                </div>
+                            </div>
+                            <div>Amount</div>
+                            <div>Date</div>
+                            <div>Status</div>
+                            <div></div>
+                        </div>
+
+                        <div class="payment-row">
+                            <div class="checkbox-col">
+                                <div class="checkbox"></div>
+                                <span class="invoice-name">Basic Plan – Dec 2025</span>
+                            </div>
+                            <div class="amount-col">USD $10.00</div>
+                            <div class="date-col">Dec 1, 2022</div>
+                            <div class="d-flex align-items-center" style="gap: 4px;">
+                                <div class="status declined">
+                                    <img src="/images/cross.png" alt="">
+                                    <span class="">Declined</span>
+                                </div>
+                            </div>
+                            <div class="download-icon">
+                                <img src="/images/download-icon.png" alt="">
                             </div>
                         </div>
-                        <div>Amount</div>
-                        <div>Date</div>
-                        <div>Status</div>
-                        <div></div>
-                    </div>
 
-                    <div class="payment-row">
-                        <div class="checkbox-col">
-                            <div class="checkbox"></div>
-                            <span class="invoice-name">Basic Plan – Dec 2025</span>
+                        <div class="payment-row">
+                            <div class="checkbox-col">
+                                <div class="checkbox"></div>
+                                <span class="invoice-name">Basic Plan – Nov 2025</span>
+                            </div>
+                            <div class="amount-col">USD $10.00</div>
+                            <div class="date-col">Nov 1, 2022</div>
+                            <div class="d-flex align-items-center" style="gap: 4px;">
+                                <div class="status paid">
+                                    <img src="/images/paid-check.png" alt="">
+                                    <span class="">Paid</span>
+                                </div>
+                            </div>
+                            <div class="download-icon">
+                                <img src="/images/download-icon.png" alt="">
+                            </div>
                         </div>
-                        <div class="amount-col">USD $10.00</div>
-                        <div class="date-col">Dec 1, 2022</div>
-                        <div><span class="status declined">Declined</span></div>
-                        <div class="download-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                <polyline points="7 10 12 15 17 10" />
-                                <line x1="12" y1="15" x2="12" y2="3" />
-                            </svg>
-                        </div>
-                    </div>
 
-                    <div class="payment-row">
-                        <div class="checkbox-col">
-                            <div class="checkbox"></div>
-                            <span class="invoice-name">Basic Plan – Nov 2025</span>
+                        <div class="payment-row">
+                            <div class="checkbox-col">
+                                <div class="checkbox"></div>
+                                <span class="invoice-name">Basic Plan – Oct 2025</span>
+                            </div>
+                            <div class="amount-col">USD $10.00</div>
+                            <div class="date-col">Oct 1, 2022</div>
+                            <div class="d-flex align-items-center" style="gap: 4px;">
+                                <div class="status progress">
+                                    <img src="/images/dot.png" alt="">
+                                    <span class="">In progress</span>
+                                </div>
+                            </div>
+                            <div class="download-icon">
+                                <img src="/images/download-icon.png" alt="">
+                            </div>
                         </div>
-                        <div class="amount-col">USD $10.00</div>
-                        <div class="date-col">Nov 1, 2022</div>
-                        <div><span class="status paid">Paid</span></div>
-                        <div class="download-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                <polyline points="7 10 12 15 17 10" />
-                                <line x1="12" y1="15" x2="12" y2="3" />
-                            </svg>
+                        <div class="payment-row">
+                            <div class="checkbox-col">
+                                <div class="checkbox"></div>
+                                <span class="invoice-name">Basic Plan – Dec 2025</span>
+                            </div>
+                            <div class="amount-col">USD $10.00</div>
+                            <div class="date-col">Dec 1, 2022</div>
+                            <div class="d-flex align-items-center" style="gap: 4px;">
+                                <div class="status declined">
+                                    <img src="/images/cross.png" alt="">
+                                    <span class="">Declined</span>
+                                </div>
+                            </div>
+                            <div class="download-icon">
+                                <img src="/images/download-icon.png" alt="">
+                            </div>
+                        </div>
+
+                        <div class="payment-row">
+                            <div class="checkbox-col">
+                                <div class="checkbox"></div>
+                                <span class="invoice-name">Basic Plan – Nov 2025</span>
+                            </div>
+                            <div class="amount-col">USD $10.00</div>
+                            <div class="date-col">Nov 1, 2022</div>
+                            <div class="d-flex align-items-center" style="gap: 4px;">
+                                <div class="status paid">
+                                    <img src="/images/paid-check.png" alt="">
+                                    <span class="">Paid</span>
+                                </div>
+                            </div>
+                            <div class="download-icon">
+                                <img src="/images/download-icon.png" alt="">
+                            </div>
+                        </div>
+
+                        <div class="payment-row">
+                            <div class="checkbox-col">
+                                <div class="checkbox"></div>
+                                <span class="invoice-name">Basic Plan – Oct 2025</span>
+                            </div>
+                            <div class="amount-col">USD $10.00</div>
+                            <div class="date-col">Oct 1, 2022</div>
+                            <div class="d-flex align-items-center" style="gap: 4px;">
+                                <div class="status progress">
+                                    <img src="/images/dot.png" alt="">
+                                    <span class="">In progress</span>
+                                </div>
+                            </div>
+                            <div class="download-icon">
+                                <img src="/images/download-icon.png" alt="">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1443,17 +1628,75 @@
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            document.querySelector(".privacy").addEventListener("click", () => {
-                document.querySelector(".profile-sec").style.display = "none";
-                document.querySelector(".privacy-sec").style.display = "block";
+            const mainSec = document.querySelector("#main-sec");
+            
+            const profileBtn = document.querySelector(".profile");
+            const privacyBtn = document.querySelector(".privacy");
+            const subscriptionBtn = document.querySelector(".subscription");
+            const faqBtn = document.querySelector(".faq");
+            const aboutBtn = document.querySelector(".about");
+
+            const profileSec = document.querySelector(".profile-sec");
+            const privacySec = document.querySelector(".privacy-sec");
+            const subscriptionSec = document.querySelector(".subscription-wrapper"); // Fixed selector
+
+            function resetActive() {
+                profileBtn.classList.remove("active");
+                privacyBtn.classList.remove("active");
+                subscriptionBtn.classList.remove("active");
+                faqBtn.classList.remove("active");
+                aboutBtn.classList.remove("active");
+                mainSec.classList.remove("main-sec");
+            }
+
+            function hideAll() {
+                profileSec.style.display = "none";
+                privacySec.style.display = "none";
+                subscriptionSec.style.display = "none";
+            }
+
+            profileBtn.addEventListener("click", function(e) {
+                e.preventDefault(); // Prevent default behavior
+                resetActive();
+                hideAll();
+                this.classList.add("active");
+                profileSec.style.display = "block";
             });
-        });
-        document.addEventListener("DOMContentLoaded", () => {
-            document.querySelector(".subscription").addEventListener("click", () => {
-                document.querySelector(".profile-sec").style.display = "none";
-                document.querySelector(".privacy-sec").style.display = "none";
-                document.querySelector(".subscription-sec").style.display = "block";
+
+            privacyBtn.addEventListener("click", function(e) {
+                e.preventDefault(); // Prevent default behavior
+                resetActive();
+                hideAll();
+                this.classList.add("active");
+                privacySec.style.display = "block";
             });
+
+            subscriptionBtn.addEventListener("click", function(e) {
+                e.preventDefault(); // Prevent default behavior
+                resetActive();
+                hideAll();
+                this.classList.add("active");
+                mainSec.classList.add("main-sec");
+                subscriptionSec.style.display = "block";
+            });
+            faqBtn.addEventListener("click", function(e) {
+                e.preventDefault(); // Prevent default behavior
+                resetActive();
+                this.classList.add("active");
+                mainSec.classList.add("main-sec");
+                subscriptionSec.style.display = "block";
+            });
+            aboutBtn.addEventListener("click", function(e) {
+                e.preventDefault(); // Prevent default behavior
+                resetActive();
+                this.classList.add("active");
+                mainSec.classList.add("main-sec");
+                subscriptionSec.style.display = "block";
+            });
+
+            // Set initial state - show profile section by default
+            hideAll();
+            profileSec.style.display = "block";
         });
     </script>
 @endsection
