@@ -143,13 +143,11 @@
         padding: 5px 1.25rem;
     }
 
-    .supplement-row {
-    background-image: url('/images/medicine.png'); /* apna image path */
-    background-repeat: no-repeat;
-    background-position: right center; /* sirf right side me */
-    background-size: 80px auto;        /* jitni width chaho */
-}
 
+    .bg-right {
+        border: 1px solid #00000008;
+        border-radius: 10px;
+    }
 </style>
 
 @section('content')
@@ -256,7 +254,8 @@
                                 <div class="shadow-sm border-0 rounded-4">
                                     <div class="card-body" style="padding: 16px; background: #fff; border-radius: 12px;">
                                         <div class="d-flex justify-content-between align-items-center mb-3">
-                                            <h6 class="mt-2 fw-semibold" style="color: #101828; font-size: 18px; font-weight: 600 !important; display: flex; gap: 12px;">
+                                            <h6 class="mt-2 fw-semibold"
+                                                style="color: #101828; font-size: 18px; font-weight: 600 !important; display: flex; gap: 12px;">
                                                 <img src="/images/health-vector.png" alt="" class="me-2 img-fluid"
                                                     style="width: 24px;">
                                                 Your Health Today
@@ -272,10 +271,12 @@
 
                                                 <!-- Centered content -->
                                                 <div class="center-text-2 position-absolute text-center">
-                                                    <div class="score" style=" font-size: 36px; font-weight: 500; color: #469DFA; line-height: 24pxpx; margin-bottom: -5px;">
+                                                    <div class="score"
+                                                        style=" font-size: 36px; font-weight: 500; color: #469DFA; line-height: 24pxpx; margin-bottom: -5px;">
                                                         99
                                                     </div>
-                                                    <div class="mood-text" style="font-size: 12px; font-weight: 500; color: #469DFA; line-height: 100%; margin-bottom: 10px;">
+                                                    <div class="mood-text"
+                                                        style="font-size: 12px; font-weight: 500; color: #469DFA; line-height: 100%; margin-bottom: 10px;">
                                                         Excellent</div>
                                                 </div>
                                             </div>
@@ -283,10 +284,12 @@
                                             <!-- Emotional Stats -->
                                             <div class="w-100 px-sm-3">
                                                 <div class="mb-3">
-                                                    <div class="d-flex justify-content-between" style="flex-direction: column;">
+                                                    <div class="d-flex justify-content-between"
+                                                        style="flex-direction: column;">
                                                         <span
-                                                        style="font-weight: 600;color: #101828;font-size: 14px;margin-bottom: 2px;">Happiness</span>
-                                                        <span class="small" style="font-weight: 600; color: #CF73FF; margin-bottom: 4px;">24
+                                                            style="font-weight: 600;color: #101828;font-size: 14px;margin-bottom: 2px;">Happiness</span>
+                                                        <span class="small"
+                                                            style="font-weight: 600; color: #CF73FF; margin-bottom: 4px;">24
                                                             Days</span>
                                                     </div>
                                                     <div class="progress progress-sm mb-2" style="height: 4px;">
@@ -294,20 +297,24 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="d-flex justify-content-between mt-2" style="flex-direction: column;">
+                                                    <div class="d-flex justify-content-between mt-2"
+                                                        style="flex-direction: column;">
                                                         <span
                                                             style="font-weight: 600;color: #101828;font-size: 14px; margin-bottom: 2px;">Excitement</span>
-                                                        <span class="text-primary small" style="font-weight: 600; margin-bottom: 4px;">12
+                                                        <span class="text-primary small"
+                                                            style="font-weight: 600; margin-bottom: 4px;">12
                                                             Days</span>
                                                     </div>
                                                     <div class="progress progress-sm mb-2" style="height: 4px;">
                                                         <div class="progress-bar bg-primary" style="width: 60%;"></div>
                                                     </div>
 
-                                                    <div class="d-flex justify-content-between mt-2" style="flex-direction: column;">
+                                                    <div class="d-flex justify-content-between mt-2"
+                                                        style="flex-direction: column;">
                                                         <span
                                                             style="font-weight: 600;color: #101828;font-size: 14px; margin-bottom: 2px;">Sadness</span>
-                                                        <span class="text-danger small" style="font-weight: 600; margin-bottom: 4px;">2
+                                                        <span class="text-danger small"
+                                                            style="font-weight: 600; margin-bottom: 4px;">2
                                                             Days</span>
                                                     </div>
                                                     <div class="progress progress-sm" style="height: 4px;">
@@ -318,31 +325,40 @@
                                         </div>
 
                                         <!-- Supplements -->
-                                        <div class="supplement-row d-flex gap-4 align-items-center justify-content-between px-3 mb-4 mt-4">
+                                        <div
+                                            class="d-flex gap-4 align-items-center justify-content-between px-3 py-3 mb-1 mt-1 bg-right">
                                             <span class="text-muted small d-flex align-items-center" style="gap: 4px;">
-                                                <img src="/images/suppliment-icon.png" alt=""> <span
-                                                    style="color: #000; font-weight: 500; font-size: 16px"> Suppliments
-                                                </span>
+                                                <img src="/images/suppliment-icon.png" alt="">
+                                                <span
+                                                    style="color: #000; font-weight: 500; font-size: 16px">Suppliments</span>
                                             </span>
-                                            <span
-                                                class="badge bg-success-subtle text-success px-3 py-1 rounded-pill">Taken</span>
+                                            <span class="badge px-3 py-1 rounded-pill"
+                                                style="color: #0FB243; background: #A5FFCE;"
+                                                style="font-weight: 500;">Taken</span>
                                         </div>
 
+
                                         <!-- Bristol Scale -->
-                                        <div class="d-flex align-items-center justify-content-between px-3 mb-4">
+                                        <div
+                                            class="d-flex align-items-center justify-content-between px-3 py-3 mb-1 bg-right">
                                             <span class="text-muted small d-flex align-items-center" style="gap: 4px;">
                                                 <img src="/images/bristol-icon.png" alt=""> <span
                                                     style="color: #000; font-weight: 500; font-size: 16px"> Bristol
                                                     Scale</span>
                                             </span>
-                                            <span class="badge bg-success-subtle text-success px-3 py-1 rounded-pill">Type
+                                            <span class="badge px-3 py-1 rounded-pill"
+                                                style="color: #0FB243; background: #A5FFCE;"
+                                                style="font-weight: 500;">Type
                                                 4</span>
                                         </div>
 
                                         <!-- Button -->
                                         <div class="text-center">
-                                            <button class="btn btn-primary w-100 rounded-3 fw-semibold log-btn d-flex justify-content-center align-items-center" style="gap: 8px;">
-                                                <img src="/images/pencil.png" alt="" style="width: 13px; height: 15px;">
+                                            <button
+                                                class="btn btn-primary w-100 rounded-3 fw-semibold log-btn d-flex justify-content-center align-items-center"
+                                                style="gap: 8px;">
+                                                <img src="/images/pencil.png" alt=""
+                                                    style="width: 13px; height: 15px;">
                                                 Log Today's Health
                                             </button>
                                         </div>
@@ -356,33 +372,75 @@
                                     <div class="card border-0 rounded-4" style="padding: 16px; border-radius: 12px;">
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h6 class="fw-bold mb-0 d-flex align-items-center"
-                                                style="color: #000; font-size: 18px; gap: 5px;">
+                                                style="color: #101828; font-size: 18px; gap: 12px; font-weight: 600 !important;">
                                                 <img src="/images/experiment-vector.png" alt=""
                                                     class="me-2 img-fluid" style="width: 24px;">
                                                 Trending Experiments
                                             </h6>
-                                            <a href="/experiments"
-                                                class="text-primary fw-semibold small text-decoration-none"
-                                                style="font-size: 15px;">
-                                                View all <i class="bi bi-arrow-up-right" style="font-size: 15px;"></i>
+                                            <a href="/experiments" class="text-decoration-none"
+                                                style="font-size: 15px;font-weight: 600;display: flex;align-items: center;gap: 4px;">
+                                                View all
+                                                <img src="/images/arrow.png" alt="">
                                             </a>
                                         </div>
 
                                         <!-- Experiment Item -->
                                         <div
-                                            class="experiment-item d-flex justify-content-between align-items-center p-2 rounded-3 mb-2 flex-wrap">
-                                            <div class="d-flex align-items-center flex-grow-1"
-                                                style="gap: 10px; min-width: 0;">
-                                                <span class="me-2 fs-5">
+                                            class="experiment-item d-flex justify-content-between align-items-center p-2 rounded-3 my-3 bg-right">
+                                            <div class="d-flex flex-column" style="gap:4px;">
+                                                <div class="d-flex align-items-center" style="gap: 4px;">
                                                     <img src="/images/fasting-icon.png" alt=""
-                                                        style="width: 28px; height: 28px;">
-                                                </span>
-                                                <div class="text-truncate">
-                                                    <div class="fw-semibold" style="color: #000;">No Experiments Available
-                                                    </div>
+                                                        style="width:28px; height:28px;">
+                                                    <div style="color: #101828;font-weight: 600;">Fasting Challenge</div>
+                                                </div>
+                                                <div>
+                                                    <span style="color: #469DFA;font-weight: 600;font-size: 14px;">1,245</span>
+                                                    <span style="color:#A8ACB1; font-size: 14px;"> participants</span>
                                                 </div>
                                             </div>
+
+                                            <button class="btn btn-primary rounded-3 px-3 py-1">
+                                                Join
+                                            </button>
                                         </div>
+                                        <div
+                                            class="experiment-item d-flex justify-content-between align-items-center p-2 rounded-3 my-3 bg-right">
+                                            <div class="d-flex flex-column" style="gap:4px;">
+                                                <div class="d-flex align-items-center" style="gap: 4px;">
+                                                    <img src="/images/fasting-icon.png" alt=""
+                                                        style="width:28px; height:28px;">
+                                                    <div style="color: #101828;font-weight: 600;">Fasting Challenge</div>
+                                                </div>
+                                                <div>
+                                                    <span style="color: #469DFA;font-weight: 600;font-size: 14px;">1,245</span>
+                                                    <span style="color:#A8ACB1; font-size: 14px;"> participants</span>
+                                                </div>
+                                            </div>
+
+                                            <button class="btn btn-primary rounded-3 px-3 py-1">
+                                                Join
+                                            </button>
+                                        </div>
+                                        <div
+                                            class="experiment-item d-flex justify-content-between align-items-center p-2 rounded-3 my-3 bg-right">
+                                            <div class="d-flex flex-column" style="gap:4px;">
+                                                <div class="d-flex align-items-center" style="gap: 4px;">
+                                                    <img src="/images/fasting-icon.png" alt=""
+                                                        style="width:28px; height:28px;">
+                                                    <div style="color: #101828;font-weight: 600;">Fasting Challenge</div>
+                                                </div>
+                                                <div>
+                                                    <span style="color: #469DFA;font-weight: 600;font-size: 14px;">1,245</span>
+                                                    <span style="color:#A8ACB1; font-size: 14px;"> participants</span>
+                                                </div>
+                                            </div>
+
+                                            <button class="btn btn-primary rounded-3 px-3 py-1">
+                                                Join
+                                            </button>
+                                        </div>
+
+
                                     </div>
                                 </div>
                             </div>
