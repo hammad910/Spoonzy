@@ -1,3 +1,20 @@
+<style>
+	.post-image {
+    width: 100%;
+    height: 314px;
+    display: block;
+    border-radius: 12px;       /* rounded corners */
+    margin-top: 12px;          /* gap from text */
+    object-fit: cover;         /* clean crop */
+    overflow: hidden;
+}
+
+.card-footer {
+	padding: 0 1.25rem;
+}
+
+</style>
+
 @include('includes.advertising')
   
   @foreach ($updates as $response)
@@ -71,13 +88,13 @@
 					<span class="live-span">{{ __('general.live') }}</span>
 				@endif
 
-				<img src="{{ Helper::getFile(config('path.avatar').$response->creator->avatar) }}" alt="{{$response->creator->hide_name == 'yes' ? $response->creator->username : $response->creator->name}}" class="rounded-circle avatarUser" width="60" height="60">
+				<img src="{{ Helper::getFile(config('path.avatar').$response->creator->avatar) }}" alt="{{$response->creator->hide_name == 'yes' ? $response->creator->username : $response->creator->name}}" class="rounded-circle avatarUser" width="48" height="48">
 				</a>
 		</span>
 
 		<div class="media-body">
-				<h5 class="mb-0 font-montserrat">
-					<a href="{{url($response->creator->username)}}">
+				<h5 class="mb-0">
+					<a href="{{url($response->creator->username)}}" style="color: #101828; font-size: 20px; font-weight: 600; ">
 					{{$response->creator->hide_name == 'yes' ? $response->creator->username : $response->creator->name}}
 				</a>
 
@@ -269,12 +286,19 @@
 	|| auth()->check() && auth()->user()->role == 'admin' && auth()->user()->permission == 'all'
 	|| $response->locked == 'no'
 	)
-	<div class="card-body pt-0 pb-3">
-		<p class="mb-0 truncated position-relative text-word-break">
+	<div class="card-body pt-0 pb-1">
+
+		<p class="mb-0 truncated position-relative text-word-break" style="color: #475467;">
 			{!! Helper::linkText(Helper::checkText($response->description, $isVideoEmbed ?? null)) !!}
 		</p>
-		<a href="javascript:void(0);" class="display-none link-border">{{ __('general.view_all') }}</a>
+	
+		<a href="javascript:void(0);" class="display-none link-border">
+			{{ __('general.view_all') }}
+		</a>
+	
+		<img src="/images/post-img.jpg" alt="" class="post-image">
 	</div>
+	
 
 @else
 	@if ($response->title)
@@ -575,30 +599,27 @@
 			</a>
 		@endif
 	@endauth
-
-			<a href="javascript:void(0);" @guest data-toggle="modal" data-target="#loginFormModal" @endguest class="pulse-btn @if ($bookmarkActive) text-primary @else text-muted @endif float-right {{$buttonBookmark}}" @auth data-id="{{$response->id}}" @endauth>
-				<i class="@if ($bookmarkActive)fas @else far @endif fa-bookmark"></i>
-			</a>
 		</h4>
 
-		<div class="w-100 mb-3 containerLikeComment">
-			<a class="pulse-btn btnLike @if ($likeActive) active @endif {{ $buttonLike }} text-muted mr-14px"
+		<div class="w-100 mb-3 containerLikeComment d-flex justify-content-between">
+			<div>
+			<a class="pulse-btn btnLike @if ($likeActive) active @endif {{ $buttonLike }} text-muted mr-8px"
 				href="javascript:void(0);"
 				@guest data-toggle="modal" data-target="#loginFormModal" @endguest
 				@auth data-id="{{ $response->id }}" @endauth>
-				<span class="countLikes text-muted ml-1" style="font-size: 19px">
+				<span class="countLikes text-muted ml-1" style="font-size: 16px; color: #475467 !important;">
 					{{ $totalLikes }}
 				</span>
-					<i class="@if($likeActive) fas @else far @endif fa-heart" style="font-size: 19px"></i>
+					<i class="@if($likeActive) fas @else far @endif fa-heart" style="font-size: 16px; color: #475467;"></i>
 			</a>
 
-			<span class="text-muted totalComments mr-14px @auth @if (! isset($inPostDetail) && $buttonLike) toggleComments @endif @endauth">
-				<span class="count ml-1" style="font-size: 19px">{{ number_format($totalComments) }}</span>
-				<i class="far fa-comment" style="font-size: 19px"></i>
+			<span class="text-muted totalComments mr-8px @auth @if (! isset($inPostDetail) && $buttonLike) toggleComments @endif @endauth">
+				<span class="count ml-1" style="font-size: 16px; color: #475467">{{ number_format($totalComments) }}</span>
+				<i class="far fa-comment" style="font-size: 16px; color: #475467"></i>
 			</span>			
 
 			<a class="pulse-btn text-muted text-decoration-none mr-14px" href="javascript:void(0);" title="{{__('general.share')}}" data-toggle="modal" data-target="#sharePost{{$response->id}}">
-				<i class="feather icon-share" style="font-size: 19px"></i>
+				<i class="fa-solid fa-arrow-up-from-bracket"></i>
 			</a>
 
 			@if ($response->video_views)
@@ -606,6 +627,10 @@
 				<i class="bi-play mr-1"></i> {{ Helper::formatNumber($response->video_views) }}
 			</span>
 			@endif
+			</div>
+			<a href="javascript:void(0);" @guest data-toggle="modal" data-target="#loginFormModal" @endguest class="pulse-btn @if ($bookmarkActive) text-primary @else text-muted @endif float-right {{$buttonBookmark}}" @auth data-id="{{$response->id}}" @endauth>
+				<i class="@if ($bookmarkActive)fas @else far @endif fa-bookmark" style="color: #475467; font-size: 20px;"></i>
+			</a>
 		</div>
 
 @auth

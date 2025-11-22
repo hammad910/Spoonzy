@@ -138,12 +138,24 @@
             line-height: 100%;
         }
     }
+
+    .btn {
+        padding: 5px 1.25rem;
+    }
+
+    .supplement-row {
+    background-image: url('/images/medicine.png'); /* apna image path */
+    background-repeat: no-repeat;
+    background-position: right center; /* sirf right side me */
+    background-size: 80px auto;        /* jitni width chaho */
+}
+
 </style>
 
 @section('content')
     <section class="section section-sm">
         <div class="container pt-lg-0 pt-2 max-w-100" style="max-width: 100%">
-            <div class="row justify-content-center" style="flex-wrap: nowrap !important;">
+            <div class="row justify-content-center" style="flex-wrap: nowrap !important; margin-top: 30px;">
                 <!-- LEFT SIDEBAR - FIXED WIDTH -->
                 {{-- <div class="sidebar-container d-none d-lg-block">
                     @include('includes.menu-sidebar-home')
@@ -213,7 +225,7 @@
                     @endif
 
                     @if ($updates->count() != 0)
-                        <div class="grid-updates position-relative" id="updatesPaginator" style="padding: 10px">
+                        <div class="grid-updates position-relative" id="updatesPaginator">
                             @include('includes.updates')
                         </div>
                     @else
@@ -244,7 +256,7 @@
                                 <div class="shadow-sm border-0 rounded-4">
                                     <div class="card-body" style="padding: 16px; background: #fff; border-radius: 12px;">
                                         <div class="d-flex justify-content-between align-items-center mb-3">
-                                            <h6 class="mt-2 fw-semibold" style="color: #000; font-size: 18px;">
+                                            <h6 class="mt-2 fw-semibold" style="color: #101828; font-size: 18px; font-weight: 600 !important; display: flex; gap: 12px;">
                                                 <img src="/images/health-vector.png" alt="" class="me-2 img-fluid"
                                                     style="width: 24px;">
                                                 Your Health Today
@@ -255,8 +267,8 @@
                                         <div class="d-flex flex-column flex-sm-row align-items-center">
                                             <div class="mood-widget-2 position-relative d-flex justify-content-center align-items-center"
                                                 style="overflow:hidden;">
-                                                <img src="/svg/AIsphere.svg" class="img-fluid" alt="Health Widget"
-                                                    style="object-fit:cover;">
+                                                <img src="/svg/AIsphere.svg" alt="Health Widget"
+                                                    style="object-fit:cover; height: auto; max-width: 110%;">
 
                                                 <!-- Centered content -->
                                                 <div class="center-text-2 position-absolute text-center">
@@ -271,10 +283,10 @@
                                             <!-- Emotional Stats -->
                                             <div class="w-100 px-sm-3">
                                                 <div class="mb-3">
-                                                    <div class="d-flex justify-content-between">
+                                                    <div class="d-flex justify-content-between" style="flex-direction: column;">
                                                         <span
-                                                            style="font-weight: 600; color: #000; font-size: 16px;">Happiness</span>
-                                                        <span class="small" style="font-weight: 600; color: #CF73FF">24
+                                                        style="font-weight: 600;color: #101828;font-size: 14px;margin-bottom: 2px;">Happiness</span>
+                                                        <span class="small" style="font-weight: 600; color: #CF73FF; margin-bottom: 4px;">24
                                                             Days</span>
                                                     </div>
                                                     <div class="progress progress-sm mb-2" style="height: 4px;">
@@ -282,20 +294,20 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="d-flex justify-content-between mt-2">
+                                                    <div class="d-flex justify-content-between mt-2" style="flex-direction: column;">
                                                         <span
-                                                            style="font-weight: 600; color: #000; font-size: 16px;">Excitement</span>
-                                                        <span class="text-primary small" style="font-weight: 600;">12
+                                                            style="font-weight: 600;color: #101828;font-size: 14px; margin-bottom: 2px;">Excitement</span>
+                                                        <span class="text-primary small" style="font-weight: 600; margin-bottom: 4px;">12
                                                             Days</span>
                                                     </div>
                                                     <div class="progress progress-sm mb-2" style="height: 4px;">
                                                         <div class="progress-bar bg-primary" style="width: 60%;"></div>
                                                     </div>
 
-                                                    <div class="d-flex justify-content-between mt-2">
+                                                    <div class="d-flex justify-content-between mt-2" style="flex-direction: column;">
                                                         <span
-                                                            style="font-weight: 600; color: #000; font-size: 16px;">Sadness</span>
-                                                        <span class="text-danger small" style="font-weight: 600;">2
+                                                            style="font-weight: 600;color: #101828;font-size: 14px; margin-bottom: 2px;">Sadness</span>
+                                                        <span class="text-danger small" style="font-weight: 600; margin-bottom: 4px;">2
                                                             Days</span>
                                                     </div>
                                                     <div class="progress progress-sm" style="height: 4px;">
@@ -306,8 +318,7 @@
                                         </div>
 
                                         <!-- Supplements -->
-                                        <div
-                                            class="d-flex gap-4 align-items-center justify-content-between px-3 mb-4 mt-4">
+                                        <div class="supplement-row d-flex gap-4 align-items-center justify-content-between px-3 mb-4 mt-4">
                                             <span class="text-muted small d-flex align-items-center" style="gap: 4px;">
                                                 <img src="/images/suppliment-icon.png" alt=""> <span
                                                     style="color: #000; font-weight: 500; font-size: 16px"> Suppliments
@@ -330,7 +341,8 @@
 
                                         <!-- Button -->
                                         <div class="text-center">
-                                            <button class="btn btn-primary w-100 rounded-3 fw-semibold log-btn">
+                                            <button class="btn btn-primary w-100 rounded-3 fw-semibold log-btn d-flex justify-content-center align-items-center" style="gap: 8px;">
+                                                <img src="/images/pencil.png" alt="" style="width: 13px; height: 15px;">
                                                 Log Today's Health
                                             </button>
                                         </div>
@@ -342,7 +354,7 @@
                             <div class="panel-body">
                                 <div class="shadow-sm border-0 rounded-4">
                                     <div class="card border-0 rounded-4" style="padding: 16px; border-radius: 12px;">
-                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="d-flex justify-content-between align-items-center">
                                             <h6 class="fw-bold mb-0 d-flex align-items-center"
                                                 style="color: #000; font-size: 18px; gap: 5px;">
                                                 <img src="/images/experiment-vector.png" alt=""

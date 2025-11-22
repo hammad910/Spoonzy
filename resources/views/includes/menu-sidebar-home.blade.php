@@ -1,8 +1,8 @@
-<ul class="list-unstyled d-lg-block d-none menu-left-home" style="padding-left: 15px;">
+<ul class="list-unstyled d-lg-block d-none menu-left-home" style="padding-left: 15px; margin-top: 15px;">
 	<li>
 		<a href="{{url('/')}}" @if (request()->is('/')) class="active disabled" @endif>
 			<i class="bi-house-door"></i>
-			<span class="ml-2">{{ __('admin.home') }}</span>
+			<span class="ml-2">Dashboard</span>
 		</a>
 	</li>
 

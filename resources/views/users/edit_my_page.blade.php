@@ -21,18 +21,24 @@
             width: 62%;
         }
     }
+
     @media (max-width: 375px) {
         .main-sec {
             padding: 40px 15px;
             width: 55%;
         }
     }
+
     @media (max-width: 340px) {
         .main-sec {
             padding: 40px 15px;
             width: 47%;
         }
     }
+
+    .nav-link {
+        padding: 0 1rem;
+    } 
 
     .nav-tabs .nav-link {
         color: #475467;
@@ -46,14 +52,19 @@
         color: {{ $settings->theme_color_pwa ?? '#469DFA' }} !important;
         background: #E5F3F9 !important;
         border: none;
-        padding: 8px 15px;
+        padding: 4px 15px;
         font-weight: 600;
     }
 
     .nav-tabs .nav-link:hover {
-        border-radius: 11px;
+        border: none;
+        color: #475467 !important;
+        background: transparent;
+        padding: 4px 15px !important;
+        font-weight: 600 !important;
+    }
+    .nav-tabs .nav-link.active {
         color: {{ $settings->theme_color_pwa ?? '#469DFA' }} !important;
-        background: #E5F3F9 !important;
     }
 
     .form-group {
@@ -431,7 +442,7 @@
     .payment-table-container {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
-            width: 100%;
+        width: 100%;
         /* Smooth scrolling on iOS */
     }
 
@@ -547,31 +558,206 @@
     }
 
     @media (max-width: 768px) {
-    .payment-table-container {
-        border-radius: 8px;
+        .payment-table-container {
+            border-radius: 8px;
+        }
+
+        .payment-table {
+            min-width: 650px;
+            /* Slightly smaller min-width for mobile */
+        }
+
+        .payment-row {
+            padding: 12px 16px;
+        }
+
+        .invoice-name {
+            font-size: 14px;
+        }
+
+        .amount-col,
+        .date-col {
+            font-size: 13px;
+        }
+
+        .status {
+            font-size: 12px;
+        }
     }
-    
-    .payment-table {
-        min-width: 650px; /* Slightly smaller min-width for mobile */
+
+
+    /* faq */
+    .faq-section {
+        margin: 0 auto;
+        padding: 10px 20px;
     }
-    
-    .payment-row {
-        padding: 12px 16px;
+
+    .faq-header {
+        margin-bottom: 32px;
     }
-    
-    .invoice-name {
-        font-size: 14px;
+
+    .faq-header h1 {
+        font-size: 24px;
+        font-weight: 600 !important;
+        color: #101828;
+        margin-bottom: 12px;
     }
-    
-    .amount-col,
-    .date-col {
-        font-size: 13px;
+
+    .faq-header p {
+        font-size: 16px;
+        color: #475467;
+        line-height: 1.5;
     }
-    
-    .status {
-        font-size: 12px;
+
+    .faq-header a {
+        color: #6b7280;
+        text-decoration: underline;
     }
-}
+
+    .faq-header a:hover {
+        color: #374151;
+    }
+
+    .faq-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .faq-item {
+        margin-bottom: 12px;
+        overflow: hidden;
+        transition: box-shadow 0.2s ease;
+    }
+
+    .faq-item:hover {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .faq-item.active {
+        border-color: #00000012;
+        box-shadow: 0 0 0 1px #00000012;
+        background: #ffffff;
+        border: 1px solid #00000012;
+        border-radius: 12px;
+    }
+
+    .faq-question {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 24px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        text-align: left;
+    }
+
+    .faq-question h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #111827;
+        margin: 0;
+    }
+
+    .faq-icon {
+        width: 28px;
+        height: 28px;
+        border: 2px solid #A2A9B2;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .faq-item.active .faq-icon {
+        border-color: #469DFA;
+        border: 2px solid #469DFA;
+    }
+
+    .faq-icon svg {
+        width: 14px;
+        height: 14px;
+        stroke: #9ca3af;
+        transition: all 0.3s ease;
+    }
+
+    .faq-item.active .faq-icon svg {
+        stroke: #3b82f6;
+    }
+
+    .icon-plus {
+        display: block;
+    }
+
+    .icon-minus {
+        display: none;
+    }
+
+    .faq-item.active .icon-plus {
+        display: none;
+    }
+
+    .faq-item.active .icon-minus {
+        display: block;
+    }
+
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .faq-answer-content {
+        padding: 0 24px 20px 24px;
+        font-size: 15px;
+        color: #6b7280;
+        line-height: 1.6;
+    }
+
+    .faq-item.active .faq-answer {
+        max-height: 200px;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 640px) {
+        .faq-section {
+            padding: 24px 16px;
+        }
+
+        .faq-header h1 {
+            font-size: 20px;
+        }
+
+        .faq-header p {
+            font-size: 14px;
+        }
+
+        .faq-question {
+            padding: 16px 20px;
+        }
+
+        .faq-question h3 {
+            font-size: 15px;
+        }
+
+        .faq-answer-content {
+            padding: 0 20px 16px 20px;
+            font-size: 14px;
+        }
+
+        .faq-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .faq-icon svg {
+            width: 12px;
+            height: 12px;
+        }
+    }
 </style>
 
 @section('content')
@@ -586,7 +772,7 @@
                         {{-- {{ auth()->user()->verified_id == 'yes' ? trans('general.edit_my_page') : trans('users.edit_profile') }} --}}
                         Settings
                     </h2>
-                    <ul class="nav nav-tabs border-0 flex-wrap" id="experimentTabs" style="padding: 20px 0;">
+                    <ul class="nav nav-tabs border-0 flex-wrap align-items-center" id="experimentTabs" style="padding: 20px 0;">
                         <li class="nav-item">
                             <a class="nav-link active profile" href="#">Profile & Notifications</a>
                         </li>
@@ -1578,6 +1764,171 @@
 
             </div>
 
+            <div class="faq-section">
+                <div class="faq-header">
+                    <h1>FAQs</h1>
+                    <p>Everything you need to know about the product and billing. Can't find the answer you're looking
+                        for?<br>Please <a href="#">chat to our friendly team</a>.</p>
+                </div>
+
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <h3>Is there a free trial available?</h3>
+                            <div class="faq-icon">
+                                <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <svg class="icon-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                            </div>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free,
+                                personalized 30-minute onboarding call to get you up and running as soon as possible.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <h3>Can I change my plan later?</h3>
+                            <div class="faq-icon">
+                                <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <svg class="icon-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                            </div>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free,
+                                personalized 30-minute onboarding call to get you up and running as soon as possible.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <h3>What is your cancellation policy?</h3>
+                            <div class="faq-icon">
+                                <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <svg class="icon-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                            </div>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free,
+                                personalized 30-minute onboarding call to get you up and running as soon as possible.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <h3>Can I change my plan later?</h3>
+                            <div class="faq-icon">
+                                <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <svg class="icon-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                            </div>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free,
+                                personalized 30-minute onboarding call to get you up and running as soon as possible.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <h3>Can other info be added to an invoice?</h3>
+                            <div class="faq-icon">
+                                <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <svg class="icon-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                            </div>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free,
+                                personalized 30-minute onboarding call to get you up and running as soon as possible.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <h3>How does billing work?</h3>
+                            <div class="faq-icon">
+                                <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <svg class="icon-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                            </div>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free,
+                                personalized 30-minute onboarding call to get you up and running as soon as possible.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <h3>How do I change my account email?</h3>
+                            <div class="faq-icon">
+                                <svg class="icon-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <svg class="icon-minus" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                            </div>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-content">
+                                Yes, you can try us for free for 30 days. If you want, we’ll provide you with a free,
+                                personalized 30-minute onboarding call to get you up and running as soon as possible.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
         </div><!-- end col-md-6 -->
         </div>
@@ -1629,16 +1980,17 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const mainSec = document.querySelector("#main-sec");
-            
+
             const profileBtn = document.querySelector(".profile");
             const privacyBtn = document.querySelector(".privacy");
             const subscriptionBtn = document.querySelector(".subscription");
-            const faqBtn = document.querySelector(".faq");
             const aboutBtn = document.querySelector(".about");
+            const faqBtn = document.querySelector(".faq");
 
             const profileSec = document.querySelector(".profile-sec");
             const privacySec = document.querySelector(".privacy-sec");
             const subscriptionSec = document.querySelector(".subscription-wrapper"); // Fixed selector
+            const faqSec = document.querySelector(".faq-section"); // Fixed selector
 
             function resetActive() {
                 profileBtn.classList.remove("active");
@@ -1653,6 +2005,7 @@
                 profileSec.style.display = "none";
                 privacySec.style.display = "none";
                 subscriptionSec.style.display = "none";
+                faqSec.style.display = "none";
             }
 
             profileBtn.addEventListener("click", function(e) {
@@ -1682,21 +2035,37 @@
             faqBtn.addEventListener("click", function(e) {
                 e.preventDefault(); // Prevent default behavior
                 resetActive();
+                hideAll();
                 this.classList.add("active");
-                mainSec.classList.add("main-sec");
-                subscriptionSec.style.display = "block";
+                faqSec.style.display = "block";
             });
             aboutBtn.addEventListener("click", function(e) {
                 e.preventDefault(); // Prevent default behavior
                 resetActive();
                 this.classList.add("active");
-                mainSec.classList.add("main-sec");
-                subscriptionSec.style.display = "block";
             });
 
             // Set initial state - show profile section by default
             hideAll();
             profileSec.style.display = "block";
+            const faqQuestions = document.querySelectorAll('.faq-question');
+
+            faqQuestions.forEach(function(question) {
+                question.addEventListener('click', function() {
+                    const faqItem = this.parentElement;
+                    const isActive = faqItem.classList.contains('active');
+
+                    // Close all FAQ items
+                    document.querySelectorAll('.faq-item').forEach(function(item) {
+                        item.classList.remove('active');
+                    });
+
+                    // If the clicked item wasn't active, open it
+                    if (!isActive) {
+                        faqItem.classList.add('active');
+                    }
+                });
+            });
         });
     </script>
 @endsection
