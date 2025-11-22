@@ -2482,7 +2482,7 @@
 
 			if (data.success == true) {
 				if (data.type == 'like') {
-					element.html('<i class="fas fa-heart text-red mr-1"></i> <span class="countCommentsLikes">' + data.count + '</span>');
+					element.html('<img src="/images/like.png" alt=""> <span class="countCommentsLikes">' + data.count + '</span>');
 					element.blur();
 
 				} else if (data.type == 'unlike') {

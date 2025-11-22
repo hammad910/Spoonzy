@@ -50,54 +50,57 @@ class Helper
 
 	public static function checkText($str, $url = null)
 	{
-		if (mb_strlen($str, 'utf8') < 1) {
-			return false;
-		}
+		// if (mb_strlen($str, 'utf8') < 1) {
+		// 	return false;
+		// }
 
-		$str = $url ? str_replace($url, '', $str) : $str;
-		$str = trim($str);
-		$str = nl2br(e($str));
-		$str = str_replace('&#039;', "'", $str);
+		// $str = $url ? str_replace($url, '', $str) : $str;
+		// $str = trim($str);
+		// $str = nl2br(e($str));
+		// $str = str_replace('&#039;', "'", $str);
 
-		$str = str_replace(array(chr(10), chr(13)), '', $str);
-		$url = preg_replace('#^https?://#', '', url('') . '/');
+		// $str = str_replace(array(chr(10), chr(13)), '', $str);
+		// $url = preg_replace('#^https?://#', '', url('') . '/');
 
-		// Hashtags and @Mentions / proper identation by AMR
-		$str = preg_replace_callback(
-			'~([#@])([^\s#@!\"\$\%&\'\(\)\*\+\,\./\:\;\<\=\>?\[/\/\/\\]\^\`\{\|\}\~]+)~',
-			function ($matches) use ($url, $str) {
-				$url   = $matches[1] == "#" ? "" . $url . "explore?q=%23" . $matches[2] . "" : $url . $matches[2];
-				$regex = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
-				preg_match_all($regex, $str, $result, PREG_PATTERN_ORDER); // for URL
-				$A     = $result[0];
-				$pass  = false;
-				foreach ($A as $B) {
-					if (!empty($matches[0]) && str_contains($B, $matches[0])) {
-						$pass = true;
-						break;
-					}
-				}
-				// This regular expression extracts all emails from a string:
-				$regexp = '/([a-z0-9_\.\-])+\@(([a-z0-9\-])+\.)+([a-z0-9]{2,4})+/i';
-				preg_match_all($regexp, $str, $m);
-				$email_array = ($m[0]) ? $m[0] : array();
-				$C = $email_array;
-				foreach ($C as $D) {
-					if (!empty($matches[0]) && str_contains($D, $matches[0])) {
-						$pass = true;
-						break;
-					}
-				}
-				if ($pass === false) {
-					return "<a href=\"//" . $url . "\">$matches[0]</a>";
-				} else {
-					return $matches[0];
-				}
-			},
-			$str
-		);
+		// // Hashtags and @Mentions / proper identation by AMR
+		// $str = preg_replace_callback(
+		// 	'~([#@])([^\s#@!\"\$\%&\'\(\)\*\+\,\./\:\;\<\=\>?\[/\/\/\\]\^\`\{\|\}\~]+)~',
+		// 	function ($matches) use ($url, $str) {
+		// 		$url   = $matches[1] == "#" ? "" . $url . "explore?q=%23" . $matches[2] . "" : $url . $matches[2];
+		// 		$regex = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
+		// 		preg_match_all($regex, $str, $result, PREG_PATTERN_ORDER); // for URL
+		// 		$A     = $result[0];
+		// 		$pass  = false;
+		// 		foreach ($A as $B) {
+		// 			if (!empty($matches[0]) && str_contains($B, $matches[0])) {
+		// 				$pass = true;
+		// 				break;
+		// 			}
+		// 		}
+		// 		// This regular expression extracts all emails from a string:
+		// 		$regexp = '/([a-z0-9_\.\-])+\@(([a-z0-9\-])+\.)+([a-z0-9]{2,4})+/i';
+		// 		preg_match_all($regexp, $str, $m);
+		// 		$email_array = ($m[0]) ? $m[0] : array();
+		// 		$C = $email_array;
+		// 		foreach ($C as $D) {
+		// 			if (!empty($matches[0]) && str_contains($D, $matches[0])) {
+		// 				$pass = true;
+		// 				break;
+		// 			}
+		// 		}
+		// 		if ($pass === false) {
+		// 			return "<a href=\"//" . $url . "\">$matches[0]</a>";
+		// 			return $matches[0];
+		// 		} else {
+		// 			return $matches[0];
+		// 		}
+		// 	},
+		// 	$str
+		// );
 
-		$str = stripslashes($str);
+		// $str = stripslashes($str);
+		$str = preg_replace('~@[^\s#@!\"\$\%&\'\(\)\*\+\,\./\:\;\<\=\>?\[/\/\/\\]\^\`\{\|\}\~]+~', '', $str);
+
 		return $str;
 	}
 

@@ -131,7 +131,7 @@
                                             <i class="fa fa-camera"></i>
                                         </a>
                                     @endif
-                                    <img src="{{ Helper::getFile(config('path.avatar') . Auth()->user->avatar) }}" width="150"
+                                    <img src="{{ Helper::getFile(config('path.avatar') . Auth()->user()->avatar) }}" width="150"
                                         height="150"
                                         class="rounded-circle img-user mb-2 avatarUser @if (auth()->check() && auth()->id() != $user->id && Helper::isCreatorLive($getCurrentLiveCreators, $user->id)) border-0 @endif">
                                 </div><!-- avatar-wrap -->
@@ -697,12 +697,12 @@
                                                 </span>
                                             @endif --}}
 
-                                            @if (isset($user->country()->country_name) && $user->hide_my_country == 'no')
+                                            {{-- @if (isset($user->country()->country_name) && $user->hide_my_country == 'no')
                                                 <small class="btn-block">
                                                     <i class="feather icon-map-pin mr-1"></i>
                                                     {{ $user->country()->country_name }}
                                                 </small>
-                                            @endif
+                                            @endif --}}
 
                                             @if ($user->show_my_birthdate == 'yes')
                                                 <small class="btn-block m-0 mb-1">
@@ -725,17 +725,17 @@
                                         </p>
                                         <div class="d-flex align-items-center" style="gap: 8px;">
                                             <span class="badge bg-light border-none rounded-pill"
-                                            style="font-size: 0.8rem; color: {{ $settings->theme_color_pwa ?? '#469DFA' }}; background: #E5F3F9 !important; padding-top: 10px; padding-bottom: 10px; padding-left: 18px; padding-right: 18px;"
+                                            style="font-size: 0.8rem; color: {{ $settings->theme_color_pwa ?? '#469DFA' }}; background: #E5F3F9 !important; padding: 10px;;"
                                             >
                                             #Designer
                                             </span>
                                             <span class="badge bg-light border-none rounded-pill"
-                                            style="font-size: 0.8rem; color: {{ $settings->theme_color_pwa ?? '#469DFA' }}; background: #E5F3F9 !important; padding-top: 10px; padding-bottom: 10px; padding-left: 18px; padding-right: 18px;"
+                                            style="font-size: 0.8rem; color: {{ $settings->theme_color_pwa ?? '#469DFA' }}; background: #E5F3F9 !important; padding: 10px;;"
                                             >
                                             #Development
                                             </span>
                                             <span class="badge bg-light border-none rounded-pill"
-                                            style="font-size: 0.8rem; color: {{ $settings->theme_color_pwa ?? '#469DFA' }}; background: #E5F3F9 !important; padding-top: 10px; padding-bottom: 10px; padding-left: 18px; padding-right: 18px;"
+                                            style="font-size: 0.8rem; color: {{ $settings->theme_color_pwa ?? '#469DFA' }}; background: #E5F3F9 !important; padding: 10px;;"
                                             >
                                             #Experience
                                             </span>
