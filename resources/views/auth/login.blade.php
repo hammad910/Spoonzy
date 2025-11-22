@@ -24,8 +24,7 @@
             background-size: cover;
             color: #fff;
             display: flex;
-            align-items: center;
-            justify-content: flex-start;
+            flex-direction: column;
             min-height: 100vh;
             position: relative;
             border-top-left-radius: 80px;
@@ -43,52 +42,73 @@
         .testimonial {
             position: relative;
             color: white;
-            max-width: 100%;
+            width: 100%;
             z-index: 1;
-            padding: 0 50px;
-            top: 130px
-        }
-
-        .testimonial h4 {
-            font-size: 48px;
-            line-height: 1.3;
-            font-weight: 500 !important;
-            margin-bottom: 30px;
-        }
-
-        .testimonial h5 {
-            font-weight: 600;
-            margin-top: 15px;
-            font-size: 30px;
-            margin-bottom: 0;
-        }
-
-        .testimonial p {
-            opacity: 0.9;
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
-
-        .testimonial-bottom {
-            position: relative;
-            top: 190px;
+            padding: 50px;
             display: flex;
-            align-items: flex-end;
+            flex-direction: column;
             justify-content: space-between;
-            width: 60%
+            height: 100%;
+            box-sizing: border-box;
         }
 
-        /* Arrow Navigation Styles - Now on left side */
+        .testimonial-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .testimonial-slide {
+            display: none;
+        }
+
+        .testimonial-slide.active {
+            display: block;
+        }
+
+        .testimonial-slide h4 {
+            font-size: 32px;
+            line-height: 1.4;
+            font-weight: 500 !important;
+            /* margin-bottom: 30px; */
+            text-align: left;
+        }
+
+        .author-info {
+            text-align: left;
+            /* margin-top: 20px; */
+        }
+
+        .author-info h5 {
+            font-weight: 600;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            opacity: 0.85;
+            font-size: 13px;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        /* Arrow Navigation Styles */
+        .testimonial-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            /* padding-top: 20px; */
+        }
+
         .testimonial-nav {
             display: flex;
             gap: 12px;
-            justify-content: end;
-            margin-top: 130px;
         }
 
         .nav-arrow {
             background: transparent;
-            border: 1px solid #FFFFFF80;
+            border: 1px solid rgba(255, 255, 255, 0.5);
             color: white;
             width: 44px;
             height: 44px;
@@ -112,24 +132,9 @@
             transform: none;
         }
 
-        /* Testimonial slider styles */
-        .testimonial-slide {
-            display: none;
-        }
-
-        .testimonial-slide.active {
-            display: block;
-        }
-
-        /* Author info container */
-        .author-info {
-            flex: 1;
-        }
-
-        /* Laptop / smaller desktops (but still >=992px) */
         @media (max-width: 1200px) {
-            .testimonial-bottom {
-                top: 80px;
+            .testimonial-slide h4 {
+                font-size: 30px;
             }
         }
 
@@ -274,7 +279,7 @@
                     <img src="/images/login-logo.png" alt="LabVlog logo" style="border-radius: 20px">
                 </div>
 
-                <h3 class="fw-semibold mb-2" style="color: #101828; font-size: 36px;">Login</h3>
+                <h3 class="fw-semibold mb-2" style="color: #101828; font-size: 36px;">Log in</h3>
                 <p class="text-muted mb-4" style="color: #475467; font-size: 16px;">Welcome back! Please enter your details.</p>
 
                 <!-- Display Alert Messages -->
@@ -293,36 +298,6 @@
                 <!-- Display Form Errors -->
                 @include('errors.errors-forms')
 
-                <!-- Social Login Buttons -->
-                @if ($settings->facebook_login == 'on' || $settings->google_login == 'on' || $settings->twitter_login == 'on')
-                    <div class="social-login-buttons mb-3">
-                        @if ($settings->facebook_login == 'on')
-                            <a href="{{ url('oauth/facebook') }}" class="btn btn-facebook">
-                                <i class="fab fa-facebook mr-2"></i> {{ __('auth.login_with') }} Facebook
-                            </a>
-                        @endif
-
-                        @if ($settings->twitter_login == 'on')
-                            <a href="{{ url('oauth/twitter') }}" class="btn btn-twitter">
-                                <i class="bi-twitter-x mr-2"></i> {{ __('auth.login_with') }} X
-                            </a>
-                        @endif
-
-                        @if ($settings->google_login == 'on')
-                            <a href="{{ url('oauth/google') }}" class="btn btn-google">
-                                <img src="{{ asset('img/google.svg') }}" alt="Google" class="mr-2">
-                                {{ __('auth.login_with') }} Google
-                            </a>
-                        @endif
-                    </div>
-
-                    @if (!$settings->disable_login_register_email)
-                        <div class="or-divider">
-                            <span>{{ __('general.or') }}</span>
-                        </div>
-                    @endif
-                @endif
-
                 <!-- Login Form -->
                 @if (!$settings->disable_login_register_email || request()->route()->named('login.admin'))
                     <form method="POST" action="{{ route('login') }}" id="formLoginRegister" enctype="multipart/form-data">
@@ -331,11 +306,11 @@
                         <input type="hidden" name="return" value="{{ count($errors) > 0 ? old('return') : url()->previous() }}">
 
                         <div class="mb-3">
-                            <label class="form-label">{{ __('auth.username_or_email') }}</label>
+                            <label class="form-label">Email</label>
                             <input type="text" 
                                    name="username_email" 
                                    class="form-control @error('username_email') is-invalid @enderror" 
-                                   placeholder="{{ __('auth.username_or_email') }}" 
+                                   placeholder="Enter your email" 
                                    value="{{ old('username_email') }}" 
                                    required>
                             @error('username_email')
@@ -352,7 +327,7 @@
                                        name="password" 
                                        id="password"
                                        class="form-control @error('password') is-invalid @enderror" 
-                                       placeholder="{{ __('auth.password') }}" 
+                                       placeholder="••••••••" 
                                        required>
                                 <button type="button" class="toggle-password" id="togglePassword">
                                     <i class="feather icon-eye-off"></i>
@@ -373,11 +348,11 @@
                                        id="remember" 
                                        {{ old('remember') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="remember">
-                                    {{ __('auth.remember_me') }}
+                                    Remember for 30 days
                                 </label>
                             </div>
                             <a href="{{ url('password/reset') }}" class="text-decoration-none" style="color: #469DFA;">
-                                {{ __('auth.forgot_password') }}
+                                Forgot password
                             </a>
                         </div>
 
@@ -392,7 +367,7 @@
                                 {!! NoCaptcha::renderJs() !!}
                             @else
                                 <button id="btnLoginRegister" type="submit" class="btn btn-login mb-3" style="background-color: #469DFA">
-                                    <i></i> {{ __('auth.login') }}
+                                    <i></i> Log in
                                 </button>
                             @endif
                         </div>
@@ -406,12 +381,22 @@
                     </form>
                 @endif
 
+                <!-- Social Login Buttons -->
+                @if ($settings->facebook_login == 'on' || $settings->google_login == 'on' || $settings->twitter_login == 'on')
+                    @if ($settings->google_login == 'on')
+                        <a href="{{ url('oauth/google') }}" class="btn btn-google">
+                            <img src="{{ asset('img/google.svg') }}" alt="Google" class="mr-2">
+                            Log in with Google
+                        </a>
+                    @endif
+                @endif
+
                 <!-- Sign Up Link -->
                 @if ($settings->registration_active == '1')
                     <p class="text-center text-muted mt-3">
-                        {{ __('auth.not_have_account') }} 
+                        Don't have an account? 
                         <a href="{{ url('signup') }}" class="text-decoration-none" style="color: #469DFA;">
-                            {{ __('auth.sign_up') }}
+                            Sign up
                         </a>
                     </p>
                 @endif
@@ -419,65 +404,40 @@
         </div>
 
         <!-- Right Section -->
-        <div class="login-right d-none d-md-flex flex-column justify-content-center align-items-center">
-            <div class="testimonial text-white">
-                <!-- Testimonial 1 -->
-                <div class="testimonial-slide active">
-                    <h4 style="font-size: 48px; line-height: 1.3; font-weight: 500 !important;">
-                        “We've been using LabVlog to kick start every new project and can't imagine working without it.”
-                    </h4>
-                    <div class="testimonial-bottom">
-                        <div class="author-info">
-                            <h5 class="mt-3 mb-0 text-white" style="font-size: 30px;">Olivia Rhye</h5>
-                            <p class="text-white mb-0">
-                                Lead Designer, Layers<br>Web Development Agency
-                            </p>
-                        </div>
+        <div class="login-right d-none d-lg-flex">
+            <div class="testimonial">
+                <!-- Quote Content - Vertically Centered -->
+                <div class="testimonial-content">
+                    <div class="testimonial-slide active" data-author="Olivia Rhye" data-role="Lead Designer, Layers" data-company="Web Development Agency">
+                        <h4>“We've been using LabVlog to kick start every new project and can't imagine working without it.”</h4>
                     </div>
-                </div>
-        
-                <!-- Testimonial 2 -->
-                <div class="testimonial-slide">
-                    <h4 style="font-size: 48px; line-height: 1.3; font-weight: 500 !important;">
-                        “LabVlog has completely transformed our workflow. The collaboration features are exceptional!.”
-                    </h4>
-                    <div class="testimonial-bottom">
-                        <div class="author-info">
-                            <h5 class="mt-3 mb-0 text-white" style="font-size: 30px;">Michael Chen</h5>
-                            <p class="text-white mb-0">
-                                CTO, TechSolutions Inc.<br>Software Development
-                            </p>
-                        </div>
+            
+                    <div class="testimonial-slide" data-author="Michael Chen" data-role="CTO, TechSolutions Inc." data-company="Software Development">
+                        <h4>“LabVlog has completely transformed our workflow. The collaboration features are exceptional!”</h4>
                     </div>
-                </div>
-        
-                <!-- Testimonial 3 -->
-                <div class="testimonial-slide">
-                    <h4 style="font-size: 48px; line-height: 1.3; font-weight: 500 !important;">
-                        “As a startup founder, LabVlog gave us the competitive edge we needed to scale rapidly.”
-                    </h4>
-                    <div class="testimonial-bottom">
-                        <div class="author-info">
-                            <h5 class="mt-3 mb-0 text-white" style="font-size: 30px;">Sarah Johnson</h5>
-                            <p class="text-white mb-0">
-                                Founder & CEO, InnovateCo<br>Startup Consulting
-                            </p>
-                        </div>
+            
+                    <div class="testimonial-slide" data-author="Sarah Johnson" data-role="Founder & CEO, InnovateCo" data-company="Startup Consulting">
+                        <h4>“As a startup founder, LabVlog gave us the competitive edge we needed to scale rapidly.”</h4>
                     </div>
                 </div>
                 
-                <!-- Navigation Arrows - MOVED OUTSIDE ALL SLIDES (SINGLE INSTANCE) -->
-                <div class="testimonial-nav">
-                    <button class="nav-arrow" id="prevTestimonial">
-                        <img src="/svg/left-icon.svg" alt="" >
-                    </button>
-                    <button class="nav-arrow" id="nextTestimonial">
-                        <img src="/svg/right-icon.svg" alt="">
-                    </button>
+                <!-- Bottom Section - Author Info + Arrows -->
+                <div class="testimonial-bottom">
+                    <div class="author-info">
+                        <h5 class="text-white" id="authorName">Olivia Rhye</h5>
+                        <p class="text-white" id="authorDetails">Lead Designer, Layers<br>Web Development Agency</p>
+                    </div>
+                    <div class="testimonial-nav">
+                        <button class="nav-arrow" id="prevTestimonial">
+                            <img src="/svg/left-icon.svg" alt="Previous">
+                        </button>
+                        <button class="nav-arrow" id="nextTestimonial">
+                            <img src="/svg/right-icon.svg" alt="Next">
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-        
     </div>
 
     <script>
@@ -500,7 +460,7 @@
                 });
             }
     
-            // Form submission handling for error display
+            // Form submission handling
             const form = document.getElementById('formLoginRegister');
             if (form) {
                 form.addEventListener('submit', function() {
@@ -512,25 +472,27 @@
                 });
             }
     
-            // Testimonial slider functionality - FIXED
+            // Testimonial slider functionality
             const slides = document.querySelectorAll('.testimonial-slide');
             const prevBtn = document.getElementById('prevTestimonial');
             const nextBtn = document.getElementById('nextTestimonial');
+            const authorName = document.getElementById('authorName');
+            const authorDetails = document.getElementById('authorDetails');
             let currentSlide = 0;
     
             function showSlide(index) {
-                // Hide all slides
                 slides.forEach(slide => slide.classList.remove('active'));
-                
-                // Show current slide
                 slides[index].classList.add('active');
                 
-                // Update button states
+                // Update author info
+                const activeSlide = slides[index];
+                authorName.textContent = activeSlide.dataset.author;
+                authorDetails.innerHTML = activeSlide.dataset.role + '<br>' + activeSlide.dataset.company;
+                
                 prevBtn.disabled = index === 0;
                 nextBtn.disabled = index === slides.length - 1;
             }
     
-            // Next testimonial
             nextBtn.addEventListener('click', function() {
                 if (currentSlide < slides.length - 1) {
                     currentSlide++;
@@ -538,18 +500,11 @@
                 }
             });
     
-            // Previous testimonial
             prevBtn.addEventListener('click', function() {
                 if (currentSlide > 0) {
                     currentSlide--;
                     showSlide(currentSlide);
                 }
-            });
-    
-            // Pause auto-advance on hover
-            const testimonialContainer = document.querySelector('.testimonial');
-            testimonialContainer.addEventListener('mouseenter', () => {
-                clearInterval(slideInterval);
             });
     
             showSlide(currentSlide);
