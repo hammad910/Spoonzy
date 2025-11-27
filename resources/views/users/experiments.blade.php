@@ -744,7 +744,7 @@
                         <td class="text-end">
                             ${showActions ? `
                                                             <button class="btn btn-link text-danger p-0 me-2" onclick="deleteExperiment(${experiment.id})" title="Delete">
-                                                                <img src="/img/icons/trash-icon.png" alt="Delete"/>
+                                                                <img src="/svgs/delete.svg" alt="Delete"/>
                                                             </button>
                                                       
                                                         ` : ''}

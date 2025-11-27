@@ -266,6 +266,463 @@
     textarea:-moz-placeholder {
         color: #475467;
     }
+
+    .reply-connector-line {
+        position: absolute;
+        left: 20px;
+        top: -96px;
+        width: 2px;
+        height: 135px;
+        background-color: #E4E7EC;
+    }
+
+    .reply-connector-horizontal {
+        position: absolute;
+        left: 20px;
+        top: 38px;
+        width: 61px;
+        height: 2px;
+        background-color: #E4E7EC;
+    }
+
+    .isCommentReply {
+        position: relative;
+    }
+
+    @media (max-width: 615px) {
+        .reply-connector-line {
+            position: absolute;
+            left: 17px;
+            top: -88px;
+            width: 2px;
+            height: 127px;
+        }
+    }
+
+    @media (max-width: 425px) {
+        .reply-connector-line {
+            position: absolute;
+            left: 16px;
+            top: -110px;
+            width: 2px;
+            height: 143px;
+        }
+
+        .reply-connector-horizontal {
+            position: absolute;
+            left: 16px;
+            top: 33px;
+            width: 33px;
+            height: 2px;
+            ;
+        }
+    }
+
+    @media (max-width: 375px) {
+        .reply-connector-line {
+            position: absolute;
+            left: 16px;
+            top: -103px;
+            width: 2px;
+            height: 137px;
+        }
+
+        .reply-connector-horizontal {
+            position: absolute;
+            left: 17px;
+            top: 33px;
+            width: 30px;
+            height: 2px;
+        }
+    }
+
+    @media (max-width: 320px) {
+        .reply-connector-line {
+            position: absolute;
+            left: 14px;
+            top: -115px;
+            width: 2px;
+            height: 146px;
+        }
+
+        .reply-connector-horizontal {
+            position: absolute;
+            left: 15px;
+            top: 30px;
+            width: 24px;
+            height: 2px;
+        }
+    }
+
+    /* Mobile Responsiveness for Comment Popup */
+
+    @media (max-width: 768px) {
+        .comment-popup {
+            max-width: 100%;
+            max-height: 100vh;
+            border-radius: 0;
+            margin: 0;
+        }
+
+        .comment-popup-header {
+            padding: 16px;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+        }
+
+        .comment-popup-header h3 {
+            font-size: 16px;
+        }
+
+        .comment-popup-body {
+            padding: 16px;
+        }
+
+        .comment-input-section {
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+
+        .comment-input-wrapper-new .form-control.comments {
+            font-size: 16px;
+            min-height: 60px;
+        }
+
+        .comment-input-toolbar {
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .comment-input-tools {
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .comment-input-tools button {
+            font-size: 16px;
+            padding: 4px;
+        }
+
+        .comment-submit-btn {
+            padding: 6px 16px !important;
+            font-size: 13px !important;
+        }
+
+        .total-comments-btn {
+            padding: 4px 12px !important;
+            font-size: 13px !important;
+        }
+
+        /* Comment/Reply Actions */
+        .comment-actions,
+        .reply-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .comment-actions .action,
+        .reply-actions .action {
+            font-size: 14px;
+            margin-right: 0 !important;
+        }
+
+        .comment-actions .action img,
+        .reply-actions .action img {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Media heading */
+        .media-heading {
+            flex-wrap: wrap;
+            gap: 8px !important;
+        }
+
+        .media-heading a {
+            font-size: 16px !important;
+        }
+
+        .media-heading .timeAgo {
+            font-size: 14px !important;
+        }
+
+        /* Comment text */
+        .updateComment {
+            font-size: 14px;
+        }
+
+        /* Avatar size */
+        .avatarUser {
+            width: 36px !important;
+            height: 36px !important;
+        }
+
+        /* Comments list section header */
+        .comments-list-section>div:first-child {
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-start !important;
+        }
+
+        .comments-list-section h3 {
+            font-size: 20px !important;
+        }
+
+        .comment-sort span {
+            font-size: 14px;
+        }
+
+        /* Reply padding */
+        .isCommentReply {
+            padding-left: 60px !important;
+        }
+
+    }
+
+    @media (max-width: 425px) {
+        .comment-popup-header {
+            padding: 12px;
+        }
+
+        .comment-popup-body {
+            padding: 12px;
+        }
+
+        .comment-input-section {
+            padding: 10px;
+        }
+
+        .comment-input-wrapper-new .form-control.comments {
+            font-size: 15px;
+            min-height: 50px;
+        }
+
+        .comment-submit-btn {
+            padding: 5px 14px !important;
+            font-size: 12px !important;
+        }
+
+        .total-comments-btn {
+            padding: 3px 10px !important;
+            font-size: 12px !important;
+        }
+
+        .media-heading a {
+            font-size: 15px !important;
+        }
+
+        .media-heading .timeAgo {
+            font-size: 13px !important;
+        }
+
+        .updateComment {
+            font-size: 13px;
+        }
+
+        .avatarUser {
+            width: 32px !important;
+            height: 32px !important;
+        }
+
+        .comments-list-section h3 {
+            font-size: 18px !important;
+        }
+
+        .comment-actions .action,
+        .reply-actions .action {
+            font-size: 13px;
+            gap: 10px;
+        }
+
+        .comment-actions .action img,
+        .reply-actions .action img {
+            width: 14px;
+            height: 14px;
+        }
+
+        .isCommentReply {
+            padding-left: 50px !important;
+        }
+
+        .dropdown-menu {
+            font-size: 13px;
+        }
+    }
+
+    @media (max-width: 375px) {
+        .comment-popup-header {
+            padding: 10px;
+        }
+
+        .comment-popup-body {
+            padding: 10px;
+        }
+
+        .comment-input-section {
+            padding: 8px;
+        }
+
+        .comment-input-wrapper-new .form-control.comments {
+            font-size: 14px;
+            min-height: 45px;
+        }
+
+        .comment-input-tools button {
+            font-size: 14px;
+            padding: 3px;
+        }
+
+        .comment-submit-btn {
+            padding: 4px 12px !important;
+            font-size: 11px !important;
+        }
+
+        .total-comments-btn {
+            padding: 2px 8px !important;
+            font-size: 11px !important;
+        }
+
+        .media-heading a {
+            font-size: 14px !important;
+        }
+
+        .media-heading .timeAgo {
+            font-size: 12px !important;
+        }
+
+        .updateComment {
+            font-size: 12px;
+        }
+
+        .comments-list-section h3 {
+            font-size: 16px !important;
+        }
+
+        .comment-sort span {
+            font-size: 12px;
+        }
+
+        .comment-actions .action,
+        .reply-actions .action {
+            font-size: 12px;
+        }
+
+        .isCommentReply {
+            padding-left: 45px !important;
+        }
+
+    }
+
+    @media (max-width: 320px) {
+        .comment-popup-header {
+            padding: 8px;
+        }
+
+        .comment-popup-header h3 {
+            font-size: 14px;
+        }
+
+        .comment-popup-body {
+            padding: 8px;
+        }
+
+        .comment-input-section {
+            padding: 6px;
+        }
+
+        .comment-input-wrapper-new .form-control.comments {
+            font-size: 13px;
+            min-height: 40px;
+        }
+
+        .comment-input-tools {
+            gap: 4px;
+        }
+
+        .comment-input-tools button {
+            font-size: 13px;
+            padding: 2px;
+        }
+
+        .comment-submit-btn {
+            padding: 3px 10px !important;
+            font-size: 10px !important;
+        }
+
+        .total-comments-btn {
+            padding: 2px 6px !important;
+            font-size: 10px !important;
+        }
+
+        .media-heading a {
+            font-size: 13px !important;
+        }
+
+        .media-heading .timeAgo {
+            font-size: 11px !important;
+        }
+
+        .updateComment {
+            font-size: 11px;
+        }
+
+        .avatarUser {
+            width: 28px !important;
+            height: 28px !important;
+        }
+
+        .comments-list-section h3 {
+            font-size: 15px !important;
+        }
+
+        .comment-sort span {
+            font-size: 11px;
+        }
+
+        .comment-actions,
+        .reply-actions {
+            gap: 8px;
+        }
+
+        .comment-actions .action,
+        .reply-actions .action {
+            font-size: 11px;
+        }
+
+        .comment-actions .action img,
+        .reply-actions .action img {
+            width: 12px;
+            height: 12px;
+        }
+
+        .isCommentReply {
+            padding-left: 40px !important;
+        }
+
+        .dropdown-menu {
+            font-size: 11px;
+            min-width: 140px;
+        }
+    }
+
+    /* Tablet specific adjustments */
+    @media (min-width: 769px) and (max-width: 1024px) {
+        .comment-popup {
+            max-width: 90%;
+        }
+
+        .comment-popup-body {
+            padding: 20px;
+        }
+
+        .isCommentReply {
+            padding-left: 70px !important;
+        }
+    }
 </style>
 
 @include('includes.advertising')
@@ -1000,22 +1457,30 @@
 
                                                 <div class="comment-input-toolbar">
                                                     <div class="comment-input-tools">
-                                                        <button type="button" title="Bold"><i
-                                                                class="bi bi-type-bold"></i></button>
-                                                        <button type="button" title="Italic"><i
-                                                                class="bi bi-type-italic"></i></button>
-                                                        <button type="button" title="Heading"><i
-                                                                class="bi bi-type-h1"></i></button>
-                                                        <button type="button" title="Quote"><i
-                                                                class="bi bi-quote"></i></button>
-                                                        <button type="button" title="Link"><i
-                                                                class="bi bi-link-45deg"></i></button>
-                                                        <button type="button" title="Image"><i
-                                                                class="bi bi-image"></i></button>
-                                                        <button type="button" title="List"><i
-                                                                class="bi bi-list-ul"></i></button>
-                                                        <button type="button" title="Numbered List"><i
-                                                                class="bi bi-list-ol"></i></button>
+                                                        <button type="button" title="Bold">
+                                                            <img src="/images/B-icon.png" alt="">
+                                                        </button>
+                                                        <button type="button" title="Italic">
+                                                            <img src="/images/i-icon.png" alt="">
+                                                        </button>
+                                                        <button type="button" title="Heading">
+                                                            <img src="/images/H-icon.png" alt="">
+                                                        </button>
+                                                        <button type="button" title="Quote">
+                                                            <img src="/images/quotation.png" alt="">
+                                                        </button>
+                                                        <button type="button" title="Link">
+                                                            <img src="/images/link.png" alt="">
+                                                        </button>
+                                                        <button type="button" title="Image">
+                                                            <img src="/images/gallery.png" alt="">
+                                                        </button>
+                                                        <button type="button" title="List">
+                                                            <img src="/images/3-lines.png" alt="">
+                                                        </button>
+                                                        <button type="button" title="Numbered List">
+                                                            <img src="/images/3-count.png" alt="">
+                                                        </button>
 
                                                         @if ($settings->giphy_status)
                                                             <div class="dropdown d-inline">
@@ -1061,7 +1526,8 @@
                                         </form>
                                     </div>
                                 @endif
-                                <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex justify-content-between align-items-center"
+                                    style="border-top: 1px solid #E5E5E5; padding-top: 21px;">
                                     <div>
                                         <h3
                                             style="display: flex; align-items: center; gap: 12px; font-size: 24px; color: #101828; font-weight: 600 !important;">
@@ -1354,7 +1820,7 @@
         // Handle "Load More Comments" functionality in popup
         document.addEventListener('click', function(e) {
             if (e.target.classList.contains('loadMoreComments') || e.target.closest(
-                '.loadMoreComments')) {
+                    '.loadMoreComments')) {
                 const btn = e.target.classList.contains('loadMoreComments') ? e.target : e.target
                     .closest('.loadMoreComments');
                 const wrapContainer = btn.closest('.wrap-container');
@@ -1450,7 +1916,7 @@
 
                 const formData = new FormData(this);
                 const postId = formData.get('update_id');
-                const submitButton = this.querySelector('.submit-comment');
+                const submitButton = this.querySelector('.comment-submit-btn');
                 const textarea = this.querySelector('textarea[name="comment"]');
                 const containerMedia = document.querySelector('#commentPopup' + postId +
                     ' .container-media');
@@ -1487,7 +1953,7 @@
                             form.querySelector('.gif_image').value = '';
 
                             // Hide reply indicator if showing
-                            const replyIndicator = form.closest('.comment-popup-footer')
+                            const replyIndicator = form.closest('.comment-popup-body')
                                 .querySelector('.isReplyTo');
                             if (replyIndicator && !replyIndicator.classList.contains(
                                     'display-none')) {

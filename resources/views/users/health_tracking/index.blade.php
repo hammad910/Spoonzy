@@ -1376,7 +1376,7 @@
                 <div class="col-xl-4 col-lg-6 col-md-6">
                     <div class="card-ht bg-white" style="box-shadow: 0 1px 1px rgba(0,0,0,0.1);">
                         <div class="d-flex align-items-center mb-2" style="gap: 12px;">
-                            <img src="/images/bristol-scale-icon.png" alt="">
+                            <img src="/svgs/poop-blue.svg" alt="">
                             <h6 class="ms-2 mb-0 text-dark fw-bold">Bristol Scale</h6>
                         </div>
                         <p class="text-muted small mb-3">Lorem ipsum dolor sit amet consectetur.</p>
@@ -1451,7 +1451,7 @@
                 <div class="col-xl-4 col-lg-6 col-md-6">
                     <div class="card-ht bg-white" style="box-shadow: 0 1px 1px rgba(0,0,0,0.1);">
                         <div class="d-flex align-items-center mb-2" style="gap: 12px;">
-                            <img src="/images/sleep.png" alt="">
+                            <img src="/svgs/sleep.svg" alt="">
                             <h6 class="ms-2 mb-0 text-dark fw-bold">Sleep Overview</h6>
                         </div>
                         <p class="text-muted small mb-3">Lorem ipsum dolor sit amet consectetur.</p>
@@ -1524,7 +1524,7 @@
                 <div class="col-md-8">
                     <div class="med-card" style="box-shadow: 0 1px 1px rgba(0,0,0,0.1);">
                         <div class="med-header">
-                            <img src="/images/madicament-icon.png" alt="">
+                            <img src="/svgs/medicaments.svg" alt="">
                             <h5>Medicament</h5>
                         </div>
 
@@ -1542,8 +1542,7 @@
                             <div class="d-flex align-items-center">
                                 <div class="med-item" style="width: 40%">
                                     <span class="med-name">Vitamin D <small>100 mg</small></span>
-                                    <span class="med-time">06:00 AM <img src="/images/sun-icon.png"
-                                            alt=""></span>
+                                    <span class="med-time">06:00 AM <img src="/svgs/sun.svg" alt=""></span>
                                 </div>
                                 <span class="dot-line"></span>
                             </div>
@@ -1551,7 +1550,7 @@
                                 <span class="dot-line" style="flex: .2 !important;"></span>
                                 <div class="med-item" style="width: 40%">
                                     <span class="med-name">Vitamin D <small>100 mg</small></span>
-                                    <span class="med-time">06:00 AM <img src="/images/sun-icon.png"
+                                    <span class="med-time">06:00 AM <img src="/svgs/sun.svg"
                                             alt=""></span>
                                 </div>
                                 <span class="dot-line"></span>
@@ -1560,7 +1559,7 @@
                                 <span class="dot-line" style="flex: .5 !important;"></span>
                                 <div class="med-item" style="width: 40%">
                                     <span class="med-name">Vitamin D <small>100 mg</small></span>
-                                    <span class="med-time">06:00 AM <img src="/images/sun-icon.png"
+                                    <span class="med-time">06:00 AM <img src="/svgs/moon.svg"
                                             alt=""></span>
                                 </div>
                                 <span class="dot-line"></span>
@@ -1569,7 +1568,7 @@
                                 <span class="dot-line" style="flex: 1 !important;"></span>
                                 <div class="med-item" style="width: 40%">
                                     <span class="med-name">Vitamin D <small>100 mg</small></span>
-                                    <span class="med-time">06:00 AM <img src="/images/sun-icon.png"
+                                    <span class="med-time">06:00 AM <img src="/svgs/moon.svg"
                                             alt=""></span>
                                 </div>
                                 <span class="dot-line"></span>
@@ -1589,7 +1588,7 @@
                 <div class="col-xl-4 col-lg-6 col-md-6">
                     <div class="ai-card" style="box-shadow: 0 1px 1px rgba(0,0,0,0.1);">
                         <div class="ai-header">
-                            <img src="/images/ai_advice.png" alt="">
+                            <img src="/svgs/ai-advice.svg" alt="">
                             <h5>AI Advice</h5>
                         </div>
 

@@ -9,12 +9,15 @@
 
 @if (isset($getReplies))
     @foreach ($dataReplies as $reply)
-        <div class="comments media li-group pt-3 pb-3 isCommentReply" data="{{ $comment->id }}" style="padding-left: 80px;">
+        <div class="comments media li-group pt-3 pb-3 isCommentReply" data="{{ $comment->id }}"
+            style="padding-left: 80px; position: relative;">
+            <div class="reply-connector-line"></div>
+            <div class="reply-connector-horizontal"></div>
             <a class="float-left" href="{{ url($reply->user->username) }}">
                 <img class="rounded-circle mr-3 avatarUser"
                     src="{{ Helper::getFile(config('path.avatar') . $reply->user->avatar) }}" width="40"></a>
             <div class="media-body">
-                <h6 class="media-heading mb-0" style="display: flex; align-items: center; gap: 5px;">
+                <h6 class="media-heading mb-0" style="display: flex; align-items: center; gap: 10px;">
                     <div>
                         <a href="{{ url($reply->user->username) }}"
                             style="color: #101828; font-size: 20px; font-weight: 600 !important;">
@@ -35,9 +38,10 @@
                     </div>
 
                 </h6>
-                <p class="list-grid-block p-text my-2 text-word-break updateComment isReply{{ $reply->id }}" style="color: #475467; ">
+                <p class="list-grid-block p-text my-2 text-word-break updateComment isReply{{ $reply->id }}"
+                    style="color: #475467; ">
                     {!! Helper::linkText(Helper::checkText($reply->reply)) !!}
-                  </p>
+                </p>
 
                 @if ($reply->sticker)
                     <div class="w-100 d-block"><img src="{{ $reply->sticker }}" width="70"></div>

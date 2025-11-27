@@ -187,7 +187,7 @@
                                         <div class="d-flex justify-content-between align-items-center mb-3">
                                             <h6 class="mt-2 fw-semibold"
                                                 style="color: #101828; font-size: 18px; font-weight: 600 !important; display: flex; gap: 12px;">
-                                                <img src="/images/health-vector.png" alt="" class="me-2 img-fluid"
+                                                <img src="/svgs/health.svg" class="me-2 img-fluid"
                                                     style="width: 24px;">
                                                 Your Health Today
                                             </h6>
@@ -240,7 +240,7 @@
                                         <!-- Supplements -->
                                         <div class="d-flex gap-4 align-items-center justify-content-between px-3 py-3 mb-1 mt-1 bg-right">
                                             <span class="text-muted small d-flex align-items-center" style="gap: 4px;">
-                                                <img src="/images/suppliment-icon.png" alt="">
+                                                <img src="/svgs/supplements.svg" alt="">
                                                 <span style="color: #000; font-weight: 500; font-size: 16px">Suppliments</span>
                                             </span>
                                             <span class="badge px-3 py-1 rounded-pill" style="color: #0FB243; background: #A5FFCE; font-weight: 500;">Taken</span>
@@ -249,7 +249,7 @@
                                         <!-- Bristol Scale -->
                                         <div class="d-flex align-items-center justify-content-between px-3 py-3 mb-1 bg-right">
                                             <span class="text-muted small d-flex align-items-center" style="gap: 4px;">
-                                                <img src="/images/bristol-icon.png" alt="">
+                                                <img src="/svgs/poop.svg" alt="">
                                                 <span style="color: #000; font-weight: 500; font-size: 16px">Bristol Scale</span>
                                             </span>
                                             <span class="badge px-3 py-1 rounded-pill" style="color: #0FB243; background: #A5FFCE; font-weight: 500;">Type 4</span>
@@ -275,12 +275,12 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h6 class="fw-bold mb-0 d-flex align-items-center"
                                                 style="color: #101828; font-size: 18px; gap: 12px; font-weight: 600 !important;">
-                                                <img src="/images/experiment-vector.png" alt="" class="me-2 img-fluid" style="width: 24px;">
+                                                <img src="/svgs/trending-experiment.svg" alt="" class="me-2 img-fluid" style="width: 24px;">
                                                 Trending Experiments
                                             </h6>
-                                            <a href="/experiments" class="text-decoration-none" style="font-size: 15px;font-weight: 600;display: flex;align-items: center;gap: 4px;">
+                                            <a href="/experiments" class="text-decoration-none" style="font-size: 15px;font-weight: 600;display: flex;align-items: center;gap: 4px; white-space: nowrap;">
                                                 View all
-                                                <img src="/images/arrow.png" alt="">
+                                                <img src="/svgs/right-arrow.svg" alt="">
                                             </a>
                                         </div>
 
@@ -427,7 +427,7 @@
                                         <div class="d-flex justify-content-between align-items-center mb-3">
                                             <h6 class="mt-2 fw-semibold"
                                                 style="color: #101828; font-size: 18px; font-weight: 600 !important; display: flex; gap: 12px;">
-                                                <img src="/images/health-vector.png" alt="" class="me-2 img-fluid"
+                                                <img src="/svgs/health.svg" class="me-2 img-fluid"
                                                     style="width: 24px;">
                                                 Your Health Today
                                             </h6>
@@ -447,7 +447,7 @@
                                                         99
                                                     </div>
                                                     <div class="mood-text"
-                                                        style="font-size: 12px; font-weight: 500; color: #469DFA; line-height: 100%; margin-bottom: 10px;">
+                                                        style="font-size: 12px; font-weight: 500; color: #469DFA; line-height: 100%; margin-top: 10px;">
                                                         Excellent</div>
                                                 </div>
                                             </div>
@@ -499,7 +499,7 @@
                                         <div
                                             class="d-flex gap-4 align-items-center justify-content-between px-3 py-3 mb-1 mt-1 bg-right">
                                             <span class="text-muted small d-flex align-items-center" style="gap: 4px;">
-                                                <img src="/images/suppliment-icon.png" alt="">
+                                                <img src="/svgs/supplements.svg" alt="">
                                                 <span
                                                     style="color: #000; font-weight: 500; font-size: 16px">Suppliments</span>
                                             </span>
@@ -511,7 +511,7 @@
                                         <div
                                             class="d-flex align-items-center justify-content-between px-3 py-3 mb-1 bg-right">
                                             <span class="text-muted small d-flex align-items-center" style="gap: 4px;">
-                                                <img src="/images/bristol-icon.png" alt="">
+                                                <img src="/svgs/poop.svg" alt="">
                                                 <span style="color: #000; font-weight: 500; font-size: 16px">Bristol Scale</span>
                                             </span>
                                             <span class="badge px-3 py-1 rounded-pill"
@@ -541,14 +541,14 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             <h6 class="fw-bold mb-0 d-flex align-items-center"
                                                 style="color: #101828; font-size: 18px; gap: 12px; font-weight: 600 !important;">
-                                                <img src="/images/experiment-vector.png" alt=""
+                                                <img src="/svgs/health.svg"
                                                     class="me-2 img-fluid" style="width: 24px;">
                                                 Trending Experiments
                                             </h6>
                                             <a href="/experiments" class="text-decoration-none"
-                                                style="font-size: 15px;font-weight: 600;display: flex;align-items: center;gap: 4px;">
+                                                style="font-size: 15px;font-weight: 600;display: flex;align-items: center;gap: 4px; white-space: nowrap;">
                                                 View all
-                                                <img src="/images/arrow.png" alt="">
+                                                <img src="/svgs/right-arrow.svg" alt="">
                                             </a>
                                         </div>
 
@@ -806,12 +806,12 @@
                 let experimentsHTML = `
                     <div class="d-flex justify-content-between align-items-center">
                         <h6 class="fw-bold mb-0 d-flex align-items-center" style="color: #101828; font-size: 18px; gap: 12px; font-weight: 600 !important;">
-                            <img src="/images/experiment-vector.png" alt="" class="me-2 img-fluid" style="width: 24px;">
+                            <img src="/svgs/trending-experiment.svg" alt="" class="me-2 img-fluid" style="width: 24px;">
                             Trending Experiments
                         </h6>
-                        <a href="/experiments" class="text-decoration-none" style="font-size: 15px;font-weight: 600;display: flex;align-items: center;gap: 4px;">
+                        <a href="/experiments" class="text-decoration-none" style="font-size: 15px;font-weight: 600;display: flex;align-items: center;gap: 4px; white-space: nowrap;">
                             View all
-                            <img src="/images/arrow.png" alt="">
+                            <img src="/svgs/right-arrow.svg" alt="">
                         </a>
                     </div>
                 `;
@@ -821,7 +821,7 @@
                         <div class="experiment-item d-flex justify-content-between align-items-center p-2 rounded-3 my-3 bg-right">
                             <div class="d-flex flex-column" style="gap:4px;">
                                 <div class="d-flex align-items-center" style="gap: 4px;">
-                                    <img src="/images/fasting-icon.png" alt="${experiment.title}" style="width: 28px; height: 28px;">
+                                    <img src="/svgs/fire.svg" alt="${experiment.title}" style="width: 28px; height: 28px;">
                                     <div style="color: #101828;font-weight: 600;">${experiment.title}</div>
                                 </div>
                                 <div>

@@ -350,7 +350,7 @@
                                 </span>
 
                                 {{-- <i class="far fa-bell icon-navbar"></i> --}}
-                                <img src="/images/notification.png" alt="" style="width: 16px; margin-top: 4px;">
+                                <img src="/svgs/notification.svg" alt="" style="width: 16px; margin-top: 4px;">
                                 <span class="d-lg-none align-middle ml-1">{{ __('general.notifications') }}</span>
                             </a>
                         </li>

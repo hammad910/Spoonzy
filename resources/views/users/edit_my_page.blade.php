@@ -875,7 +875,7 @@
                                         <input type="file" name="avatar" accept="image/*" style="display:none;">
 
                                         <div style="margin-bottom:10px;">
-                                            <img src="/images/i-icon-2.png" alt="">
+                                            <img src="/svgs/featured-icon.svg" alt="">
                                         </div>
 
                                         <span style="color:{{ $settings->theme_color_pwa }}; font-weight:600;">Click to

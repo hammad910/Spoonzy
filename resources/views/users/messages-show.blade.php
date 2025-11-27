@@ -154,7 +154,7 @@
         <main class="chat-wrap" role="main">
             <div class="card chat-card w-100" style="background: #FCFCFD;">
                 {{-- Header --}}
-                <div class="card-header bg-white pt-3">
+                <div class="card-header bg-white" style="padding-top:  21px;">
                     <div class="media align-items-center">
                         {{-- Back (useful on mobile) --}}
                         {{-- <a href="{{ url()->previous() }}" class="mr-3 d-inline-block">

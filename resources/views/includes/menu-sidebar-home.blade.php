@@ -32,7 +32,7 @@
     <ul class="list-unstyled d-lg-block d-none menu-left-home" style="padding-left: 15px; margin-top: 15px;">
         <li>
             <a href="{{ url('/') }}" @if (request()->is('/')) class="active disabled" @endif>
-                <img src="/images/home.png" alt="" style="height: 15px;">
+                <i class="bi-house" style="color: #469DFA; font-size: 18px;"></i>
                 <span class="ml-2 span">Dashboard</span>
             </a>
         </li>
@@ -55,65 +55,65 @@
         @auth
             <li>
                 <a href="{{ url(auth()->user()->username) }}">
-                    <i class="bi-person" style="color: #469DFA"></i>
+                    <i class="bi-person" style="color: #469DFA; font-size: 18px;"></i>
                     <span
                         class="ml-2 span">{{ auth()->user()->verified_id == 'yes' ? __('general.my_page') : __('users.my_profile') }}</span>
                 </a>
             </li>
             <li>
                 <a href="/health-tracking" class="{{ request()->is('health-tracking') ? 'active disabled' : '' }}">
-                    <image src="/img/icons/health-icon.png" style="height:20px" />
+                    <i class="bi-activity" style="color: #469DFA; font-size: 18px;"></i>
                     <span class="ml-2 span">Health Tracking</span>
                 </a>
             </li>
             <li>
                 <a href="/experiments" class="{{ request()->is('experiments') ? 'active disabled' : '' }}">
-                    <image src="/img/icons/experiment-icon.png" style="height:20px" />
+                    <i class="bi-graph-up" style="color: #469DFA; font-size: 18px;"></i>
                     <span class="ml-2 span">Experiments</span>
                 </a>
             </li>
             <li>
                 <a href="/notifications" class="{{ request()->is('notifications') ? 'active disabled' : '' }}">
-                    <image src="/img/icons/notification-icon.png" style="height:20px" />
+                    <i class="bi-bell" style="color: #469DFA; font-size: 18px;"></i>
                     <span class="ml-2 span">Notifications</span>
                 </a>
             </li>
             <li>
                 <a href="{{ url('my/purchases') }}" @if (request()->is('my/purchases')) class="active disabled" @endif>
-                    <i class="bi-bag-check" style="color: #469DFA"></i>
+                    <i class="bi-bag-check" style="color: #469DFA; font-size: 18px;"></i>
                     <span class="ml-2 span">{{ __('general.purchased') }}</span>
                 </a>
             </li>
             <li>
                 <a href="{{ url('messages') }}">
-                    <i class="feather icon-send" style="color: #469DFA"></i>
+                    <i class="bi-chat" style="color: #469DFA; font-size: 18px;"></i>
                     <span class="ml-2 span">{{ __('general.messages') }}</span>
                 </a>
             </li>
             @if (!$settings->disable_explore_section)
                 <li>
                     <a href="{{ url('explore') }}" @if (request()->is('explore')) class="active disabled" @endif>
-                        <i class="bi-compass" style="color: #469DFA"></i>
+                        <i class="bi-compass" style="color: #469DFA; font-size: 18px;"></i>
                         <span class="ml-2 span">{{ __('general.explore') }}</span>
                     </a>
                 </li>
             @endif
             <li>
                 <a href="{{ url('my/subscriptions') }}">
-                    <i class="bi-person-check" style="color: #469DFA"></i>
+                    <i class="bi-person-check" style="color: #469DFA; font-size: 18px;"></i>
                     <span class="ml-2 span">{{ __('admin.subscriptions') }}</span>
                 </a>
             </li>
             <li>
                 <a href="{{ url('my/bookmarks') }}" @if (request()->is('my/bookmarks')) class="active disabled" @endif>
-                    <i class="bi-bookmark" style="color: #469DFA"></i>
+                    <i class="bi-bookmark" style="color: #469DFA; font-size: 18px;"></i>
                     <span class="ml-2 span">{{ __('general.bookmarks') }}</span>
                 </a>
             </li>
         @else
             <li>
                 <a href="{{ url('creators') }}">
-                    <i class="bi-compass" style="color: #469DFA"></i>
+                    <i class="bi-compass" style="color: #469DFA; font-size: 18px;"></i>
                     <span class="ml-2 span">{{ __('general.explore') }}</span>
                 </a>
             </li>
@@ -121,7 +121,7 @@
             @if ($settings->shop)
                 <li>
                     <a href="{{ url('shop') }}">
-                        <i class="feather icon-shopping-bag" style="color: #469DFA"></i>
+                        <i class="feather icon-shopping-bag" style="color: #469DFA; font-size: 18px;"></i>
                         <span class="ml-2 span">{{ __('general.shop') }}</span>
                     </a>
                 </li>
@@ -134,13 +134,13 @@
     <ul class="list-unstyled menu-bottom  d-lg-block d-none menu-left-home" style="padding-left: 15px">
         <li>
             <a href="/settings/page" class="{{ request()->is('settings/page') ? 'active disabled' : '' }}">
-                <img src="/images/settings.png" style="height:15px">
+                <i class="bi-gear" style="color: #469DFA; font-size: 18px;"></i>
                 <span class="ml-2 span">Settings</span>
             </a>
         </li>
         <li>
             <a href="#">
-                <img src="/images/support.png" style="height:15px">
+                <i class="bi-question-circle" style="color: #469DFA; font-size: 18px;"></i>
                 <span class="ml-2 span">Support</span>
             </a>
         </li>

@@ -156,7 +156,7 @@
                                         @endif
                                     </h4>
                                     <div class="d-flex align-items-center" style="gap: 8px;">
-                                        <img src="/images/followers-icon.png" alt="">
+                                        <img src="/svgs/profile.svg" alt="">
                                         <h1 style="font-size: 16px; font-weight: 800; margin: 0; color: #101828">111k
                                             <small style="font-size: 16px; font-weight: 400;">followers</small>
                                         </h1>
@@ -660,22 +660,22 @@
                                             <div class="d-flex" style="gap: 10px">
                                                 @if ($user->facebook)
                                                     <a href="{{ $user->facebook }}" title="{{ $user->facebook }}">
-                                                        <img src="/img/icons/fb-icon.png" alt="facebook">
+                                                        <img src="/svgs/fb.svg" alt="facebook">
                                                     </a>
                                                 @endif
                                                 @if ($user->twitter)
                                                     <a href="{{ $user->twitter }}" title="{{ $user->twitter }}">
-                                                        <img src="/img/icons/x-icon.png" alt="twitter">
+                                                        <img src="/svgs/twitter.svg" alt="twitter">
                                                     </a>
                                                 @endif
                                                 @if ($user->instagram)
                                                     <a href="{{ $user->instagram }}" title="{{ $user->instagram }}">
-                                                        <img src="/img/icons/insta-icon.png" alt="instagram">
+                                                        <img src="/svgs/insta.svg" alt="instagram">
                                                     </a>
                                                 @endif
                                                 @if ($user->youtube)
                                                     <a href="{{ $user->youtube }}" title="{{ $user->youtube }}">
-                                                        <img src="/img/icons/yt-icon.png" alt="youtube">
+                                                        <img src="/svgs/yt.svg" alt="youtube">
                                                     </a>
                                                 @endif
                                             </div>

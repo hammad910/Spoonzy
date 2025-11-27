@@ -53,7 +53,7 @@ class CommentsController extends Controller
 
 		$update = Updates::where('id', $request->update_id)->first();
 
-		if (! isset($update)) {
+		if (!isset($update)) {
 			return response()->json([
 				'success' => false,
 				'errors' => ['error' => trans('general.error')],
@@ -81,14 +81,7 @@ class CommentsController extends Controller
 			$sql->gif_image   = $request->gif_image ?: null;
 			$sql->save();
 
-			$idComment = $commentId;
-			$typeComment = 'isReply';
-			$paddingReply = 'pl-5 isCommentReply';
-			$deleteComment = 'delete-replies';
 			$idReply = $sql->id;
-			$wrapComments = null;
-			$wrapCommentsClose = null;
-			$modelEditCommentReply = '#modalEditReply' . $sql->id;
 			$modal = view('includes.modal-edit-comment', [
 				'data' => $sql,
 				'isReply' => true,
@@ -104,13 +97,7 @@ class CommentsController extends Controller
 			$sql->save();
 
 			$idComment = $sql->id;
-			$typeComment = 'isComment';
-			$paddingReply = null;
-			$deleteComment = 'delete-comment';
 			$idReply = null;
-			$wrapComments = '<div class="wrap-comments' . $idComment . ' wrapComments">';
-			$wrapCommentsClose = '</div>';
-			$modelEditCommentReply = '#modalEditComment' . $sql->id;
 			$modal = view('includes.modal-edit-comment', [
 				'data' => $sql,
 				'isReply' => false,
@@ -118,67 +105,129 @@ class CommentsController extends Controller
 			]);
 		}
 
-		$commentReplyId = $isReply ? $idReply : $idComment;
-
 		/*------* SEND NOTIFICATION * ------*/
 		if (auth()->id() != $update->user_id  && $update->user()->notify_commented_post == 'yes') {
-			// Send Notification //destination, author, type, target
 			Notifications::send($update->user_id, auth()->id(), '3', $update->id);
 		}
 
-		$nameUser = auth()->user()->hide_name == 'yes' ? auth()->user()->username : auth()->user()->name;
-		$verifiedId = auth()->user()->verified_id == 'yes' ? '<small class="verified"> <i class="bi bi-patch-check-fill"></i> </small>' : null;
-
 		$totalComments = $update->totalComments();
-
-		$sticker = $sql->sticker ? '<div class="w-100 d-block"><img src="' . $sql->sticker . '" width="70"></div>' : null;
-		$gifImage = $sql->gif_image ? '<div class="w-100 d-block mt-2"><img class="rounded" src="' . $sql->gif_image . '" width="200"></div>' : null;
 
 		// Send Notification Mention
 		Helper::sendNotificationMention($sql->reply, $request->update_id);
 
+		$nameUser = auth()->user()->hide_name == 'yes' ? auth()->user()->username : auth()->user()->name;
+		$verifiedId = auth()->user()->verified_id == 'yes' ? '<small class="verified"> <i class="bi bi-patch-check-fill"></i> </small>' : null;
+		$sticker = $sql->sticker ? '<div class="w-100 d-block"><img src="' . $sql->sticker . '" width="70"></div>' : null;
+		$gifImage = $sql->gif_image ? '<div class="w-100 d-block mt-2"><img class="rounded" src="' . $sql->gif_image . '" width="200"></div>' : null;
+
+		// Build HTML based on comment or reply
+		if ($isReply) {
+			$commentHtml = '
+        <div class="comments media li-group pt-3 pb-3 isCommentReply" data="' . $commentId . '" style="padding-left: 80px; position: relative;">
+            <div class="reply-connector-line"></div>
+            <div class="reply-connector-horizontal"></div>
+            <a class="float-left" href="' . url(auth()->user()->username) . '">
+                <img class="rounded-circle mr-3 avatarUser" src="' . Helper::getFile(config('path.avatar') . auth()->user()->avatar) . '" width="40"></a>
+            <div class="media-body">
+                <h6 class="media-heading mb-0" style="display: flex; align-items: center; gap: 10px;">
+                    <div>
+                        <a href="' . url(auth()->user()->username) . '" style="color: #101828; font-size: 20px; font-weight: 600 !important;">
+                            ' . $nameUser . '</a>
+                    </div>
+                    <div>
+                        <span class="small sm-font sm-date text-muted timeAgo mr-2" style="font-size: 16px; font-weight: 400 !important; color: #A8ACB1;" data="' . date('c', time()) . '"></span>
+                    </div>
+                </h6>
+                <p class="list-grid-block p-text my-2 text-word-break updateComment isReply' . $idReply . '" style="color: #475467;">' . Helper::linkText(Helper::checkText($sql->reply)) . '</p>
+                ' . $sticker . '
+                ' . $gifImage . '
+                <div class="reply-actions" style="margin-top: 10px;">
+                    <span class="action likeComment c-pointer pulse-btn" style="margin-right: 20px;" data-id="' . $idReply . '">
+                        <img src="/images/like.png" alt="">
+                        <span class="countCommentsLikes"></span>
+                    </span>
+                    <span class="action c-pointer" data-id="' . $commentId . '" style="margin-right: 20px;">
+                        <img src="/images/dislike.png" alt="">
+                        <span>25</span>
+                    </span>
+                    <span class="action replyButton c-pointer" style="margin-right: 20px;" data="' . $commentId . '" data-username="@' . auth()->user()->username . '">
+                        <img src="/images/comment-reply.png" alt="">
+                        <span class="reply-text">' . __('general.reply') . '</span>
+                    </span>
+                    <div class="dropdown d-inline-block" style="margin-right: 20px;">
+                        <span id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="bi-three-dots"></i>
+                        </span>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item editComment' . $commentId . '" data-id="' . $idReply . '" data-type="isReplies" data-comment="' . $sql->reply . '" href="javascript:void(0);" data-toggle="modal" data-target="#modalEditReply' . $idReply . '">
+                                <i class="bi-pencil mr-2"></i> ' . __('admin.edit') . '
+                            </a>
+                            <a class="dropdown-item delete-replies" data="' . $idReply . '" href="javascript:void(0);">
+                                <i class="feather icon-trash-2 mr-2"></i> ' . __('general.delete') . '
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            ' . $modal . '
+        </div>';
+		} else {
+			$commentHtml = '<div class="wrap-comments' . $idComment . ' wrapComments">
+            <div class="comments isCommentWrap media li-group pt-3 pb-3" data="' . $idComment . '">
+                <a class="float-left" href="' . url(auth()->user()->username) . '">
+                    <img class="rounded-circle mr-3 avatarUser" src="' . Helper::getFile(config('path.avatar') . auth()->user()->avatar) . '" width="40"></a>
+                <div class="media-body">
+                    <h6 class="media-heading mb-0" style="display: flex; align-items: center; gap: 5px; margin-top: 10px;">
+                        <div>
+                            <a href="' . url(auth()->user()->username) . '" style="color: #101828; font-size: 20px; font-weight: 600 !important;">
+                                ' . $nameUser . '</a>
+                        </div>
+                        <div>
+                            <span class="small sm-font sm-date text-muted timeAgo mr-2" style="font-size: 16px; font-weight: 400 !important; color: #A8ACB1;" data="' . date('c', time()) . '"></span>
+                        </div>
+                    </h6>
+                    <p class="list-grid-block p-text my-2 text-word-break updateComment isComment' . $idComment . '" style="color: #475467;">' . Helper::linkText(Helper::checkText($sql->reply)) . '</p>
+                    ' . $sticker . '
+                    ' . $gifImage . '
+                    <div class="comment-actions" style="margin-top: 10px;">
+                        <span class="action likeComment c-pointer pulse-btn" data-id="' . $idComment . '" style="margin-right: 20px;" data-type="isComment">
+                            <img src="/images/like.png" alt="">
+                            <span class="countCommentsLikes"></span>
+                        </span>
+                        <span class="action c-pointer" data-id="' . $idComment . '" style="margin-right: 20px;">
+                            <img src="/images/dislike.png" alt="">
+                            <span>25</span>
+                        </span>
+                        <span class="action replyButton c-pointer" style="margin-right: 20px;" data="' . $idComment . '" data-username="@' . auth()->user()->username . '">
+                            <img src="/images/comment-reply.png" alt="">
+                            <span class="reply-text">' . __('general.reply') . '</span>
+                        </span>
+                        <div class="dropdown d-inline-block" style="margin-right: 20px;">
+                            <span id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="bi-three-dots"></i>
+                            </span>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item editComment' . $idComment . '" href="javascript:void(0);" data-toggle="modal" data-target="#modalEditComment' . $idComment . '">
+                                    <i class="bi-pencil mr-2"></i> ' . __('admin.edit') . '
+                                </a>
+                                <a class="dropdown-item delete-comment" data="' . $idComment . '" data-type="isComment" href="javascript:void(0);">
+                                    <i class="feather icon-trash-2 mr-2"></i> ' . __('general.delete') . '
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            ' . $modal . '
+        </div>';
+		}
+
 		return response()->json([
 			'success' => true,
 			'isReply' => $isReply ? true : false,
-			'idComment' => $idComment,
+			'idComment' => $isReply ? $commentId : $idComment,
 			'total' => $totalComments,
-			'data' => '' . $wrapComments . '
-			<div class="comments media li-group pt-3 pb-3 ' . $paddingReply . '" data="' . $idComment . '">
-				<a class="float-left" href="' . url(auth()->user()->username) . '">
-					<img class="rounded-circle mr-3" src="' . Helper::getFile(config('path.avatar') . auth()->user()->avatar) . '" width="40"></a>
-					<div class="media-body">
-						<h6 class="media-heading mb-0">
-						<a href="' . url(auth()->user()->username) . '">
-							' . $nameUser . '</a>
-							' . $verifiedId . '
-							</h6>
-							<p class="list-grid-block p-text mb-0 text-word-break updateComment ' . $typeComment . $commentReplyId . '">' . Helper::linkText(Helper::checkText($sql->reply)) . '</p>
-							' . $sticker . '
-							' . $gifImage . '
-							<span class="small sm-font sm-date text-muted timeAgo mr-2" data="' . date('c', time()) . '"></span>
-							<span class="small sm-font sm-date text-muted mr-2 c-pointer font-weight-bold replyButton" data="' . $idComment . '" data-username="@' . auth()->user()->username . '">' . __('general.reply') . '</span>
-
-							<div class="dropdown d-inline align-middle">
-							<span href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<i class="bi-three-dots"></i>
-							</span>
-							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<a class="dropdown-item editComment' . $commentReplyId . '" href="javascript:void(0);" data-toggle="modal" data-target="' . $modelEditCommentReply . '">
-								<i class="bi-pencil mr-2"></i> ' . __('admin.edit') . '
-								</a>
-								<a class="dropdown-item delete-comment" data="' . $commentReplyId . '" data-type="' . $typeComment . '" href="javascript:void(0);">
-								<i class="feather icon-trash-2 mr-2"></i> ' . __('general.delete') . '
-								</a>
-							</div>
-							</div>
-							<span class="likeComment c-pointer float-right pulse-btn" data-id="' . $commentReplyId . '" data-type="' . $typeComment . '">
-							<i class="far fa-heart mr-1"></i> <span class="countCommentsLikes"></span>
-							</span>
-						</div><!-- media-body -->
-					</div>
-					' . $wrapCommentsClose . '
-					' . $modal . '
-					',
+			'data' => $commentHtml,
 		]);
 	} //<--- End Method
 
@@ -193,7 +242,7 @@ class CommentsController extends Controller
 		$validator = $this->validator($input);
 		$comment = $request->isReply ? Replies::whereId($request->id)->whereUserId(auth()->id())->first() : Comments::whereId($request->id)->whereUserId(auth()->id())->first();
 
-		if (! isset($comment)) {
+		if (!isset($comment)) {
 			return response()->json([
 				'success' => false,
 				'errors' => ['error' => trans('general.error')],
