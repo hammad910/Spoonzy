@@ -74,7 +74,7 @@ return array(
 	'password_confirmation'     =>      'Confirm password',
 	'password_incorrect'        =>      'Your current password is not correct.',
 	'delete_all'                =>      'Delete all',
-	'notifications'             =>      'Notifications',
+	'notifications'             =>      'Notification Center',
 	'no_notifications'          =>      'No have notifications',
 	'notifications_subtitle'    =>      'New subscribers, likes and new comments',
 	'no_messages'               =>      'No have messages',

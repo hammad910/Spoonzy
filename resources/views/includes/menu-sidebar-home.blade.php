@@ -54,7 +54,7 @@
 
         @auth
             <li>
-                <a href="{{ url(auth()->user()->username) }}">
+                <a href="{{ url(auth()->user()->username) }} @if(request()->is(auth()->user()->username)) class="active disabled" @endif">
                     <i class="bi-person" style="color: #469DFA; font-size: 18px;"></i>
                     <span
                         class="ml-2 span">{{ auth()->user()->verified_id == 'yes' ? __('general.my_page') : __('users.my_profile') }}</span>
@@ -85,7 +85,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ url('messages') }}">
+                <a href="{{ url('messages') }}" @if (request()->is('messages/*')) class="active disabled" @endif>
                     <i class="bi-chat" style="color: #469DFA; font-size: 18px;"></i>
                     <span class="ml-2 span">{{ __('general.messages') }}</span>
                 </a>

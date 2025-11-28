@@ -18,8 +18,8 @@
             title="{{ trans('general.new_message') }}">
             {{-- <i class="feather icon-edit" --}}
             {{-- style="padding: 5px; border: 1px solid #D0D5DD; border-radius: 8px; color:#475467"></i> --}}
-            <div style="padding: 2px 8px; border: 1px solid #D0D5DD; border-radius: 8px">
-                <img src="/images/messageg.png" alt="">
+            <div style="padding: 0 8px 4px 8px; border: 1px solid #D0D5DD; border-radius: 8px">
+                <img src="/svgs/messages.svg" alt="">
             </div>
         </a>
     </div>

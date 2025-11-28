@@ -1682,9 +1682,9 @@
 
                                         <div class="actions">
                                             <span><img src="/images/like.png" alt=""> 25</span>
-                                            <span><img src="/images/dislike.png" alt=""> 12</span>
+                                            <span><img src="/svgs/dislike.svg" alt=""> 12</span>
                                             <span style="display: flex; align-items: center; "> <img
-                                                    src="/images/comment.png" alt=""
+                                                    src="/svgs/comments.svg" alt=""
                                                     style="margin-right: 4px;">Reply</span>
                                             <span>···</span>
                                         </div>
@@ -1709,9 +1709,9 @@
 
                                         <div class="actions">
                                             <span><img src="/images/like.png" alt=""> 25</span>
-                                            <span><img src="/images/dislike.png" alt=""> 12</span>
+                                            <span><img src="/svgs/dislike.svg" alt=""> 12</span>
                                             <span style="display: flex; align-items: center; "> <img
-                                                    src="/images/comment.png" alt=""
+                                                    src="/svgs/comments.svg" alt=""
                                                     style="margin-right: 4px;">Reply</span>
                                             <span>···</span>
                                         </div>
@@ -1903,7 +1903,7 @@
                     <div class="widgets-sidebar right-sec">
                         <div class="widget-card card-5">
                             <div class="widget-header">
-                                <img src="/images/experiment-summary.png" alt="">
+                                <img src="/svgs/experiment-summary.svg" alt="">
                                 <h5>Experiment Summary</h5>
                             </div>
                             <div class="widget-content">
@@ -1974,8 +1974,7 @@
                             <div class="d-flex card-6 justify-content-between align-items-center mb-3">
                                 <h6 class="fw-bold mb-0 d-flex align-items-center"
                                     style="color: #101828; font-size: 18px; gap: 10px; font-weight: 600 !important;">
-                                    <img src="/images/experiment-vector.png" alt="" class="me-2 img-fluid"
-                                        style="width: 24px;">
+                                    <img src="/svgs/experiment-summary.svg" alt="" class="me-2 img-fluid">
                                     Supplements
                                 </h6>
                             </div>
@@ -2028,7 +2027,7 @@
                                     </div>
                                     <div
                                         style="color: #469DFA;  padding: 12px; font-size: 16px; font-weight: 600; width: 100%; display: flex;justify-content: center;align-items: center;gap: 8px;">
-                                        <img src="/images/shop-icon.png" alt="">
+                                        <img src="/svgs/shop.svg" alt="">
                                         View in Shop
                                     </div>
                                 </div>
@@ -2041,7 +2040,7 @@
                                 style="flex-direction: column; width: 100%">
                                 <h6 class="fw-bold mb-0 d-flex align-items-center"
                                     style="color: #101828; font-size: 18px; gap: 10px; font-weight: 600 !important; width: 100%;">
-                                    <img src="/images/tracking.png" alt="" class="me-2 img-fluid"
+                                    <img src="/svgs/tracking.svg" alt="" class="me-2 img-fluid"
                                         style="width: 24px;">
                                     Tracking Metrics
                                 </h6>
@@ -2053,7 +2052,7 @@
                                         <div class="metric-change positive">(+12%)</div>
 
                                         <div class="metric-icon-title">
-                                            <span class="metric-icon"><img src="/images/emoji-blue.png"
+                                            <span class="metric-icon"><img src="/svgs/emoji.svg"
                                                     alt=""></span>
                                             <span class="metric-title">Mood</span>
                                         </div>
@@ -2065,7 +2064,7 @@
                                         <div class="metric-change positive">(+8%)</div>
 
                                         <div class="metric-icon-title">
-                                            <span class="metric-icon"><img src="/images/energy.png"
+                                            <span class="metric-icon"><img src="/svgs/energy.svg"
                                                     alt=""></span>
                                             <span class="metric-title">Energy</span>
                                         </div>
@@ -2077,7 +2076,7 @@
                                         <div class="metric-change negative">(-15%)</div>
 
                                         <div class="metric-icon-title">
-                                            <span class="metric-icon"><img src="/images/bristol-scale-icon-2.png"
+                                            <span class="metric-icon"><img src="/svgs/small-poop.svg"
                                                     alt=""></span>
                                             <span class="metric-title">Bristol</span>
                                         </div>
@@ -2089,7 +2088,7 @@
                                         <div class="metric-change positive">(+15%)</div>
 
                                         <div class="metric-icon-title">
-                                            <span class="metric-icon"><img src="/images/sleep.png" alt=""></span>
+                                            <span class="metric-icon"><img src="/svgs/sleep-2.svg" alt=""></span>
                                             <span class="metric-title">Sleep</span>
                                         </div>
                                     </div>
@@ -2102,7 +2101,7 @@
                         {{-- Earning --}}
                         <div class="widget-card card-8">
                             <div class="widget-header">
-                                <img src="/images/experiment-summary.png" alt="">
+                                <img src="/svgs/earnings.svg" alt="">
                                 <h5>Earnings</h5>
                             </div>
                             <div style="padding: 20px 20px 0 20px !important;">
