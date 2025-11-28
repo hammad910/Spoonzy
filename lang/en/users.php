@@ -77,7 +77,7 @@ return array(
 	'creators_in_this_category' => 'Creator in this category|Creators in this category',
 	'please_select_a' => 'Please select a',
 	'has_subscribed' => 'has subscribed to your content',
-	'comment_you' => 'comment you post',
+	'comment_you' => 'comment you post ',
 	'like_you' => 'like you post',
 	'my_subscribers' => 'My subscribers',
 	'my_subscribers_subtitle' => 'Users who have subscribed to you content',
